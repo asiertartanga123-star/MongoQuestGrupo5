@@ -17,7 +17,10 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("Login"), 640, 480);
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("/com/mycompany/vista/Login.fxml"));
+        Parent root = loader.load();
+        scene = new Scene(root, 640, 480);
+        stage.setTitle("Tolotolo - Iniciar sesión");
         stage.setScene(scene);
         stage.show();
     }
