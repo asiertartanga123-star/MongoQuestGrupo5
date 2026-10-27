@@ -1,40 +1,39 @@
 package com.mycompany.controlador;
 
-import java.io.IOException;
+import com.mycompany.controlador.dao.daoImplementacio;
+import com.mongodb.MongoException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class LoginController {
 
-    @FXML private Label lblTitulo;
-    @FXML private TextField txtMail;
+    @FXML private TextField txtUsuario;
     @FXML private PasswordField txtPassword;
-    @FXML private Button btnLogin;
-    @FXML private Hyperlink linkRegistro;
+
+    private final daoImplementacio dao = new daoImplementacio();
 
     @FXML
     private void onIniciarSesion() {
-        String mail = txtMail.getText().trim();
+        String usuario = txtUsuario.getText().trim();
         String password = txtPassword.getText();
 
-        if (mail.isEmpty() || password.isEmpty()) {
-            mostrarAlerta(Alert.AlertType.WARNING, "Rellena el mail y la contraseña.");
+        if (usuario.isEmpty() || password.isEmpty()) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Escribe el usuario y la contraseña.");
             return;
         }
 
-        // TODO: comprobar las credenciales contra MongoDB
-        System.out.println("Login con: " + mail);
-    }
-
-    @FXML
-    private void onRegistrarse() throws IOException {
-     
-    
+        try {
+            if (dao.validarLogin(usuario, password)) {
+                mostrarAlerta(Alert.AlertType.INFORMATION, "Has iniciado sesión correctamente.");
+            } else {
+                mostrarAlerta(Alert.AlertType.ERROR, "Usuario o contraseña incorrectos.");
+            }
+        } catch (MongoException e) {
+            mostrarAlerta(Alert.AlertType.ERROR,
+                    "No se puede conectar con MongoDB. Comprueba que esté iniciado.");
+        }
     }
 
     private void mostrarAlerta(Alert.AlertType tipo, String mensaje) {
