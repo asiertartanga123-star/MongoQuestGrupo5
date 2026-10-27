@@ -1,4 +1,4 @@
-package com.mycompany.mongoquest;
+package com.mycompany.controlador;
 
 import java.io.IOException;
 import javafx.fxml.FXML;
