@@ -45,7 +45,7 @@ public class LoginController {
                     abrirVentana("/com/mycompany/vista/Monitor.fxml", "Tolotolo - Monitor");
                     break;
                 case "cliente":
-                    abrirVentana("\"/com/mycompany/vista/Cliente.fxml", "Tolotolo - Cliente");
+                    abrirVentana("/com/mycompany/vista/Cliente.fxml", "Tolotolo - Cliente");
                     break;
                 default:
                     mostrarAlerta(Alert.AlertType.ERROR, "Tipo de usuario desconocido: " + rol);
