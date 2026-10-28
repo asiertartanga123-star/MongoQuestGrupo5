@@ -1,0 +1,58 @@
+[{
+  "_id": {
+    "$oid": "650000000000000000000011"
+  },
+  "nombre": "Spinning",
+  "horas": [
+    {
+      "dia": "lunes",
+      "horainicio": "18:00",
+      "horafin": "19:00"
+    },
+    {
+      "dia": "miércoles",
+      "horainicio": "18:00",
+      "horafin": "19:00"
+    }
+  ],
+  "salaid": {
+    "$oid": "650000000000000000000001"
+  }
+},
+{
+  "_id": {
+    "$oid": "650000000000000000000012"
+  },
+  "nombre": "Yoga",
+  "horas": [
+    {
+      "dia": "martes",
+      "horainicio": "10:00",
+      "horafin": "11:00"
+    },
+    {
+      "dia": "jueves",
+      "horainicio": "10:00",
+      "horafin": "11:00"
+    }
+  ],
+  "salaid": {
+    "$oid": "650000000000000000000002"
+  }
+},
+{
+  "_id": {
+    "$oid": "650000000000000000000013"
+  },
+  "nombre": "Funcional",
+  "horas": [
+    {
+      "dia": "viernes",
+      "horainicio": "19:00",
+      "horafin": "20:00"
+    }
+  ],
+  "salaid": {
+    "$oid": "650000000000000000000003"
+  }
+}]

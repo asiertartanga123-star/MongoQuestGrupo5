@@ -1,0 +1,108 @@
+[{
+  "_id": {
+    "$oid": "650000000000000000000021"
+  },
+  "dni": "12345678A",
+  "nombre": "Miren",
+  "apellido": "Goikoetxea",
+  "fechaAlta": {
+    "$date": "2024-01-15T00:00:00.000Z"
+  },
+  "mail": "miren@tolotolo.com",
+  "contraseña": "$2b$10$HASH_DE_EJEMPLO_1",
+  "direccion": [
+    {
+      "calle": "Gran Vía 12",
+      "cp": "48901",
+      "ciudad": "Barakaldo"
+    }
+  ],
+  "tipo": "gerente",
+  "clases": []
+},
+{
+  "_id": {
+    "$oid": "650000000000000000000022"
+  },
+  "dni": "23456789B",
+  "nombre": "Ander",
+  "apellido": "Etxeberria",
+  "fechaAlta": {
+    "$date": "2024-03-01T00:00:00.000Z"
+  },
+  "mail": "ander@tolotolo.com",
+  "contraseña": "$2b$10$HASH_DE_EJEMPLO_2",
+  "direccion": [
+    {
+      "calle": "Calle Mayor 5",
+      "cp": "48902",
+      "ciudad": "Barakaldo"
+    }
+  ],
+  "tipo": "monitor",
+  "clases": [
+    {
+      "id_clase": {
+        "$oid": "650000000000000000000011"
+      },
+      "nombre": "Spinning"
+    },
+    {
+      "id_clase": {
+        "$oid": "650000000000000000000013"
+      },
+      "nombre": "Funcional"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "650000000000000000000023"
+  },
+  "dni": "34567890C",
+  "nombre": "Leire",
+  "apellido": "Uriarte",
+  "fechaAlta": {
+    "$date": "2024-06-10T00:00:00.000Z"
+  },
+  "mail": "leire@tolotolo.com",
+  "contraseña": "$2b$10$HASH_DE_EJEMPLO_3",
+  "direccion": [
+    {
+      "calle": "Avenida Libertad 30",
+      "cp": "48903",
+      "ciudad": "Bilbao"
+    }
+  ],
+  "tipo": "monitor",
+  "clases": [
+    {
+      "id_clase": {
+        "$oid": "650000000000000000000012"
+      },
+      "nombre": "Yoga"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "650000000000000000000099"
+  },
+  "dni": "00000000A",
+  "nombre": "admin",
+  "apellido": "admin",
+  "fechaAlta": {
+    "$date": "2026-10-28T00:00:00.000Z"
+  },
+  "mail": "admin@admin.com",
+  "contraseña": "admin",
+  "direccion": [
+    {
+      "calle": "admin",
+      "cp": "00000",
+      "ciudad": "admin"
+    }
+  ],
+  "tipo": "gerente",
+  "clases": []
+}]

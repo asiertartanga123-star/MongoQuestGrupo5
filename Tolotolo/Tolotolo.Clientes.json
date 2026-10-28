@@ -1,0 +1,29 @@
+[{
+  "_id": {
+    "$oid": "650000000000000000000033"
+  },
+  "dni": "67890123F",
+  "nombre": "Iker",
+  "apellido": "Martín",
+  "fechaAlta": {
+    "$date": "2026-01-08T00:00:00.000Z"
+  },
+  "mail": "iker@correo.com",
+  "contraseña": "$2b$10$HASH_DE_EJEMPLO_6",
+  "membresia": "normal",
+  "logros": [],
+  "clases": [
+    {
+      "id_clase": {
+        "$oid": "650000000000000000000011"
+      },
+      "nombre": "Spinning"
+    },
+    {
+      "id_clase": {
+        "$oid": "650000000000000000000012"
+      },
+      "nombre": "Yoga"
+    }
+  ]
+}]
