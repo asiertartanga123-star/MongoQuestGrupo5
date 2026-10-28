@@ -1,0 +1,21 @@
+[{
+  "_id": {
+    "$oid": "650000000000000000000001"
+  },
+  "nombre": "Sala Spinning",
+  "aforoMaximo": 20
+},
+{
+  "_id": {
+    "$oid": "650000000000000000000002"
+  },
+  "nombre": "Sala Yoga",
+  "aforoMaximo": 15
+},
+{
+  "_id": {
+    "$oid": "650000000000000000000003"
+  },
+  "nombre": "Sala Funcional",
+  "aforoMaximo": 25
+}]
