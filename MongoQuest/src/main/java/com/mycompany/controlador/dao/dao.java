@@ -10,5 +10,5 @@ package com.mycompany.controlador.dao;
  */
 public interface dao {
     
-    boolean validarLogin(String usuario, String password);
+    String validarLogin(String usuario, String password);
 }
