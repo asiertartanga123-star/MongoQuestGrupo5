@@ -9,7 +9,7 @@ import org.bson.Document;
 public class daoImplementacio implements dao {
 
     @Override
-    public boolean validarLogin(String usuario, String password) {
+    public boolean validarLogin(String usuario, String contraseña) {
         try (MongoClient cliente = MongoClients.create("mongodb://localhost:27017")) {
             MongoCollection<Document> trabajadores = cliente
                     .getDatabase("Tolotolo")
@@ -18,7 +18,7 @@ public class daoImplementacio implements dao {
             Document trabajador = trabajadores.find(
                     Filters.and(
                             Filters.eq("usuario", usuario),
-                            Filters.eq("password", password)
+                            Filters.eq("contraseña", contraseña)
                     )
             ).first();
 

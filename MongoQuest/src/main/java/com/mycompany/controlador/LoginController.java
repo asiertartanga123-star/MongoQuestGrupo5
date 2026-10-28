@@ -17,15 +17,17 @@ public class LoginController {
     @FXML
     private void onIniciarSesion() {
         String usuario = txtUsuario.getText().trim();
-        String password = txtPassword.getText();
+        String contraseña = txtPassword.getText().trim();
+       
+        System.out.println(usuario + contraseña);
 
-        if (usuario.isEmpty() || password.isEmpty()) {
+        if (usuario.isEmpty() || contraseña.isEmpty()) {
             mostrarAlerta(Alert.AlertType.WARNING, "Escribe el usuario y la contraseña.");
             return;
         }
 
         try {
-            if (dao.validarLogin(usuario, password)) {
+            if (dao.validarLogin(usuario, contraseña)) {
                 mostrarAlerta(Alert.AlertType.INFORMATION, "Has iniciado sesión correctamente.");
             } else {
                 mostrarAlerta(Alert.AlertType.ERROR, "Usuario o contraseña incorrectos.");
