@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+
+<BorderPane fx:id="raiz" minHeight="420.0" minWidth="640.0" prefHeight="528.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.controlador.GerenteController">
+
+   <!-- Cabecera negra -->
+   <top>
+      <StackPane maxHeight="81.0" minHeight="81.0" prefHeight="81.0" style="-fx-background-color: black;">
+         <children>
+            <!-- Logo -->
+            <ImageView fitHeight="66.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
+               <StackPane.margin>
+                  <Insets left="13.0" />
+               </StackPane.margin>
+               <image>
+                  <Image url="@../mongoquest/images/logo.png" />
+               </image>
+            </ImageView>
+
+            <!-- Recuadro gris del título -->
+            <Label fx:id="lblTitulo" maxWidth="230.0" minWidth="190.0" prefHeight="32.0" prefWidth="230.0" style="-fx-background-color: #d9d9d9;" StackPane.alignment="CENTER" />
+
+            <!-- Círculo de usuario + cerrar sesión -->
+            <HBox alignment="CENTER_RIGHT" spacing="12.0" StackPane.alignment="CENTER_RIGHT">
+               <StackPane.margin>
+                  <Insets right="13.0" />
+               </StackPane.margin>
+               <children>
+                  <Circle fx:id="circUsuario" fill="#d9d9d9" radius="22.0" />
+                  <Button fx:id="btnCerrarSesion" mnemonicParsing="false" onAction="#onCerrarSesion" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0; -fx-font-size: 14px;" text="cerrar sesion" />
+               </children>
+            </HBox>
+         </children>
+      </StackPane>
+   </top>
+
+   <!-- Tarjetas -->
+   <center>
+      <HBox alignment="CENTER" spacing="25.0">
+         <padding>
+            <Insets bottom="20.0" left="16.0" right="16.0" top="20.0" />
+         </padding>
+         <children>
+
+            <!-- Gestionar monitores -->
+            <VBox fx:id="cardMonitores" alignment="TOP_CENTER" onMouseClicked="#onGestionarMonitores" spacing="10.0" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 1;" HBox.hgrow="ALWAYS">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="14.0" />
+               </padding>
+               <children>
+                  <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Gestionar monitores" />
+                  <ImageView fx:id="imgMonitores" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../mongoquest/images/toroMoni.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+
+            <!-- Gestionar clases -->
+            <VBox fx:id="cardClases" alignment="TOP_CENTER" onMouseClicked="#onGestionarClases" spacing="10.0" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 1;" HBox.hgrow="ALWAYS">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="14.0" />
+               </padding>
+               <children>
+                  <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Gestionar Clases" />
+                  <ImageView fx:id="imgClases" fitHeight="1470.0" fitWidth="1122.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../mongoquest/images/toroMoni.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+
+            <!-- Gestionar clientes -->
+            <VBox fx:id="cardClientes" alignment="TOP_CENTER" onMouseClicked="#onGestionarClientes" spacing="10.0" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 1;" HBox.hgrow="ALWAYS">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="14.0" />
+               </padding>
+               <children>
+                  <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Gestionar clientes" />
+                  <ImageView fx:id="imgClientes" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../mongoquest/images/toroFuerteMancuerna.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+
+         </children>
+      </HBox>
+   </center>
+</BorderPane>
