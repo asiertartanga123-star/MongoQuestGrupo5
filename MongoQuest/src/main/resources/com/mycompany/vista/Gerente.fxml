@@ -28,7 +28,7 @@
             </ImageView>
 
             <!-- Recuadro gris del título -->
-            <Label fx:id="lblTitulo" maxWidth="230.0" minWidth="190.0" prefHeight="32.0" prefWidth="230.0" style="-fx-background-color: #d9d9d9;" StackPane.alignment="CENTER" />
+            <Label fx:id="lblTitulo" maxWidth="230.0" minWidth="190.0" prefHeight="32.0" prefWidth="230.0" style="-fx-background-color: #d9d9d9;" text="TOLOTOLOGYM" StackPane.alignment="CENTER" />
 
             <!-- Círculo de usuario + cerrar sesión -->
             <HBox alignment="CENTER_RIGHT" spacing="12.0" StackPane.alignment="CENTER_RIGHT">
