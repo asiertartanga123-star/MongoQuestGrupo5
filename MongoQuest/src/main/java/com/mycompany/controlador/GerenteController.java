@@ -38,7 +38,7 @@ public class GerenteController {
     private void onGestionarMonitores() {
       
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/com/mycompany/vista/Login.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/com/mycompany/vista/GestorMonitor.fxml"));
             Stage login = new Stage();
             login.setTitle("Tolotolo - Iniciar sesión");
             login.setScene(new Scene(root));
@@ -47,7 +47,7 @@ public class GerenteController {
             ((Stage) raiz.getScene().getWindow()).close();
         } catch (IOException | NullPointerException e) {
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "No se pudo cargar GestorMonitores.").showAndWait();
+            new Alert(Alert.AlertType.ERROR, "No se pudo cargar GestorMonitor.").showAndWait();
         }  
     }
 
