@@ -87,6 +87,7 @@ public class GestionClientesController {
         }
     }
 
+    @FXML
     private void initialize() {
         choMembresia.getItems().addAll("normal", "premium");
 
