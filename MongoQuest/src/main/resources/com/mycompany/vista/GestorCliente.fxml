@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="raiz" minHeight="480.0" minWidth="760.0" prefHeight="580.0" prefWidth="900.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.controlador.GestionClientesController">
+
+    <!-- Cabecera negra -->
+      <!-- Cabecera negra -->
+   <top>
+      <StackPane maxHeight="81.0" minHeight="81.0" prefHeight="81.0" style="-fx-background-color: black;">
+         <children>
+            <ImageView fitHeight="66.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
+               <StackPane.margin>
+                  <Insets left="13.0" />
+               </StackPane.margin>
+               <image>
+                  <Image url="@../mongoquest/images/logo.png" />
+               </image>
+            </ImageView>
+
+            <!-- Recuadro gris del título: al pulsarlo se vuelve atrás -->
+            <Label fx:id="lblTitulo" alignment="CENTER" maxWidth="230.0" minWidth="190.0" onMouseClicked="#onVolver" prefHeight="32.0" prefWidth="230.0" style="-fx-background-color: #d9d9d9; -fx-cursor: hand;" text="TOLOTOLOGYM" StackPane.alignment="CENTER" />
+
+            <!-- Cerrar sesión -->
+            <HBox alignment="CENTER_RIGHT" pickOnBounds="false" spacing="12.0" StackPane.alignment="CENTER_RIGHT">
+               <StackPane.margin>
+                  <Insets right="13.0" />
+               </StackPane.margin>
+               <children>
+                  <Button fx:id="btnCerrarSesion" mnemonicParsing="false" onAction="#onCerrarSesion" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0; -fx-font-size: 14px;" text="cerrar sesion" />
+               </children>
+            </HBox>
+         </children>
+      </StackPane>
+   </top>
+    <!-- Contenido -->
+    <center>
+        <HBox spacing="20.0">
+            <padding>
+                <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+            </padding>
+            <children>
+
+                <!-- Columna izquierda: lista + dar de alta -->
+                <VBox maxWidth="340.0" minWidth="220.0" prefWidth="280.0" spacing="16.0">
+                    <children>
+                        <ListView fx:id="listClientes" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1;" VBox.vgrow="ALWAYS" />
+                        <Button fx:id="btnAlta" maxWidth="Infinity" mnemonicParsing="false" onAction="#onDarDeAlta" prefHeight="38.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0; -fx-border-color: black; -fx-border-width: 1; -fx-font-size: 15px;" text="Dar de alta" />
+                    </children>
+                </VBox>
+
+                <!-- Columna derecha: ficha del cliente -->
+                <VBox spacing="14.0" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 1;" HBox.hgrow="ALWAYS">
+                    <padding>
+                        <Insets bottom="16.0" left="16.0" right="16.0" top="12.0" />
+                    </padding>
+                    <children>
+                        <Label fx:id="lblNombreCompleto" alignment="CENTER" maxWidth="Infinity" style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Nombre y apellidos cliente" />
+
+                        <HBox spacing="24.0" VBox.vgrow="ALWAYS">
+                            <children>
+                                <!-- Foto -->
+                                <StackPane maxWidth="220.0" minWidth="130.0" prefWidth="170.0" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 1;">
+                                    <children>
+                                        <ImageView fx:id="imgFoto" pickOnBounds="true" preserveRatio="true" />
+                                    </children>
+                                </StackPane>
+
+                                <!-- Datos -->
+                                <GridPane alignment="TOP_LEFT" hgap="14.0" maxWidth="420.0" vgap="12.0" HBox.hgrow="ALWAYS">
+                                    <columnConstraints>
+                                        <ColumnConstraints halignment="RIGHT" />
+                                        <ColumnConstraints hgrow="ALWAYS" />
+                                    </columnConstraints>
+                                    <children>
+                                        <Label minWidth="-Infinity" style="-fx-font-size: 14px;" text="Nombre:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                        <TextField fx:id="txtNombre" maxWidth="Infinity" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 1; -fx-background-radius: 0; -fx-border-radius: 0;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                                        <Label minWidth="-Infinity" style="-fx-font-size: 14px;" text="Apellidos:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                        <TextField fx:id="txtApellidos" maxWidth="Infinity" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 1; -fx-background-radius: 0; -fx-border-radius: 0;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                                        <Label minWidth="-Infinity" style="-fx-font-size: 14px;" text="Dni:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                        <TextField fx:id="txtDni" maxWidth="Infinity" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 1; -fx-background-radius: 0; -fx-border-radius: 0;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                                        <Label minWidth="-Infinity" style="-fx-font-size: 14px;" text="Mail:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                        <TextField fx:id="txtMail" maxWidth="Infinity" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 1; -fx-background-radius: 0; -fx-border-radius: 0;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                                        <Label minWidth="-Infinity" style="-fx-font-size: 14px;" text="Alta:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                                        <TextField fx:id="txtAlta" editable="false" maxWidth="Infinity" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 1; -fx-background-radius: 0; -fx-border-radius: 0;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+                                        <Label minWidth="-Infinity" style="-fx-font-size: 14px;" text="Membresía:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                                        <ChoiceBox fx:id="choMembresia" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+                                        <Button fx:id="btnGuardar" disable="true" maxWidth="Infinity" mnemonicParsing="false" onAction="#onGuardarDatos" prefHeight="32.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0; -fx-border-color: black; -fx-border-width: 1; -fx-font-size: 14px;" text="Guardar datos" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="6" />
+                                    </children>
+                                    <rowConstraints>
+                                        <RowConstraints />
+                                        <RowConstraints />
+                                        <RowConstraints />
+                                        <RowConstraints />
+                                        <RowConstraints />
+                                        <RowConstraints />
+                                        <RowConstraints />
+                                    </rowConstraints>
+                                </GridPane>
+                            </children>
+                        </HBox>
+
+                        <!-- Dar de baja -->
+                        <HBox alignment="CENTER_RIGHT">
+                            <children>
+                                <Button fx:id="btnBaja" disable="true" mnemonicParsing="false" onAction="#onDarDeBaja" prefHeight="38.0" prefWidth="130.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0; -fx-border-color: black; -fx-border-width: 1; -fx-font-size: 15px;" text="Dar de baja" />
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+    </center>
+</BorderPane>
