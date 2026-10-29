@@ -4,11 +4,19 @@
  */
 package com.mycompany.controlador.dao;
 
+import java.util.List;
+import org.bson.Document;
+import org.bson.types.ObjectId;
+
 /**
  *
  * @author Asier.Prieto
  */
 public interface dao {
     
-    boolean validarLogin(String usuario, String password);
+    String validarLogin(String usuario, String password);
+    List<Document> listarClientes();
+    boolean eliminarCliente(ObjectId id);
+    void actualizarCliente(ObjectId id, String nombre, String apellido, String dni, String mail, String membresia);
+    void insertarCliente(Document cliente);
 }
