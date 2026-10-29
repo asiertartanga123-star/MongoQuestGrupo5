@@ -65,6 +65,12 @@ public class GestionClientesController {
 
     private final daoImplementacio dao = new daoImplementacio();
     private static final DateTimeFormatter FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    @FXML
+    private Label lblTitulo;
+    @FXML
+    private Button btnCerrarSesion;
+    @FXML
+    private Button btnAlta;
 
     // Cada fila de la lista: nombre y apellido + dni y membresía
     private static class CeldaCliente extends ListCell<Document> {
@@ -81,7 +87,6 @@ public class GestionClientesController {
         }
     }
 
-    @FXML
     private void initialize() {
         choMembresia.getItems().addAll("normal", "premium");
 
