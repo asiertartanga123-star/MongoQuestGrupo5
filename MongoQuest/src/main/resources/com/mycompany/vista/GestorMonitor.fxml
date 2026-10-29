@@ -11,11 +11,12 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<BorderPane fx:id="raiz" minHeight="480.0" minWidth="760.0" prefHeight="580.0" prefWidth="900.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.controlador.GestionMonitorController">
+<BorderPane fx:id="raiz" minHeight="480.0" minWidth="760.0" prefHeight="580.0" prefWidth="900.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.controlador.GestionMonitorController">
 
    <!-- Cabecera negra -->
    <top>
@@ -31,7 +32,7 @@
             </ImageView>
 
             <!-- Recuadro gris del título: al pulsarlo se vuelve atrás -->
-            <Label fx:id="lblTitulo" alignment="CENTER" maxWidth="230.0" minWidth="190.0" onMouseClicked="#onVolver" prefHeight="32.0" prefWidth="230.0" style="-fx-background-color: #d9d9d9; -fx-cursor: hand;" text="Volver" StackPane.alignment="CENTER" />
+            <Label fx:id="lblTitulo" alignment="CENTER" maxWidth="230.0" minWidth="190.0" onMouseClicked="#onVolver" prefHeight="32.0" prefWidth="230.0" style="-fx-background-color: #d9d9d9; -fx-cursor: hand;" text="TOLOTOLOGYM" StackPane.alignment="CENTER" />
 
             <!-- Círculo de usuario + cerrar sesión -->
             <HBox alignment="CENTER_RIGHT" pickOnBounds="false" spacing="12.0" StackPane.alignment="CENTER_RIGHT">
@@ -107,6 +108,15 @@
 
                               <Button fx:id="btnGuardar" disable="true" maxWidth="Infinity" mnemonicParsing="false" onAction="#onGuardarDatos" prefHeight="32.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0; -fx-border-color: black; -fx-border-width: 1; -fx-font-size: 14px;" text="Guardar datos" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="6" />
                            </children>
+                           <rowConstraints>
+                              <RowConstraints />
+                              <RowConstraints />
+                              <RowConstraints />
+                              <RowConstraints />
+                              <RowConstraints />
+                              <RowConstraints />
+                              <RowConstraints />
+                           </rowConstraints>
                         </GridPane>
                      </children>
                   </HBox>

@@ -43,10 +43,6 @@ public class LoginController {
 
         try {
             String rol = dao.validarLogin(mail, contraseña);
-            {
-                    abrirVentana("/com/mycompany/vista/Gerente.fxml", "Tolotolo - Gerente");
-               
-            }
             if (rol == null) {
                 mostrarAlerta(Alert.AlertType.ERROR, "Usuario o contraseña incorrectos.");
                 return;
