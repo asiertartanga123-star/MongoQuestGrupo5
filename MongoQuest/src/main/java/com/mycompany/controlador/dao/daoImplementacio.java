@@ -4,8 +4,12 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
+import java.util.ArrayList;
+import java.util.List;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
 
 public class daoImplementacio implements dao {
 
@@ -29,6 +33,53 @@ public class daoImplementacio implements dao {
             }
 
             return null;
+        }
+
+    }
+
+    // añade estos imports: java.util.ArrayList, java.util.List, org.bson.types.ObjectId
+    @Override
+    public List<Document> listarClientes() {
+        try (MongoClient cliente = MongoClients.create("mongodb://localhost:27017")) {
+            return cliente.getDatabase("Tolotolo")
+                    .getCollection("Clientes")
+                    .find()
+                    .into(new ArrayList<>());
+        }
+    }
+
+    @Override
+    public boolean eliminarCliente(ObjectId id) {
+        try (MongoClient cliente = MongoClients.create("mongodb://localhost:27017")) {
+            return cliente.getDatabase("Tolotolo")
+                    .getCollection("Clientes")
+                    .deleteOne(Filters.eq("_id", id))
+                    .getDeletedCount() > 0;
+        }
+    }
+
+    @Override
+    public void actualizarCliente(ObjectId id, String nombre, String apellido,
+            String dni, String mail, String membresia) {
+        try (MongoClient cliente = MongoClients.create("mongodb://localhost:27017")) {
+            cliente.getDatabase("tolotolo")
+                    .getCollection("Clientes")
+                    .updateOne(Filters.eq("_id", id),
+                            Updates.combine(
+                                    Updates.set("nombre", nombre),
+                                    Updates.set("apellido", apellido),
+                                    Updates.set("dni", dni),
+                                    Updates.set("mail", mail),
+                                    Updates.set("membresia", membresia)));
+        }
+    }
+
+    @Override
+    public void insertarCliente(Document c) {
+        try (MongoClient cliente = MongoClients.create("mongodb://localhost:27017")) {
+            cliente.getDatabase("tolotolo")
+                    .getCollection("Clientes")
+                    .insertOne(c);
         }
     }
 }

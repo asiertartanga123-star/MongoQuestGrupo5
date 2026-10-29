@@ -10,14 +10,26 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class LoginController {
 
+    @FXML private BorderPane raiz;
+    @FXML private ImageView imgToroIzq;
+    @FXML private ImageView imgToroDer;
     @FXML private TextField txtUsuario;
     @FXML private PasswordField txtPassword;
 
     private final daoImplementacio dao = new daoImplementacio();
+
+    @FXML
+    private void initialize() {
+        // Los toros ocupan ~85% del alto disponible (ventana - cabecera de 81 px)
+        imgToroIzq.fitHeightProperty().bind(raiz.heightProperty().subtract(81).multiply(0.85));
+        imgToroDer.fitHeightProperty().bind(raiz.heightProperty().subtract(81).multiply(0.85));
+    }
 
     @FXML
     private void onIniciarSesion() {
@@ -31,7 +43,10 @@ public class LoginController {
 
         try {
             String rol = dao.validarLogin(mail, contraseña);
-
+            {
+                    abrirVentana("/com/mycompany/vista/Gerente.fxml", "Tolotolo - Gerente");
+               
+            }
             if (rol == null) {
                 mostrarAlerta(Alert.AlertType.ERROR, "Usuario o contraseña incorrectos.");
                 return;
@@ -67,6 +82,7 @@ public class LoginController {
             // cierra la ventana de login
             ((Stage) txtUsuario.getScene().getWindow()).close();
         } catch (IOException | NullPointerException e) {
+            e.printStackTrace();
             mostrarAlerta(Alert.AlertType.ERROR, "No se pudo abrir la ventana " + fxml);
         }
     }

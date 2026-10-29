@@ -11,96 +11,107 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="raiz" minHeight="400.0" minWidth="560.0" prefHeight="431.0" prefWidth="639.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.controlador.LoginController">
+<BorderPane fx:id="raiz" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.mycompany.controlador.LoginController"
+            style="-fx-background-color: white;"
+            minWidth="640.0" minHeight="420.0" prefWidth="780.0" prefHeight="520.0">
 
    <!-- Cabecera negra -->
    <top>
-      <StackPane maxHeight="81.0" minHeight="81.0" prefHeight="81.0" style="-fx-background-color: black;">
+      <StackPane prefHeight="81.0" minHeight="81.0" maxHeight="81.0" style="-fx-background-color: black;">
          <children>
-            <ImageView fitHeight="66.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
+            <ImageView fitHeight="66.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true"
+                       StackPane.alignment="CENTER_LEFT">
                <StackPane.margin>
                   <Insets left="13.0" />
                </StackPane.margin>
                <image>
-                  <Image url="@/com/mycompany/mongoquest/images/logo.png" />
+                  <Image url="@../mongoquest/images/logo.png" />
                </image>
             </ImageView>
 
             <!-- Recuadro gris del título -->
-            <Label fx:id="lblTitulo" maxWidth="190.0" minWidth="190.0" prefHeight="32.0" prefWidth="190.0" style="-fx-background-color: #d9d9d9;" text="TOLOTOLO" textFill="#fa1717" textOverrun="CENTER_WORD_ELLIPSIS" StackPane.alignment="CENTER">
-               <font>
-                  <Font size="33.0" />
-               </font></Label>
+            <Label fx:id="lblTitulo" minWidth="190.0" prefHeight="32.0" prefWidth="230.0" maxWidth="230.0"
+                   style="-fx-background-color: #d9d9d9;" StackPane.alignment="CENTER" />
          </children>
       </StackPane>
    </top>
 
-   <!-- Contenido -->
-   <center>
-      <HBox alignment="CENTER" spacing="60.0">
+   <!-- Toro izquierdo -->
+   <left>
+      <StackPane BorderPane.alignment="CENTER">
          <padding>
-            <Insets bottom="30.0" left="30.0" right="30.0" top="20.0" />
+            <Insets top="15.0" right="10.0" bottom="15.0" left="40.0" />
          </padding>
          <children>
-            <Region HBox.hgrow="ALWAYS" />
-
-            <!-- Toro izquierdo -->
-            <ImageView fx:id="imgToroIzq" fitHeight="305.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgToroIzq" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@/com/mycompany/mongoquest/images/toro.png" />
+                  <Image url="@../mongoquest/images/toro.png" />
                </image>
             </ImageView>
+         </children>
+      </StackPane>
+   </left>
 
-            <!-- Login + Registrarse -->
-            <VBox alignment="CENTER" maxWidth="260.0" minWidth="190.0" prefWidth="230.0" spacing="6.0">
+   <!-- Toro derecho (espejado) -->
+   <right>
+      <StackPane BorderPane.alignment="CENTER">
+         <padding>
+            <Insets top="15.0" right="40.0" bottom="15.0" left="10.0" />
+         </padding>
+         <children>
+            <ImageView fx:id="imgToroDer" pickOnBounds="true" preserveRatio="true" scaleX="-1.0">
+               <image>
+                  <Image url="@../mongoquest/images/toro.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+   </right>
+
+   <!-- Login + Registrarse -->
+      <!-- Login + Registrarse -->
+   <center>
+      <VBox alignment="CENTER" spacing="14.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER" spacing="26.0" minWidth="300.0" prefWidth="380.0" maxWidth="460.0"
+                  style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1;">
+               <padding>
+                  <Insets top="34.0" right="28.0" bottom="34.0" left="28.0" />
+               </padding>
                <children>
-                  <VBox alignment="CENTER" spacing="18.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1;">
-                     <padding>
-                        <Insets bottom="20.0" left="18.0" right="18.0" top="20.0" />
-                     </padding>
+                  <GridPane hgap="14.0" vgap="20.0">
+                     <columnConstraints>
+                        <ColumnConstraints halignment="RIGHT" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                     </columnConstraints>
                      <children>
-                        <GridPane hgap="8.0" vgap="12.0">
-                           <columnConstraints>
-                              <ColumnConstraints halignment="RIGHT" />
-                              <ColumnConstraints hgrow="ALWAYS" />
-                           </columnConstraints>
-                           <children>
-                              <Label minWidth="-Infinity" style="-fx-font-size: 14px;" text="Mail:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                              <TextField fx:id="txtUsuario" maxWidth="Infinity" style="-fx-background-color: #d9d9d9; -fx-background-radius: 12; -fx-border-color: black; -fx-border-radius: 12; -fx-padding: 0 8 0 8;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <Label text="Mail:" minWidth="-Infinity" style="-fx-font-size: 18px;"
+                               GridPane.rowIndex="0" GridPane.columnIndex="0" />
+                        <TextField fx:id="txtUsuario" maxWidth="Infinity" prefHeight="36.0"
+                                   style="-fx-background-color: #d9d9d9; -fx-background-radius: 18; -fx-border-color: black; -fx-border-radius: 18; -fx-padding: 0 12 0 12; -fx-font-size: 16px;"
+                                   GridPane.rowIndex="0" GridPane.columnIndex="1" />
 
-                              <Label minWidth="-Infinity" style="-fx-font-size: 14px;" text="Contraseña:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                              <PasswordField fx:id="txtPassword" maxWidth="Infinity" style="-fx-background-color: #d9d9d9; -fx-background-radius: 12; -fx-border-color: black; -fx-border-radius: 12; -fx-padding: 0 8 0 8;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                           </children>
-                           <rowConstraints>
-                              <RowConstraints />
-                              <RowConstraints />
-                           </rowConstraints>
-                        </GridPane>
-
-                        <Button fx:id="btnLogin" maxWidth="Infinity" mnemonicParsing="false" onAction="#onIniciarSesion" prefHeight="22.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-border-color: black; -fx-border-radius: 12; -fx-font-size: 14px; -fx-padding: 0;" text="Iniciar sesión" />
+                        <Label text="Contraseña:" minWidth="-Infinity" style="-fx-font-size: 18px;"
+                               GridPane.rowIndex="1" GridPane.columnIndex="0" />
+                        <PasswordField fx:id="txtPassword" maxWidth="Infinity" prefHeight="36.0"
+                                       style="-fx-background-color: #d9d9d9; -fx-background-radius: 18; -fx-border-color: black; -fx-border-radius: 18; -fx-padding: 0 12 0 12; -fx-font-size: 16px;"
+                                       GridPane.rowIndex="1" GridPane.columnIndex="1" />
                      </children>
-                  </VBox>
+                  </GridPane>
 
-                  <Hyperlink fx:id="linkRegistro" style="-fx-text-fill: #0000ee; -fx-font-size: 14px; -fx-border-color: transparent; -fx-underline: false;" text="Registrarse" />
+                  <Button fx:id="btnLogin" mnemonicParsing="false" onAction="#onIniciarSesion"
+                          maxWidth="Infinity" prefHeight="40.0" text="Iniciar sesión"
+                          style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-color: black; -fx-border-radius: 20; -fx-font-size: 18px; -fx-padding: 0;" />
                </children>
             </VBox>
 
-            <!-- Toro derecho (espejado) -->
-            <ImageView fx:id="imgToroDer" fitHeight="305.0" pickOnBounds="true" preserveRatio="true" scaleX="-1.0">
-               <image>
-                  <Image url="@/com/mycompany/mongoquest/images/toro.png" />
-               </image>
-            </ImageView>
-
-            <Region HBox.hgrow="ALWAYS" />
+            <Hyperlink fx:id="linkRegistro" text="Registrarse"
+                       style="-fx-text-fill: #0000ee; -fx-font-size: 18px; -fx-border-color: transparent; -fx-underline: false;" />
          </children>
-      </HBox>
+      </VBox>
    </center>
 </BorderPane>

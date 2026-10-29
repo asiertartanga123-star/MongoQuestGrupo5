@@ -1,77 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 
-<!--
-  Maqueta de 639 x 431 con posiciones absolutas (AnchorPane)
-  para respetar los espacios en blanco del diseño original.
-  Cambia las rutas de las imágenes por las de tu proyecto.
--->
-<AnchorPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.mycompany.controlador.LoginController"
-            prefWidth="639.0" >
-   <children>
+<BorderPane fx:id="raiz" minHeight="420.0" minWidth="640.0" prefHeight="528.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.controlador.GerenteController">
 
-      <!-- Cabecera negra -->
-      <Rectangle fill="BLACK" height="81.0" width="639.0" layoutX="0.0" layoutY="0.0" />
+   <!-- Cabecera negra -->
+   <top>
+      <StackPane maxHeight="81.0" minHeight="81.0" prefHeight="81.0" style="-fx-background-color: black;">
+         <children>
+            <!-- Logo -->
+            <ImageView fitHeight="66.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
+               <StackPane.margin>
+                  <Insets left="13.0" />
+               </StackPane.margin>
+               <image>
+                  <Image url="@../mongoquest/images/logo.png" />
+               </image>
+            </ImageView>
 
-      <!-- Logo -->
-      <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="13.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../mongoquest/images/logo.png" />
-         </image>
-      </ImageView>
+            <!-- Recuadro gris del título -->
+            <Label fx:id="lblTitulo" maxWidth="230.0" minWidth="190.0" prefHeight="32.0" prefWidth="230.0" style="-fx-background-color: #d9d9d9;" StackPane.alignment="CENTER" />
 
-      <!-- Recuadro gris del título -->
-      <Label fx:id="lblTitulo" layoutX="225.0" layoutY="25.0" prefHeight="32.0" prefWidth="190.0"
-             style="-fx-background-color: #d9d9d9;" />
+            <!-- Círculo de usuario + cerrar sesión -->
+            <HBox alignment="CENTER_RIGHT" spacing="12.0" StackPane.alignment="CENTER_RIGHT">
+               <StackPane.margin>
+                  <Insets right="13.0" />
+               </StackPane.margin>
+               <children>
+                  <Circle fx:id="circUsuario" fill="#d9d9d9" radius="22.0" />
+                  <Button fx:id="btnCerrarSesion" mnemonicParsing="false" onAction="#onCerrarSesion" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0; -fx-font-size: 14px;" text="cerrar sesion" />
+               </children>
+            </HBox>
+         </children>
+      </StackPane>
+   </top>
 
-      <!-- Toro izquierdo -->
-      <ImageView fitHeight="305.0" fitWidth="140.0" layoutX="40.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../mongoquest/images/toro.png" />
-         </image>
-      </ImageView>
+   <!-- Tarjetas -->
+   <center>
+      <HBox alignment="CENTER" spacing="25.0">
+         <padding>
+            <Insets bottom="20.0" left="16.0" right="16.0" top="20.0" />
+         </padding>
+         <children>
 
-      <!-- Toro derecho (espejado) -->
-      <ImageView fitHeight="305.0" fitWidth="140.0" layoutX="460.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true" scaleX="-1.0">
-         <image>
-            <Image url="@../mongoquest/images/toro.png" />
-         </image>
-      </ImageView>
+            <!-- Gestionar monitores -->
+            <VBox fx:id="cardMonitores" alignment="TOP_CENTER" onMouseClicked="#onGestionarMonitores" spacing="10.0" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 1;" HBox.hgrow="ALWAYS">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="14.0" />
+               </padding>
+               <children>
+                  <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Gestionar monitores" />
+                  <ImageView fx:id="imgMonitores" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../mongoquest/images/toroMoni.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
 
-      <!-- Recuadro del login -->
-      <Rectangle fill="WHITE" stroke="BLACK" strokeType="INSIDE" height="139.0" width="190.0" layoutX="225.0" layoutY="171.0" />
+            <!-- Gestionar clases -->
+            <VBox fx:id="cardClases" alignment="TOP_CENTER" onMouseClicked="#onGestionarClases" spacing="10.0" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 1;" HBox.hgrow="ALWAYS">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="14.0" />
+               </padding>
+               <children>
+                  <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Gestionar Clases" />
+                  <ImageView fx:id="imgClases" fitHeight="1470.0" fitWidth="1122.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../mongoquest/images/toroMoni.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
 
-      <!-- Mail -->
-      <Label layoutX="249.0" layoutY="193.0" text="Mail:">
-         <style>-fx-font-size: 14px;</style>
-      </Label>
-      <TextField fx:id="txtUsuario" layoutX="326.0" layoutY="191.0" prefHeight="20.0" prefWidth="78.0"
-                 style="-fx-background-color: #d9d9d9; -fx-background-radius: 12; -fx-border-color: black; -fx-border-radius: 12; -fx-padding: 0 8 0 8;" />
+            <!-- Gestionar clientes -->
+            <VBox fx:id="cardClientes" alignment="TOP_CENTER" onMouseClicked="#onGestionarClientes" spacing="10.0" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 1;" HBox.hgrow="ALWAYS">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="14.0" />
+               </padding>
+               <children>
+                  <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Gestionar clientes" />
+                  <ImageView fx:id="imgClientes" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../mongoquest/images/toroFuerteMancuerna.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
 
-      <!-- Contraseña -->
-      <Label layoutX="233.0" layoutY="224.0" text="Contraseña:">
-         <style>-fx-font-size: 14px;</style>
-      </Label>
-      <PasswordField fx:id="txtPassword" layoutX="326.0" layoutY="224.0" prefHeight="20.0" prefWidth="78.0"
-                     style="-fx-background-color: #d9d9d9; -fx-background-radius: 12; -fx-border-color: black; -fx-border-radius: 12; -fx-padding: 0 8 0 8;" />
-
-      <!-- Botón iniciar sesión -->
-      <Button fx:id="btnLogin" layoutX="250.0" layoutY="273.0" mnemonicParsing="false" onAction="#onIniciarSesion"
-              prefHeight="22.0" prefWidth="139.0" text="Iniciar sesión"
-              style="-fx-background-color: white; -fx-background-radius: 12; -fx-border-color: black; -fx-border-radius: 12; -fx-font-size: 14px; -fx-padding: 0;" />
-
-      <!-- Registrarse -->
-      <Hyperlink fx:id="linkRegistro" layoutX="279.0" layoutY="317.0" text="Registrarse"
-                 style="-fx-text-fill: #0000ee; -fx-font-size: 14px; -fx-border-color: transparent; -fx-underline: false;" />
-   </children>
-</AnchorPane>
+         </children>
+      </HBox>
+   </center>
+</BorderPane>
