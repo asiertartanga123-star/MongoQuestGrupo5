@@ -4,6 +4,7 @@ import com.mongodb.ErrorCategory;
 import com.mongodb.MongoException;
 import com.mongodb.MongoWriteException;
 import com.mycompany.controlador.dao.daoImplementacio;
+import java.io.File;
 import java.io.IOException;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -15,7 +16,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -29,9 +29,10 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.bson.Document;
@@ -63,16 +64,18 @@ public class GestionClientesController {
     private Button btnGuardar;
     @FXML
     private Button btnBaja;
-
-    private final daoImplementacio dao = new daoImplementacio();
-    // Formato utilizado para mostrar las fechas BSON en la ficha.
-    private static final DateTimeFormatter FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    @FXML
+    private StackPane panelFoto;
     @FXML
     private Label lblTitulo;
     @FXML
     private Button btnCerrarSesion;
     @FXML
     private Button btnAlta;
+
+    private final daoImplementacio dao = new daoImplementacio();
+    // Formato utilizado para mostrar las fechas BSON en la ficha.
+    private static final DateTimeFormatter FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     // Define cómo se presenta cada cliente en la lista de la izquierda.
     private static class CeldaCliente extends ListCell<Document> {
@@ -109,6 +112,10 @@ public class GestionClientesController {
             }
         });
 
+        // La foto se ajusta al tamaño del recuadro.
+        imgFoto.fitWidthProperty().bind(panelFoto.widthProperty().subtract(4));
+        imgFoto.fitHeightProperty().bind(panelFoto.heightProperty().subtract(4));
+
         cargarClientes();
     }
 
@@ -134,6 +141,7 @@ public class GestionClientesController {
             txtMail.clear();
             txtAlta.clear();
             choMembresia.setValue(null);
+            mostrarFoto(null);
             btnGuardar.setDisable(true);
             btnBaja.setDisable(true);
             return;
@@ -154,8 +162,18 @@ public class GestionClientesController {
             txtAlta.setText(alta.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().format(FECHA));
         }
 
+        mostrarFoto(c);
         btnGuardar.setDisable(false);
         btnBaja.setDisable(false);
+    }
+
+    private void mostrarFoto(Document c) {
+        if (c == null) {
+            imgFoto.setImage(null);
+            return;
+        }
+        // La foto se busca en la carpeta de imágenes por el DNI del cliente.
+        imgFoto.setImage(GestorImagenes.cargar(c.getString("dni")));
     }
 
     @FXML
@@ -183,7 +201,11 @@ public class GestionClientesController {
         }
 
         try {
+            // El DNI antiguo se guarda antes de modificar el documento en memoria.
+            String dniOriginal = c.getString("dni");
+
             dao.actualizarCliente(c.getObjectId("_id"), nombre, apellido, dni, mail, membresia);
+            GestorImagenes.renombrar(dniOriginal, dni);   // la foto sigue al nuevo DNI
 
             // Sin volver a consultar MongoDB, actualiza el documento visible en la lista.
             c.put("nombre", nombre);
@@ -203,6 +225,9 @@ public class GestionClientesController {
             }
         } catch (MongoException e) {
             alerta(Alert.AlertType.ERROR, "No se puede conectar con MongoDB.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            alerta(Alert.AlertType.ERROR, "Datos guardados, pero no se pudo renombrar la foto.");
         }
     }
 
@@ -291,7 +316,6 @@ public class GestionClientesController {
 
     @FXML
     private void onDarDeBaja() {
-        // La baja requiere una selección y confirmación explícita.
         Document c = listClientes.getSelectionModel().getSelectedItem();
         if (c == null) {
             return;
@@ -305,13 +329,42 @@ public class GestionClientesController {
         ButtonType respuesta = confirmar.showAndWait().orElse(ButtonType.NO);
         if (respuesta == ButtonType.YES) {
             try {
+                // Primero se borra de MongoDB (por _id) y después su foto (por DNI).
                 dao.eliminarCliente(c.getObjectId("_id"));
-                // Refresca la lista desde MongoDB y limpia los datos que ya no están seleccionados.
+                GestorImagenes.borrar(c.getString("dni"));
                 cargarClientes();
                 mostrarCliente(null);
             } catch (MongoException e) {
                 alerta(Alert.AlertType.ERROR, "No se pudo dar de baja al cliente.");
+            } catch (IOException e) {
+                alerta(Alert.AlertType.ERROR, "Cliente dado de baja, pero no se pudo borrar su foto.");
             }
+        }
+    }
+
+    @FXML
+    private void onElegirFoto() {
+        Document c = listClientes.getSelectionModel().getSelectedItem();
+        if (c == null) {
+            alerta(Alert.AlertType.WARNING, "Elige primero un cliente de la lista.");
+            return;
+        }
+
+        FileChooser selector = new FileChooser();
+        selector.setTitle("Elegir foto");
+        selector.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg", "*.jpeg"));
+        File archivo = selector.showOpenDialog(raiz.getScene().getWindow());
+        if (archivo == null) {
+            return;
+        }
+
+        try {
+            GestorImagenes.guardar(c.getString("dni"), archivo);
+            mostrarFoto(c);
+        } catch (IOException e) {
+            e.printStackTrace();
+            alerta(Alert.AlertType.ERROR, "No se pudo guardar la imagen.");
         }
     }
 

@@ -4,6 +4,7 @@ import com.mongodb.ErrorCategory;
 import com.mongodb.MongoException;
 import com.mongodb.MongoWriteException;
 import com.mycompany.controlador.dao.daoImplementacio;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.ZoneId;
@@ -30,6 +31,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.bson.Document;
@@ -37,18 +40,32 @@ import org.bson.Document;
 public class GestionMonitorController {
 
     // Controles enlazados con la lista de monitores y su ficha de datos.
-    @FXML private BorderPane raiz;
-    @FXML private ListView<Document> listMonitores;
-    @FXML private Label lblNombreCompleto;
-    @FXML private ImageView imgFoto;
-    @FXML private TextField txtNombre;
-    @FXML private TextField txtApellidos;
-    @FXML private TextField txtDni;
-    @FXML private TextField txtMail;
-    @FXML private TextField txtAlta;
-    @FXML private TextField txtDireccion;
-    @FXML private Button btnGuardar;
-    @FXML private Button btnBaja;
+    @FXML
+    private BorderPane raiz;
+    @FXML
+    private ListView<Document> listMonitores;
+    @FXML
+    private Label lblNombreCompleto;
+    @FXML
+    private ImageView imgFoto;
+    @FXML
+    private StackPane panelFoto;
+    @FXML
+    private TextField txtNombre;
+    @FXML
+    private TextField txtApellidos;
+    @FXML
+    private TextField txtDni;
+    @FXML
+    private TextField txtMail;
+    @FXML
+    private TextField txtAlta;
+    @FXML
+    private TextField txtDireccion;
+    @FXML
+    private Button btnGuardar;
+    @FXML
+    private Button btnBaja;
 
     private final daoImplementacio dao = new daoImplementacio();
     // Formato de presentación de la fecha de alta.
@@ -56,6 +73,7 @@ public class GestionMonitorController {
 
     // Define cómo se presenta cada monitor en la lista de la izquierda.
     private static class CeldaMonitor extends ListCell<Document> {
+
         @Override
         protected void updateItem(Document m, boolean vacio) {
             super.updateItem(m, vacio);
@@ -85,6 +103,10 @@ public class GestionMonitorController {
                 mostrarMonitor(elegido);
             }
         });
+
+        // La foto se ajusta al tamaño del recuadro.
+        imgFoto.fitWidthProperty().bind(panelFoto.widthProperty().subtract(4));
+        imgFoto.fitHeightProperty().bind(panelFoto.heightProperty().subtract(4));
 
         cargarMonitores();
     }
@@ -138,6 +160,7 @@ public class GestionMonitorController {
             txtMail.clear();
             txtAlta.clear();
             txtDireccion.clear();
+            mostrarFoto(null);
             btnGuardar.setDisable(true);
             btnBaja.setDisable(true);
             return;
@@ -158,8 +181,18 @@ public class GestionMonitorController {
             txtAlta.setText(alta.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().format(FECHA));
         }
 
+        mostrarFoto(m);
         btnGuardar.setDisable(false);
         btnBaja.setDisable(false);
+    }
+
+    private void mostrarFoto(Document m) {
+        if (m == null) {
+            imgFoto.setImage(null);
+            return;
+        }
+        // La foto se busca en la carpeta de imágenes por el DNI del monitor.
+        imgFoto.setImage(GestorImagenes.cargar(m.getString("dni")));
     }
 
     @FXML
@@ -191,7 +224,11 @@ public class GestionMonitorController {
         }
 
         try {
+            // El DNI antiguo se guarda antes de modificar el documento en memoria.
+            String dniOriginal = m.getString("dni");
+
             dao.actualizarMonitor(m.getObjectId("_id"), nombre, apellido, dni, mail, direccion);
+            GestorImagenes.renombrar(dniOriginal, dni);   // la foto sigue al nuevo DNI
 
             // Actualiza también el documento de la lista para reflejar los cambios al instante.
             m.put("nombre", nombre);
@@ -211,6 +248,9 @@ public class GestionMonitorController {
             }
         } catch (MongoException e) {
             alerta(Alert.AlertType.ERROR, "No se puede conectar con MongoDB.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            alerta(Alert.AlertType.ERROR, "Datos guardados, pero no se pudo renombrar la foto.");
         }
     }
 
@@ -324,13 +364,43 @@ public class GestionMonitorController {
         ButtonType respuesta = confirmar.showAndWait().orElse(ButtonType.NO);
         if (respuesta == ButtonType.YES) {
             try {
+                // Primero se borra de MongoDB (por _id) y después su foto (por DNI).
                 dao.eliminarMonitor(m.getObjectId("_id"));
+                GestorImagenes.borrar(m.getString("dni"));
                 // Recarga la lista desde MongoDB y limpia la ficha que mostraba al monitor eliminado.
                 cargarMonitores();
                 mostrarMonitor(null);
             } catch (MongoException e) {
                 alerta(Alert.AlertType.ERROR, "No se pudo dar de baja al monitor.");
+            } catch (IOException e) {
+                alerta(Alert.AlertType.ERROR, "Monitor dado de baja, pero no se pudo borrar su foto.");
             }
+        }
+    }
+
+    @FXML
+    private void onElegirFoto() {
+        Document m = listMonitores.getSelectionModel().getSelectedItem();
+        if (m == null) {
+            alerta(Alert.AlertType.WARNING, "Elige primero un monitor de la lista.");
+            return;
+        }
+
+        FileChooser selector = new FileChooser();
+        selector.setTitle("Elegir foto");
+        selector.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg", "*.jpeg"));
+        File archivo = selector.showOpenDialog(raiz.getScene().getWindow());
+        if (archivo == null) {
+            return;   // canceló
+        }
+
+        try {
+            GestorImagenes.guardar(m.getString("dni"), archivo);
+            mostrarFoto(m);
+        } catch (IOException e) {
+            e.printStackTrace();
+            alerta(Alert.AlertType.ERROR, "No se pudo guardar la imagen.");
         }
     }
 
