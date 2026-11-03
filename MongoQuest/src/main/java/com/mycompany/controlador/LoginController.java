@@ -16,11 +16,16 @@ import javafx.stage.Stage;
 
 public class LoginController {
 
-    @FXML private BorderPane raiz;
-    @FXML private ImageView imgToroIzq;
-    @FXML private ImageView imgToroDer;
-    @FXML private TextField txtUsuario;
-    @FXML private PasswordField txtPassword;
+    @FXML
+    private BorderPane raiz;
+    @FXML
+    private ImageView imgToroIzq;
+    @FXML
+    private ImageView imgToroDer;
+    @FXML
+    private TextField txtUsuario;
+    @FXML
+    private PasswordField txtPassword;
 
     private final daoImplementacio dao = new daoImplementacio();
 
@@ -44,8 +49,8 @@ public class LoginController {
         try {
             String rol = dao.validarLogin(mail, contraseña);
             {
-                    abrirVentana("/com/mycompany/vista/Gerente.fxml", "Tolotolo - Gerente");
-               
+                abrirVentana("/com/mycompany/vista/Gerente.fxml", "Tolotolo - Gerente");
+
             }
             if (rol == null) {
                 mostrarAlerta(Alert.AlertType.ERROR, "Usuario o contraseña incorrectos.");
@@ -68,6 +73,17 @@ public class LoginController {
         } catch (MongoException e) {
             mostrarAlerta(Alert.AlertType.ERROR,
                     "No se puede conectar con MongoDB. Comprueba que esté iniciado.");
+        }
+    }
+
+    @FXML
+    private void onRegistrarse() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/com/mycompany/vista/Register.fxml"));
+            raiz.getScene().setRoot(root);
+        } catch (IOException | NullPointerException e) {
+            e.printStackTrace();
+            mostrarAlerta(Alert.AlertType.ERROR, "No se pudo abrir la ventana de registro.");
         }
     }
 
