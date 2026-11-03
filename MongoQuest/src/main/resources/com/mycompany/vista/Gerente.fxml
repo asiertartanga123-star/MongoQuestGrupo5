@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
 
 <!-- Panel principal del gerente: las tarjetas y botones invocan GerenteController. -->
+
 <BorderPane fx:id="raiz" minHeight="420.0" minWidth="640.0" prefHeight="528.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.controlador.GerenteController">
 
    <!-- Cabecera negra -->
@@ -37,7 +37,6 @@
                   <Insets right="13.0" />
                </StackPane.margin>
                <children>
-                  <Circle fx:id="circUsuario" fill="#d9d9d9" radius="22.0" />
                   <Button fx:id="btnCerrarSesion" mnemonicParsing="false" onAction="#onCerrarSesion" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0; -fx-font-size: 14px;" text="cerrar sesion" />
                </children>
             </HBox>
