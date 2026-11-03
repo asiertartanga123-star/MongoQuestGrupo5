@@ -7,19 +7,19 @@ package modelo;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-/**
- *
- * @author Ekain.Bedoya
- */
+/** Representa una convocatoria concreta de una clase en una fecha. */
 public class Sesiones {
 
+    // Identificadores de la sesión, la clase y el monitor responsable.
     private String id;
     private String claseId;
     private LocalDate fecha;
     private int plazaMax;
     private String monitorId;
-    private ArrayList<String> asistentes = new ArrayList<>(); // ids de cliente
+    // La lista guarda los identificadores de los clientes inscritos.
+    private ArrayList<String> asistentes = new ArrayList<>();
 
+    /** Crea una sesión con su clase, fecha, aforo y monitor. */
     public Sesiones(String id, String claseId, LocalDate fecha, int plazaMax, String monitorId) {
         this.id = id;
         this.claseId = claseId;
@@ -28,6 +28,7 @@ public class Sesiones {
         this.monitorId = monitorId;
     }
 
+    // Getters y setters para consultar o modificar los datos de la sesión.
     public String getId() {
         return id;
     }
@@ -76,10 +77,15 @@ public class Sesiones {
         this.asistentes = asistentes;
     }
 
+    /** Indica si queda al menos una plaza libre. */
     public boolean hayPlazas() {
         return asistentes.size() < plazaMax;
     }
 
+    /**
+     * Inscribe al cliente si hay capacidad y todavía no figura como asistente.
+     * @return true si el cliente se ha añadido; false si no puede inscribirse
+     */
     public boolean apuntar(String clienteId) {
         if (!hayPlazas() || asistentes.contains(clienteId)) {
             return false;
@@ -87,12 +93,14 @@ public class Sesiones {
         return asistentes.add(clienteId);
     }
 
+    /** Elimina al cliente de la lista de asistentes si estaba inscrito. */
     public boolean desapuntar(String clienteId) {
         return asistentes.remove(clienteId);
     }
     
     @Override
     public String toString() {
+        // Permite ver el estado completo de la sesión durante el desarrollo.
         return "Sesiones{" + "id=" + id + ", claseId=" + claseId + ", fecha=" + fecha + ", plazaMax=" + plazaMax + ", monitorId=" + monitorId + ", asistentes=" + asistentes + '}';
     }
 }

@@ -1,20 +1,24 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <!-- Identidad del proyecto para Maven y versión de desarrollo actual. -->
     <groupId>com.mycompany</groupId>
     <artifactId>MongoQuest</artifactId>
     <version>1.0-SNAPSHOT</version>
     <properties>
+        <!-- Compilación y codificación comunes a todos los fuentes Java. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
     <dependencies>
+        <!-- Controles visuales y carga de interfaces descritas en FXML. -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>13</version>
         </dependency>
+        <!-- Driver síncrono utilizado para conectar con MongoDB. -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
@@ -28,6 +32,7 @@
     </dependencies>
     <build>
         <plugins>
+            <!-- Compila el proyecto con el nivel de lenguaje definido arriba. -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -36,6 +41,7 @@
                     <release>11</release>
                 </configuration>
             </plugin>
+            <!-- Permite lanzar la aplicación JavaFX con mvn javafx:run. -->
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>

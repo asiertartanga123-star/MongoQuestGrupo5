@@ -16,23 +16,26 @@ import javafx.stage.Stage;
 
 public class LoginController {
 
+    // Elementos de la vista enlazados por sus fx:id en Login.fxml.
     @FXML private BorderPane raiz;
     @FXML private ImageView imgToroIzq;
     @FXML private ImageView imgToroDer;
     @FXML private TextField txtUsuario;
     @FXML private PasswordField txtPassword;
 
+    // El controlador consulta el DAO para validar las credenciales.
     private final daoImplementacio dao = new daoImplementacio();
 
     @FXML
     private void initialize() {
-        // Los toros ocupan ~85% del alto disponible (ventana - cabecera de 81 px)
+        // Ajusta la altura de las ilustraciones al espacio que queda bajo la cabecera.
         imgToroIzq.fitHeightProperty().bind(raiz.heightProperty().subtract(81).multiply(0.85));
         imgToroDer.fitHeightProperty().bind(raiz.heightProperty().subtract(81).multiply(0.85));
     }
 
     @FXML
     private void onIniciarSesion() {
+        // Limpia espacios accidentales antes de consultar la base de datos.
         String mail = txtUsuario.getText().trim();
         String contraseña = txtPassword.getText().trim();
 
@@ -48,6 +51,7 @@ public class LoginController {
                 return;
             }
 
+            // Cada rol abre una vista distinta; el DAO devuelve el rol encontrado.
             switch (rol) {
                 case "gerente":
                     abrirVentana("/com/mycompany/vista/Gerente.fxml", "Tolotolo - Gerente");
@@ -69,6 +73,7 @@ public class LoginController {
 
     private void abrirVentana(String fxml, String titulo) {
         try {
+            // Solo se cierra el login después de haber cargado y mostrado la nueva vista.
             Parent root = FXMLLoader.load(getClass().getResource(fxml));
             Stage nueva = new Stage();
             nueva.setTitle(titulo);
@@ -84,6 +89,7 @@ public class LoginController {
     }
 
     private void mostrarAlerta(Alert.AlertType tipo, String mensaje) {
+        // Centraliza la presentación de mensajes al usuario.
         Alert alerta = new Alert(tipo, mensaje);
         alerta.setHeaderText(null);
         alerta.showAndWait();
