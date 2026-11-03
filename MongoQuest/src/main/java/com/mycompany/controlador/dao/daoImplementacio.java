@@ -94,13 +94,15 @@ public class daoImplementacio implements dao {
         }
     }
 
+    // ---------- Operaciones de persistencia para monitores ----------
+
     @Override
     public List<Document> listarMonitores() {
         // Los monitores comparten colección con otros trabajadores y se filtran por tipo.
         try (MongoClient cliente = MongoClients.create(URI)) {
             return cliente.getDatabase(BD)
                     .getCollection("Trabajadores")
-                    .find(Filters.in("tipo", "monitor"))
+                    .find(Filters.eq("tipo", "monitor"))
                     .into(new ArrayList<Document>());
         }
     }

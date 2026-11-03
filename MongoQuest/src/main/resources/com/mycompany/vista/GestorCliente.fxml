@@ -74,7 +74,9 @@
                         <HBox spacing="24.0" VBox.vgrow="ALWAYS">
                             <children>
                                 <!-- Foto -->
-                                <StackPane maxWidth="220.0" minWidth="130.0" prefWidth="170.0" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 1;">
+                                <StackPane fx:id="panelFoto" maxWidth="220.0" minWidth="130.0" prefWidth="170.0"
+                                           onMouseClicked="#onElegirFoto"
+                                           style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 1; -fx-cursor: hand;">
                                     <children>
                                         <ImageView fx:id="imgFoto" pickOnBounds="true" preserveRatio="true" />
                                     </children>
