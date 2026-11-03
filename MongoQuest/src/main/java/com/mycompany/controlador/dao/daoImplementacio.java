@@ -13,13 +13,16 @@ import org.bson.types.ObjectId;
 
 public class daoImplementacio implements dao {
 
+    // En esta versión la instancia MongoDB es local y usa la base de datos Tolotolo.
     private static final String URI = "mongodb://localhost:27017";
     private static final String BD = "Tolotolo";
 
     @Override
     public String validarLogin(String mail, String contraseña) {
+        // Cada operación abre y cierra su cliente Mongo para liberar recursos.
         try (MongoClient cliente = MongoClients.create(URI)) {
             MongoDatabase db = cliente.getDatabase(BD);
+            // Trabajadores conserva su rol; los clientes reciben el rol fijo "cliente".
             Bson filtro = Filters.and(
                     Filters.eq("mail", mail),
                     Filters.eq("contraseña", contraseña)
@@ -30,6 +33,7 @@ public class daoImplementacio implements dao {
                 return trabajador.getString("tipo");   // "gerente" o "monitor"
             }
 
+            // Si no se encuentra entre los trabajadores, se busca en la colección Clientes.
             Document cli = db.getCollection("Clientes").find(filtro).first();
             if (cli != null) {
                 return "cliente";
@@ -39,10 +43,11 @@ public class daoImplementacio implements dao {
         }
     }
 
-    // ---------- CLIENTES ----------
+    // ---------- Operaciones de persistencia para clientes ----------
 
     @Override
     public List<Document> listarClientes() {
+        // Convierte el cursor de Mongo en una lista que puede consumir la vista.
         try (MongoClient cliente = MongoClients.create(URI)) {
             return cliente.getDatabase(BD)
                     .getCollection("Clientes")
@@ -53,6 +58,7 @@ public class daoImplementacio implements dao {
 
     @Override
     public void insertarCliente(Document c) {
+        // Inserta el documento preparado por el formulario de alta.
         try (MongoClient cliente = MongoClients.create(URI)) {
             cliente.getDatabase(BD)
                     .getCollection("Clientes")
@@ -63,6 +69,7 @@ public class daoImplementacio implements dao {
     @Override
     public void actualizarCliente(ObjectId id, String nombre, String apellido,
             String dni, String mail, String membresia) {
+        // Actualiza únicamente los campos editables, localizando el documento por _id.
         try (MongoClient cliente = MongoClients.create(URI)) {
             cliente.getDatabase(BD)
                     .getCollection("Clientes")
@@ -78,6 +85,7 @@ public class daoImplementacio implements dao {
 
     @Override
     public boolean eliminarCliente(ObjectId id) {
+        // Indica si MongoDB encontró y eliminó al menos un documento.
         try (MongoClient cliente = MongoClients.create(URI)) {
             return cliente.getDatabase(BD)
                     .getCollection("Clientes")
@@ -86,10 +94,9 @@ public class daoImplementacio implements dao {
         }
     }
 
-    
-
     @Override
     public List<Document> listarMonitores() {
+        // Los monitores comparten colección con otros trabajadores y se filtran por tipo.
         try (MongoClient cliente = MongoClients.create(URI)) {
             return cliente.getDatabase(BD)
                     .getCollection("Trabajadores")
@@ -100,6 +107,7 @@ public class daoImplementacio implements dao {
 
     @Override
     public void insertarMonitor(Document m) {
+        // Los nuevos monitores se guardan en la colección general de trabajadores.
         try (MongoClient cliente = MongoClients.create(URI)) {
             cliente.getDatabase(BD)
                     .getCollection("Trabajadores")
@@ -110,6 +118,7 @@ public class daoImplementacio implements dao {
     @Override
     public void actualizarMonitor(ObjectId id, String nombre, String apellido,
             String dni, String mail, List<Document> direccion) {
+        // La dirección se almacena como una lista de documentos BSON.
         try (MongoClient cliente = MongoClients.create(URI)) {
             cliente.getDatabase(BD)
                     .getCollection("Trabajadores")
@@ -125,6 +134,7 @@ public class daoImplementacio implements dao {
 
     @Override
     public boolean eliminarMonitor(ObjectId id) {
+        // El ObjectId identifica de forma única al trabajador que se quiere borrar.
         try (MongoClient cliente = MongoClients.create(URI)) {
             return cliente.getDatabase(BD)
                     .getCollection("Trabajadores")

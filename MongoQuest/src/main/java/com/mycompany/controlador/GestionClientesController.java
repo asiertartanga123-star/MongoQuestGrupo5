@@ -38,6 +38,7 @@ import org.bson.Document;
 
 public class GestionClientesController {
 
+    // Controles vinculados por fx:id con la ficha y la lista de clientes.
     @FXML
     private BorderPane raiz;
     @FXML
@@ -64,6 +65,7 @@ public class GestionClientesController {
     private Button btnBaja;
 
     private final daoImplementacio dao = new daoImplementacio();
+    // Formato utilizado para mostrar las fechas BSON en la ficha.
     private static final DateTimeFormatter FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     @FXML
     private Label lblTitulo;
@@ -72,7 +74,7 @@ public class GestionClientesController {
     @FXML
     private Button btnAlta;
 
-    // Cada fila de la lista: nombre y apellido + dni y membresía
+    // Define cómo se presenta cada cliente en la lista de la izquierda.
     private static class CeldaCliente extends ListCell<Document> {
 
         @Override
@@ -89,6 +91,7 @@ public class GestionClientesController {
 
     @FXML
     private void initialize() {
+        // Configura las opciones y la presentación antes de cargar los registros.
         choMembresia.getItems().addAll("normal", "premium");
 
         listClientes.setCellFactory(new Callback<ListView<Document>, ListCell<Document>>() {
@@ -98,7 +101,7 @@ public class GestionClientesController {
             }
         });
 
-        // Al elegir un cliente se rellena la ficha
+        // Al cambiar la selección, copia los datos del documento a los campos de la ficha.
         listClientes.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Document>() {
             @Override
             public void changed(ObservableValue<? extends Document> obs, Document anterior, Document elegido) {
@@ -111,6 +114,7 @@ public class GestionClientesController {
 
     private void cargarClientes() {
         try {
+            // Obtiene el contenido de MongoDB y lo muestra en el ListView.
             List<Document> clientes = dao.listarClientes();
             System.out.println("Clientes cargados: " + clientes.size());
             listClientes.getItems().setAll(clientes);
@@ -122,6 +126,7 @@ public class GestionClientesController {
 
     private void mostrarCliente(Document c) {
         if (c == null) {
+            // Sin selección se limpia la ficha y se desactivan las acciones de edición.
             lblNombreCompleto.setText("Nombre y apellidos cliente");
             txtNombre.clear();
             txtApellidos.clear();
@@ -133,6 +138,7 @@ public class GestionClientesController {
             btnBaja.setDisable(true);
             return;
         }
+        // Rellena la ficha desde el documento seleccionado.
         lblNombreCompleto.setText(c.getString("nombre") + " " + c.getString("apellido"));
         txtNombre.setText(c.getString("nombre"));
         txtApellidos.setText(c.getString("apellido"));
@@ -140,6 +146,7 @@ public class GestionClientesController {
         txtMail.setText(c.getString("mail"));
         choMembresia.setValue(c.getString("membresia"));
 
+        // MongoDB almacena fechaAlta como BSON Date; se convierte a fecha local para mostrarla.
         Date alta = c.getDate("fechaAlta");
         if (alta == null) {
             txtAlta.setText("");
@@ -153,6 +160,7 @@ public class GestionClientesController {
 
     @FXML
     private void onGuardarDatos() {
+        // No se puede editar si no hay un cliente seleccionado.
         Document c = listClientes.getSelectionModel().getSelectedItem();
         if (c == null) {
             return;
@@ -164,6 +172,7 @@ public class GestionClientesController {
         String mail = txtMail.getText().trim();
         String membresia = choMembresia.getValue();
 
+        // Valida los campos antes de enviar cambios a la base de datos.
         if (nombre.isEmpty() || apellido.isEmpty() || dni.isEmpty() || mail.isEmpty() || membresia == null) {
             alerta(Alert.AlertType.WARNING, "Rellena todos los campos.");
             return;
@@ -176,7 +185,7 @@ public class GestionClientesController {
         try {
             dao.actualizarCliente(c.getObjectId("_id"), nombre, apellido, dni, mail, membresia);
 
-            // Actualiza el cliente en memoria y refresca la lista y el título
+            // Sin volver a consultar MongoDB, actualiza el documento visible en la lista.
             c.put("nombre", nombre);
             c.put("apellido", apellido);
             c.put("dni", dni);
@@ -199,6 +208,7 @@ public class GestionClientesController {
 
     @FXML
     private void onDarDeAlta() {
+        // El formulario de alta se construye como diálogo para recoger todos los datos requeridos.
         TextField fDni = new TextField();
         TextField fNombre = new TextField();
         TextField fApellido = new TextField();
@@ -230,6 +240,7 @@ public class GestionClientesController {
         dialogo.getDialogPane().setContent(grid);
         dialogo.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
+        // Si se cancela el diálogo no se modifica la base de datos.
         ButtonType respuesta = dialogo.showAndWait().orElse(ButtonType.CANCEL);
         if (respuesta != ButtonType.OK) {
             return;
@@ -250,6 +261,7 @@ public class GestionClientesController {
             return;
         }
 
+        // Los campos opcionales de la aplicación empiezan como listas vacías.
         Document nuevo = new Document("dni", dni)
                 .append("nombre", nombre)
                 .append("apellido", apellido)
@@ -262,6 +274,7 @@ public class GestionClientesController {
 
         try {
             dao.insertarCliente(nuevo);
+            // Inserta el registro recién creado en la lista y lo selecciona para mostrar su ficha.
             listClientes.getItems().add(nuevo);
             listClientes.getSelectionModel().select(nuevo);
             listClientes.scrollTo(nuevo);
@@ -278,6 +291,7 @@ public class GestionClientesController {
 
     @FXML
     private void onDarDeBaja() {
+        // La baja requiere una selección y confirmación explícita.
         Document c = listClientes.getSelectionModel().getSelectedItem();
         if (c == null) {
             return;
@@ -292,6 +306,7 @@ public class GestionClientesController {
         if (respuesta == ButtonType.YES) {
             try {
                 dao.eliminarCliente(c.getObjectId("_id"));
+                // Refresca la lista desde MongoDB y limpia los datos que ya no están seleccionados.
                 cargarClientes();
                 mostrarCliente(null);
             } catch (MongoException e) {
@@ -303,6 +318,7 @@ public class GestionClientesController {
     @FXML
     private void onCerrarSesion() {
         try {
+            // Abre el login antes de cerrar la ventana de administración.
             Parent root = FXMLLoader.load(getClass().getResource("/com/mycompany/vista/Login.fxml"));
             Stage login = new Stage();
             login.setTitle("Tolotolo - Iniciar sesión");
@@ -325,7 +341,7 @@ public class GestionClientesController {
                 return;
             }
 
-            // Guardamos la escena y la ventana ANTES de cambiar el contenido
+            // Conserva la misma ventana y cambia únicamente la vista que contiene.
             Scene escena = raiz.getScene();
             Stage ventana = (Stage) escena.getWindow();
 
@@ -339,6 +355,7 @@ public class GestionClientesController {
     }
 
     private void alerta(Alert.AlertType tipo, String mensaje) {
+        // Un único método mantiene consistentes los avisos de esta pantalla.
         Alert a = new Alert(tipo, mensaje);
         a.setHeaderText(null);
         a.showAndWait();

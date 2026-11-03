@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
+<!-- Panel principal del gerente: las tarjetas y botones invocan GerenteController. -->
 <BorderPane fx:id="raiz" minHeight="420.0" minWidth="640.0" prefHeight="528.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.controlador.GerenteController">
 
    <!-- Cabecera negra -->
@@ -23,7 +24,7 @@
                   <Insets left="13.0" />
                </StackPane.margin>
                <image>
-                  <Image url="@../mongoquest/images/logo.png" />
+                  <Image url="@../mongoquest/imagesApp/logo.png" />
                </image>
             </ImageView>
 
@@ -61,7 +62,7 @@
                   <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Gestionar monitores" />
                   <ImageView fx:id="imgMonitores" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../mongoquest/images/toroMoni.png" />
+                        <Image url="@../mongoquest/imagesApp/toroMoni.png" />
                      </image>
                   </ImageView>
                </children>
@@ -76,7 +77,7 @@
                   <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Gestionar Clases" />
                   <ImageView fx:id="imgClases" fitHeight="1470.0" fitWidth="1122.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../mongoquest/images/toroMoni.png" />
+                        <Image url="@../mongoquest/imagesApp/toroMoni.png" />
                      </image>
                   </ImageView>
                </children>
@@ -91,7 +92,7 @@
                   <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Gestionar clientes" />
                   <ImageView fx:id="imgClientes" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../mongoquest/images/toroFuerteMancuerna.png" />
+                        <Image url="@../mongoquest/imagesApp/ToroFuerteMancuerna.png" />
                      </image>
                   </ImageView>
                </children>

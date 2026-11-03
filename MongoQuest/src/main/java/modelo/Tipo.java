@@ -4,10 +4,8 @@
  */
 package modelo;
 
-/**
- *
- * @author Ekain.Bedoya
- */
+/** Roles de trabajador que reconoce el modelo de dominio. */
 public enum Tipo {
+    /** Persona con permisos de gestión. */
     GERENTE, MONITOR
 }

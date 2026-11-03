@@ -6,22 +6,22 @@ package modelo;
 
 import java.time.LocalDate;
 
-/**
- *
- * @author Ekain.Bedoya
- */
+/** Representa el día y el intervalo horario asignado a una clase. */
 class Horas {
     
     private LocalDate dia;
+    // Se guardan como texto los horarios de inicio y fin.
     private String horaIncio;
     private String horaFin;
 
+    /** Crea un tramo horario para un día concreto. */
     public Horas(LocalDate dia, String horaIncio, String horaFin) {
         this.dia = dia;
         this.horaIncio = horaIncio;
         this.horaFin = horaFin;
     }
 
+    // Getters y setters para los tres valores del horario.
     public LocalDate getDia() {
         return dia;
     }
@@ -48,6 +48,7 @@ class Horas {
 
     @Override
     public String toString() {
+        // Representación legible del horario.
         return "Horas{" + "dia=" + dia + ", horaIncio=" + horaIncio + ", horaFin=" + horaFin + '}';
     }
 }

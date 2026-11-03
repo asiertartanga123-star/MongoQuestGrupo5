@@ -16,6 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
+<!-- Pantalla de administración de monitores, conectada a GestionMonitorController. -->
 <BorderPane fx:id="raiz" minHeight="480.0" minWidth="760.0" prefHeight="580.0" prefWidth="900.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.controlador.GestionMonitorController">
 
    <!-- Cabecera negra -->
@@ -27,7 +28,7 @@
                   <Insets left="13.0" />
                </StackPane.margin>
                <image>
-                  <Image url="@../mongoquest/images/logo.png" />
+                  <Image url="@../mongoquest/imagesApp/logo.png" />
                </image>
             </ImageView>
 
@@ -48,7 +49,7 @@
       </StackPane>
    </top>
 
-   <!-- Contenido -->
+   <!-- Panel principal con lista de monitores, alta y ficha de edición. -->
    <center>
       <HBox spacing="20.0">
          <padding>
@@ -56,7 +57,7 @@
          </padding>
          <children>
 
-            <!-- Columna izquierda: lista + dar de alta -->
+            <!-- Columna izquierda: listado de monitores y acceso al formulario de alta. -->
             <VBox maxWidth="340.0" minWidth="220.0" prefWidth="280.0" spacing="16.0">
                <children>
                   <ListView fx:id="listMonitores" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1;" VBox.vgrow="ALWAYS" />
@@ -64,7 +65,7 @@
                </children>
             </VBox>
 
-            <!-- Columna derecha: ficha del monitor -->
+            <!-- Columna derecha: ficha editable del monitor actualmente seleccionado. -->
             <VBox spacing="14.0" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 1;" HBox.hgrow="ALWAYS">
                <padding>
                   <Insets bottom="16.0" left="16.0" right="16.0" top="12.0" />

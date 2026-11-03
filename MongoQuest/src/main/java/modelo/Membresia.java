@@ -4,10 +4,8 @@
  */
 package modelo;
 
-/**
- *
- * @author Ekain.Bedoya
- */
+/** Opciones de membresía disponibles para los clientes. */
 public enum Membresia {
+    /** Membresía estándar. */
     NORMAL, PREMIUM
 }
