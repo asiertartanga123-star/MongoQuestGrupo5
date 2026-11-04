@@ -7,15 +7,23 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
 public class daoImplementacio implements dao {
 
+<<<<<<< HEAD
     // En esta versión la instancia MongoDB es local y usa la base de datos Tolotolo.
     private static final String URI = "mongodb://localhost:27017";
     private static final String BD = "Tolotolo";
+=======
+    // texto@dominio.extensión, sin espacios ni caracteres raros
+    private static final Pattern MAIL_VALIDO =
+            Pattern.compile("^[a-z0-9._%+-]+@[a-z0-9-]+(\\.[a-z0-9-]+)*\\.[a-z]{2,}$");
+
+>>>>>>> Ricardo
 
     @Override
     public String validarLogin(String mail, String contraseña) {
@@ -69,9 +77,14 @@ public class daoImplementacio implements dao {
     @Override
     public void actualizarCliente(ObjectId id, String nombre, String apellido,
             String dni, String mail, String membresia) {
+<<<<<<< HEAD
         // Actualiza únicamente los campos editables, localizando el documento por _id.
         try (MongoClient cliente = MongoClients.create(URI)) {
             cliente.getDatabase(BD)
+=======
+        try (MongoClient cliente = MongoClients.create("mongodb://localhost:27017")) {
+            cliente.getDatabase("Tolotolo")
+>>>>>>> Ricardo
                     .getCollection("Clientes")
                     .updateOne(Filters.eq("_id", id),
                             Updates.combine(
@@ -84,16 +97,23 @@ public class daoImplementacio implements dao {
     }
 
     @Override
+<<<<<<< HEAD
     public boolean eliminarCliente(ObjectId id) {
         // Indica si MongoDB encontró y eliminó al menos un documento.
         try (MongoClient cliente = MongoClients.create(URI)) {
             return cliente.getDatabase(BD)
+=======
+    public void insertarCliente(Document c) {
+        try (MongoClient cliente = MongoClients.create("mongodb://localhost:27017")) {
+            cliente.getDatabase("Tolotolo")
+>>>>>>> Ricardo
                     .getCollection("Clientes")
                     .deleteOne(Filters.eq("_id", id))
                     .getDeletedCount() > 0;
         }
     }
 
+<<<<<<< HEAD
     // ---------- Operaciones de persistencia para monitores ----------
 
     @Override
@@ -104,10 +124,19 @@ public class daoImplementacio implements dao {
                     .getCollection("Trabajadores")
                     .find(Filters.eq("tipo", "monitor"))
                     .into(new ArrayList<Document>());
+=======
+    @Override
+    public boolean existeMail(String mail) {
+        try (MongoClient cliente = MongoClients.create("mongodb://localhost:27017")) {
+            MongoDatabase db = cliente.getDatabase("Tolotolo");
+            return db.getCollection("Clientes").find(Filters.eq("mail", mail)).first() != null
+                    || db.getCollection("Trabajadores").find(Filters.eq("mail", mail)).first() != null;
+>>>>>>> Ricardo
         }
     }
 
     @Override
+<<<<<<< HEAD
     public void insertarMonitor(Document m) {
         // Los nuevos monitores se guardan en la colección general de trabajadores.
         try (MongoClient cliente = MongoClients.create(URI)) {
@@ -143,5 +172,9 @@ public class daoImplementacio implements dao {
                     .deleteOne(Filters.eq("_id", id))
                     .getDeletedCount() > 0;
         }
+=======
+    public boolean mailValido(String mail) {
+        return mail != null && MAIL_VALIDO.matcher(mail.trim().toLowerCase()).matches();
+>>>>>>> Ricardo
     }
 }
