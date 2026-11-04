@@ -16,25 +16,12 @@ import javafx.stage.Stage;
 
 public class LoginController {
 
-<<<<<<< HEAD
     // Elementos de la vista enlazados por sus fx:id en Login.fxml.
     @FXML private BorderPane raiz;
     @FXML private ImageView imgToroIzq;
     @FXML private ImageView imgToroDer;
     @FXML private TextField txtUsuario;
     @FXML private PasswordField txtPassword;
-=======
-    @FXML
-    private BorderPane raiz;
-    @FXML
-    private ImageView imgToroIzq;
-    @FXML
-    private ImageView imgToroDer;
-    @FXML
-    private TextField txtUsuario;
-    @FXML
-    private PasswordField txtPassword;
->>>>>>> Ricardo
 
     // El controlador consulta el DAO para validar las credenciales.
     private final daoImplementacio dao = new daoImplementacio();
@@ -59,13 +46,6 @@ public class LoginController {
 
         try {
             String rol = dao.validarLogin(mail, contraseña);
-<<<<<<< HEAD
-=======
-            {
-                abrirVentana("/com/mycompany/vista/Gerente.fxml", "Tolotolo - Gerente");
-
-            }
->>>>>>> Ricardo
             if (rol == null) {
                 mostrarAlerta(Alert.AlertType.ERROR, "Usuario o contraseña incorrectos.");
                 return;
@@ -107,6 +87,7 @@ public class LoginController {
             // Solo se cierra el login después de haber cargado y mostrado la nueva vista.
             Parent root = FXMLLoader.load(getClass().getResource(fxml));
             Stage nueva = new Stage();
+            App.ponerIcono(nueva);
             nueva.setTitle(titulo);
             nueva.setScene(new Scene(root));
             nueva.show();
@@ -122,6 +103,7 @@ public class LoginController {
     private void mostrarAlerta(Alert.AlertType tipo, String mensaje) {
         // Centraliza la presentación de mensajes al usuario.
         Alert alerta = new Alert(tipo, mensaje);
+        App.ponerIcono(alerta);
         alerta.setHeaderText(null);
         alerta.showAndWait();
     }
