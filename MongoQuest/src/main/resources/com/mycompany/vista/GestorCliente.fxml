@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="raiz" minHeight="480.0" minWidth="760.0" prefHeight="580.0" prefWidth="900.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.controlador.GestionClientesController">
+<BorderPane fx:id="raiz" minHeight="480.0" minWidth="760.0" prefHeight="580.0" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.controlador.GestionClientesController">
 
     <!-- Cabecera negra -->
       <!-- Cabecera negra -->
@@ -33,7 +33,7 @@
             </ImageView>
 
             <!-- Recuadro gris del título: al pulsarlo se vuelve atrás -->
-            <Label fx:id="lblTitulo" alignment="CENTER" maxWidth="230.0" minWidth="190.0" onMouseClicked="#onVolver" prefHeight="32.0" prefWidth="230.0" style="-fx-background-color: #d9d9d9; -fx-cursor: hand;" text="TOLOTOLOGYM" StackPane.alignment="CENTER" />
+            <Label fx:id="lblTitulo" alignment="CENTER" maxWidth="230.0" minWidth="190.0" onMouseClicked="#onVolver" prefHeight="32.0" prefWidth="230.0" style="-fx-background-color: #d9d9d9; -fx-cursor: hand;" styleClass="title" text="TOLOTOLOGYM" StackPane.alignment="CENTER" />
 
             <!-- Cerrar sesión -->
             <HBox alignment="CENTER_RIGHT" pickOnBounds="false" spacing="12.0" StackPane.alignment="CENTER_RIGHT">

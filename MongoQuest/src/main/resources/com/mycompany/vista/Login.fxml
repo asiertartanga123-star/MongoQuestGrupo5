@@ -11,20 +11,18 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="raiz" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.mycompany.controlador.LoginController"
-            style="-fx-background-color: white;"
-            minWidth="640.0" minHeight="420.0" prefWidth="780.0" prefHeight="520.0">
+<BorderPane fx:id="raiz" minHeight="420.0" minWidth="640.0" prefHeight="520.0" prefWidth="780.0" style="-fx-background-color: white;" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.controlador.LoginController">
 
    <!-- Cabecera negra -->
    <top>
-      <StackPane prefHeight="81.0" minHeight="81.0" maxHeight="81.0" style="-fx-background-color: black;">
+      <StackPane maxHeight="81.0" minHeight="81.0" prefHeight="81.0" style="-fx-background-color: black;">
          <children>
-            <ImageView fitHeight="66.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true"
-                       StackPane.alignment="CENTER_LEFT">
+            <ImageView fitHeight="66.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <StackPane.margin>
                   <Insets left="13.0" />
                </StackPane.margin>
@@ -34,8 +32,10 @@
             </ImageView>
 
             <!-- Recuadro gris del título -->
-            <Label fx:id="lblTitulo" minWidth="190.0" prefHeight="32.0" prefWidth="230.0" maxWidth="230.0"
-                   style="-fx-background-color: #d9d9d9;" StackPane.alignment="CENTER" />
+            <Label fx:id="lblTitulo" contentDisplay="CENTER" maxWidth="230.0" minWidth="190.0" prefHeight="32.0" prefWidth="230.0" style="-fx-alignment: center;" styleClass="titulo" text="Tolotolo gym" textAlignment="CENTER" textFill="WHITE" StackPane.alignment="CENTER">
+               <font>
+                  <Font size="27.0" />
+               </font></Label>
          </children>
       </StackPane>
    </top>
@@ -44,7 +44,7 @@
    <left>
       <StackPane BorderPane.alignment="CENTER">
          <padding>
-            <Insets top="15.0" right="10.0" bottom="15.0" left="40.0" />
+            <Insets bottom="15.0" left="40.0" right="10.0" top="15.0" />
          </padding>
          <children>
             <ImageView fx:id="imgToroIzq" pickOnBounds="true" preserveRatio="true">
@@ -60,7 +60,7 @@
    <right>
       <StackPane BorderPane.alignment="CENTER">
          <padding>
-            <Insets top="15.0" right="40.0" bottom="15.0" left="10.0" />
+            <Insets bottom="15.0" left="10.0" right="40.0" top="15.0" />
          </padding>
          <children>
             <ImageView fx:id="imgToroDer" pickOnBounds="true" preserveRatio="true" scaleX="-1.0">
@@ -77,10 +77,9 @@
    <center>
       <VBox alignment="CENTER" spacing="14.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox alignment="CENTER" spacing="26.0" minWidth="300.0" prefWidth="380.0" maxWidth="460.0"
-                  style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1;">
+            <VBox alignment="CENTER" maxWidth="460.0" minWidth="300.0" prefWidth="380.0" spacing="26.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1;">
                <padding>
-                  <Insets top="34.0" right="28.0" bottom="34.0" left="28.0" />
+                  <Insets bottom="34.0" left="28.0" right="28.0" top="34.0" />
                </padding>
                <children>
                   <GridPane hgap="14.0" vgap="20.0">
@@ -89,28 +88,26 @@
                         <ColumnConstraints hgrow="ALWAYS" />
                      </columnConstraints>
                      <children>
-                        <Label text="Mail:" minWidth="-Infinity" style="-fx-font-size: 18px;"
-                               GridPane.rowIndex="0" GridPane.columnIndex="0" />
-                        <TextField fx:id="txtUsuario" maxWidth="Infinity" prefHeight="36.0"
-                                   style="-fx-background-color: #d9d9d9; -fx-background-radius: 18; -fx-border-color: black; -fx-border-radius: 18; -fx-padding: 0 12 0 12; -fx-font-size: 16px;"
-                                   GridPane.rowIndex="0" GridPane.columnIndex="1" />
+                        <Label minWidth="-Infinity" style="-fx-font-size: 18px;" text="Mail:" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                           <font>
+                              <Font name="Dubai Regular" size="12.0" />
+                           </font></Label>
+                        <TextField fx:id="txtUsuario" maxWidth="Infinity" prefHeight="36.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 18; -fx-border-color: black; -fx-border-radius: 18; -fx-padding: 0 12 0 12; -fx-font-size: 16px;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-                        <Label text="Contraseña:" minWidth="-Infinity" style="-fx-font-size: 18px;"
-                               GridPane.rowIndex="1" GridPane.columnIndex="0" />
-                        <PasswordField fx:id="txtPassword" maxWidth="Infinity" prefHeight="36.0"
-                                       style="-fx-background-color: #d9d9d9; -fx-background-radius: 18; -fx-border-color: black; -fx-border-radius: 18; -fx-padding: 0 12 0 12; -fx-font-size: 16px;"
-                                       GridPane.rowIndex="1" GridPane.columnIndex="1" />
+                        <Label minWidth="-Infinity" style="-fx-font-size: 18px;" text="Contraseña:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <PasswordField fx:id="txtPassword" maxWidth="Infinity" prefHeight="36.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 18; -fx-border-color: black; -fx-border-radius: 18; -fx-padding: 0 12 0 12; -fx-font-size: 16px;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
+                     <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints />
+                     </rowConstraints>
                   </GridPane>
 
-                  <Button fx:id="btnLogin" mnemonicParsing="false" onAction="#onIniciarSesion"
-                          maxWidth="Infinity" prefHeight="40.0" text="Iniciar sesión"
-                          style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-color: black; -fx-border-radius: 20; -fx-font-size: 18px; -fx-padding: 0;" />
+                  <Button fx:id="btnLogin" maxWidth="Infinity" mnemonicParsing="false" onAction="#onIniciarSesion" prefHeight="40.0" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-color: black; -fx-border-radius: 20; -fx-font-size: 18px; -fx-padding: 0;" text="Iniciar sesión" />
                </children>
             </VBox>
 
-            <Hyperlink fx:id="linkRegistro" text="Registrarse"
-                       style="-fx-text-fill: #0000ee; -fx-font-size: 18px; -fx-border-color: transparent; -fx-underline: false;" />
+            <Hyperlink fx:id="linkRegistro" style="-fx-text-fill: #0000ee; -fx-font-size: 18px; -fx-border-color: transparent; -fx-underline: false;" text="Registrarse" />
          </children>
       </VBox>
    </center>
