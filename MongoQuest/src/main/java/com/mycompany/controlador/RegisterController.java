@@ -1,6 +1,10 @@
 package com.mycompany.controlador;
 
+import com.mongodb.MongoException;
+import com.mycompany.controlador.dao.daoImplementacio;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,6 +14,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import org.bson.Document;
 
 public class RegisterController {
 
@@ -18,10 +23,13 @@ public class RegisterController {
     @FXML private ImageView imgToroDer;
     @FXML private TextField txtNombre;
     @FXML private TextField txtApellidos;
+    @FXML private TextField txtDni;
     @FXML private TextField txtMail;
     @FXML private PasswordField txtPassword;
     @FXML private PasswordField txtPassword2;
     @FXML private ComboBox<String> cmbNivel;
+
+    private final daoImplementacio dao = new daoImplementacio();
 
     @FXML
     private void initialize() {
@@ -37,12 +45,22 @@ public class RegisterController {
     private void onPagar() {
         String nombre = txtNombre.getText().trim();
         String apellidos = txtApellidos.getText().trim();
-        String mail = txtMail.getText().trim();
+        String dni = txtDni.getText().trim().toUpperCase();
+        String mail = txtMail.getText().trim().toLowerCase();
         String pass1 = txtPassword.getText();
         String pass2 = txtPassword2.getText();
 
-        if (nombre.isEmpty() || apellidos.isEmpty() || mail.isEmpty() || pass1.isEmpty() || pass2.isEmpty()) {
+        if (nombre.isEmpty() || apellidos.isEmpty() || dni.isEmpty() || mail.isEmpty() || pass1.isEmpty() || pass2.isEmpty()) {
             mostrarAlerta(Alert.AlertType.WARNING, "Rellena todos los campos.");
+            return;
+        }
+        if (!dni.matches("\\d{8}[A-Z]")) {
+            mostrarAlerta(Alert.AlertType.WARNING, "El DNI debe tener 8 números y una letra (ej. 12345678A).");
+            return;
+        }
+        if (!dao.mailValido(mail)) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Escribe un mail válido (ej. nombre@gmail.com).");
+            txtMail.requestFocus();
             return;
         }
         if (!pass1.equals(pass2)) {
@@ -50,9 +68,31 @@ public class RegisterController {
             return;
         }
 
-        // TODO: procesar el pago e insertar el cliente con dao.insertarCliente(...)
-        // (nivel elegido: cmbNivel.getValue())
-        mostrarAlerta(Alert.AlertType.INFORMATION, "Validación correcta (pendiente de guardar en MongoDB).");
+        try {
+            if (dao.existeMail(mail)) {
+                mostrarAlerta(Alert.AlertType.WARNING, "Ya existe un usuario con ese mail.");
+                return;
+            }
+
+            // TODO: procesar el pago antes de insertar
+            Document cliente = new Document()
+                    .append("dni", dni)
+                    .append("nombre", nombre)
+                    .append("apellido", apellidos)
+                    .append("fechaAlta", new Date())
+                    .append("mail", mail)
+                    .append("contraseña", pass1)
+                    .append("membresia", cmbNivel.getValue().toLowerCase())
+                    .append("logros", new ArrayList<Document>())
+                    .append("clases", new ArrayList<Document>());
+
+            dao.insertarCliente(cliente);
+            mostrarAlerta(Alert.AlertType.INFORMATION, "Registro completado. Ya puedes iniciar sesión.");
+            onVolverLogin();
+        } catch (MongoException e) {
+            mostrarAlerta(Alert.AlertType.ERROR,
+                    "No se puede conectar con MongoDB. Comprueba que esté iniciado.");
+        }
     }
 
     @FXML

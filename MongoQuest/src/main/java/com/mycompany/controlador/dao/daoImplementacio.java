@@ -7,11 +7,17 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
 public class daoImplementacio implements dao {
+
+    // texto@dominio.extensión, sin espacios ni caracteres raros
+    private static final Pattern MAIL_VALIDO =
+            Pattern.compile("^[a-z0-9._%+-]+@[a-z0-9-]+(\\.[a-z0-9-]+)*\\.[a-z]{2,}$");
+
 
     @Override
     public String validarLogin(String mail, String contraseña) {
@@ -62,7 +68,7 @@ public class daoImplementacio implements dao {
     public void actualizarCliente(ObjectId id, String nombre, String apellido,
             String dni, String mail, String membresia) {
         try (MongoClient cliente = MongoClients.create("mongodb://localhost:27017")) {
-            cliente.getDatabase("tolotolo")
+            cliente.getDatabase("Tolotolo")
                     .getCollection("Clientes")
                     .updateOne(Filters.eq("_id", id),
                             Updates.combine(
@@ -77,9 +83,23 @@ public class daoImplementacio implements dao {
     @Override
     public void insertarCliente(Document c) {
         try (MongoClient cliente = MongoClients.create("mongodb://localhost:27017")) {
-            cliente.getDatabase("tolotolo")
+            cliente.getDatabase("Tolotolo")
                     .getCollection("Clientes")
                     .insertOne(c);
         }
+    }
+
+    @Override
+    public boolean existeMail(String mail) {
+        try (MongoClient cliente = MongoClients.create("mongodb://localhost:27017")) {
+            MongoDatabase db = cliente.getDatabase("Tolotolo");
+            return db.getCollection("Clientes").find(Filters.eq("mail", mail)).first() != null
+                    || db.getCollection("Trabajadores").find(Filters.eq("mail", mail)).first() != null;
+        }
+    }
+
+    @Override
+    public boolean mailValido(String mail) {
+        return mail != null && MAIL_VALIDO.matcher(mail.trim().toLowerCase()).matches();
     }
 }
