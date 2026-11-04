@@ -12,7 +12,7 @@
 
 <!-- Panel principal del gerente: las tarjetas y botones invocan GerenteController. -->
 
-<BorderPane fx:id="raiz" minHeight="420.0" minWidth="640.0" prefHeight="528.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.controlador.GerenteController">
+<BorderPane fx:id="raiz" minHeight="420.0" minWidth="640.0" prefHeight="528.0" prefWidth="780.0" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.controlador.GerenteController">
 
    <!-- Cabecera negra -->
    <top>
@@ -29,7 +29,7 @@
             </ImageView>
 
             <!-- Recuadro gris del título -->
-            <Label fx:id="lblTitulo" maxWidth="230.0" minWidth="190.0" prefHeight="32.0" prefWidth="230.0" style="-fx-background-color: #d9d9d9;" text="TOLOTOLOGYM" StackPane.alignment="CENTER" />
+            <Label fx:id="lblTitulo" maxWidth="230.0" minWidth="190.0" prefHeight="32.0" prefWidth="230.0" style="-fx-background-color: #d9d9d9;" styleClass="titulo" text="TOLOTOLOGYM" textFill="WHITE" StackPane.alignment="CENTER" />
 
             <!-- Círculo de usuario + cerrar sesión -->
             <HBox alignment="CENTER_RIGHT" spacing="12.0" StackPane.alignment="CENTER_RIGHT">

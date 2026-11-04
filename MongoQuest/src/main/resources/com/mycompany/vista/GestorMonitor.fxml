@@ -16,12 +16,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<<<<<<< HEAD
-<BorderPane fx:id="raiz" minHeight="480.0" minWidth="760.0" prefHeight="580.0" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.controlador.GestionMonitorController">
-=======
 <!-- Pantalla de administración de monitores, conectada a GestionMonitorController. -->
-<BorderPane fx:id="raiz" minHeight="480.0" minWidth="760.0" prefHeight="580.0" prefWidth="900.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.controlador.GestionMonitorController">
->>>>>>> Asier
+<BorderPane fx:id="raiz" minHeight="480.0" minWidth="760.0" prefHeight="580.0" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.controlador.GestionMonitorController">
 
     <!-- Cabecera negra -->
     <top>
@@ -36,13 +32,8 @@
                     </image>
                 </ImageView>
 
-<<<<<<< HEAD
-            <!-- Recuadro gris del título: al pulsarlo se vuelve atrás -->
-            <Label fx:id="lblTitulo" alignment="CENTER" maxWidth="230.0" minWidth="190.0" onMouseClicked="#onVolver" prefHeight="32.0" prefWidth="230.0" style="-fx-background-color: #d9d9d9; -fx-cursor: hand;" styleClass="title" text="TOLOTOLOGYM" StackPane.alignment="CENTER" />
-=======
                 <!-- Recuadro gris del título: al pulsarlo se vuelve atrás -->
-                <Label fx:id="lblTitulo" alignment="CENTER" maxWidth="230.0" minWidth="190.0" onMouseClicked="#onVolver" prefHeight="32.0" prefWidth="230.0" style="-fx-background-color: #d9d9d9; -fx-cursor: hand;" text="TOLOTOLOGYM" StackPane.alignment="CENTER" />
->>>>>>> Asier
+                <Label fx:id="lblTitulo" alignment="CENTER" maxWidth="230.0" minWidth="190.0" onMouseClicked="#onVolver" prefHeight="32.0" prefWidth="230.0" style="-fx-background-color: #d9d9d9; -fx-cursor: hand;" styleClass="title" text="TOLOTOLOGYM" StackPane.alignment="CENTER" />
 
                 <!-- Círculo de usuario + cerrar sesión -->
                 <HBox alignment="CENTER_RIGHT" pickOnBounds="false" spacing="12.0" StackPane.alignment="CENTER_RIGHT">
@@ -85,9 +76,7 @@
                         <HBox spacing="24.0" VBox.vgrow="ALWAYS">
                             <children>
                                 <!-- Foto: al pulsarla se elige una imagen -->
-                                <StackPane fx:id="panelFoto" maxWidth="220.0" minWidth="130.0" prefWidth="170.0"
-                                           onMouseClicked="#onElegirFoto"
-                                           style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 1; -fx-cursor: hand;">
+                                <StackPane fx:id="panelFoto" maxWidth="220.0" minWidth="130.0" onMouseClicked="#onElegirFoto" prefWidth="170.0" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 1; -fx-cursor: hand;">
                                     <children>
                                         <ImageView fx:id="imgFoto" pickOnBounds="true" preserveRatio="true" />
                                     </children>

@@ -10,13 +10,10 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 
-<<<<<<< HEAD
-=======
 import java.io.IOException;
 import java.io.InputStream;
 import javafx.scene.control.Dialog;
 
->>>>>>> Asier
 /**
  * Punto de entrada JavaFX y responsable de mostrar la primera pantalla.
  */
