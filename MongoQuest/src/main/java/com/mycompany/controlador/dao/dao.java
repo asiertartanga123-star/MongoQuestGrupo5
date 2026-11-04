@@ -10,6 +10,7 @@ public interface dao {
 
     List<Document> listarClientes();
     void insertarCliente(Document cliente);
+<<<<<<< HEAD
     void actualizarCliente(ObjectId id, String nombre, String apellido,
             String dni, String mail, String membresia);
     boolean eliminarCliente(ObjectId id);
@@ -19,4 +20,8 @@ public interface dao {
     void actualizarMonitor(ObjectId id, String nombre, String apellido,
             String dni, String mail, List<Document> direccion);
     boolean eliminarMonitor(ObjectId id);
+=======
+    boolean existeMail(String mail);
+    boolean mailValido(String mail);
+>>>>>>> Ricardo
 }

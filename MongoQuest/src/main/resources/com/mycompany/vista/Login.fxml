@@ -16,8 +16,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<<<<<<< HEAD
 <!-- Vista de acceso: sus fx:id y onAction se enlazan con LoginController. -->
 <BorderPane fx:id="raiz" minHeight="420.0" minWidth="640.0" prefHeight="520.0" prefWidth="780.0" style="-fx-background-color: white;" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.controlador.LoginController">
+=======
+<BorderPane fx:id="raiz" minHeight="420.0" minWidth="640.0" prefHeight="520.0" prefWidth="780.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.controlador.LoginController">
+>>>>>>> Ricardo
 
    <!-- Cabecera negra -->
    <top>
@@ -32,12 +36,17 @@
                </image>
             </ImageView>
 
+<<<<<<< HEAD
             <!-- Título -->
             <Label fx:id="lblTitulo" contentDisplay="CENTER" maxWidth="230.0" minWidth="190.0" prefHeight="32.0" prefWidth="230.0" style="-fx-alignment: center;" styleClass="titulo" text="Tolotolo gym" textAlignment="CENTER" textFill="WHITE" StackPane.alignment="CENTER">
                <font>
                   <Font size="27.0" />
                </font>
             </Label>
+=======
+            <!-- Recuadro gris del título -->
+            <Label fx:id="lblTitulo" alignment="CENTER" maxWidth="230.0" minWidth="190.0" prefHeight="32.0" prefWidth="230.0" style="-fx-background-color: #d9d9d9;" text="TOLOTOLOGYM" StackPane.alignment="CENTER" />
+>>>>>>> Ricardo
          </children>
       </StackPane>
    </top>
@@ -89,11 +98,15 @@
                         <ColumnConstraints hgrow="ALWAYS" />
                      </columnConstraints>
                      <children>
+<<<<<<< HEAD
                         <Label minWidth="-Infinity" style="-fx-font-size: 18px;" text="Mail:" GridPane.columnIndex="0" GridPane.rowIndex="0">
                            <font>
                               <Font name="Dubai Regular" size="12.0" />
                            </font>
                         </Label>
+=======
+                        <Label minWidth="-Infinity" style="-fx-font-size: 18px;" text="Mail:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+>>>>>>> Ricardo
                         <TextField fx:id="txtUsuario" maxWidth="Infinity" prefHeight="36.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 18; -fx-border-color: black; -fx-border-radius: 18; -fx-padding: 0 12 0 12; -fx-font-size: 16px;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
                         <Label minWidth="-Infinity" style="-fx-font-size: 18px;" text="Contraseña:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
@@ -105,11 +118,19 @@
                      </rowConstraints>
                   </GridPane>
 
+<<<<<<< HEAD
                   <Button fx:id="btnLogin" defaultButton="true" maxWidth="Infinity" mnemonicParsing="false" onAction="#onIniciarSesion" prefHeight="40.0" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-color: black; -fx-border-radius: 20; -fx-font-size: 18px; -fx-padding: 0;" text="Iniciar sesión" />
                </children>
             </VBox>
 
             <Hyperlink fx:id="linkRegistro" style="-fx-text-fill: #0000ee; -fx-font-size: 18px; -fx-border-color: transparent; -fx-underline: false;" text="Registrarse" />
+=======
+                  <Button fx:id="btnLogin" maxWidth="Infinity" mnemonicParsing="false" onAction="#onIniciarSesion" prefHeight="40.0" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-color: black; -fx-border-radius: 20; -fx-font-size: 18px; -fx-padding: 0;" text="Iniciar sesión" />
+               </children>
+            </VBox>
+
+            <Hyperlink fx:id="linkRegistro" onAction="#onRegistrarse" style="-fx-text-fill: #0000ee; -fx-font-size: 18px; -fx-border-color: transparent; -fx-underline: false;" text="Registrarse" />
+>>>>>>> Ricardo
          </children>
       </VBox>
    </center>
