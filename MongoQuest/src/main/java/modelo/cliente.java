@@ -9,11 +9,11 @@ import java.util.ArrayList;
  */
 
 /**
- *
- * @author Ekain.Bedoya
+ * Representa a un cliente y la información necesaria para su cuenta y membresía.
  */
 public class cliente {
     
+    // Datos de identificación y acceso del cliente.
     private String id;
     private String dni;
     private String nombre;
@@ -21,9 +21,12 @@ public class cliente {
     private LocalDate fechaAlta;
     private String mail;
     private String contraseña;
+
+    // Relación del cliente con su membresía y las clases a las que pertenece.
     private Membresia membresia;
     private ArrayList<Clases> clases = new ArrayList<>();
 
+    /** Crea un cliente con sus datos principales; la lista de clases empieza vacía. */
     public cliente(String id, String dni, String nombre, String apellido, LocalDate fechaAlta, String mail, String contraseña, Membresia membresia) {
         this.id = id;
         this.dni = dni;
@@ -35,6 +38,7 @@ public class cliente {
         this.membresia = membresia;
     }
 
+    // Los getters y setters permiten consultar y actualizar cada dato del cliente.
     public String getId() {
         return id;
     }
@@ -109,6 +113,7 @@ public class cliente {
 
     @Override
     public String toString() {
+        // Devuelve una representación legible para depuración y registros.
         return "cliente{" + "id=" + id + ", dni=" + dni + ", nombre=" + nombre + ", apellido=" + apellido + ", fechaAlta=" + fechaAlta + ", mail=" + mail + ", contrase\u00f1a=" + contraseña + ", membresia=" + membresia + ", clases=" + clases + '}';
     }
     
