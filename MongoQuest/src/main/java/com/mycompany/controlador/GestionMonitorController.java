@@ -4,6 +4,7 @@ import com.mongodb.ErrorCategory;
 import com.mongodb.MongoException;
 import com.mongodb.MongoWriteException;
 import com.mycompany.controlador.dao.daoImplementacio;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.ZoneId;
@@ -30,30 +31,49 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.bson.Document;
 
 public class GestionMonitorController {
 
-    @FXML private BorderPane raiz;
-    @FXML private ListView<Document> listMonitores;
-    @FXML private Label lblNombreCompleto;
-    @FXML private ImageView imgFoto;
-    @FXML private TextField txtNombre;
-    @FXML private TextField txtApellidos;
-    @FXML private TextField txtDni;
-    @FXML private TextField txtMail;
-    @FXML private TextField txtAlta;
-    @FXML private TextField txtDireccion;
-    @FXML private Button btnGuardar;
-    @FXML private Button btnBaja;
+    // Controles enlazados con la lista de monitores y su ficha de datos.
+    @FXML
+    private BorderPane raiz;
+    @FXML
+    private ListView<Document> listMonitores;
+    @FXML
+    private Label lblNombreCompleto;
+    @FXML
+    private ImageView imgFoto;
+    @FXML
+    private StackPane panelFoto;
+    @FXML
+    private TextField txtNombre;
+    @FXML
+    private TextField txtApellidos;
+    @FXML
+    private TextField txtDni;
+    @FXML
+    private TextField txtMail;
+    @FXML
+    private TextField txtAlta;
+    @FXML
+    private TextField txtDireccion;
+    @FXML
+    private Button btnGuardar;
+    @FXML
+    private Button btnBaja;
 
     private final daoImplementacio dao = new daoImplementacio();
+    // Formato de presentación de la fecha de alta.
     private static final DateTimeFormatter FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    // Cada fila de la lista: nombre y apellido + dni y mail
+    // Define cómo se presenta cada monitor en la lista de la izquierda.
     private static class CeldaMonitor extends ListCell<Document> {
+
         @Override
         protected void updateItem(Document m, boolean vacio) {
             super.updateItem(m, vacio);
@@ -68,6 +88,7 @@ public class GestionMonitorController {
 
     @FXML
     private void initialize() {
+        // Configura las celdas y reacciona al cambio de monitor seleccionado.
         listMonitores.setCellFactory(new Callback<ListView<Document>, ListCell<Document>>() {
             @Override
             public ListCell<Document> call(ListView<Document> lista) {
@@ -75,7 +96,7 @@ public class GestionMonitorController {
             }
         });
 
-        // Al elegir un monitor se rellena la ficha
+        // Copia a la ficha los campos del documento seleccionado.
         listMonitores.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Document>() {
             @Override
             public void changed(ObservableValue<? extends Document> obs, Document anterior, Document elegido) {
@@ -83,11 +104,16 @@ public class GestionMonitorController {
             }
         });
 
+        // La foto se ajusta al tamaño del recuadro.
+        imgFoto.fitWidthProperty().bind(panelFoto.widthProperty().subtract(4));
+        imgFoto.fitHeightProperty().bind(panelFoto.heightProperty().subtract(4));
+
         cargarMonitores();
     }
 
     private void cargarMonitores() {
         try {
+            // Pide al DAO los trabajadores cuyo tipo es monitor y actualiza la lista.
             List<Document> monitores = dao.listarMonitores();
             System.out.println("Monitores cargados: " + monitores.size());
             listMonitores.getItems().setAll(monitores);
@@ -97,7 +123,7 @@ public class GestionMonitorController {
         }
     }
 
-    // Convierte direccion[0] en el texto "Calle, CP, Ciudad"
+    // Convierte el primer elemento del arreglo BSON de direcciones a texto para la ficha.
     private String direccionATexto(Document m) {
         List<Document> dirs = m.getList("direccion", Document.class);
         if (dirs == null || dirs.isEmpty()) {
@@ -107,7 +133,7 @@ public class GestionMonitorController {
         return d.getString("calle") + ", " + d.getString("cp") + ", " + d.getString("ciudad");
     }
 
-    // Convierte "Calle, CP, Ciudad" en la lista de direcciones. Devuelve null si el formato es incorrecto
+    // Convierte el texto de la ficha al formato BSON; null señala un formato inválido.
     private List<Document> textoADireccion(String texto) {
         String[] partes = texto.split(",");
         if (partes.length != 3) {
@@ -126,6 +152,7 @@ public class GestionMonitorController {
 
     private void mostrarMonitor(Document m) {
         if (m == null) {
+            // Sin selección se limpia la ficha y se desactivan las acciones de edición.
             lblNombreCompleto.setText("Nombre y apellidos monitor");
             txtNombre.clear();
             txtApellidos.clear();
@@ -133,10 +160,12 @@ public class GestionMonitorController {
             txtMail.clear();
             txtAlta.clear();
             txtDireccion.clear();
+            mostrarFoto(null);
             btnGuardar.setDisable(true);
             btnBaja.setDisable(true);
             return;
         }
+        // Completa la ficha con los datos del documento de MongoDB.
         lblNombreCompleto.setText(m.getString("nombre") + " " + m.getString("apellido"));
         txtNombre.setText(m.getString("nombre"));
         txtApellidos.setText(m.getString("apellido"));
@@ -144,6 +173,7 @@ public class GestionMonitorController {
         txtMail.setText(m.getString("mail"));
         txtDireccion.setText(direccionATexto(m));
 
+        // Convierte la fecha almacenada por MongoDB a texto en la zona horaria local.
         Date alta = m.getDate("fechaAlta");
         if (alta == null) {
             txtAlta.setText("");
@@ -151,12 +181,23 @@ public class GestionMonitorController {
             txtAlta.setText(alta.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().format(FECHA));
         }
 
+        mostrarFoto(m);
         btnGuardar.setDisable(false);
         btnBaja.setDisable(false);
     }
 
+    private void mostrarFoto(Document m) {
+        if (m == null) {
+            imgFoto.setImage(null);
+            return;
+        }
+        // La foto se busca en la carpeta de imágenes por el DNI del monitor.
+        imgFoto.setImage(GestorImagenes.cargar(m.getString("dni")));
+    }
+
     @FXML
     private void onGuardarDatos() {
+        // La edición solo es posible cuando se ha seleccionado un monitor.
         Document m = listMonitores.getSelectionModel().getSelectedItem();
         if (m == null) {
             return;
@@ -167,6 +208,7 @@ public class GestionMonitorController {
         String dni = txtDni.getText().trim();
         String mail = txtMail.getText().trim();
 
+        // Comprueba datos obligatorios y el formato antes de guardar en MongoDB.
         if (nombre.isEmpty() || apellido.isEmpty() || dni.isEmpty() || mail.isEmpty()) {
             alerta(Alert.AlertType.WARNING, "Rellena todos los campos.");
             return;
@@ -182,9 +224,13 @@ public class GestionMonitorController {
         }
 
         try {
-            dao.actualizarMonitor(m.getObjectId("_id"), nombre, apellido, dni, mail, direccion);
+            // El DNI antiguo se guarda antes de modificar el documento en memoria.
+            String dniOriginal = m.getString("dni");
 
-            // Actualiza el monitor en memoria y refresca la lista y el título
+            dao.actualizarMonitor(m.getObjectId("_id"), nombre, apellido, dni, mail, direccion);
+            GestorImagenes.renombrar(dniOriginal, dni);   // la foto sigue al nuevo DNI
+
+            // Actualiza también el documento de la lista para reflejar los cambios al instante.
             m.put("nombre", nombre);
             m.put("apellido", apellido);
             m.put("dni", dni);
@@ -202,11 +248,15 @@ public class GestionMonitorController {
             }
         } catch (MongoException e) {
             alerta(Alert.AlertType.ERROR, "No se puede conectar con MongoDB.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            alerta(Alert.AlertType.ERROR, "Datos guardados, pero no se pudo renombrar la foto.");
         }
     }
 
     @FXML
     private void onDarDeAlta() {
+        // Se crea un diálogo para introducir los datos personales y la dirección del monitor.
         TextField fDni = new TextField();
         TextField fNombre = new TextField();
         TextField fApellido = new TextField();
@@ -242,6 +292,7 @@ public class GestionMonitorController {
         dialogo.getDialogPane().setContent(grid);
         dialogo.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
+        // Cancelar el diálogo evita cualquier escritura en la base de datos.
         ButtonType respuesta = dialogo.showAndWait().orElse(ButtonType.CANCEL);
         if (respuesta != ButtonType.OK) {
             return;
@@ -266,6 +317,7 @@ public class GestionMonitorController {
             return;
         }
 
+        // MongoDB almacena la dirección dentro de un arreglo de documentos.
         List<Document> direccion = new ArrayList<Document>();
         direccion.add(new Document("calle", calle).append("cp", cp).append("ciudad", ciudad));
 
@@ -281,6 +333,7 @@ public class GestionMonitorController {
 
         try {
             dao.insertarMonitor(nuevo);
+            // Selecciona el nuevo monitor para que sus datos aparezcan en la ficha.
             listMonitores.getItems().add(nuevo);
             listMonitores.getSelectionModel().select(nuevo);
             listMonitores.scrollTo(nuevo);
@@ -297,6 +350,7 @@ public class GestionMonitorController {
 
     @FXML
     private void onDarDeBaja() {
+        // La eliminación exige que haya un monitor seleccionado y confirmación del usuario.
         Document m = listMonitores.getSelectionModel().getSelectedItem();
         if (m == null) {
             return;
@@ -310,12 +364,43 @@ public class GestionMonitorController {
         ButtonType respuesta = confirmar.showAndWait().orElse(ButtonType.NO);
         if (respuesta == ButtonType.YES) {
             try {
+                // Primero se borra de MongoDB (por _id) y después su foto (por DNI).
                 dao.eliminarMonitor(m.getObjectId("_id"));
+                GestorImagenes.borrar(m.getString("dni"));
+                // Recarga la lista desde MongoDB y limpia la ficha que mostraba al monitor eliminado.
                 cargarMonitores();
                 mostrarMonitor(null);
             } catch (MongoException e) {
                 alerta(Alert.AlertType.ERROR, "No se pudo dar de baja al monitor.");
+            } catch (IOException e) {
+                alerta(Alert.AlertType.ERROR, "Monitor dado de baja, pero no se pudo borrar su foto.");
             }
+        }
+    }
+
+    @FXML
+    private void onElegirFoto() {
+        Document m = listMonitores.getSelectionModel().getSelectedItem();
+        if (m == null) {
+            alerta(Alert.AlertType.WARNING, "Elige primero un monitor de la lista.");
+            return;
+        }
+
+        FileChooser selector = new FileChooser();
+        selector.setTitle("Elegir foto");
+        selector.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg", "*.jpeg"));
+        File archivo = selector.showOpenDialog(raiz.getScene().getWindow());
+        if (archivo == null) {
+            return;   // canceló
+        }
+
+        try {
+            GestorImagenes.guardar(m.getString("dni"), archivo);
+            mostrarFoto(m);
+        } catch (IOException e) {
+            e.printStackTrace();
+            alerta(Alert.AlertType.ERROR, "No se pudo guardar la imagen.");
         }
     }
 
@@ -328,7 +413,7 @@ public class GestionMonitorController {
                 return;
             }
 
-            // Guardamos la escena y la ventana ANTES de cambiar el contenido
+            // Mantiene la ventana abierta y sustituye solo el contenido por el panel del gerente.
             Scene escena = raiz.getScene();
             Stage ventana = (Stage) escena.getWindow();
 
@@ -344,6 +429,7 @@ public class GestionMonitorController {
     @FXML
     private void onCerrarSesion() {
         try {
+            // Abre el formulario de acceso y después cierra la ventana actual.
             Parent root = FXMLLoader.load(getClass().getResource("/com/mycompany/vista/Login.fxml"));
             Stage login = new Stage();
             login.setTitle("Tolotolo - Iniciar sesión");
@@ -358,6 +444,7 @@ public class GestionMonitorController {
     }
 
     private void alerta(Alert.AlertType tipo, String mensaje) {
+        // Centraliza los avisos de error, validación y confirmación de esta pantalla.
         Alert a = new Alert(tipo, mensaje);
         a.setHeaderText(null);
         a.showAndWait();

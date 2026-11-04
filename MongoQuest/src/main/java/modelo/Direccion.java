@@ -4,22 +4,22 @@
  */
 package modelo;
 
-/**
- *
- * @author Ekain.Bedoya
- */
+/** Agrupa los datos postales de una persona o instalación. */
 public class Direccion {
     
     private String calle;
+    // Código postal numérico y municipio de la dirección.
     private int CP;
     private String ciudad;
 
+    /** Construye una dirección con calle, código postal y ciudad. */
     public Direccion(String calle, int CP, String ciudad) {
         this.calle = calle;
         this.CP = CP;
         this.ciudad = ciudad;
     }
 
+    // Getters y setters para consultar o actualizar los componentes postales.
     public String getCalle() {
         return calle;
     }
@@ -46,6 +46,7 @@ public class Direccion {
 
     @Override
     public String toString() {
+        // Presenta la dirección en formato legible.
         return "Direccion{" + "calle=" + calle + ", CP=" + CP + ", ciudad=" + ciudad + '}';
     }
 }

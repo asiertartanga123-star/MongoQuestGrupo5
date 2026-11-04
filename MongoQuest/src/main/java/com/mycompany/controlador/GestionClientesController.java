@@ -4,6 +4,7 @@ import com.mongodb.ErrorCategory;
 import com.mongodb.MongoException;
 import com.mongodb.MongoWriteException;
 import com.mycompany.controlador.dao.daoImplementacio;
+import java.io.File;
 import java.io.IOException;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -15,7 +16,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -29,15 +29,17 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.bson.Document;
 
 public class GestionClientesController {
 
+    // Controles vinculados por fx:id con la ficha y la lista de clientes.
     @FXML
     private BorderPane raiz;
     @FXML
@@ -62,9 +64,8 @@ public class GestionClientesController {
     private Button btnGuardar;
     @FXML
     private Button btnBaja;
-
-    private final daoImplementacio dao = new daoImplementacio();
-    private static final DateTimeFormatter FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    @FXML
+    private StackPane panelFoto;
     @FXML
     private Label lblTitulo;
     @FXML
@@ -72,7 +73,11 @@ public class GestionClientesController {
     @FXML
     private Button btnAlta;
 
-    // Cada fila de la lista: nombre y apellido + dni y membresía
+    private final daoImplementacio dao = new daoImplementacio();
+    // Formato utilizado para mostrar las fechas BSON en la ficha.
+    private static final DateTimeFormatter FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    // Define cómo se presenta cada cliente en la lista de la izquierda.
     private static class CeldaCliente extends ListCell<Document> {
 
         @Override
@@ -89,6 +94,7 @@ public class GestionClientesController {
 
     @FXML
     private void initialize() {
+        // Configura las opciones y la presentación antes de cargar los registros.
         choMembresia.getItems().addAll("normal", "premium");
 
         listClientes.setCellFactory(new Callback<ListView<Document>, ListCell<Document>>() {
@@ -98,7 +104,7 @@ public class GestionClientesController {
             }
         });
 
-        // Al elegir un cliente se rellena la ficha
+        // Al cambiar la selección, copia los datos del documento a los campos de la ficha.
         listClientes.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Document>() {
             @Override
             public void changed(ObservableValue<? extends Document> obs, Document anterior, Document elegido) {
@@ -106,11 +112,16 @@ public class GestionClientesController {
             }
         });
 
+        // La foto se ajusta al tamaño del recuadro.
+        imgFoto.fitWidthProperty().bind(panelFoto.widthProperty().subtract(4));
+        imgFoto.fitHeightProperty().bind(panelFoto.heightProperty().subtract(4));
+
         cargarClientes();
     }
 
     private void cargarClientes() {
         try {
+            // Obtiene el contenido de MongoDB y lo muestra en el ListView.
             List<Document> clientes = dao.listarClientes();
             System.out.println("Clientes cargados: " + clientes.size());
             listClientes.getItems().setAll(clientes);
@@ -122,6 +133,7 @@ public class GestionClientesController {
 
     private void mostrarCliente(Document c) {
         if (c == null) {
+            // Sin selección se limpia la ficha y se desactivan las acciones de edición.
             lblNombreCompleto.setText("Nombre y apellidos cliente");
             txtNombre.clear();
             txtApellidos.clear();
@@ -129,10 +141,12 @@ public class GestionClientesController {
             txtMail.clear();
             txtAlta.clear();
             choMembresia.setValue(null);
+            mostrarFoto(null);
             btnGuardar.setDisable(true);
             btnBaja.setDisable(true);
             return;
         }
+        // Rellena la ficha desde el documento seleccionado.
         lblNombreCompleto.setText(c.getString("nombre") + " " + c.getString("apellido"));
         txtNombre.setText(c.getString("nombre"));
         txtApellidos.setText(c.getString("apellido"));
@@ -140,6 +154,7 @@ public class GestionClientesController {
         txtMail.setText(c.getString("mail"));
         choMembresia.setValue(c.getString("membresia"));
 
+        // MongoDB almacena fechaAlta como BSON Date; se convierte a fecha local para mostrarla.
         Date alta = c.getDate("fechaAlta");
         if (alta == null) {
             txtAlta.setText("");
@@ -147,12 +162,23 @@ public class GestionClientesController {
             txtAlta.setText(alta.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().format(FECHA));
         }
 
+        mostrarFoto(c);
         btnGuardar.setDisable(false);
         btnBaja.setDisable(false);
     }
 
+    private void mostrarFoto(Document c) {
+        if (c == null) {
+            imgFoto.setImage(null);
+            return;
+        }
+        // La foto se busca en la carpeta de imágenes por el DNI del cliente.
+        imgFoto.setImage(GestorImagenes.cargar(c.getString("dni")));
+    }
+
     @FXML
     private void onGuardarDatos() {
+        // No se puede editar si no hay un cliente seleccionado.
         Document c = listClientes.getSelectionModel().getSelectedItem();
         if (c == null) {
             return;
@@ -164,6 +190,7 @@ public class GestionClientesController {
         String mail = txtMail.getText().trim();
         String membresia = choMembresia.getValue();
 
+        // Valida los campos antes de enviar cambios a la base de datos.
         if (nombre.isEmpty() || apellido.isEmpty() || dni.isEmpty() || mail.isEmpty() || membresia == null) {
             alerta(Alert.AlertType.WARNING, "Rellena todos los campos.");
             return;
@@ -174,9 +201,13 @@ public class GestionClientesController {
         }
 
         try {
-            dao.actualizarCliente(c.getObjectId("_id"), nombre, apellido, dni, mail, membresia);
+            // El DNI antiguo se guarda antes de modificar el documento en memoria.
+            String dniOriginal = c.getString("dni");
 
-            // Actualiza el cliente en memoria y refresca la lista y el título
+            dao.actualizarCliente(c.getObjectId("_id"), nombre, apellido, dni, mail, membresia);
+            GestorImagenes.renombrar(dniOriginal, dni);   // la foto sigue al nuevo DNI
+
+            // Sin volver a consultar MongoDB, actualiza el documento visible en la lista.
             c.put("nombre", nombre);
             c.put("apellido", apellido);
             c.put("dni", dni);
@@ -194,11 +225,15 @@ public class GestionClientesController {
             }
         } catch (MongoException e) {
             alerta(Alert.AlertType.ERROR, "No se puede conectar con MongoDB.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            alerta(Alert.AlertType.ERROR, "Datos guardados, pero no se pudo renombrar la foto.");
         }
     }
 
     @FXML
     private void onDarDeAlta() {
+        // El formulario de alta se construye como diálogo para recoger todos los datos requeridos.
         TextField fDni = new TextField();
         TextField fNombre = new TextField();
         TextField fApellido = new TextField();
@@ -230,6 +265,7 @@ public class GestionClientesController {
         dialogo.getDialogPane().setContent(grid);
         dialogo.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
+        // Si se cancela el diálogo no se modifica la base de datos.
         ButtonType respuesta = dialogo.showAndWait().orElse(ButtonType.CANCEL);
         if (respuesta != ButtonType.OK) {
             return;
@@ -250,6 +286,7 @@ public class GestionClientesController {
             return;
         }
 
+        // Los campos opcionales de la aplicación empiezan como listas vacías.
         Document nuevo = new Document("dni", dni)
                 .append("nombre", nombre)
                 .append("apellido", apellido)
@@ -262,6 +299,7 @@ public class GestionClientesController {
 
         try {
             dao.insertarCliente(nuevo);
+            // Inserta el registro recién creado en la lista y lo selecciona para mostrar su ficha.
             listClientes.getItems().add(nuevo);
             listClientes.getSelectionModel().select(nuevo);
             listClientes.scrollTo(nuevo);
@@ -291,18 +329,49 @@ public class GestionClientesController {
         ButtonType respuesta = confirmar.showAndWait().orElse(ButtonType.NO);
         if (respuesta == ButtonType.YES) {
             try {
+                // Primero se borra de MongoDB (por _id) y después su foto (por DNI).
                 dao.eliminarCliente(c.getObjectId("_id"));
+                GestorImagenes.borrar(c.getString("dni"));
                 cargarClientes();
                 mostrarCliente(null);
             } catch (MongoException e) {
                 alerta(Alert.AlertType.ERROR, "No se pudo dar de baja al cliente.");
+            } catch (IOException e) {
+                alerta(Alert.AlertType.ERROR, "Cliente dado de baja, pero no se pudo borrar su foto.");
             }
+        }
+    }
+
+    @FXML
+    private void onElegirFoto() {
+        Document c = listClientes.getSelectionModel().getSelectedItem();
+        if (c == null) {
+            alerta(Alert.AlertType.WARNING, "Elige primero un cliente de la lista.");
+            return;
+        }
+
+        FileChooser selector = new FileChooser();
+        selector.setTitle("Elegir foto");
+        selector.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg", "*.jpeg"));
+        File archivo = selector.showOpenDialog(raiz.getScene().getWindow());
+        if (archivo == null) {
+            return;
+        }
+
+        try {
+            GestorImagenes.guardar(c.getString("dni"), archivo);
+            mostrarFoto(c);
+        } catch (IOException e) {
+            e.printStackTrace();
+            alerta(Alert.AlertType.ERROR, "No se pudo guardar la imagen.");
         }
     }
 
     @FXML
     private void onCerrarSesion() {
         try {
+            // Abre el login antes de cerrar la ventana de administración.
             Parent root = FXMLLoader.load(getClass().getResource("/com/mycompany/vista/Login.fxml"));
             Stage login = new Stage();
             login.setTitle("Tolotolo - Iniciar sesión");
@@ -325,7 +394,7 @@ public class GestionClientesController {
                 return;
             }
 
-            // Guardamos la escena y la ventana ANTES de cambiar el contenido
+            // Conserva la misma ventana y cambia únicamente la vista que contiene.
             Scene escena = raiz.getScene();
             Stage ventana = (Stage) escena.getWindow();
 
@@ -339,6 +408,7 @@ public class GestionClientesController {
     }
 
     private void alerta(Alert.AlertType tipo, String mensaje) {
+        // Un único método mantiene consistentes los avisos de esta pantalla.
         Alert a = new Alert(tipo, mensaje);
         a.setHeaderText(null);
         a.showAndWait();

@@ -9,18 +9,15 @@ import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 
 /**
- * FXML Controller class
- *
- * @author Asier.Prieto
+ * Controlador asociado a la vista del monitor.
+ * La lógica de esta pantalla todavía está pendiente de implementar.
  */
 public class MonitorController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
+    /** JavaFX llama a este método después de cargar la vista FXML. */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        // Punto de inicialización reservado para la futura vista del monitor.
     }    
     
 }

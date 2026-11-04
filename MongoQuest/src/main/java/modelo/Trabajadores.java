@@ -7,21 +7,22 @@ package modelo;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-/**
- *
- * @author Ekain.Bedoya
- */
+/** Representa a un trabajador del gimnasio y el rol que desempeña. */
 public class Trabajadores {
     
+    // Datos personales y credenciales del trabajador.
     private String id;
     private String dni;
     private String apellido;
     private LocalDate fechaAlta;
     private String mail;
     private String contraseña;
+
+    // El tipo diferencia al gerente del monitor; también se guardan sus clases.
     private Tipo tipo;
     private ArrayList<Clases> clases = new ArrayList<>();
 
+    /** Inicializa un trabajador con su información personal y su tipo. */
     public Trabajadores(String id, String dni, String apellido, LocalDate fechaAlta, String mail, String contraseña, Tipo tipo) {
         this.id = id;
         this.dni = dni;
@@ -32,6 +33,7 @@ public class Trabajadores {
         this.tipo = tipo;
     }
 
+    // Getters y setters para leer o modificar los datos del trabajador.
     public String getId() {
         return id;
     }
@@ -98,6 +100,7 @@ public class Trabajadores {
 
     @Override
     public String toString() {
+        // Facilita inspeccionar el objeto durante el desarrollo.
         return "Trabajadores{" + "id=" + id + ", dni=" + dni + ", apellido=" + apellido + ", fechaAlta=" + fechaAlta + ", mail=" + mail + ", contrase\u00f1a=" + contraseña + ", tipo=" + tipo + ", clases=" + clases + '}';
     }
 

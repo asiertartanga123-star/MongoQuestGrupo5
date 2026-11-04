@@ -4,22 +4,21 @@
  */
 package modelo;
 
-/**
- *
- * @author Ekain.Bedoya
- */
+/** Representa una sala del gimnasio y el aforo máximo permitido. */
 public class Salas {
     
     private String id;
     private String nombre;
     private int aforoMAX;
 
+    /** Crea una sala con identificador, nombre y capacidad máxima. */
     public Salas(String id, String nombre, int aforoMAX) {
         this.id = id;
         this.nombre = nombre;
         this.aforoMAX = aforoMAX;
     }
 
+    // Getters y setters para mantener accesibles los datos de la sala.
     public String getId() {
         return id;
     }
@@ -46,6 +45,7 @@ public class Salas {
 
     @Override
     public String toString() {
+        // Resume los datos de la sala para facilitar su visualización.
         return "Salas{" + "id=" + id + ", nombre=" + nombre + ", aforoMAX=" + aforoMAX + '}';
     }
 }

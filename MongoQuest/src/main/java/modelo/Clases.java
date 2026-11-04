@@ -6,23 +6,23 @@ package modelo;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author Ekain.Bedoya
- */
+/** Describe una actividad del gimnasio, sus horarios y la sala asignada. */
 public class Clases {
     
     private String id;
     private String nombre;
+    // Una clase puede celebrarse en varios horarios.
     private ArrayList<Horas> horas = new ArrayList<>();
     private String salaId;
 
+    /** Crea una clase identificada y asociada a una sala. */
     public Clases(String id, String nombre, String salaId) {
         this.id = id;
         this.nombre = nombre;
         this.salaId = salaId;
     }
 
+    // Getters y setters de los datos de la clase.
     public String getId() {
         return id;
     }
@@ -57,6 +57,7 @@ public class Clases {
 
     @Override
     public String toString() {
+        // Resume la clase y sus relaciones en texto.
         return "Clases{" + "id=" + id + ", nombre=" + nombre + ", horas=" + horas + ", salaId=" + salaId + '}';
     }
    
