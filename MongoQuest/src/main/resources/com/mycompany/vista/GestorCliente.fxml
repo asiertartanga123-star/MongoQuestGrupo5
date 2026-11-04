@@ -15,42 +15,42 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 
-<<<<<<< HEAD
-<BorderPane fx:id="raiz" minHeight="480.0" minWidth="760.0" prefHeight="580.0" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.controlador.GestionClientesController">
-=======
 <!-- Pantalla de administración de clientes, conectada a GestionClientesController. -->
-<BorderPane fx:id="raiz" minHeight="480.0" minWidth="760.0" prefHeight="580.0" prefWidth="900.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.controlador.GestionClientesController">
->>>>>>> Asier
+
+<BorderPane fx:id="raiz" minHeight="480.0" minWidth="760.0" prefHeight="580.0" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.controlador.GestionClientesController">
 
     <!-- Cabecera: título clicable para volver al panel del gerente y botón de cierre de sesión. -->
-   <top>
-      <StackPane maxHeight="81.0" minHeight="81.0" prefHeight="81.0" style="-fx-background-color: black;">
-         <children>
-            <ImageView fitHeight="66.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
-               <StackPane.margin>
-                  <Insets left="13.0" />
-               </StackPane.margin>
-               <image>
-                  <Image url="@../mongoquest/imagesApp/logo.png" />
-               </image>
-            </ImageView>
+    <top>
+        <StackPane maxHeight="81.0" minHeight="81.0" prefHeight="81.0" style="-fx-background-color: black;">
+            <children>
+                <ImageView fitHeight="66.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
+                    <StackPane.margin>
+                        <Insets left="13.0" />
+                    </StackPane.margin>
+                    <image>
+                        <Image url="@../mongoquest/imagesApp/logo.png" />
+                    </image>
+                </ImageView>
 
-            <!-- Recuadro gris del título: al pulsarlo se vuelve atrás -->
-            <Label fx:id="lblTitulo" alignment="CENTER" maxWidth="230.0" minWidth="190.0" onMouseClicked="#onVolver" prefHeight="32.0" prefWidth="230.0" style="-fx-background-color: #d9d9d9; -fx-cursor: hand;" styleClass="title" text="TOLOTOLOGYM" StackPane.alignment="CENTER" />
+                <!-- Recuadro gris del título: al pulsarlo se vuelve atrás -->
+                <Label id="titulo" fx:id="lblTitulo" alignment="CENTER" maxWidth="230.0" minWidth="190.0" onMouseClicked="#onVolver" prefHeight="32.0" prefWidth="230.0" style="-fx-background-color: #d9d9d9; -fx-cursor: hand;" styleClass="title" text="TOLOTOLOGYM" textFill="WHITE" StackPane.alignment="CENTER" />
 
-            <!-- Cerrar sesión -->
-            <HBox alignment="CENTER_RIGHT" pickOnBounds="false" spacing="12.0" StackPane.alignment="CENTER_RIGHT">
-               <StackPane.margin>
-                  <Insets right="13.0" />
-               </StackPane.margin>
-               <children>
-                  <Button fx:id="btnCerrarSesion" mnemonicParsing="false" onAction="#onCerrarSesion" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0; -fx-font-size: 14px;" text="cerrar sesion" />
-               </children>
-            </HBox>
-         </children>
-      </StackPane>
-   </top>
+                <!-- Círculo de usuario + cerrar sesión -->
+                <HBox alignment="CENTER_RIGHT" pickOnBounds="false" spacing="12.0" StackPane.alignment="CENTER_RIGHT">
+                    <StackPane.margin>
+                        <Insets right="13.0" />
+                    </StackPane.margin>
+                    <children>
+                        <Circle fill="#d9d9d9" radius="22.0" />
+                        <Button fx:id="btnCerrarSesion" mnemonicParsing="false" onAction="#onCerrarSesion" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0; -fx-font-size: 14px;" text="cerrar sesion" />
+                    </children>
+                </HBox>
+            </children>
+        </StackPane>
+    </top>
+
     <!-- Contenido -->
     <center>
         <HBox spacing="20.0">
@@ -77,10 +77,8 @@
 
                         <HBox spacing="24.0" VBox.vgrow="ALWAYS">
                             <children>
-                                <!-- Foto -->
-                                <StackPane fx:id="panelFoto" maxWidth="220.0" minWidth="130.0" prefWidth="170.0"
-                                           onMouseClicked="#onElegirFoto"
-                                           style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 1; -fx-cursor: hand;">
+                                <!-- Foto: al pulsarla se elige una imagen -->
+                                <StackPane fx:id="panelFoto" maxWidth="220.0" minWidth="130.0" onMouseClicked="#onElegirFoto" prefWidth="170.0" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 1; -fx-cursor: hand;">
                                     <children>
                                         <ImageView fx:id="imgFoto" pickOnBounds="true" preserveRatio="true" />
                                     </children>
