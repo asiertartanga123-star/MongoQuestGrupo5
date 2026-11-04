@@ -19,4 +19,6 @@ public interface dao {
     boolean eliminarCliente(ObjectId id);
     void actualizarCliente(ObjectId id, String nombre, String apellido, String dni, String mail, String membresia);
     void insertarCliente(Document cliente);
+    boolean existeMail(String mail);
+    boolean mailValido(String mail);
 }
