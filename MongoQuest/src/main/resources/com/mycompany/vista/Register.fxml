@@ -27,7 +27,7 @@
                   <Insets left="13.0" />
                </StackPane.margin>
                <image>
-                  <Image url="@../mongoquest/images/logo.png" />
+                  <Image url="@../mongoquest/imagesApp/logo.png" />
                </image>
             </ImageView>
 
@@ -53,7 +53,7 @@
                <children>
                   <ImageView fx:id="imgToroIzq" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../mongoquest/images/toro.png" />
+                        <Image url="@../mongoquest/imagesApp/toro.png" />
                      </image>
                   </ImageView>
                </children>
@@ -69,14 +69,14 @@
                <children>
                   <ImageView fx:id="imgToroDer" pickOnBounds="true" preserveRatio="true" scaleX="-1.0">
                      <image>
-                        <Image url="@../mongoquest/images/toro.png" />
+                        <Image url="@../mongoquest/imagesApp/toro.png" />
                      </image>
                   </ImageView>
                </children>
             </StackPane>
          </right>
 
-         <!--Formulario de registro + enlace a Login -->
+         <!-- Formulario de registro + enlace a Login -->
          <center>
             <VBox alignment="CENTER" spacing="14.0" BorderPane.alignment="CENTER">
                <children>
@@ -106,7 +106,7 @@
                               <Label minWidth="-Infinity" style="-fx-font-size: 16px;" text="Contraseña:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
                               <PasswordField fx:id="txtPassword" maxWidth="Infinity" prefHeight="32.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 16; -fx-border-color: black; -fx-border-radius: 16; -fx-padding: 0 12 0 12; -fx-font-size: 14px;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
-                              <Label minWidth="-Infinity" style="-fx-font-size: 16px;" text="Contraseña:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                              <Label minWidth="-Infinity" style="-fx-font-size: 16px;" text="Repetir:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
                               <PasswordField fx:id="txtPassword2" maxWidth="Infinity" prefHeight="32.0" promptText="Repite la contraseña" style="-fx-background-color: #d9d9d9; -fx-background-radius: 16; -fx-border-color: black; -fx-border-radius: 16; -fx-padding: 0 12 0 12; -fx-font-size: 14px;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 
                               <Label minWidth="-Infinity" style="-fx-font-size: 16px;" text="Nivel:" GridPane.columnIndex="0" GridPane.rowIndex="6" />

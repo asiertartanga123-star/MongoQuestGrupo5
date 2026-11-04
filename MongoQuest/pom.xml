@@ -18,13 +18,12 @@
             <artifactId>javafx-controls</artifactId>
             <version>13</version>
         </dependency>
-<<<<<<< HEAD
         <!-- Driver síncrono utilizado para conectar con MongoDB. -->
-=======
+
         
         
 
->>>>>>> Ricardo
+
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
