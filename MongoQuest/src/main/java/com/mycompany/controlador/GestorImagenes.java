@@ -12,7 +12,7 @@ public class GestorImagenes {
 
     private static final Path CARPETA = Paths.get("src", "main", "resources",
             "com", "mycompany", "mongoquest", "imagesUsu");
-    private static final String[] EXTENSIONES = {"png", "jpg", "jpeg"};
+    private static final String[] EXTENSIONES = {"png", "jpg", "jpeg", "WebP"};
 
     // El DNI solo puede llevar letras y números en el nombre del archivo
     private static String nombreArchivo(String dni) {

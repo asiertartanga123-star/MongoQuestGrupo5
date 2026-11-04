@@ -59,6 +59,7 @@ public class GerenteController {
             // Abre la pantalla de clases; el recurso debe existir para que esta opción funcione.
             Parent root = FXMLLoader.load(getClass().getResource("/com/mycompany/vista/GestorClases.fxml"));
             Stage login = new Stage();
+            App.ponerIcono(login);
             login.setTitle("Tolotolo - GestorCliente");
             login.setScene(new Scene(root));
             login.show();
