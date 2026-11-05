@@ -1,0 +1,24 @@
+2026-11-05 08:36:35 [INFO] Login correcto: admin@admin.com (gerente)
+2026-11-05 08:36:38 [INFO] Pantalla abierta: Tolotolo - Gestión de monitores
+2026-11-05 08:40:48 [INFO] Login correcto: admin@admin.com (gerente)
+2026-11-05 08:40:50 [INFO] Pantalla abierta: Tolotolo - Gestión de monitores
+2026-11-05 08:40:52 [INFO] Pantalla abierta: gestión de clientes
+2026-11-05 08:40:52 [INFO] Clientes cargados: 2
+2026-11-05 08:40:52 [INFO] Pantalla abierta: Tolotolo - Gestión de clientes
+2026-11-05 08:41:07 [INFO] Foto actualizada del cliente 888888888f
+2026-11-05 08:41:10 [INFO] Cliente modificado: 888888888f
+2026-11-05 08:41:21 [INFO] Cliente dado de baja: 67890123F
+2026-11-05 08:41:21 [INFO] Clientes cargados: 1
+2026-11-05 08:41:26 [INFO] Sesión cerrada desde la gestión de clientes
+2026-11-05 08:47:03 [INFO] Login correcto: admin@admin.com (gerente)
+2026-11-05 08:47:11 [INFO] Pantalla abierta: gestión de monitores
+2026-11-05 08:47:11 [INFO] Monitores cargados: 3
+2026-11-05 08:47:11 [INFO] Pantalla abierta: Tolotolo - Gestión de monitores
+2026-11-05 08:47:27 [WARNING] Modificación rechazada, DNI o mail duplicado: 34567890C / monitor@monitor.com
+2026-11-05 08:47:41 [INFO] Vuelta al panel del gerente desde la gestión de monitores
+2026-11-05 08:47:43 [INFO] Pantalla abierta: gestión de monitores
+2026-11-05 08:47:43 [INFO] Monitores cargados: 3
+2026-11-05 08:47:43 [INFO] Pantalla abierta: Tolotolo - Gestión de monitores
+2026-11-05 08:47:44 [INFO] Vuelta al panel del gerente desde la gestión de monitores
+2026-11-05 08:48:12 [INFO] Sesión cerrada desde el panel del gerente
+2026-11-05 08:48:12 [INFO] Pantalla abierta: Tolotolo - Iniciar sesión

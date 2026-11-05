@@ -12,7 +12,9 @@ public class GestorImagenes {
 
     private static final Path CARPETA = Paths.get("src", "main", "resources",
             "com", "mycompany", "mongoquest", "imagesUsu");
-    private static final String[] EXTENSIONES = {"png", "jpg", "jpeg", "WebP"};
+
+    // Solo los formatos que JavaFX sabe mostrar.
+    private static final String[] EXTENSIONES = {"png", "jpg", "jpeg", "gif", "bmp"};
 
     // El DNI solo puede llevar letras y números en el nombre del archivo
     private static String nombreArchivo(String dni) {
@@ -21,14 +23,20 @@ public class GestorImagenes {
 
     // Copia la imagen a imagesUsu/<DNI>.<extensión>, sustituyendo la anterior
     public static void guardar(String dni, File origen) throws IOException {
-        System.out.println("Guardando en: " + CARPETA.toAbsolutePath());
+        String nombre = origen.getName().toLowerCase();
+        String extension = nombre.substring(nombre.lastIndexOf('.') + 1);
+
+        if (!esExtensionValida(extension)) {
+            Registro.aviso("Imagen rechazada, formato no admitido (." + extension + ") para " + dni);
+            throw new IOException("Formato de imagen no admitido: ." + extension);
+        }
+
         Files.createDirectories(CARPETA);
         borrar(dni);   // quita la anterior, aunque tuviera otra extensión
 
-        String nombre = origen.getName().toLowerCase();
-        String extension = nombre.substring(nombre.lastIndexOf('.') + 1);
-        Files.copy(origen.toPath(), CARPETA.resolve(nombreArchivo(dni) + "." + extension),
-                StandardCopyOption.REPLACE_EXISTING);
+        Path destino = CARPETA.resolve(nombreArchivo(dni) + "." + extension);
+        Files.copy(origen.toPath(), destino, StandardCopyOption.REPLACE_EXISTING);
+        Registro.info("Imagen guardada: " + destino.getFileName());
     }
 
     // Devuelve la imagen del usuario, o null si no tiene
@@ -36,7 +44,13 @@ public class GestorImagenes {
         for (String extension : EXTENSIONES) {
             Path ruta = CARPETA.resolve(nombreArchivo(dni) + "." + extension);
             if (Files.exists(ruta)) {
-                return new Image(ruta.toUri().toString());
+                Image imagen = new Image(ruta.toUri().toString());
+                if (imagen.isError()) {
+                    Registro.error("La imagen está dañada o no se puede leer: " + ruta.getFileName(),
+                            imagen.getException());
+                    return null;
+                }
+                return imagen;
             }
         }
         return null;
@@ -45,7 +59,9 @@ public class GestorImagenes {
     // Borra la imagen del usuario, si existe
     public static void borrar(String dni) throws IOException {
         for (String extension : EXTENSIONES) {
-            Files.deleteIfExists(CARPETA.resolve(nombreArchivo(dni) + "." + extension));
+            if (Files.deleteIfExists(CARPETA.resolve(nombreArchivo(dni) + "." + extension))) {
+                Registro.info("Imagen borrada de " + dni);
+            }
         }
     }
 
@@ -59,7 +75,17 @@ public class GestorImagenes {
             if (Files.exists(vieja)) {
                 Files.move(vieja, CARPETA.resolve(nombreArchivo(dniNuevo) + "." + extension),
                         StandardCopyOption.REPLACE_EXISTING);
+                Registro.info("Imagen renombrada: " + dniViejo + " -> " + dniNuevo);
             }
         }
+    }
+
+    private static boolean esExtensionValida(String extension) {
+        for (String e : EXTENSIONES) {
+            if (e.equals(extension)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
