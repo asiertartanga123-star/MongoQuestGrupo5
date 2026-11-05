@@ -6,6 +6,7 @@ import com.mongodb.MongoWriteException;
 import com.mycompany.controlador.dao.daoImplementacio;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -116,6 +117,7 @@ public class GestionClientesController {
         imgFoto.fitWidthProperty().bind(panelFoto.widthProperty().subtract(4));
         imgFoto.fitHeightProperty().bind(panelFoto.heightProperty().subtract(4));
 
+        Registro.info("Pantalla abierta: gestión de clientes");
         cargarClientes();
     }
 
@@ -123,10 +125,10 @@ public class GestionClientesController {
         try {
             // Obtiene el contenido de MongoDB y lo muestra en el ListView.
             List<Document> clientes = dao.listarClientes();
-            System.out.println("Clientes cargados: " + clientes.size());
+            Registro.info("Clientes cargados: " + clientes.size());
             listClientes.getItems().setAll(clientes);
         } catch (MongoException e) {
-            e.printStackTrace();
+            Registro.error("No se pudieron cargar los clientes", e);
             alerta(Alert.AlertType.ERROR, "No se puede conectar con MongoDB.");
         }
     }
@@ -200,10 +202,10 @@ public class GestionClientesController {
             return;
         }
 
-        try {
-            // El DNI antiguo se guarda antes de modificar el documento en memoria.
-            String dniOriginal = c.getString("dni");
+        // El DNI antiguo se guarda antes de modificar el documento en memoria.
+        String dniOriginal = c.getString("dni");
 
+        try {
             dao.actualizarCliente(c.getObjectId("_id"), nombre, apellido, dni, mail, membresia);
             GestorImagenes.renombrar(dniOriginal, dni);   // la foto sigue al nuevo DNI
 
@@ -216,17 +218,22 @@ public class GestionClientesController {
             listClientes.refresh();
             lblNombreCompleto.setText(nombre + " " + apellido);
 
+            Registro.info("Cliente modificado: " + dniOriginal
+                    + (dniOriginal.equals(dni) ? "" : " (nuevo DNI: " + dni + ")"));
             alerta(Alert.AlertType.INFORMATION, "Datos guardados.");
         } catch (MongoWriteException e) {
             if (e.getError().getCategory() == ErrorCategory.DUPLICATE_KEY) {
+                Registro.aviso("Modificación rechazada, DNI o mail duplicado: " + dni + " / " + mail);
                 alerta(Alert.AlertType.ERROR, "Ya existe otro cliente con ese DNI o ese mail.");
             } else {
+                Registro.error("No se pudieron guardar los datos del cliente " + dniOriginal, e);
                 alerta(Alert.AlertType.ERROR, "No se pudieron guardar los datos.");
             }
         } catch (MongoException e) {
+            Registro.error("No se pudo conectar con MongoDB al guardar al cliente " + dniOriginal, e);
             alerta(Alert.AlertType.ERROR, "No se puede conectar con MongoDB.");
         } catch (IOException e) {
-            e.printStackTrace();
+            Registro.error("Datos guardados, pero no se pudo renombrar la foto de " + dniOriginal, e);
             alerta(Alert.AlertType.ERROR, "Datos guardados, pero no se pudo renombrar la foto.");
         }
     }
@@ -261,6 +268,7 @@ public class GestionClientesController {
         grid.add(fMembresia, 1, 5);
 
         Dialog<ButtonType> dialogo = new Dialog<ButtonType>();
+        App.ponerIcono(dialogo);
         dialogo.setTitle("Dar de alta cliente");
         dialogo.getDialogPane().setContent(grid);
         dialogo.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
@@ -303,13 +311,17 @@ public class GestionClientesController {
             listClientes.getItems().add(nuevo);
             listClientes.getSelectionModel().select(nuevo);
             listClientes.scrollTo(nuevo);
+            Registro.info("Cliente dado de alta: " + dni + " (" + fMembresia.getValue() + ")");
         } catch (MongoWriteException e) {
             if (e.getError().getCategory() == ErrorCategory.DUPLICATE_KEY) {
+                Registro.aviso("Alta rechazada, DNI o mail duplicado: " + dni + " / " + mail);
                 alerta(Alert.AlertType.ERROR, "Ya existe un cliente con ese DNI o ese mail.");
             } else {
+                Registro.error("No se pudo guardar el cliente " + dni, e);
                 alerta(Alert.AlertType.ERROR, "No se pudo guardar el cliente.");
             }
         } catch (MongoException e) {
+            Registro.error("No se pudo conectar con MongoDB al dar de alta a " + dni, e);
             alerta(Alert.AlertType.ERROR, "No se puede conectar con MongoDB.");
         }
     }
@@ -324,19 +336,24 @@ public class GestionClientesController {
         Alert confirmar = new Alert(Alert.AlertType.CONFIRMATION,
                 "¿Seguro que quieres dar de baja a " + c.getString("nombre") + " "
                 + c.getString("apellido") + "?", ButtonType.YES, ButtonType.NO);
+        App.ponerIcono(confirmar);
         confirmar.setHeaderText(null);
 
         ButtonType respuesta = confirmar.showAndWait().orElse(ButtonType.NO);
         if (respuesta == ButtonType.YES) {
+            String dni = c.getString("dni");
             try {
                 // Primero se borra de MongoDB (por _id) y después su foto (por DNI).
                 dao.eliminarCliente(c.getObjectId("_id"));
-                GestorImagenes.borrar(c.getString("dni"));
+                Registro.info("Cliente dado de baja: " + dni);
+                GestorImagenes.borrar(dni);
                 cargarClientes();
                 mostrarCliente(null);
             } catch (MongoException e) {
+                Registro.error("No se pudo dar de baja al cliente " + dni, e);
                 alerta(Alert.AlertType.ERROR, "No se pudo dar de baja al cliente.");
             } catch (IOException e) {
+                Registro.error("Cliente " + dni + " dado de baja, pero no se pudo borrar su foto", e);
                 alerta(Alert.AlertType.ERROR, "Cliente dado de baja, pero no se pudo borrar su foto.");
             }
         }
@@ -361,9 +378,10 @@ public class GestionClientesController {
 
         try {
             GestorImagenes.guardar(c.getString("dni"), archivo);
+            Registro.info("Foto actualizada del cliente " + c.getString("dni"));
             mostrarFoto(c);
         } catch (IOException e) {
-            e.printStackTrace();
+            Registro.error("No se pudo guardar la foto del cliente " + c.getString("dni"), e);
             alerta(Alert.AlertType.ERROR, "No se pudo guardar la imagen.");
         }
     }
@@ -374,13 +392,15 @@ public class GestionClientesController {
             // Abre el login antes de cerrar la ventana de administración.
             Parent root = FXMLLoader.load(getClass().getResource("/com/mycompany/vista/Login.fxml"));
             Stage login = new Stage();
+            App.ponerIcono(login);
             login.setTitle("Tolotolo - Iniciar sesión");
             login.setScene(new Scene(root));
             login.show();
+            Registro.info("Sesión cerrada desde la gestión de clientes");
 
             ((Stage) raiz.getScene().getWindow()).close();
         } catch (IOException | NullPointerException e) {
-            e.printStackTrace();
+            Registro.error("No se pudo volver al login desde la gestión de clientes", e);
             alerta(Alert.AlertType.ERROR, "No se pudo volver al login.");
         }
     }
@@ -388,8 +408,9 @@ public class GestionClientesController {
     @FXML
     private void onVolver() {
         try {
-            java.net.URL ruta = getClass().getResource("/com/mycompany/vista/Gerente.fxml");
+            URL ruta = getClass().getResource("/com/mycompany/vista/Gerente.fxml");
             if (ruta == null) {
+                Registro.aviso("No se encuentra el FXML del panel del gerente");
                 alerta(Alert.AlertType.ERROR, "No se encuentra el FXML del panel del gerente.");
                 return;
             }
@@ -401,8 +422,9 @@ public class GestionClientesController {
             Parent root = FXMLLoader.load(ruta);
             escena.setRoot(root);
             ventana.setTitle("Tolotolo - Gerente");
+            Registro.info("Vuelta al panel del gerente desde la gestión de clientes");
         } catch (Exception e) {
-            e.printStackTrace();
+            Registro.error("No se pudo volver al panel del gerente", e);
             alerta(Alert.AlertType.ERROR, "No se pudo volver: " + e.getMessage());
         }
     }
@@ -410,6 +432,7 @@ public class GestionClientesController {
     private void alerta(Alert.AlertType tipo, String mensaje) {
         // Un único método mantiene consistentes los avisos de esta pantalla.
         Alert a = new Alert(tipo, mensaje);
+        App.ponerIcono(a);
         a.setHeaderText(null);
         a.showAndWait();
     }
