@@ -22,3 +22,17 @@
 2026-11-05 08:47:44 [INFO] Vuelta al panel del gerente desde la gestión de monitores
 2026-11-05 08:48:12 [INFO] Sesión cerrada desde el panel del gerente
 2026-11-05 08:48:12 [INFO] Pantalla abierta: Tolotolo - Iniciar sesión
+2026-11-05 09:07:52 [INFO] Login correcto: admin@admin.com (gerente)
+2026-11-05 09:07:53 [INFO] Pantalla abierta: gestión de monitores
+2026-11-05 09:07:53 [INFO] Monitores cargados: 3
+2026-11-05 09:07:53 [INFO] Pantalla abierta: Tolotolo - Gestión de monitores
+2026-11-05 09:08:00 [INFO] Sesión cerrada desde la gestión de monitores
+2026-11-05 09:08:01 [INFO] Pantalla abierta: registro
+2026-11-05 09:08:49 [INFO] Pantalla abierta: registro
+2026-11-05 09:09:22 [WARNING] Registro rechazado, DNI con formato incorrecto: 8546464
+2026-11-05 09:09:26 [WARNING] Registro rechazado, DNI con formato incorrecto: 8546464A
+2026-11-05 09:09:34 [INFO] Registro completado: luisa@mail.com (12345678A, normal)
+2026-11-05 09:09:36 [INFO] Vuelta al login desde el registro
+2026-11-05 09:10:00 [INFO] Login correcto: cliente@cliente.com (cliente)
+2026-11-05 09:12:37 [INFO] Login correcto: admin@admin.com (gerente)
+2026-11-05 09:19:25 [INFO] Login correcto: cliente@cliente.com (cliente)

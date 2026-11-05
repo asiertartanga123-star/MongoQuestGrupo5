@@ -80,14 +80,9 @@ public class LoginController {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/com/mycompany/vista/Register.fxml"));
             raiz.getScene().setRoot(root);
-<<<<<<< HEAD
-        } catch (IOException | NullPointerException e) {
-            e.printStackTrace();
-=======
             Registro.info("Pantalla abierta: registro");
         } catch (IOException | NullPointerException e) {
             Registro.error("No se pudo abrir la pantalla de registro", e);
->>>>>>> Asier
             mostrarAlerta(Alert.AlertType.ERROR, "No se pudo abrir la ventana de registro.");
         }
     }
