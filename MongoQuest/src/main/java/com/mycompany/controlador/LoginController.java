@@ -47,9 +47,11 @@ public class LoginController {
         try {
             String rol = dao.validarLogin(mail, contraseña);
             if (rol == null) {
+                Registro.aviso("Login fallido para " + mail);
                 mostrarAlerta(Alert.AlertType.ERROR, "Usuario o contraseña incorrectos.");
                 return;
             }
+            Registro.info("Login correcto: " + mail + " (" + rol + ")");
 
             // Cada rol abre una vista distinta; el DAO devuelve el rol encontrado.
             switch (rol) {
@@ -63,11 +65,25 @@ public class LoginController {
                     abrirVentana("/com/mycompany/vista/Cliente.fxml", "Tolotolo - Cliente");
                     break;
                 default:
+                    Registro.aviso("Tipo de usuario desconocido para " + mail + ": " + rol);
                     mostrarAlerta(Alert.AlertType.ERROR, "Tipo de usuario desconocido: " + rol);
             }
         } catch (MongoException e) {
+            Registro.error("No se pudo conectar con MongoDB durante el login", e);
             mostrarAlerta(Alert.AlertType.ERROR,
                     "No se puede conectar con MongoDB. Comprueba que esté iniciado.");
+        }
+    }
+
+    @FXML
+    private void onRegistrarse() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/com/mycompany/vista/Register.fxml"));
+            raiz.getScene().setRoot(root);
+            Registro.info("Pantalla abierta: registro");
+        } catch (IOException | NullPointerException e) {
+            Registro.error("No se pudo abrir la pantalla de registro", e);
+            mostrarAlerta(Alert.AlertType.ERROR, "No se pudo abrir la ventana de registro.");
         }
     }
 
@@ -76,6 +92,7 @@ public class LoginController {
             // Solo se cierra el login después de haber cargado y mostrado la nueva vista.
             Parent root = FXMLLoader.load(getClass().getResource(fxml));
             Stage nueva = new Stage();
+            App.ponerIcono(nueva);
             nueva.setTitle(titulo);
             nueva.setScene(new Scene(root));
             nueva.show();
@@ -83,7 +100,7 @@ public class LoginController {
             // cierra la ventana de login
             ((Stage) txtUsuario.getScene().getWindow()).close();
         } catch (IOException | NullPointerException e) {
-            e.printStackTrace();
+            Registro.error("No se pudo abrir la pantalla " + fxml, e);
             mostrarAlerta(Alert.AlertType.ERROR, "No se pudo abrir la ventana " + fxml);
         }
     }
@@ -91,6 +108,7 @@ public class LoginController {
     private void mostrarAlerta(Alert.AlertType tipo, String mensaje) {
         // Centraliza la presentación de mensajes al usuario.
         Alert alerta = new Alert(tipo, mensaje);
+        App.ponerIcono(alerta);
         alerta.setHeaderText(null);
         alerta.showAndWait();
     }

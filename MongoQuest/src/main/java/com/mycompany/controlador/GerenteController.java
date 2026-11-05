@@ -1,6 +1,7 @@
 package com.mycompany.controlador;
 
 import java.io.IOException;
+import java.net.URL;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,6 +23,9 @@ public class GerenteController {
     @FXML private ImageView imgClases;
     @FXML private ImageView imgClientes;
 
+    // Evita abrir la misma ventana dos veces con un doble clic.
+    private boolean abriendo = false;
+
     @FXML
     private void initialize() {
         // Las imágenes se escalan respecto al tamaño real de cada tarjeta.
@@ -38,71 +42,60 @@ public class GerenteController {
 
     @FXML
     private void onGestionarMonitores() {
-        try {
-            // Sustituye el panel del gerente por la pantalla de gestión de monitores.
-            Parent root = FXMLLoader.load(getClass().getResource("/com/mycompany/vista/GestorMonitor.fxml"));
-            Stage login = new Stage();
-            login.setTitle("Tolotolo - Iniciar sesión");
-            login.setScene(new Scene(root));
-            login.show();
-
-            ((Stage) raiz.getScene().getWindow()).close();
-        } catch (IOException | NullPointerException e) {
-            e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "No se pudo cargar GestorMonitor.").showAndWait();
-        }  
+        abrirVentana("/com/mycompany/vista/GestorMonitor.fxml", "Tolotolo - Gestión de monitores");
     }
 
     @FXML
     private void onGestionarClases() {
-        try {
-            // Abre la pantalla de clases; el recurso debe existir para que esta opción funcione.
-            Parent root = FXMLLoader.load(getClass().getResource("/com/mycompany/vista/GestorClases.fxml"));
-            Stage login = new Stage();
-            App.ponerIcono(login);
-            login.setTitle("Tolotolo - GestorCliente");
-            login.setScene(new Scene(root));
-            login.show();
-
-            ((Stage) raiz.getScene().getWindow()).close();
-        } catch (IOException | NullPointerException e) {
-            e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "No se pudo cargar GestorClases.").showAndWait();
-        }
+        abrirVentana("/com/mycompany/vista/GestorClases.fxml", "Tolotolo - Gestión de clases");
     }
 
     @FXML
     private void onGestionarClientes() {
-       try {
-            // Sustituye el panel por la pantalla de administración de clientes.
-            Parent root = FXMLLoader.load(getClass().getResource("/com/mycompany/vista/GestorCliente.fxml"));
-            Stage login = new Stage();
-            login.setTitle("Tolotolo - GestorCliente");
-            login.setScene(new Scene(root));
-            login.show();
-
-            ((Stage) raiz.getScene().getWindow()).close();
-        } catch (IOException | NullPointerException e) {
-            e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "No se pudo cargar GestorClientes.").showAndWait();
-        } 
+        abrirVentana("/com/mycompany/vista/GestorCliente.fxml", "Tolotolo - Gestión de clientes");
     }
 
     @FXML
     private void onCerrarSesion() {
+        Registro.info("Sesión cerrada desde el panel del gerente");
+        abrirVentana("/com/mycompany/vista/Login.fxml", "Tolotolo - Iniciar sesión");
+    }
+
+    // Abre una pantalla en una ventana nueva y cierra la del gerente.
+    private void abrirVentana(String fxml, String titulo) {
+        if (abriendo) {
+            return;
+        }
+        abriendo = true;
         try {
-            // Cierra la ventana actual y devuelve al usuario al formulario de acceso.
-            Parent root = FXMLLoader.load(getClass().getResource("/com/mycompany/vista/Login.fxml"));
-            Stage login = new Stage();
-            login.setTitle("Tolotolo - Iniciar sesión");
-            login.setScene(new Scene(root));
-            login.show();
+            URL ruta = getClass().getResource(fxml);
+            if (ruta == null) {
+                abriendo = false;
+                Registro.aviso("No se encuentra la pantalla " + fxml);
+                aviso("No se encuentra la pantalla " + fxml);
+                return;
+            }
+
+            Parent root = FXMLLoader.load(ruta);
+            Stage nueva = new Stage();
+            App.ponerIcono(nueva);
+            nueva.setTitle(titulo);
+            nueva.setScene(new Scene(root));
+            nueva.show();
+            Registro.info("Pantalla abierta: " + titulo);
 
             ((Stage) raiz.getScene().getWindow()).close();
         } catch (IOException | NullPointerException e) {
-            e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "No se pudo volver al login.").showAndWait();
+            abriendo = false;
+            Registro.error("No se pudo abrir la pantalla " + fxml, e);
+            aviso("No se pudo abrir la pantalla " + fxml);
         }
     }
 
+    private void aviso(String mensaje) {
+        Alert a = new Alert(Alert.AlertType.ERROR, mensaje);
+        App.ponerIcono(a);
+        a.setHeaderText(null);
+        a.showAndWait();
+    }
 }
