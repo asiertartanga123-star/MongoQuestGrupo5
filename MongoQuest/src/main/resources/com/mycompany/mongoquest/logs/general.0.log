@@ -36,3 +36,18 @@
 2026-11-05 09:10:00 [INFO] Login correcto: cliente@cliente.com (cliente)
 2026-11-05 09:12:37 [INFO] Login correcto: admin@admin.com (gerente)
 2026-11-05 09:19:25 [INFO] Login correcto: cliente@cliente.com (cliente)
+2026-11-05 09:43:41 [INFO] Pantalla abierta: registro
+2026-11-05 09:43:43 [INFO] Vuelta al login desde el registro
+2026-11-05 09:43:53 [INFO] Login correcto: admin@admin.com (gerente)
+2026-11-05 09:43:54 [INFO] Pantalla abierta: gestión de monitores
+2026-11-05 09:43:54 [INFO] Monitores cargados: 3
+2026-11-05 09:43:54 [INFO] Pantalla abierta: Tolotolo - Gestión de monitores
+2026-11-05 09:43:56 [INFO] Vuelta al panel del gerente desde la gestión de monitores
+2026-11-05 09:43:57 [INFO] Pantalla abierta: gestión de clientes
+2026-11-05 09:43:57 [INFO] Clientes cargados: 2
+2026-11-05 09:43:57 [INFO] Pantalla abierta: Tolotolo - Gestión de clientes
+2026-11-05 09:43:58 [INFO] Vuelta al panel del gerente desde la gestión de clientes
+2026-11-05 09:43:59 [WARNING] No se encuentra la pantalla /com/mycompany/vista/GestorClases.fxml
+2026-11-05 09:44:04 [INFO] Sesión cerrada desde el panel del gerente
+2026-11-05 09:44:04 [INFO] Pantalla abierta: Tolotolo - Iniciar sesión
+2026-11-05 09:44:07 [WARNING] Login fallido para aa
