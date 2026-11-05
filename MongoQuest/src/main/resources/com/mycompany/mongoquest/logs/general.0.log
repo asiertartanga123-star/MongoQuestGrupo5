@@ -22,3 +22,9 @@
 2026-11-05 08:47:44 [INFO] Vuelta al panel del gerente desde la gestión de monitores
 2026-11-05 08:48:12 [INFO] Sesión cerrada desde el panel del gerente
 2026-11-05 08:48:12 [INFO] Pantalla abierta: Tolotolo - Iniciar sesión
+2026-11-05 13:40:52 [INFO] Login correcto: admin@admin.com (gerente)
+2026-11-05 13:40:53 [INFO] Pantalla abierta: gestión de clientes
+2026-11-05 13:40:53 [INFO] Clientes cargados: 2
+2026-11-05 13:40:54 [INFO] Pantalla abierta: Tolotolo - Gestión de clientes
+2026-11-05 13:41:03 [INFO] Cliente modificado: 12345678A
+2026-11-05 13:41:06 [INFO] Sesión cerrada desde la gestión de clientes
