@@ -1,6 +1,8 @@
 package com.mycompany.controlador;
 
+import com.mongodb.ErrorCategory;
 import com.mongodb.MongoException;
+import com.mongodb.MongoWriteException;
 import com.mycompany.controlador.dao.daoImplementacio;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -55,21 +57,25 @@ public class RegisterController {
             return;
         }
         if (!dni.matches("\\d{8}[A-Z]")) {
+            Registro.aviso("Registro rechazado, DNI con formato incorrecto: " + dni);
             mostrarAlerta(Alert.AlertType.WARNING, "El DNI debe tener 8 números y una letra (ej. 12345678A).");
             return;
         }
         if (!dao.mailValido(mail)) {
+            Registro.aviso("Registro rechazado, mail no válido: " + mail);
             mostrarAlerta(Alert.AlertType.WARNING, "Escribe un mail válido (ej. nombre@gmail.com).");
             txtMail.requestFocus();
             return;
         }
         if (!pass1.equals(pass2)) {
+            Registro.aviso("Registro rechazado, las contraseñas no coinciden: " + mail);
             mostrarAlerta(Alert.AlertType.WARNING, "Las contraseñas no coinciden.");
             return;
         }
 
         try {
             if (dao.existeMail(mail)) {
+                Registro.aviso("Registro rechazado, el mail ya existe: " + mail);
                 mostrarAlerta(Alert.AlertType.WARNING, "Ya existe un usuario con ese mail.");
                 return;
             }
@@ -87,9 +93,20 @@ public class RegisterController {
                     .append("clases", new ArrayList<Document>());
 
             dao.insertarCliente(cliente);
+            Registro.info("Registro completado: " + mail + " (" + dni + ", "
+                    + cmbNivel.getValue().toLowerCase() + ")");
             mostrarAlerta(Alert.AlertType.INFORMATION, "Registro completado. Ya puedes iniciar sesión.");
             onVolverLogin();
+        } catch (MongoWriteException e) {
+            if (e.getError().getCategory() == ErrorCategory.DUPLICATE_KEY) {
+                Registro.aviso("Registro rechazado, DNI o mail duplicado: " + dni + " / " + mail);
+                mostrarAlerta(Alert.AlertType.WARNING, "Ya existe un usuario con ese DNI o ese mail.");
+            } else {
+                Registro.error("No se pudo guardar el registro de " + mail, e);
+                mostrarAlerta(Alert.AlertType.ERROR, "No se pudo completar el registro.");
+            }
         } catch (MongoException e) {
+            Registro.error("No se pudo conectar con MongoDB durante el registro de " + mail, e);
             mostrarAlerta(Alert.AlertType.ERROR,
                     "No se puede conectar con MongoDB. Comprueba que esté iniciado.");
         }
@@ -100,14 +117,16 @@ public class RegisterController {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/com/mycompany/vista/Login.fxml"));
             raiz.getScene().setRoot(root);
+            Registro.info("Vuelta al login desde el registro");
         } catch (IOException | NullPointerException e) {
-            e.printStackTrace();
+            Registro.error("No se pudo volver al login desde el registro", e);
             mostrarAlerta(Alert.AlertType.ERROR, "No se pudo abrir la ventana de Login.");
         }
     }
 
     private void mostrarAlerta(Alert.AlertType tipo, String mensaje) {
         Alert alerta = new Alert(tipo, mensaje);
+        App.ponerIcono(alerta);
         alerta.setHeaderText(null);
         alerta.showAndWait();
     }

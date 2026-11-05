@@ -57,10 +57,7 @@ public class GerenteController {
 
     @FXML
     private void onCerrarSesion() {
-<<<<<<< HEAD
-=======
         Registro.info("Sesión cerrada desde el panel del gerente");
->>>>>>> Asier
         abrirVentana("/com/mycompany/vista/Login.fxml", "Tolotolo - Iniciar sesión");
     }
 
@@ -74,10 +71,7 @@ public class GerenteController {
             URL ruta = getClass().getResource(fxml);
             if (ruta == null) {
                 abriendo = false;
-<<<<<<< HEAD
-=======
                 Registro.aviso("No se encuentra la pantalla " + fxml);
->>>>>>> Asier
                 aviso("No se encuentra la pantalla " + fxml);
                 return;
             }
@@ -88,20 +82,12 @@ public class GerenteController {
             nueva.setTitle(titulo);
             nueva.setScene(new Scene(root));
             nueva.show();
-<<<<<<< HEAD
-
-            ((Stage) raiz.getScene().getWindow()).close();
-        } catch (IOException | NullPointerException e) {
-            e.printStackTrace();
-            abriendo = false;
-=======
             Registro.info("Pantalla abierta: " + titulo);
 
             ((Stage) raiz.getScene().getWindow()).close();
         } catch (IOException | NullPointerException e) {
             abriendo = false;
             Registro.error("No se pudo abrir la pantalla " + fxml, e);
->>>>>>> Asier
             aviso("No se pudo abrir la pantalla " + fxml);
         }
     }
