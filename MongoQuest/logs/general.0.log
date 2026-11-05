@@ -1,0 +1,13 @@
+2026-11-05 08:22:51 [INFO] Pantalla abierta: Tolotolo - Gestión de monitores
+2026-11-05 08:23:10 [WARNING] No se encuentra la pantalla /com/mycompany/vista/GestorClases.fxml
+2026-11-05 08:27:21 [WARNING] Login fallido para p
+2026-11-05 08:27:21 [WARNING] Login fallido para p
+2026-11-05 08:27:22 [WARNING] Login fallido para p
+2026-11-05 08:27:22 [WARNING] Login fallido para p
+2026-11-05 08:27:22 [WARNING] Login fallido para p
+2026-11-05 08:27:22 [WARNING] Login fallido para p
+2026-11-05 08:27:23 [WARNING] Login fallido para p
+2026-11-05 08:27:23 [WARNING] Login fallido para p
+2026-11-05 08:27:23 [WARNING] Login fallido para p
+2026-11-05 08:32:39 [INFO] Login correcto: admin@admin.com (gerente)
+2026-11-05 08:32:39 [SEVERE] No se pudo abrir la pantalla /com/mycompany/vista/Gerent.fxml -> NullPointerException: Location is required.

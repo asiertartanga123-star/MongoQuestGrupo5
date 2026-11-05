@@ -108,6 +108,7 @@ public class GestionMonitorController {
         imgFoto.fitWidthProperty().bind(panelFoto.widthProperty().subtract(4));
         imgFoto.fitHeightProperty().bind(panelFoto.heightProperty().subtract(4));
 
+        Registro.info("Pantalla abierta: gestión de monitores");
         cargarMonitores();
     }
 
@@ -115,10 +116,10 @@ public class GestionMonitorController {
         try {
             // Pide al DAO los trabajadores cuyo tipo es monitor y actualiza la lista.
             List<Document> monitores = dao.listarMonitores();
-            System.out.println("Monitores cargados: " + monitores.size());
+            Registro.info("Monitores cargados: " + monitores.size());
             listMonitores.getItems().setAll(monitores);
         } catch (MongoException e) {
-            e.printStackTrace();
+            Registro.error("No se pudieron cargar los monitores", e);
             alerta(Alert.AlertType.ERROR, "No se puede conectar con MongoDB.");
         }
     }
@@ -223,10 +224,10 @@ public class GestionMonitorController {
             return;
         }
 
-        try {
-            // El DNI antiguo se guarda antes de modificar el documento en memoria.
-            String dniOriginal = m.getString("dni");
+        // El DNI antiguo se guarda antes de modificar el documento en memoria.
+        String dniOriginal = m.getString("dni");
 
+        try {
             dao.actualizarMonitor(m.getObjectId("_id"), nombre, apellido, dni, mail, direccion);
             GestorImagenes.renombrar(dniOriginal, dni);   // la foto sigue al nuevo DNI
 
@@ -239,17 +240,22 @@ public class GestionMonitorController {
             listMonitores.refresh();
             lblNombreCompleto.setText(nombre + " " + apellido);
 
+            Registro.info("Monitor modificado: " + dniOriginal
+                    + (dniOriginal.equals(dni) ? "" : " (nuevo DNI: " + dni + ")"));
             alerta(Alert.AlertType.INFORMATION, "Datos guardados.");
         } catch (MongoWriteException e) {
             if (e.getError().getCategory() == ErrorCategory.DUPLICATE_KEY) {
+                Registro.aviso("Modificación rechazada, DNI o mail duplicado: " + dni + " / " + mail);
                 alerta(Alert.AlertType.ERROR, "Ya existe otro trabajador con ese DNI o ese mail.");
             } else {
+                Registro.error("No se pudieron guardar los datos del monitor " + dniOriginal, e);
                 alerta(Alert.AlertType.ERROR, "No se pudieron guardar los datos.");
             }
         } catch (MongoException e) {
+            Registro.error("No se pudo conectar con MongoDB al guardar al monitor " + dniOriginal, e);
             alerta(Alert.AlertType.ERROR, "No se puede conectar con MongoDB.");
         } catch (IOException e) {
-            e.printStackTrace();
+            Registro.error("Datos guardados, pero no se pudo renombrar la foto de " + dniOriginal, e);
             alerta(Alert.AlertType.ERROR, "Datos guardados, pero no se pudo renombrar la foto.");
         }
     }
@@ -288,6 +294,7 @@ public class GestionMonitorController {
         grid.add(fCiudad, 1, 7);
 
         Dialog<ButtonType> dialogo = new Dialog<ButtonType>();
+        App.ponerIcono(dialogo);
         dialogo.setTitle("Dar de alta monitor");
         dialogo.getDialogPane().setContent(grid);
         dialogo.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
@@ -337,13 +344,17 @@ public class GestionMonitorController {
             listMonitores.getItems().add(nuevo);
             listMonitores.getSelectionModel().select(nuevo);
             listMonitores.scrollTo(nuevo);
+            Registro.info("Monitor dado de alta: " + dni);
         } catch (MongoWriteException e) {
             if (e.getError().getCategory() == ErrorCategory.DUPLICATE_KEY) {
+                Registro.aviso("Alta rechazada, DNI o mail duplicado: " + dni + " / " + mail);
                 alerta(Alert.AlertType.ERROR, "Ya existe un trabajador con ese DNI o ese mail.");
             } else {
+                Registro.error("No se pudo guardar el monitor " + dni, e);
                 alerta(Alert.AlertType.ERROR, "No se pudo guardar el monitor.");
             }
         } catch (MongoException e) {
+            Registro.error("No se pudo conectar con MongoDB al dar de alta a " + dni, e);
             alerta(Alert.AlertType.ERROR, "No se puede conectar con MongoDB.");
         }
     }
@@ -359,20 +370,25 @@ public class GestionMonitorController {
         Alert confirmar = new Alert(Alert.AlertType.CONFIRMATION,
                 "¿Seguro que quieres dar de baja a " + m.getString("nombre") + " "
                 + m.getString("apellido") + "?", ButtonType.YES, ButtonType.NO);
+        App.ponerIcono(confirmar);
         confirmar.setHeaderText(null);
 
         ButtonType respuesta = confirmar.showAndWait().orElse(ButtonType.NO);
         if (respuesta == ButtonType.YES) {
+            String dni = m.getString("dni");
             try {
                 // Primero se borra de MongoDB (por _id) y después su foto (por DNI).
                 dao.eliminarMonitor(m.getObjectId("_id"));
-                GestorImagenes.borrar(m.getString("dni"));
+                Registro.info("Monitor dado de baja: " + dni);
+                GestorImagenes.borrar(dni);
                 // Recarga la lista desde MongoDB y limpia la ficha que mostraba al monitor eliminado.
                 cargarMonitores();
                 mostrarMonitor(null);
             } catch (MongoException e) {
+                Registro.error("No se pudo dar de baja al monitor " + dni, e);
                 alerta(Alert.AlertType.ERROR, "No se pudo dar de baja al monitor.");
             } catch (IOException e) {
+                Registro.error("Monitor " + dni + " dado de baja, pero no se pudo borrar su foto", e);
                 alerta(Alert.AlertType.ERROR, "Monitor dado de baja, pero no se pudo borrar su foto.");
             }
         }
@@ -397,9 +413,10 @@ public class GestionMonitorController {
 
         try {
             GestorImagenes.guardar(m.getString("dni"), archivo);
+            Registro.info("Foto actualizada del monitor " + m.getString("dni"));
             mostrarFoto(m);
         } catch (IOException e) {
-            e.printStackTrace();
+            Registro.error("No se pudo guardar la foto del monitor " + m.getString("dni"), e);
             alerta(Alert.AlertType.ERROR, "No se pudo guardar la imagen.");
         }
     }
@@ -409,6 +426,7 @@ public class GestionMonitorController {
         try {
             URL ruta = getClass().getResource("/com/mycompany/vista/Gerente.fxml");
             if (ruta == null) {
+                Registro.aviso("No se encuentra el FXML del panel del gerente");
                 alerta(Alert.AlertType.ERROR, "No se encuentra el FXML del panel del gerente.");
                 return;
             }
@@ -420,8 +438,9 @@ public class GestionMonitorController {
             Parent root = FXMLLoader.load(ruta);
             escena.setRoot(root);
             ventana.setTitle("Tolotolo - Gerente");
+            Registro.info("Vuelta al panel del gerente desde la gestión de monitores");
         } catch (Exception e) {
-            e.printStackTrace();
+            Registro.error("No se pudo volver al panel del gerente", e);
             alerta(Alert.AlertType.ERROR, "No se pudo volver: " + e.getMessage());
         }
     }
@@ -432,13 +451,15 @@ public class GestionMonitorController {
             // Abre el formulario de acceso y después cierra la ventana actual.
             Parent root = FXMLLoader.load(getClass().getResource("/com/mycompany/vista/Login.fxml"));
             Stage login = new Stage();
+            App.ponerIcono(login);
             login.setTitle("Tolotolo - Iniciar sesión");
             login.setScene(new Scene(root));
             login.show();
+            Registro.info("Sesión cerrada desde la gestión de monitores");
 
             ((Stage) raiz.getScene().getWindow()).close();
         } catch (IOException | NullPointerException e) {
-            e.printStackTrace();
+            Registro.error("No se pudo volver al login desde la gestión de monitores", e);
             alerta(Alert.AlertType.ERROR, "No se pudo volver al login.");
         }
     }
@@ -446,6 +467,7 @@ public class GestionMonitorController {
     private void alerta(Alert.AlertType tipo, String mensaje) {
         // Centraliza los avisos de error, validación y confirmación de esta pantalla.
         Alert a = new Alert(tipo, mensaje);
+        App.ponerIcono(a);
         a.setHeaderText(null);
         a.showAndWait();
     }
