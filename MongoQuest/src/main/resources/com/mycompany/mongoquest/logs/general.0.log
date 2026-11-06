@@ -28,3 +28,70 @@
 2026-11-05 13:40:54 [INFO] Pantalla abierta: Tolotolo - Gestión de clientes
 2026-11-05 13:41:03 [INFO] Cliente modificado: 12345678A
 2026-11-05 13:41:06 [INFO] Sesión cerrada desde la gestión de clientes
+2026-11-06 13:06:50 [WARNING] Login fallido para admin@admin.com
+2026-11-06 13:06:54 [WARNING] Login fallido para admin@admin.com
+2026-11-06 13:07:00 [INFO] Login correcto: admin@admin.com (gerente)
+2026-11-06 13:07:01 [WARNING] No se encuentra la pantalla /com/mycompany/vista/GestorClases.fxml
+2026-11-06 13:07:03 [INFO] Pantalla abierta: gestión de monitores
+2026-11-06 13:07:03 [INFO] Monitores cargados: 3
+2026-11-06 13:07:03 [INFO] Pantalla abierta: Tolotolo - Gestión de monitores
+2026-11-06 13:07:47 [INFO] Imagen guardada: 79077821A.jpg
+2026-11-06 13:07:47 [INFO] Foto actualizada del monitor 79077821A
+2026-11-06 13:07:50 [INFO] Monitor modificado: 79077821A
+2026-11-06 13:08:25 [INFO] Monitor modificado: 79077821A
+2026-11-06 13:08:28 [INFO] Vuelta al panel del gerente desde la gestión de monitores
+2026-11-06 13:08:30 [INFO] Pantalla abierta: gestión de clientes
+2026-11-06 13:08:30 [INFO] Clientes cargados: 2
+2026-11-06 13:08:30 [INFO] Pantalla abierta: Tolotolo - Gestión de clientes
+2026-11-06 13:08:34 [INFO] Vuelta al panel del gerente desde la gestión de clientes
+2026-11-06 13:08:34 [INFO] Sesión cerrada desde el panel del gerente
+2026-11-06 13:08:34 [INFO] Pantalla abierta: Tolotolo - Iniciar sesión
+2026-11-06 13:09:14 [INFO] Login correcto: admin@admin.com (gerente)
+2026-11-06 13:09:19 [INFO] Pantalla abierta: gestión de clientes
+2026-11-06 13:09:19 [INFO] Clientes cargados: 2
+2026-11-06 13:09:19 [INFO] Pantalla abierta: Tolotolo - Gestión de clientes
+2026-11-06 13:09:34 [INFO] Vuelta al panel del gerente desde la gestión de clientes
+2026-11-06 13:09:35 [INFO] Pantalla abierta: gestión de monitores
+2026-11-06 13:09:35 [INFO] Monitores cargados: 3
+2026-11-06 13:09:35 [INFO] Pantalla abierta: Tolotolo - Gestión de monitores
+2026-11-06 13:10:04 [INFO] Vuelta al panel del gerente desde la gestión de monitores
+2026-11-06 13:10:05 [INFO] Pantalla abierta: gestión de clientes
+2026-11-06 13:10:05 [INFO] Clientes cargados: 2
+2026-11-06 13:10:05 [INFO] Pantalla abierta: Tolotolo - Gestión de clientes
+2026-11-06 13:10:09 [INFO] Vuelta al panel del gerente desde la gestión de clientes
+2026-11-06 13:10:09 [INFO] Pantalla abierta: gestión de monitores
+2026-11-06 13:10:09 [INFO] Monitores cargados: 3
+2026-11-06 13:10:09 [INFO] Pantalla abierta: Tolotolo - Gestión de monitores
+2026-11-06 13:10:24 [INFO] Vuelta al panel del gerente desde la gestión de monitores
+2026-11-06 13:10:25 [INFO] Sesión cerrada desde el panel del gerente
+2026-11-06 13:10:25 [INFO] Pantalla abierta: Tolotolo - Iniciar sesión
+2026-11-06 13:26:26 [WARNING] No se encuentra la pantalla /com/mycompany/vista/GestorClases.fxml
+2026-11-06 13:26:27 [WARNING] No se encuentra la pantalla /com/mycompany/vista/GestorClases.fxml
+2026-11-06 13:28:05 [WARNING] No se encuentra la pantalla /com/mycompany/vista/GestorClases.fxml
+2026-11-06 13:28:07 [WARNING] No se encuentra la pantalla /com/mycompany/vista/GestorClases.fxml
+2026-11-06 13:30:10 [INFO] Pantalla abierta: gestión de clientes
+2026-11-06 13:30:10 [INFO] Clientes cargados: 2
+2026-11-06 13:30:12 [INFO] Vuelta al panel del gerente desde la gestión de clientes
+2026-11-06 13:30:13 [INFO] Pantalla abierta: gestión de clientes
+2026-11-06 13:30:13 [INFO] Clientes cargados: 2
+2026-11-06 13:30:14 [INFO] Pantalla abierta: gestión de clientes
+2026-11-06 13:30:14 [INFO] Clientes cargados: 2
+2026-11-06 13:30:14 [INFO] Pantalla abierta: gestión de clientes
+2026-11-06 13:30:14 [INFO] Clientes cargados: 2
+2026-11-06 13:30:16 [INFO] Pantalla abierta: gestión de clientes
+2026-11-06 13:30:16 [INFO] Clientes cargados: 2
+2026-11-06 13:30:16 [INFO] Pantalla abierta: gestión de clientes
+2026-11-06 13:30:16 [INFO] Clientes cargados: 2
+2026-11-06 13:32:59 [INFO] Pantalla abierta: gestión de clientes
+2026-11-06 13:33:00 [INFO] Clientes cargados: 2
+2026-11-06 13:33:02 [INFO] Vuelta al panel del gerente desde la gestión de clientes
+2026-11-06 13:33:02 [INFO] Pantalla abierta: gestión de clientes
+2026-11-06 13:33:02 [INFO] Clientes cargados: 2
+2026-11-06 13:33:04 [INFO] Pantalla abierta: gestión de clientes
+2026-11-06 13:33:04 [INFO] Clientes cargados: 2
+2026-11-06 13:33:04 [INFO] Pantalla abierta: gestión de clientes
+2026-11-06 13:33:04 [INFO] Clientes cargados: 2
+2026-11-06 13:33:05 [INFO] Pantalla abierta: gestión de clientes
+2026-11-06 13:33:05 [INFO] Clientes cargados: 2
+2026-11-06 13:33:06 [INFO] Pantalla abierta: gestión de clientes
+2026-11-06 13:33:06 [INFO] Clientes cargados: 2

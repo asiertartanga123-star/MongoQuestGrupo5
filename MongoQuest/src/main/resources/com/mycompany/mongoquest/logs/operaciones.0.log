@@ -1,3 +1,27 @@
 2026-11-05 13:40:52 | anónimo | SELECT Trabajadores | login de admin@admin.com | OK
 2026-11-05 13:40:53 | anónimo | SELECT Clientes | listado (2 registros) | OK
 2026-11-05 13:41:03 | anónimo | UPDATE Clientes | id 6aec39be52f27e3c87f9e26a (dni 12345678A) | OK
+2026-11-06 13:06:50 | anónimo | SELECT Login | sin coincidencias para admin@admin.com | OK
+2026-11-06 13:06:54 | anónimo | SELECT Login | sin coincidencias para admin@admin.com | OK
+2026-11-06 13:06:59 | anónimo | SELECT Trabajadores | login de admin@admin.com | OK
+2026-11-06 13:07:03 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-06 13:07:50 | anónimo | UPDATE Trabajadores | id 6aeaed676af6552764aee85e (dni 79077821A) | OK
+2026-11-06 13:08:25 | anónimo | UPDATE Trabajadores | id 6aeaed676af6552764aee85e (dni 79077821A) | OK
+2026-11-06 13:08:30 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-06 13:09:14 | anónimo | SELECT Trabajadores | login de admin@admin.com | OK
+2026-11-06 13:09:19 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-06 13:09:35 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-06 13:10:05 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-06 13:10:09 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-06 13:30:10 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-06 13:30:13 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-06 13:30:14 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-06 13:30:14 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-06 13:30:16 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-06 13:30:16 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-06 13:33:00 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-06 13:33:02 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-06 13:33:04 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-06 13:33:04 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-06 13:33:05 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-06 13:33:06 | anónimo | SELECT Clientes | listado (2 registros) | OK
