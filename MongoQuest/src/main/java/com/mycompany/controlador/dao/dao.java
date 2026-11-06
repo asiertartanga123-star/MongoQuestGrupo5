@@ -31,4 +31,12 @@ public interface dao {
     void actualizarMonitor(ObjectId id, String nombre, String apellido, String dni, String mail, List<Document> direccion);
 
     boolean eliminarMonitor(ObjectId id);
+
+    // ---------- VENTANA CLIENTE ----------
+
+    Document buscarClientePorMail(String mail);
+
+    List<Document> listarClases();
+
+    Document ultimaSesionDeClase(ObjectId claseId);
 }

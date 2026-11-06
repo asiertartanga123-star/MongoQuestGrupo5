@@ -1,11 +1,274 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.controlador.ClienteController">
-    
-</AnchorPane>
+<BorderPane fx:id="raiz" minHeight="480.0" minWidth="760.0" prefHeight="580.0" prefWidth="900.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.controlador.ClienteController">
+
+   <!-- ========== CABECERA ========== -->
+   <top>
+      <StackPane maxHeight="110.0" minHeight="110.0" prefHeight="110.0" style="-fx-background-color: #333333;">
+         <children>
+            <ImageView fx:id="imgLogo" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
+               <StackPane.margin>
+                  <Insets left="13.0" />
+               </StackPane.margin>
+               <image>
+                  <Image url="@../mongoquest/images/logo.png" />
+               </image>
+            </ImageView>
+
+            <!-- Recuadro de en medio: nombre del gimnasio -->
+            <Label fx:id="lblGimnasio" alignment="CENTER" maxWidth="270.0" minWidth="220.0" prefHeight="44.0" prefWidth="270.0" style="-fx-background-color: #e0e0e0; -fx-font-size: 20px; -fx-font-weight: bold;" text="TOLOTOLOGYM" StackPane.alignment="CENTER" />
+
+            <HBox alignment="CENTER_RIGHT" pickOnBounds="false" spacing="12.0" StackPane.alignment="CENTER_RIGHT">
+               <StackPane.margin>
+                  <Insets right="13.0" />
+               </StackPane.margin>
+               <children>
+                  <Circle fx:id="circAvatar" fill="#e0e0e0" radius="35.0" stroke="WHITE" strokeWidth="1.5" />
+                  <Button fx:id="btnCerrarSesion" mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="46.0" prefWidth="120.0" style="-fx-background-color: #e0e0e0; -fx-background-radius: 0; -fx-font-size: 15px; -fx-text-fill: #444444;" text="cerrar sesion" />
+               </children>
+            </HBox>
+         </children>
+      </StackPane>
+   </top>
+
+   <!-- ========== CONTENIDO ========== -->
+   <center>
+      <HBox spacing="20.0">
+         <padding>
+            <Insets bottom="28.0" left="28.0" right="16.0" top="28.0" />
+         </padding>
+         <children>
+
+            <!-- COLUMNA IZQUIERDA: clases a las que está apuntado el cliente -->
+            <VBox minWidth="200.0" prefWidth="270.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <VBox prefHeight="72.0" style="-fx-border-color: black; -fx-border-width: 1.5;" VBox.vgrow="ALWAYS">
+                     <padding><Insets bottom="6.0" left="8.0" top="3.0" /></padding>
+                     <children>
+                        <Label fx:id="lblClase1" style="-fx-font-size: 13px;" />
+                        <Region VBox.vgrow="ALWAYS" />
+                        <Label fx:id="lblPlazas1" style="-fx-font-size: 13px;" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="72.0" style="-fx-border-color: black; -fx-border-width: 1.5;" VBox.vgrow="ALWAYS">
+                     <padding><Insets bottom="6.0" left="8.0" top="3.0" /></padding>
+                     <children>
+                        <Label fx:id="lblClase2" style="-fx-font-size: 13px;" />
+                        <Region VBox.vgrow="ALWAYS" />
+                        <Label fx:id="lblPlazas2" style="-fx-font-size: 13px;" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="72.0" style="-fx-border-color: black; -fx-border-width: 1.5;" VBox.vgrow="ALWAYS">
+                     <padding><Insets bottom="6.0" left="8.0" top="3.0" /></padding>
+                     <children>
+                        <Label fx:id="lblClase3" style="-fx-font-size: 13px;" />
+                        <Region VBox.vgrow="ALWAYS" />
+                        <Label fx:id="lblPlazas3" style="-fx-font-size: 13px;" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="72.0" style="-fx-border-color: black; -fx-border-width: 1.5;" VBox.vgrow="ALWAYS">
+                     <padding><Insets bottom="6.0" left="8.0" top="3.0" /></padding>
+                     <children>
+                        <Label fx:id="lblClase4" style="-fx-font-size: 13px;" />
+                        <Region VBox.vgrow="ALWAYS" />
+                        <Label fx:id="lblPlazas4" style="-fx-font-size: 13px;" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="72.0" style="-fx-border-color: black; -fx-border-width: 1.5;" VBox.vgrow="ALWAYS">
+                     <padding><Insets bottom="6.0" left="8.0" top="3.0" /></padding>
+                     <children>
+                        <Label fx:id="lblClase5" style="-fx-font-size: 13px;" />
+                        <Region VBox.vgrow="ALWAYS" />
+                        <Label fx:id="lblPlazas5" style="-fx-font-size: 13px;" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="72.0" style="-fx-border-color: black; -fx-border-width: 1.5;" VBox.vgrow="ALWAYS">
+                     <padding><Insets bottom="6.0" left="8.0" top="3.0" /></padding>
+                     <children>
+                        <Label fx:id="lblClase6" style="-fx-font-size: 13px;" />
+                        <Region VBox.vgrow="ALWAYS" />
+                        <Label fx:id="lblPlazas6" style="-fx-font-size: 13px;" />
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+
+            <!-- COLUMNA CENTRAL: clases creadas + botón "Ver más clases" (con scroll al desplegar) -->
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" minWidth="200.0" prefWidth="270.0" style="-fx-background: white; -fx-background-color: transparent; -fx-padding: 0;" HBox.hgrow="ALWAYS">
+               <content>
+                  <VBox fx:id="vboxCentro">
+                     <children>
+                        <Region minHeight="72.0" prefHeight="72.0" />
+                        <VBox minHeight="72.0" prefHeight="72.0" style="-fx-border-color: black; -fx-border-width: 1.5;">
+                           <padding><Insets bottom="6.0" left="8.0" top="3.0" /></padding>
+                           <children>
+                              <Label fx:id="lblClase7" style="-fx-font-size: 13px;" />
+                              <Region VBox.vgrow="ALWAYS" />
+                              <Label fx:id="lblPlazas7" style="-fx-font-size: 13px;" />
+                           </children>
+                        </VBox>
+                        <VBox minHeight="72.0" prefHeight="72.0" style="-fx-border-color: black; -fx-border-width: 1.5;">
+                           <padding><Insets bottom="6.0" left="8.0" top="3.0" /></padding>
+                           <children>
+                              <Label fx:id="lblClase8" style="-fx-font-size: 13px;" />
+                              <Region VBox.vgrow="ALWAYS" />
+                              <Label fx:id="lblPlazas8" style="-fx-font-size: 13px;" />
+                           </children>
+                        </VBox>
+                        <VBox minHeight="72.0" prefHeight="72.0" style="-fx-border-color: black; -fx-border-width: 1.5;">
+                           <padding><Insets bottom="6.0" left="8.0" top="3.0" /></padding>
+                           <children>
+                              <Label fx:id="lblClase9" style="-fx-font-size: 13px;" />
+                              <Region VBox.vgrow="ALWAYS" />
+                              <Label fx:id="lblPlazas9" style="-fx-font-size: 13px;" />
+                           </children>
+                        </VBox>
+                        <!-- Tarjetas ocultas: aparecen al pulsar "Ver más clases" -->
+                        <VBox fx:id="tarjeta10" managed="false" minHeight="72.0" prefHeight="72.0" style="-fx-border-color: black; -fx-border-width: 1.5;" visible="false">
+                           <padding><Insets bottom="6.0" left="8.0" top="3.0" /></padding>
+                           <children>
+                              <Label fx:id="lblClase10" style="-fx-font-size: 13px;" />
+                              <Region VBox.vgrow="ALWAYS" />
+                              <Label fx:id="lblPlazas10" style="-fx-font-size: 13px;" />
+                           </children>
+                        </VBox>
+                        <VBox fx:id="tarjeta11" managed="false" minHeight="72.0" prefHeight="72.0" style="-fx-border-color: black; -fx-border-width: 1.5;" visible="false">
+                           <padding><Insets bottom="6.0" left="8.0" top="3.0" /></padding>
+                           <children>
+                              <Label fx:id="lblClase11" style="-fx-font-size: 13px;" />
+                              <Region VBox.vgrow="ALWAYS" />
+                              <Label fx:id="lblPlazas11" style="-fx-font-size: 13px;" />
+                           </children>
+                        </VBox>
+                        <VBox fx:id="tarjeta12" managed="false" minHeight="72.0" prefHeight="72.0" style="-fx-border-color: black; -fx-border-width: 1.5;" visible="false">
+                           <padding><Insets bottom="6.0" left="8.0" top="3.0" /></padding>
+                           <children>
+                              <Label fx:id="lblClase12" style="-fx-font-size: 13px;" />
+                              <Region VBox.vgrow="ALWAYS" />
+                              <Label fx:id="lblPlazas12" style="-fx-font-size: 13px;" />
+                           </children>
+                        </VBox>
+                        <VBox fx:id="tarjeta13" managed="false" minHeight="72.0" prefHeight="72.0" style="-fx-border-color: black; -fx-border-width: 1.5;" visible="false">
+                           <padding><Insets bottom="6.0" left="8.0" top="3.0" /></padding>
+                           <children>
+                              <Label fx:id="lblClase13" style="-fx-font-size: 13px;" />
+                              <Region VBox.vgrow="ALWAYS" />
+                              <Label fx:id="lblPlazas13" style="-fx-font-size: 13px;" />
+                           </children>
+                        </VBox>
+                        <VBox fx:id="tarjeta14" managed="false" minHeight="72.0" prefHeight="72.0" style="-fx-border-color: black; -fx-border-width: 1.5;" visible="false">
+                           <padding><Insets bottom="6.0" left="8.0" top="3.0" /></padding>
+                           <children>
+                              <Label fx:id="lblClase14" style="-fx-font-size: 13px;" />
+                              <Region VBox.vgrow="ALWAYS" />
+                              <Label fx:id="lblPlazas14" style="-fx-font-size: 13px;" />
+                           </children>
+                        </VBox>
+                        <VBox fx:id="tarjeta15" managed="false" minHeight="72.0" prefHeight="72.0" style="-fx-border-color: black; -fx-border-width: 1.5;" visible="false">
+                           <padding><Insets bottom="6.0" left="8.0" top="3.0" /></padding>
+                           <children>
+                              <Label fx:id="lblClase15" style="-fx-font-size: 13px;" />
+                              <Region VBox.vgrow="ALWAYS" />
+                              <Label fx:id="lblPlazas15" style="-fx-font-size: 13px;" />
+                           </children>
+                        </VBox>
+                        <VBox fx:id="tarjeta16" managed="false" minHeight="72.0" prefHeight="72.0" style="-fx-border-color: black; -fx-border-width: 1.5;" visible="false">
+                           <padding><Insets bottom="6.0" left="8.0" top="3.0" /></padding>
+                           <children>
+                              <Label fx:id="lblClase16" style="-fx-font-size: 13px;" />
+                              <Region VBox.vgrow="ALWAYS" />
+                              <Label fx:id="lblPlazas16" style="-fx-font-size: 13px;" />
+                           </children>
+                        </VBox>
+                        <VBox fx:id="tarjeta17" managed="false" minHeight="72.0" prefHeight="72.0" style="-fx-border-color: black; -fx-border-width: 1.5;" visible="false">
+                           <padding><Insets bottom="6.0" left="8.0" top="3.0" /></padding>
+                           <children>
+                              <Label fx:id="lblClase17" style="-fx-font-size: 13px;" />
+                              <Region VBox.vgrow="ALWAYS" />
+                              <Label fx:id="lblPlazas17" style="-fx-font-size: 13px;" />
+                           </children>
+                        </VBox>
+                        <VBox fx:id="tarjeta18" managed="false" minHeight="72.0" prefHeight="72.0" style="-fx-border-color: black; -fx-border-width: 1.5;" visible="false">
+                           <padding><Insets bottom="6.0" left="8.0" top="3.0" /></padding>
+                           <children>
+                              <Label fx:id="lblClase18" style="-fx-font-size: 13px;" />
+                              <Region VBox.vgrow="ALWAYS" />
+                              <Label fx:id="lblPlazas18" style="-fx-font-size: 13px;" />
+                           </children>
+                        </VBox>
+                        <Button fx:id="btnVerMasClases" maxWidth="Infinity" mnemonicParsing="false" onAction="#verMasClases" prefHeight="44.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0; -fx-font-size: 14px;" text="Ver más clases">
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+               </content>
+            </ScrollPane>
+
+            <!-- COLUMNA DERECHA: datos del cliente y logros -->
+            <VBox alignment="TOP_CENTER" maxWidth="280.0" minWidth="220.0" prefWidth="270.0" spacing="10.0" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 1.5;">
+               <padding>
+                  <Insets bottom="14.0" left="14.0" right="14.0" top="8.0" />
+               </padding>
+               <children>
+                  <Label style="-fx-font-size: 22px;" text="Datos" />
+                  <HBox alignment="CENTER_LEFT" spacing="8.0">
+                     <children>
+                        <Label minWidth="68.0" style="-fx-font-size: 13px;" text="Nombre:" />
+                        <TextField fx:id="txtNombre" editable="false" prefHeight="24.0" prefWidth="130.0" style="-fx-background-color: #999999; -fx-border-color: black; -fx-background-radius: 0; -fx-border-radius: 0;" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" spacing="8.0">
+                     <children>
+                        <Label minWidth="68.0" style="-fx-font-size: 13px;" text="Dni:" />
+                        <TextField fx:id="txtDni" editable="false" prefHeight="24.0" prefWidth="130.0" style="-fx-background-color: #999999; -fx-border-color: black; -fx-background-radius: 0; -fx-border-radius: 0;" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" spacing="8.0">
+                     <children>
+                        <Label minWidth="68.0" style="-fx-font-size: 13px;" text="Mail:" />
+                        <TextField fx:id="txtMail" editable="false" prefHeight="24.0" prefWidth="130.0" style="-fx-background-color: #999999; -fx-border-color: black; -fx-background-radius: 0; -fx-border-radius: 0;" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" spacing="8.0">
+                     <children>
+                        <Label minWidth="68.0" style="-fx-font-size: 13px;" text="Membresía:" />
+                        <TextField fx:id="txtMembresia" editable="false" prefHeight="24.0" prefWidth="130.0" style="-fx-background-color: #999999; -fx-border-color: black; -fx-background-radius: 0; -fx-border-radius: 0;" />
+                     </children>
+                  </HBox>
+                  <Label style="-fx-font-size: 18px;" text="Logros">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TableView fx:id="tablaLogros" minHeight="120.0" VBox.vgrow="ALWAYS">
+                     <columns>
+                        <TableColumn fx:id="colLogro1" prefWidth="40.0" text="Nº" />
+                        <TableColumn fx:id="colLogro2" prefWidth="90.0" text="Nombre" />
+                        <TableColumn fx:id="colLogro3" prefWidth="75.0" text="Fecha" />
+                        <TableColumn fx:id="colLogro4" prefWidth="40.0" text="Sem." />
+                     </columns>
+                  </TableView>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </center>
+</BorderPane>
