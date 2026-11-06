@@ -4,6 +4,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Sorts;
 import com.mongodb.client.model.Updates;
 import java.util.ArrayList;
 import java.util.List;
@@ -86,7 +87,7 @@ public class daoImplementacio implements dao {
         }
     }
 
-    
+
 
     @Override
     public List<Document> listarMonitores() {
@@ -130,6 +131,42 @@ public class daoImplementacio implements dao {
                     .getCollection("Trabajadores")
                     .deleteOne(Filters.eq("_id", id))
                     .getDeletedCount() > 0;
+        }
+    }
+
+    // ---------- VENTANA CLIENTE ----------
+
+    // Busca un cliente por su mail (el que usó para iniciar sesión)
+    @Override
+    public Document buscarClientePorMail(String mail) {
+        try (MongoClient cliente = MongoClients.create(URI)) {
+            return cliente.getDatabase(BD)
+                    .getCollection("Clientes")
+                    .find(Filters.eq("mail", mail))
+                    .first();
+        }
+    }
+
+    // Todas las clases del gimnasio
+    @Override
+    public List<Document> listarClases() {
+        try (MongoClient cliente = MongoClients.create(URI)) {
+            return cliente.getDatabase(BD)
+                    .getCollection("Clases")
+                    .find()
+                    .into(new ArrayList<Document>());
+        }
+    }
+
+    // La sesión más reciente de una clase (de ahí sale el "n/n" de plazas)
+    @Override
+    public Document ultimaSesionDeClase(ObjectId claseId) {
+        try (MongoClient cliente = MongoClients.create(URI)) {
+            return cliente.getDatabase(BD)
+                    .getCollection("Sesiones")
+                    .find(Filters.eq("claseid", claseId))
+                    .sort(Sorts.descending("fecha"))
+                    .first();
         }
     }
 }

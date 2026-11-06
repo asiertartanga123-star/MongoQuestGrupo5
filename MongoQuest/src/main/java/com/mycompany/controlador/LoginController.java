@@ -23,6 +23,7 @@ public class LoginController {
     @FXML private PasswordField txtPassword;
 
     private final daoImplementacio dao = new daoImplementacio();
+    public static String mailActual;
 
     @FXML
     private void initialize() {
@@ -47,6 +48,8 @@ public class LoginController {
                 mostrarAlerta(Alert.AlertType.ERROR, "Usuario o contraseña incorrectos.");
                 return;
             }
+            
+            mailActual = mail;   
 
             switch (rol) {
                 case "gerente":
