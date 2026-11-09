@@ -82,3 +82,23 @@
 2026-11-09 11:50:27 | anónimo | SELECT Trabajadores | login de admin@admin.com | OK
 2026-11-09 11:50:31 | anónimo | SELECT Login | sin coincidencias para nadie@noexiste.com | OK
 2026-11-09 11:50:36 | anónimo | SELECT Login | sin coincidencias para admin@admin.com | OK
+2026-11-09 12:07:51 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-09 12:07:52 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-09 12:07:53 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-09 12:07:53 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-09 12:07:55 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-09 12:07:55 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-09 12:07:56 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 12:07:56 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 12:07:57 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 12:07:59 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 12:08:00 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 12:08:00 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 12:08:02 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 12:08:03 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 12:08:04 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 12:08:04 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 12:08:06 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 12:08:11 | anónimo | SELECT Trabajadores | login de admin@admin.com | OK
+2026-11-09 12:08:14 | anónimo | SELECT Login | sin coincidencias para nadie@noexiste.com | OK
+2026-11-09 12:08:19 | anónimo | SELECT Login | sin coincidencias para admin@admin.com | OK
