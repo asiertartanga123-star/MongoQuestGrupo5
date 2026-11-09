@@ -25,3 +25,23 @@
 2026-11-06 13:33:04 | anónimo | SELECT Clientes | listado (2 registros) | OK
 2026-11-06 13:33:05 | anónimo | SELECT Clientes | listado (2 registros) | OK
 2026-11-06 13:33:06 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-09 09:15:04 | anónimo | SELECT Trabajadores | login de admin@admin.com | OK
+2026-11-09 09:15:08 | anónimo | SELECT Login | sin coincidencias para nadie@noexiste.com | OK
+2026-11-09 09:15:13 | anónimo | SELECT Login | sin coincidencias para admin@admin.com | OK
+2026-11-09 09:15:51 | anónimo | SELECT Trabajadores | login de admin@admin.com | OK
+2026-11-09 09:15:55 | anónimo | SELECT Login | sin coincidencias para nadie@noexiste.com | OK
+2026-11-09 09:16:00 | anónimo | SELECT Login | sin coincidencias para admin@admin.com | OK
+2026-11-09 09:22:45 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 09:22:46 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 09:22:48 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 09:22:49 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 09:22:51 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 09:22:51 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 09:22:53 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 09:22:54 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 09:22:55 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 09:22:56 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 09:22:57 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 09:23:53 | anónimo | SELECT Trabajadores | login de admin@admin.com | OK
+2026-11-09 09:23:57 | anónimo | SELECT Login | sin coincidencias para nadie@noexiste.com | OK
+2026-11-09 09:24:02 | anónimo | SELECT Login | sin coincidencias para admin@admin.com | OK
