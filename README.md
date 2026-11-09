@@ -26,6 +26,9 @@ la versión actual.
    mvn clean javafx:run
    ```
 
+   Tambien se puede iniciar con `iniciar.bat` desde la raiz del proyecto. El
+   script localiza `MongoQuest` de forma relativa a su propia ubicacion.
+
 La clase de entrada es `com.mycompany.controlador.App`. La aplicación abre la
 pantalla de inicio de sesión.
 
