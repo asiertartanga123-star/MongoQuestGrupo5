@@ -29,6 +29,12 @@ la versión actual.
 La clase de entrada es `com.mycompany.controlador.App`. La aplicación abre la
 pantalla de inicio de sesión.
 
+Para generar el JAR ejecutable en Windows, desde `MongoQuest` ejecuta
+`mvn clean package` y comparte
+`target/MongoQuest-1.0-SNAPSHOT-ejecutable.jar`. En el otro ordenador se puede
+abrir con `java -jar target\MongoQuest-1.0-SNAPSHOT-ejecutable.jar`; necesita Java 11
+instalado y MongoDB disponible en ese equipo en `localhost:27017`.
+
 ## Estructura del proyecto
 
 ```text
