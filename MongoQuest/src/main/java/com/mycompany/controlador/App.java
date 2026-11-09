@@ -1,18 +1,16 @@
 package com.mycompany.controlador;
 
 import java.io.IOException;
-
+import java.io.InputStream;
+import java.net.URL;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Dialog;
+import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.scene.image.Image;
-
-import java.io.IOException;
-import java.io.InputStream;
-import javafx.scene.control.Dialog;
 
 /**
  * Punto de entrada JavaFX y responsable de mostrar la primera pantalla.
@@ -22,20 +20,50 @@ public class App extends Application {
     // La escena se conserva para poder sustituir su contenido si hace falta.
     private static Scene scene;
 
+    // Ruta del logo que se usa como icono de todas las ventanas.
+    private static final String RUTA_ICONO = "/com/mycompany/mongoquest/imagesApp/logo.png";
+    private static Image icono;
+
     @Override
     public void start(Stage stage) throws IOException {
-        Font.loadFont(App.class.getResource("/com/mycompany/fonts/static/Cinzel-Regular.ttf").toExternalForm(), 12);
-        Font.loadFont(App.class.getResource("/com/mycompany/fonts/static/Cinzel-Bold.ttf").toExternalForm(), 12);
+        // Cualquier error que nadie controle queda en errores.0.log.
+        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(Thread hilo, Throwable e) {
+                Registro.error("Error no controlado en el hilo " + hilo.getName(), e);
+            }
+        });
+        Registro.info("Aplicación iniciada");
+
+        cargarFuente("/com/mycompany/fonts/static/Cinzel-Regular.ttf");
+        cargarFuente("/com/mycompany/fonts/static/Cinzel-Bold.ttf");
+
         FXMLLoader loader = new FXMLLoader(App.class.getResource("/com/mycompany/vista/Login.fxml"));
         Parent root = loader.load();
         scene = new Scene(root, 640, 480);
 
-        stage.getIcons().add(new Image(App.class.getResourceAsStream(
-                "/com/mycompany/mongoquest/imagesApp/logo.png")));   // <-- icono
-
+        ponerIcono(stage);
         stage.setTitle("Tolotolo - Iniciar sesión");
         stage.setScene(scene);
         stage.show();
+    }
+
+    @Override
+    public void stop() {
+        Registro.info("Aplicación cerrada");
+    }
+
+    // Una fuente que falte no debe impedir que la aplicación arranque.
+    private static void cargarFuente(String ruta) {
+        URL url = App.class.getResource(ruta);
+        if (url == null) {
+            Registro.aviso("No se encuentra la fuente " + ruta);
+            return;
+        }
+        Font fuente = Font.loadFont(url.toExternalForm(), 12);
+        if (fuente == null) {
+            Registro.aviso("No se pudo cargar la fuente " + ruta);
+        }
     }
 
     static void setRoot(String fxml) throws IOException {
@@ -55,21 +83,22 @@ public class App extends Application {
         launch();
     }
 
-    private static final String RUTA_ICONO = "/com/mycompany/mongoquest/imagesApp/logo.png";
-    private static Image icono;
+    // ---------- Icono de las ventanas ----------
 
-// Carga el icono una sola vez y lo reutiliza en todas las ventanas
+    // Carga el icono una sola vez y lo reutiliza en todas las ventanas.
     private static Image getIcono() {
         if (icono == null) {
             InputStream flujo = App.class.getResourceAsStream(RUTA_ICONO);
             if (flujo != null) {
                 icono = new Image(flujo);
+            } else {
+                Registro.aviso("No se encuentra el icono " + RUTA_ICONO);
             }
         }
         return icono;
     }
 
-// Para ventanas normales (new Stage())
+    // Para ventanas normales (new Stage()).
     public static void ponerIcono(Stage stage) {
         Image i = getIcono();
         if (i != null && !stage.getIcons().contains(i)) {
@@ -77,7 +106,7 @@ public class App extends Application {
         }
     }
 
-// Para avisos y diálogos (Alert, Dialog)
+    // Para avisos y diálogos (Alert, Dialog).
     public static void ponerIcono(Dialog<?> dialogo) {
         ponerIcono((Stage) dialogo.getDialogPane().getScene().getWindow());
     }
