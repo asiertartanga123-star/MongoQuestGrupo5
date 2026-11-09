@@ -1,0 +1,104 @@
+2026-11-05 13:40:52 | anónimo | SELECT Trabajadores | login de admin@admin.com | OK
+2026-11-05 13:40:53 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-05 13:41:03 | anónimo | UPDATE Clientes | id 6aec39be52f27e3c87f9e26a (dni 12345678A) | OK
+2026-11-06 13:06:50 | anónimo | SELECT Login | sin coincidencias para admin@admin.com | OK
+2026-11-06 13:06:54 | anónimo | SELECT Login | sin coincidencias para admin@admin.com | OK
+2026-11-06 13:06:59 | anónimo | SELECT Trabajadores | login de admin@admin.com | OK
+2026-11-06 13:07:03 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-06 13:07:50 | anónimo | UPDATE Trabajadores | id 6aeaed676af6552764aee85e (dni 79077821A) | OK
+2026-11-06 13:08:25 | anónimo | UPDATE Trabajadores | id 6aeaed676af6552764aee85e (dni 79077821A) | OK
+2026-11-06 13:08:30 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-06 13:09:14 | anónimo | SELECT Trabajadores | login de admin@admin.com | OK
+2026-11-06 13:09:19 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-06 13:09:35 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-06 13:10:05 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-06 13:10:09 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-06 13:30:10 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-06 13:30:13 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-06 13:30:14 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-06 13:30:14 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-06 13:30:16 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-06 13:30:16 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-06 13:33:00 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-06 13:33:02 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-06 13:33:04 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-06 13:33:04 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-06 13:33:05 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-06 13:33:06 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-09 09:15:04 | anónimo | SELECT Trabajadores | login de admin@admin.com | OK
+2026-11-09 09:15:08 | anónimo | SELECT Login | sin coincidencias para nadie@noexiste.com | OK
+2026-11-09 09:15:13 | anónimo | SELECT Login | sin coincidencias para admin@admin.com | OK
+2026-11-09 09:15:51 | anónimo | SELECT Trabajadores | login de admin@admin.com | OK
+2026-11-09 09:15:55 | anónimo | SELECT Login | sin coincidencias para nadie@noexiste.com | OK
+2026-11-09 09:16:00 | anónimo | SELECT Login | sin coincidencias para admin@admin.com | OK
+2026-11-09 09:22:45 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 09:22:46 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 09:22:48 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 09:22:49 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 09:22:51 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 09:22:51 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 09:22:53 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 09:22:54 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 09:22:55 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 09:22:56 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 09:22:57 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 09:23:53 | anónimo | SELECT Trabajadores | login de admin@admin.com | OK
+2026-11-09 09:23:57 | anónimo | SELECT Login | sin coincidencias para nadie@noexiste.com | OK
+2026-11-09 09:24:02 | anónimo | SELECT Login | sin coincidencias para admin@admin.com | OK
+2026-11-09 11:41:45 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-09 11:41:46 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-09 11:41:47 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-09 11:41:48 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-09 11:41:49 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-09 11:41:50 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-09 11:42:01 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 11:42:02 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 11:42:03 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 11:42:05 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 11:42:06 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 11:42:06 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 11:42:08 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 11:42:09 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 11:42:10 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 11:42:10 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 11:42:11 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 11:50:07 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-09 11:50:08 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-09 11:50:10 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-09 11:50:10 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-09 11:50:11 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-09 11:50:12 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-09 11:50:13 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 11:50:13 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 11:50:14 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 11:50:15 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 11:50:16 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 11:50:17 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 11:50:18 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 11:50:19 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 11:50:21 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 11:50:21 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 11:50:22 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 11:50:27 | anónimo | SELECT Trabajadores | login de admin@admin.com | OK
+2026-11-09 11:50:31 | anónimo | SELECT Login | sin coincidencias para nadie@noexiste.com | OK
+2026-11-09 11:50:36 | anónimo | SELECT Login | sin coincidencias para admin@admin.com | OK
+2026-11-09 12:07:51 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-09 12:07:52 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-09 12:07:53 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-09 12:07:53 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-09 12:07:55 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-09 12:07:55 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-09 12:07:56 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 12:07:56 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 12:07:57 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 12:07:59 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 12:08:00 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 12:08:00 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 12:08:02 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 12:08:03 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 12:08:04 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 12:08:04 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 12:08:06 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-09 12:08:11 | anónimo | SELECT Trabajadores | login de admin@admin.com | OK
+2026-11-09 12:08:14 | anónimo | SELECT Login | sin coincidencias para nadie@noexiste.com | OK
+2026-11-09 12:08:19 | anónimo | SELECT Login | sin coincidencias para admin@admin.com | OK
