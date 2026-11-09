@@ -29,11 +29,13 @@ la versión actual.
 La clase de entrada es `com.mycompany.controlador.App`. La aplicación abre la
 pantalla de inicio de sesión.
 
-Para generar el JAR ejecutable en Windows, desde `MongoQuest` ejecuta
-`mvn clean package` y comparte
-`target/MongoQuest-1.0-SNAPSHOT-ejecutable.jar`. En el otro ordenador se puede
-abrir con `java -jar target\MongoQuest-1.0-SNAPSHOT-ejecutable.jar`; necesita Java 11
-instalado y MongoDB disponible en ese equipo en `localhost:27017`.
+Para preparar la aplicación para otros ordenadores, desde `MongoQuest` ejecuta
+`mvn clean package` y copia
+`target/MongoQuest-1.0-SNAPSHOT-ejecutable.jar` como `MongoQuest.jar` en la
+misma carpeta que `ejecutar.bat`. Comparte ambos archivos. En el otro ordenador
+basta con ejecutar `ejecutar.bat`; necesita Java 11 o superior y MongoDB
+disponible en ese equipo en `localhost:27017`. Maven solo es necesario para
+generar el JAR, no para ejecutar la aplicación.
 
 ## Estructura del proyecto
 
