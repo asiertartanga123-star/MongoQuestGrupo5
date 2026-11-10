@@ -57,23 +57,11 @@ public class daoImplementacio implements dao {
 
     // ---------- Validaciones para el registro ----------
 
-<<<<<<< HEAD
     @Override
-=======
-    
->>>>>>> Asier
     public boolean existeMail(String mail) {
         // El mail debe ser único entre clientes y trabajadores.
         try (MongoClient cliente = MongoClients.create(URI)) {
             MongoDatabase db = cliente.getDatabase(BD);
-<<<<<<< HEAD
-            return db.getCollection("Clientes").find(Filters.eq("mail", mail)).first() != null
-                    || db.getCollection("Trabajadores").find(Filters.eq("mail", mail)).first() != null;
-        }
-    }
-
-    @Override
-=======
             boolean existe = db.getCollection("Clientes").find(Filters.eq("mail", mail)).first() != null
                     || db.getCollection("Trabajadores").find(Filters.eq("mail", mail)).first() != null;
             Registro.operacion("SELECT Clientes/Trabajadores", "existe mail " + mail + ": " + existe);
@@ -84,8 +72,7 @@ public class daoImplementacio implements dao {
         }
     }
 
-
->>>>>>> Asier
+    @Override
     public boolean mailValido(String mail) {
         return mail != null && MAIL_VALIDO.matcher(mail.trim().toLowerCase()).matches();
     }

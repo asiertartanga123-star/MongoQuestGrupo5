@@ -31,14 +31,8 @@ public class Registro {
     // Usuario que ha iniciado sesión; se incluye en cada operación de base de datos.
     private static volatile String usuario = "anónimo";
 
-<<<<<<< HEAD
     // Carpeta de los logs: datos/logs, junto a donde se ejecuta la aplicación.
     private static final Path CARPETA = Paths.get("datos", "logs");
-=======
-    // Carpeta de los logs, la misma que se ve en NetBeans dentro de resources.
-    private static final Path CARPETA = Paths.get("src", "main", "resources",
-            "com", "mycompany", "mongoquest", "logs");
->>>>>>> Asier
 
     // Formato de cada línea; la traza completa solo se escribe si conTraza es true.
     private static class Formato extends Formatter {
