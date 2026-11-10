@@ -10,8 +10,8 @@ import javafx.scene.image.Image;
 
 public class GestorImagenes {
 
-    private static final Path CARPETA = Paths.get("src", "main", "resources",
-            "com", "mycompany", "mongoquest", "imagesUsu");
+    // Carpeta de las fotos: datos/imagesUsu, junto a donde se ejecuta la aplicación.
+    private static final Path CARPETA = Paths.get("datos", "imagesUsu");
 
     // Solo los formatos que JavaFX sabe mostrar.
     private static final String[] EXTENSIONES = {"png", "jpg", "jpeg", "gif", "bmp"};
