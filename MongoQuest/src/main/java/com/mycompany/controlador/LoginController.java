@@ -48,8 +48,8 @@ public class LoginController {
                 mostrarAlerta(Alert.AlertType.ERROR, "Usuario o contraseña incorrectos.");
                 return;
             }
-            
-            mailActual = mail;   
+
+            mailActual = mail;
 
             switch (rol) {
                 case "gerente":
@@ -83,6 +83,17 @@ public class LoginController {
         } catch (IOException | NullPointerException e) {
             e.printStackTrace();
             mostrarAlerta(Alert.AlertType.ERROR, "No se pudo abrir la ventana " + fxml);
+        }
+    }
+
+    @FXML
+    private void onRegistrarse() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/com/mycompany/vista/Register.fxml"));
+            raiz.getScene().setRoot(root);
+        } catch (IOException | NullPointerException e) {
+            e.printStackTrace();
+            mostrarAlerta(Alert.AlertType.ERROR, "No se pudo abrir la ventana de registro.");
         }
     }
 
