@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 public class GerenteController {
 
-    // Elementos de la vista del gerente utilizados para ajustar imágenes y navegar.
+    // Elementos de la vista del gerente
     @FXML private BorderPane raiz;
     @FXML private VBox cardMonitores;
     @FXML private VBox cardClases;
@@ -28,16 +28,32 @@ public class GerenteController {
 
     @FXML
     private void initialize() {
-        // Las imágenes se escalan respecto al tamaño real de cada tarjeta.
+        // Escalar imágenes rompiendo la dependencia circular de layout
         ajustarImagen(imgMonitores, cardMonitores);
         ajustarImagen(imgClases, cardClases);
         ajustarImagen(imgClientes, cardClientes);
     }
 
     private void ajustarImagen(ImageView img, VBox card) {
-        // Mantiene la proporción de las imágenes y deja margen dentro de la tarjeta.
-        img.fitWidthProperty().bind(card.widthProperty().multiply(0.85));
-        img.fitHeightProperty().bind(card.heightProperty().multiply(0.80));
+        if (img == null || card == null) return;
+
+        img.setPreserveRatio(true);
+
+        // Escuchar cambios de tamaño del VBox en lugar de bindear propiedades directamente.
+        // Esto evita que el ImageView infle el tamaño preferido del contenedor padre.
+        card.widthProperty().addListener((obs, oldVal, newVal) -> {
+            double anchoCard = newVal.doubleValue();
+            if (anchoCard > 0) {
+                img.setFitWidth(anchoCard * 0.75);
+            }
+        });
+
+        card.heightProperty().addListener((obs, oldVal, newVal) -> {
+            double altoCard = newVal.doubleValue();
+            if (altoCard > 0) {
+                img.setFitHeight(altoCard * 0.55);
+            }
+        });
     }
 
     @FXML

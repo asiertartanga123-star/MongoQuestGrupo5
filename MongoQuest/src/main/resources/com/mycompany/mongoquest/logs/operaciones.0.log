@@ -102,3 +102,23 @@
 2026-11-09 12:08:11 | anónimo | SELECT Trabajadores | login de admin@admin.com | OK
 2026-11-09 12:08:14 | anónimo | SELECT Login | sin coincidencias para nadie@noexiste.com | OK
 2026-11-09 12:08:19 | anónimo | SELECT Login | sin coincidencias para admin@admin.com | OK
+2026-11-10 12:59:50 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-10 12:59:51 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-10 12:59:52 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-10 12:59:52 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-10 12:59:54 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-10 12:59:54 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-10 12:59:55 | anónimo | SELECT Trabajadores | listado de monitores (2 registros) | OK
+2026-11-10 12:59:55 | anónimo | SELECT Trabajadores | listado de monitores (2 registros) | OK
+2026-11-10 12:59:56 | anónimo | SELECT Trabajadores | listado de monitores (2 registros) | OK
+2026-11-10 12:59:57 | anónimo | SELECT Trabajadores | listado de monitores (2 registros) | OK
+2026-11-10 12:59:59 | anónimo | SELECT Trabajadores | listado de monitores (2 registros) | OK
+2026-11-10 12:59:59 | anónimo | SELECT Trabajadores | listado de monitores (2 registros) | OK
+2026-11-10 13:00:00 | anónimo | SELECT Trabajadores | listado de monitores (2 registros) | OK
+2026-11-10 13:00:02 | anónimo | SELECT Trabajadores | listado de monitores (2 registros) | OK
+2026-11-10 13:00:03 | anónimo | SELECT Trabajadores | listado de monitores (2 registros) | OK
+2026-11-10 13:00:03 | anónimo | SELECT Trabajadores | listado de monitores (2 registros) | OK
+2026-11-10 13:00:04 | anónimo | SELECT Trabajadores | listado de monitores (2 registros) | OK
+2026-11-10 13:00:09 | anónimo | SELECT Trabajadores | login de admin@admin.com | OK
+2026-11-10 13:00:13 | anónimo | SELECT Login | sin coincidencias para nadie@noexiste.com | OK
+2026-11-10 13:00:17 | anónimo | SELECT Login | sin coincidencias para admin@admin.com | OK
