@@ -2,13 +2,19 @@ package com.mycompany.controlador;
 
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.TimeUnit;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assumptions;
@@ -17,6 +23,7 @@ import org.testfx.api.FxAssert;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.matcher.base.NodeMatchers;
+import org.testfx.util.WaitForAsyncUtils;
 
 public class LoginControllerTest extends ApplicationTest {
 
@@ -28,13 +35,30 @@ public class LoginControllerTest extends ApplicationTest {
         stage.show();
     }
 
-    // Después de cada test se cierran todas las ventanas que haya abierto el login.
+    // Después de cada test: se cierran los avisos que hayan quedado abiertos y todas las ventanas.
     @AfterEach
     public void cerrarVentanas() throws Exception {
+        cerrarAvisosAbiertos();
         FxToolkit.cleanupStages();
     }
 
     // ---------- Ayudas ----------
+
+    // Cierra cualquier Alert o Dialog que siga en pantalla (cleanupStages no los cierra).
+    private void cerrarAvisosAbiertos() {
+        List<Window> ventanas = new ArrayList<Window>(listWindows());
+        for (final Window w : ventanas) {
+            if (w.isShowing() && w.getScene() != null
+                    && w.getScene().getRoot() instanceof DialogPane) {
+                interact(new Runnable() {
+                    @Override
+                    public void run() {
+                        w.hide();
+                    }
+                });
+            }
+        }
+    }
 
     // Devuelve true si MongoDB responde en localhost:27017.
     private boolean mongoActivo() {
@@ -51,6 +75,16 @@ public class LoginControllerTest extends ApplicationTest {
                 // no hace falta hacer nada
             }
         }
+    }
+
+    // Espera hasta 5 segundos a que aparezca un elemento (cargar una pantalla o consultar MongoDB tarda).
+    private void esperar(final String selector) throws Exception {
+        WaitForAsyncUtils.waitFor(5, TimeUnit.SECONDS, new Callable<Boolean>() {
+            @Override
+            public Boolean call() {
+                return lookup(selector).tryQuery().isPresent();
+            }
+        });
     }
 
     // Rellena el mail y la contraseña y pulsa "Iniciar sesión".
@@ -109,10 +143,11 @@ public class LoginControllerTest extends ApplicationTest {
     }
 
     @Test
-    public void elEnlaceRegistrarseAbreLaPantallaDeRegistro() {
+    public void elEnlaceRegistrarseAbreLaPantallaDeRegistro() throws Exception {
         clickOn("#linkRegistro");
 
-        // Si aparece el campo del nombre, se ha cargado Register.fxml.
+        // Se espera a que Register.fxml termine de cargar y se vea el campo del nombre.
+        esperar("#txtNombre");
         FxAssert.verifyThat("#txtNombre", NodeMatchers.isVisible());
         FxAssert.verifyThat("#btnPagar", NodeMatchers.isVisible());
     }
@@ -120,11 +155,12 @@ public class LoginControllerTest extends ApplicationTest {
     // ---------- Tests que necesitan MongoDB con los usuarios de ejemplo ----------
 
     @Test
-    public void conUnaContraseñaIncorrectaMuestraElAvisoYSigueEnElLogin() {
+    public void conUnaContraseñaIncorrectaMuestraElAvisoYSigueEnElLogin() throws Exception {
         Assumptions.assumeTrue(mongoActivo(), "MongoDB no está arrancado en localhost:27017");
 
         iniciarSesion("admin@admin.com", "contraseña-equivocada");
 
+        esperar(".dialog-pane");
         FxAssert.verifyThat(".dialog-pane", NodeMatchers.isVisible());
         type(KeyCode.ENTER);
 
@@ -133,23 +169,25 @@ public class LoginControllerTest extends ApplicationTest {
     }
 
     @Test
-    public void conUnUsuarioQueNoExisteMuestraElAviso() {
+    public void conUnUsuarioQueNoExisteMuestraElAviso() throws Exception {
         Assumptions.assumeTrue(mongoActivo(), "MongoDB no está arrancado en localhost:27017");
 
         iniciarSesion("nadie@noexiste.com", "1234");
 
+        esperar(".dialog-pane");
         FxAssert.verifyThat(".dialog-pane", NodeMatchers.isVisible());
         type(KeyCode.ENTER);
         FxAssert.verifyThat("#btnLogin", NodeMatchers.isVisible());
     }
 
     @Test
-    public void elGerenteCorrectoEntraAlPanelDelGerente() {
+    public void elGerenteCorrectoEntraAlPanelDelGerente() throws Exception {
         Assumptions.assumeTrue(mongoActivo(), "MongoDB no está arrancado en localhost:27017");
 
         iniciarSesion("admin@admin.com", "admin");
 
-        // Si se ve alguna tarjeta, se ha abierto Gerente.fxml.
+        // Se espera a que el panel del gerente termine de abrirse.
+        esperar("#cardClientes");
         FxAssert.verifyThat("#cardClientes", NodeMatchers.isVisible());
         FxAssert.verifyThat("#cardMonitores", NodeMatchers.isVisible());
     }
