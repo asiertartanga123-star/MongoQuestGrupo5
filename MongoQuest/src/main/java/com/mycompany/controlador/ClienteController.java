@@ -71,6 +71,10 @@ public class ClienteController implements Initializable {
             return;
         }
 
+        // Revisamos si ha ganado algún logro nuevo y volvemos a leer al cliente
+        dao.revisarLogros(LoginController.mailActual);
+        cliente = dao.buscarClientePorMail(LoginController.mailActual);
+
         // 2. Datos del cliente
         txtNombre.setText(cliente.getString("nombre") + " " + cliente.getString("apellido"));
         txtDni.setText(texto(cliente.get("dni")));
@@ -96,6 +100,7 @@ public class ClienteController implements Initializable {
         for (int i = 0; i < todasLasClases.size() && i < 3; i++) {
             Document clase = todasLasClases.get(i);
             nombresCentro[i].setText(texto(clase.get("nombre")));
+            nombresCentro[i].setUserData(clase.getObjectId("_id"));   // guardamos el id para apuntarse
             plazasCentro[i].setText(plazasDe(clase.getObjectId("_id")));
         }
 
@@ -166,15 +171,34 @@ public class ClienteController implements Initializable {
         Optional<ButtonType> respuesta = pregunta.showAndWait();
 
         if (respuesta.isPresent() && respuesta.get() == ButtonType.YES) {
-            // Lo ponemos en el primer hueco libre de la izquierda
+
+            // Buscamos el primer hueco libre de la izquierda
+            int hueco = -1;
             for (int i = 0; i < 6; i++) {
                 if (nombresIzq[i].getText().isEmpty()) {
-                    nombresIzq[i].setText(nombre.getText());
-                    plazasIzq[i].setText(plazas.getText());
-                    return;
+                    hueco = i;
+                    break;
                 }
             }
-            new Alert(Alert.AlertType.WARNING, "Ya tienes 6 clases, no caben más.").showAndWait();
+            if (hueco == -1) {
+                new Alert(Alert.AlertType.WARNING, "Ya tienes 6 clases, no caben más.").showAndWait();
+                return;
+            }
+
+            // Guardamos en la base de datos
+            ObjectId idClase = (ObjectId) nombre.getUserData();
+            if (idClase == null) {
+                return;
+            }
+            boolean guardado = dao.apuntarseAClase(LoginController.mailActual, idClase, nombre.getText());
+            if (!guardado) {
+                new Alert(Alert.AlertType.ERROR, "No se pudo guardar la inscripción.").showAndWait();
+                return;
+            }
+
+            // Y la enseñamos en la lista de la izquierda
+            nombresIzq[hueco].setText(nombre.getText());
+            plazasIzq[hueco].setText(plazas.getText());
         }
     }
 
@@ -192,6 +216,7 @@ public class ClienteController implements Initializable {
         for (int i = 0; i < tarjetas.length && i + 3 < todasLasClases.size(); i++) {
             Document clase = todasLasClases.get(i + 3);
             nombres[i].setText(texto(clase.get("nombre")));
+            nombres[i].setUserData(clase.getObjectId("_id"));   // guardamos el id para apuntarse
             plazas[i].setText(plazasDe(clase.getObjectId("_id")));
 
             tarjetas[i].setVisible(true);

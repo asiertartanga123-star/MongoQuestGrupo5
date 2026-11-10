@@ -31,6 +31,11 @@ public interface dao {
     void actualizarMonitor(ObjectId id, String nombre, String apellido, String dni, String mail, List<Document> direccion);
 
     boolean eliminarMonitor(ObjectId id);
+    
+    boolean mailValido(String mail);
+    
+    boolean existeMail(String mail);
+
 
     // ---------- VENTANA CLIENTE ----------
 
@@ -39,4 +44,10 @@ public interface dao {
     List<Document> listarClases();
 
     Document ultimaSesionDeClase(ObjectId claseId);
+    
+    boolean apuntarseAClase(String mail, ObjectId claseId, String nombreClase);
+    
+    boolean darLogro(String mail, String nombreLogro, int semanas);
+
+    void revisarLogros(String mail);
 }
