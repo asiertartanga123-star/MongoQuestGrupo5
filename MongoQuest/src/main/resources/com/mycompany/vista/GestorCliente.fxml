@@ -35,7 +35,7 @@
                 </ImageView>
 
                 <!-- Recuadro gris del título: al pulsarlo se vuelve atrás -->
-                <Label id="titulo" fx:id="lblTitulo" alignment="CENTER" maxWidth="230.0" minWidth="190.0" onMouseClicked="#onVolver" prefHeight="32.0" prefWidth="230.0" style="-fx-background-color: #d9d9d9; -fx-cursor: hand;" styleClass="title" text="TOLOTOLOGYM" textFill="WHITE" StackPane.alignment="CENTER" />
+                <Label fx:id="lblTitulo" alignment="CENTER" maxWidth="230.0" minWidth="190.0" onMouseClicked="#onVolver" prefHeight="32.0" prefWidth="230.0" style="-fx-background-color: #d9d9d9; -fx-cursor: hand;" styleClass="title" text="TOLOTOLOGYM" textFill="WHITE" StackPane.alignment="CENTER" />
 
                 <!-- Círculo de usuario + cerrar sesión -->
                 <HBox alignment="CENTER_RIGHT" pickOnBounds="false" spacing="12.0" StackPane.alignment="CENTER_RIGHT">
@@ -44,7 +44,7 @@
                     </StackPane.margin>
                     <children>
                         <Circle fill="#d9d9d9" radius="22.0" />
-                        <Button fx:id="btnCerrarSesion" mnemonicParsing="false" onAction="#onCerrarSesion" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0; -fx-font-size: 14px;" text="cerrar sesion" />
+                        <Button fx:id="btnCerrarSesion" mnemonicParsing="false" onAction="#onCerrarSesion" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0; -fx-font-size: 14px;" text="Cerrar Sesión" />
                     </children>
                 </HBox>
             </children>
