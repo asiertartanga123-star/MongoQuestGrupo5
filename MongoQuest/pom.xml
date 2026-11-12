@@ -10,11 +10,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-<<<<<<< HEAD
+
         <javafx.version>13</javafx.version>
-=======
+
         <javafx.version>17.0.10</javafx.version>
->>>>>>> Asier
+
     </properties>
     <dependencies>
         <!-- Controles visuales y carga de interfaces descritas en FXML. -->
@@ -61,7 +61,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-<<<<<<< HEAD
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>${javafx.version}</version>
@@ -84,8 +83,6 @@
             <version>2.0.9</version>
         </dependency>
         <dependency>
-=======
->>>>>>> Asier
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest</artifactId>
             <version>2.2</version>
@@ -152,8 +149,6 @@
                     </execution>
                 </executions>
             </plugin>
-<<<<<<< HEAD
-=======
 
             <!-- Los tests se ejecutan sin el module-info para evitar problemas de acceso. -->
             <plugin>
@@ -164,8 +159,6 @@
                     <useModulePath>false</useModulePath>
                 </configuration>
             </plugin>
-
->>>>>>> Asier
             <!-- Genera un .jar ejecutable con todas las dependencias: *-ejecutable.jar -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

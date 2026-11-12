@@ -131,9 +131,9 @@ public class GestionClientesControllerTest extends ApplicationTest {
         Assertions.assertEquals(antes, lista.getItems().size(), "No debería haberse añadido ningún cliente");
     }
 
-    @Test
+     @Test
     public void pulsarElTituloVuelveAlPanelDelGerente() {
         clickOn("#lblTitulo");
-        FxAssert.verifyThat("#cardClientes", NodeMatchers.isVisible());
+        FxAssert.verifyThat("#cardMonitores", NodeMatchers.isVisible());
     }
 }
