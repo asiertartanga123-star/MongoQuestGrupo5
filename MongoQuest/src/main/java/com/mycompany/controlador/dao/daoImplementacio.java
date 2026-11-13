@@ -6,14 +6,12 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Sorts;
 import com.mongodb.client.model.Updates;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.regex.Pattern;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -240,64 +238,23 @@ public class daoImplementacio implements dao {
             return;
         }
 
-        int racha = rachaSemanas(cliente);
+        int semanas = semanasDesdeAlta(cliente);
+        System.out.println("Semanas de " + mail + " en el gimnasio: " + semanas);
+
         for (int i = 0; i < LOGROS_NOMBRES.length; i++) {
-            if (racha >= LOGROS_SEMANAS[i]) {
+            if (semanas >= LOGROS_SEMANAS[i]) {
                 darLogro(mail, LOGROS_NOMBRES[i], LOGROS_SEMANAS[i]);
             }
         }
     }
 
-    // Semanas seguidas (hasta la semana actual) en las que el cliente tiene alguna sesión
-    private int rachaSemanas(Document cliente) {
-        Set<LocalDate> semanasConClase = new HashSet<LocalDate>();
-
-        try (MongoClient mongo = MongoClients.create(URI)) {
-            List<Document> sesiones = mongo.getDatabase(BD)
-                    .getCollection("Sesiones")
-                    .find()
-                    .into(new ArrayList<Document>());
-
-            for (Document sesion : sesiones) {
-                List<Document> asistentes = sesion.getList("asistentes", Document.class);
-                if (asistentes == null) {
-                    continue;
-                }
-                for (Document a : asistentes) {
-                    if (esDelCliente(a, cliente)) {
-                        LocalDate dia = aFecha(sesion.get("fecha"));
-                        if (dia != null) {
-                            // Guardamos el lunes de esa semana
-                            semanasConClase.add(dia.with(DayOfWeek.MONDAY));
-                        }
-                        break;
-                    }
-                }
-            }
+    // Semanas completas que lleva el cliente en el gimnasio (desde su fechaAlta hasta hoy)
+    private int semanasDesdeAlta(Document cliente) {
+        LocalDate alta = aFecha(cliente.get("fechaAlta"));
+        if (alta == null) {
+            return 0;
         }
-
-        // Contamos hacia atrás desde la semana actual
-        // (si esta semana aún no ha ido, la racha cuenta desde la anterior)
-        LocalDate semana = LocalDate.now().with(DayOfWeek.MONDAY);
-        if (!semanasConClase.contains(semana)) {
-            semana = semana.minusWeeks(1);
-        }
-        int racha = 0;
-        while (semanasConClase.contains(semana)) {
-            racha++;
-            semana = semana.minusWeeks(1);
-        }
-        return racha;
-    }
-
-    // ¿Este asistente es el cliente? (ajusta aquí el campo si tus asistentes son distintos)
-    private boolean esDelCliente(Document asistente, Document cliente) {
-        ObjectId id = cliente.getObjectId("_id");
-        String mail = cliente.getString("mail");
-        return mail.equals(asistente.get("mail"))
-                || id.equals(asistente.get("id_cliente"))
-                || id.equals(asistente.get("clienteid"))
-                || id.equals(asistente.get("_id"));
+        return (int) ChronoUnit.WEEKS.between(alta, LocalDate.now());
     }
 
     // Convierte la fecha de la sesión (Date o texto "2026-11-09...") en LocalDate
