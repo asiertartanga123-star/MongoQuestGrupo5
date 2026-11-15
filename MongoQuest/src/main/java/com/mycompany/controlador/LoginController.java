@@ -31,6 +31,7 @@ public class LoginController {
 
     // El controlador consulta el DAO para validar las credenciales.
     private final daoImplementacio dao = new daoImplementacio();
+    public static String mailActual;
 
     /**
      * Ajusta la altura de las ilustraciones para que ocupen el espacio disponible.
@@ -65,7 +66,12 @@ public class LoginController {
             }
             Registro.info("Login correcto: " + mail + " (" + rol + ")");
 
+<<<<<<< HEAD
             // Cada rol abre una vista distinta; el DAO devuelve el rol encontrado.
+=======
+            mailActual = mail;
+
+>>>>>>> Ekain
             switch (rol) {
                 case "gerente":
                     abrirVentana("/com/mycompany/vista/Gerente.fxml", "Tolotolo - Gerente");
@@ -126,12 +132,26 @@ public class LoginController {
         }
     }
 
+<<<<<<< HEAD
     /**
      * Muestra una alerta de tipo definido en la interfaz gráfica.
      *
      * @param tipo tipo de alerta JavaFX
      * @param mensaje texto a mostrar al usuario
      */
+=======
+    @FXML
+    private void onRegistrarse() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/com/mycompany/vista/Register.fxml"));
+            raiz.getScene().setRoot(root);
+        } catch (IOException | NullPointerException e) {
+            e.printStackTrace();
+            mostrarAlerta(Alert.AlertType.ERROR, "No se pudo abrir la ventana de registro.");
+        }
+    }
+
+>>>>>>> Ekain
     private void mostrarAlerta(Alert.AlertType tipo, String mensaje) {
         // Centraliza la presentación de mensajes al usuario.
         Alert alerta = new Alert(tipo, mensaje);

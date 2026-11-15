@@ -1,8 +1,12 @@
 package com.mycompany.controlador;
 
+<<<<<<< HEAD
 import com.mongodb.ErrorCategory;
 import com.mongodb.MongoException;
 import com.mongodb.MongoWriteException;
+=======
+import com.mongodb.MongoException;
+>>>>>>> Ekain
 import com.mycompany.controlador.dao.daoImplementacio;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,24 +15,38 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
+<<<<<<< HEAD
 import javafx.scene.control.ComboBox;
+=======
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
+>>>>>>> Ekain
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import org.bson.Document;
 
+<<<<<<< HEAD
 /**
  * Controlador de la pantalla de registro de clientes.
  * <p>
  * Recoge los datos del formulario, valida el formato y guarda la información del
  * nuevo usuario en la colección de clientes.
  */
+=======
+>>>>>>> Ekain
 public class RegisterController {
 
     @FXML private BorderPane raiz;
     @FXML private ImageView imgToroIzq;
     @FXML private ImageView imgToroDer;
+<<<<<<< HEAD
+=======
+    @FXML private Label lblTitulo;
+>>>>>>> Ekain
     @FXML private TextField txtNombre;
     @FXML private TextField txtApellidos;
     @FXML private TextField txtDni;
@@ -36,12 +54,20 @@ public class RegisterController {
     @FXML private PasswordField txtPassword;
     @FXML private PasswordField txtPassword2;
     @FXML private ComboBox<String> cmbNivel;
+<<<<<<< HEAD
 
     private final daoImplementacio dao = new daoImplementacio();
 
     /**
      * Inicializa el formulario con los niveles de membresía y el tamaño de las imágenes.
      */
+=======
+    @FXML private Button btnPagar;
+    @FXML private Hyperlink linkLogin;
+
+    private final daoImplementacio dao = new daoImplementacio();
+
+>>>>>>> Ekain
     @FXML
     private void initialize() {
         cmbNivel.getItems().addAll("Normal", "Premium");
@@ -52,9 +78,12 @@ public class RegisterController {
         imgToroDer.fitHeightProperty().bind(raiz.heightProperty().subtract(81).multiply(0.80));
     }
 
+<<<<<<< HEAD
     /**
      * Registra un usuario nuevo si los datos cumplen las validaciones del sistema.
      */
+=======
+>>>>>>> Ekain
     @FXML
     private void onPagar() {
         String nombre = txtNombre.getText().trim();
@@ -64,30 +93,47 @@ public class RegisterController {
         String pass1 = txtPassword.getText();
         String pass2 = txtPassword2.getText();
 
+<<<<<<< HEAD
         if (nombre.isEmpty() || apellidos.isEmpty() || dni.isEmpty() || mail.isEmpty() || pass1.isEmpty() || pass2.isEmpty()) {
+=======
+        if (nombre.isEmpty() || apellidos.isEmpty() || dni.isEmpty() || mail.isEmpty()
+                || pass1.isEmpty() || pass2.isEmpty() || cmbNivel.getValue() == null) {
+>>>>>>> Ekain
             mostrarAlerta(Alert.AlertType.WARNING, "Rellena todos los campos.");
             return;
         }
         if (!dni.matches("\\d{8}[A-Z]")) {
+<<<<<<< HEAD
             Registro.aviso("Registro rechazado, DNI con formato incorrecto: " + dni);
+=======
+>>>>>>> Ekain
             mostrarAlerta(Alert.AlertType.WARNING, "El DNI debe tener 8 números y una letra (ej. 12345678A).");
             return;
         }
         if (!dao.mailValido(mail)) {
+<<<<<<< HEAD
             Registro.aviso("Registro rechazado, mail no válido: " + mail);
+=======
+>>>>>>> Ekain
             mostrarAlerta(Alert.AlertType.WARNING, "Escribe un mail válido (ej. nombre@gmail.com).");
             txtMail.requestFocus();
             return;
         }
         if (!pass1.equals(pass2)) {
+<<<<<<< HEAD
             Registro.aviso("Registro rechazado, las contraseñas no coinciden: " + mail);
+=======
+>>>>>>> Ekain
             mostrarAlerta(Alert.AlertType.WARNING, "Las contraseñas no coinciden.");
             return;
         }
 
         try {
             if (dao.existeMail(mail)) {
+<<<<<<< HEAD
                 Registro.aviso("Registro rechazado, el mail ya existe: " + mail);
+=======
+>>>>>>> Ekain
                 mostrarAlerta(Alert.AlertType.WARNING, "Ya existe un usuario con ese mail.");
                 return;
             }
@@ -105,6 +151,7 @@ public class RegisterController {
                     .append("clases", new ArrayList<Document>());
 
             dao.insertarCliente(cliente);
+<<<<<<< HEAD
             Registro.info("Registro completado: " + mail + " (" + dni + ", "
                     + cmbNivel.getValue().toLowerCase() + ")");
             mostrarAlerta(Alert.AlertType.INFORMATION, "Registro completado. Ya puedes iniciar sesión.");
@@ -119,26 +166,40 @@ public class RegisterController {
             }
         } catch (MongoException e) {
             Registro.error("No se pudo conectar con MongoDB durante el registro de " + mail, e);
+=======
+            mostrarAlerta(Alert.AlertType.INFORMATION, "Registro completado. Ya puedes iniciar sesión.");
+            onVolverLogin();
+        } catch (MongoException e) {
+>>>>>>> Ekain
             mostrarAlerta(Alert.AlertType.ERROR,
                     "No se puede conectar con MongoDB. Comprueba que esté iniciado.");
         }
     }
 
+<<<<<<< HEAD
     /**
      * Vuelve a la pantalla de inicio de sesión tras completar el registro.
      */
+=======
+>>>>>>> Ekain
     @FXML
     private void onVolverLogin() {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/com/mycompany/vista/Login.fxml"));
             raiz.getScene().setRoot(root);
+<<<<<<< HEAD
             Registro.info("Vuelta al login desde el registro");
         } catch (IOException | NullPointerException e) {
             Registro.error("No se pudo volver al login desde el registro", e);
+=======
+        } catch (IOException | NullPointerException e) {
+            e.printStackTrace();
+>>>>>>> Ekain
             mostrarAlerta(Alert.AlertType.ERROR, "No se pudo abrir la ventana de Login.");
         }
     }
 
+<<<<<<< HEAD
     /**
      * Muestra un cuadro de diálogo de alerta con la configuración visual de la app.
      *
@@ -148,6 +209,10 @@ public class RegisterController {
     private void mostrarAlerta(Alert.AlertType tipo, String mensaje) {
         Alert alerta = new Alert(tipo, mensaje);
         App.ponerIcono(alerta);
+=======
+    private void mostrarAlerta(Alert.AlertType tipo, String mensaje) {
+        Alert alerta = new Alert(tipo, mensaje);
+>>>>>>> Ekain
         alerta.setHeaderText(null);
         alerta.showAndWait();
     }
