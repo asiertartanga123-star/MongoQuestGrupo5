@@ -156,19 +156,68 @@ public interface dao {
      */
     void revisarLogros(String mail);
 
+    /**
+     * Inserta una clase nueva en la colección {@code Clases}. El driver de MongoDB
+     * rellena el campo {@code _id} en el propio documento recibido.
+     *
+     * @param clase documento con {@code nombre}, {@code horas} y {@code salaid}
+     */
     void insertarClase(Document clase);
 
+    /**
+     * Cambia el nombre y la sala de una clase.
+     *
+     * @param id identificador (_id) de la clase
+     * @param nombre nuevo nombre
+     * @param salaId identificador (_id) de la nueva sala
+     */
     void actualizarClase(ObjectId id, String nombre, ObjectId salaId);
 
+    /**
+     * Elimina una clase y todas sus sesiones, para no dejar sesiones huérfanas.
+     *
+     * @param id identificador (_id) de la clase
+     * @return {@code true} si se ha borrado la clase
+     */
     boolean eliminarClase(ObjectId id);
 
+    /**
+     * Obtiene todas las salas del gimnasio.
+     *
+     * @return lista de documentos de la colección {@code Salas}
+     */
     List<Document> listarSalas();
 
+    /**
+     * Obtiene las sesiones de una clase, ordenadas de la más antigua a la más reciente.
+     *
+     * @param claseId identificador (_id) de la clase
+     * @return lista de documentos de la colección {@code Sesiones}
+     */
     List<Document> listarSesiones(ObjectId claseId);
 
+    /**
+     * Inserta una sesión nueva en la colección {@code Sesiones}.
+     *
+     * @param sesion documento con {@code claseid}, {@code fecha}, {@code plazaMax} y {@code monitor}
+     */
     void insertarSesion(Document sesion);
 
+    /**
+     * Cambia la fecha, el aforo y el monitor de una sesión.
+     *
+     * @param id identificador (_id) de la sesión
+     * @param fecha nueva fecha y hora
+     * @param plazaMax nuevo número máximo de plazas
+     * @param monitorId identificador (_id) del monitor que la imparte
+     */
     void actualizarSesion(ObjectId id, Date fecha, int plazaMax, ObjectId monitorId);
 
+    /**
+     * Elimina una sesión.
+     *
+     * @param id identificador (_id) de la sesión
+     * @return {@code true} si se ha borrado la sesión
+     */
     boolean eliminarSesion(ObjectId id);
 }

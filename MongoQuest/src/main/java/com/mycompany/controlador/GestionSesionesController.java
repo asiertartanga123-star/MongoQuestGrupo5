@@ -19,18 +19,28 @@ import org.bson.Document;
  */
 public class GestionSesionesController {
 
+    /** Contenedor raíz de la vista; da acceso a la escena y a la ventana. */
     @FXML private BorderPane raiz;
+    /** Título del horario: nombre de la clase. Al pulsarlo se vuelve al panel de clases. */
     @FXML private Label lblTitulo;
+    /** Rejilla del horario semanal de la clase. */
     @FXML private GridPane gridHorario;
 
+    /** Clase cuyo horario se muestra; la fija {@link #setClase(Document)}. */
     private Document clase;
 
+    /**
+     * Indica qué clase se va a mostrar y pone su nombre como título.
+     * Hay que llamarlo justo después de cargar el FXML.
+     *
+     * @param clase documento de la colección {@code Clases}
+     */
     public void setClase(Document clase) {
         this.clase = clase;
         lblTitulo.setText(clase.getString("nombre"));
     }
 
-    // Pulsar el título vuelve al panel de clases
+    /** Vuelve al panel de gestión de clases en la misma ventana (se activa al pulsar el título). */
     @FXML
     private void onVolver() {
         try {
@@ -43,6 +53,7 @@ public class GestionSesionesController {
         }
     }
 
+    /** Cierra la sesión del gerente: abre la ventana de login y cierra esta. */
     @FXML
     private void onCerrarSesion() {
         try {
@@ -58,6 +69,11 @@ public class GestionSesionesController {
         }
     }
 
+    /**
+     * Muestra un aviso de error y espera a que el usuario lo cierre.
+     *
+     * @param mensaje texto del aviso
+     */
     private void alerta(String mensaje) {
         Alert a = new Alert(Alert.AlertType.ERROR, mensaje);
         a.setHeaderText(null);

@@ -30,6 +30,8 @@ public class Logros {
     }
 
     /**
+     * Devuelve el número del logro.
+     *
      * @return número del logro
      */
     public String getNumero() {
@@ -37,6 +39,8 @@ public class Logros {
     }
 
     /**
+     * Devuelve el nombre del logro.
+     *
      * @return nombre del logro
      */
     public String getNombre() {
@@ -44,6 +48,8 @@ public class Logros {
     }
 
     /**
+     * Devuelve la fecha en la que se consiguió el logro.
+     *
      * @return fecha en la que se consiguió
      */
     public String getFecha() {
@@ -51,6 +57,8 @@ public class Logros {
     }
 
     /**
+     * Devuelve las semanas asociadas al logro.
+     *
      * @return semanas asociadas al logro
      */
     public String getSemanas() {
