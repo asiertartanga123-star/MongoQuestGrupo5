@@ -6,6 +6,7 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -130,6 +131,81 @@ public class daoImplementacio implements dao {
                     .getCollection("Trabajadores")
                     .deleteOne(Filters.eq("_id", id))
                     .getDeletedCount() > 0;
+        }
+    }
+
+    // ---------- CLASES / SALAS / SESIONES ----------
+
+    @Override
+    public List<Document> listarClases() {
+        try (MongoClient cliente = MongoClients.create(URI)) {
+            return cliente.getDatabase(BD).getCollection("Clases").find().into(new ArrayList<Document>());
+        }
+    }
+
+    @Override
+    public void insertarClase(Document c) {
+        try (MongoClient cliente = MongoClients.create(URI)) {
+            cliente.getDatabase(BD).getCollection("Clases").insertOne(c);
+        }
+    }
+
+    @Override
+    public void actualizarClase(ObjectId id, String nombre, ObjectId salaId) {
+        try (MongoClient cliente = MongoClients.create(URI)) {
+            cliente.getDatabase(BD).getCollection("Clases").updateOne(Filters.eq("_id", id),
+                    Updates.combine(Updates.set("nombre", nombre), Updates.set("salaid", salaId)));
+        }
+    }
+
+    // Borra la clase y sus sesiones, para no dejar sesiones huérfanas
+    @Override
+    public boolean eliminarClase(ObjectId id) {
+        try (MongoClient cliente = MongoClients.create(URI)) {
+            MongoDatabase db = cliente.getDatabase(BD);
+            db.getCollection("Sesiones").deleteMany(Filters.eq("claseid", id));
+            return db.getCollection("Clases").deleteOne(Filters.eq("_id", id)).getDeletedCount() > 0;
+        }
+    }
+
+    @Override
+    public List<Document> listarSalas() {
+        try (MongoClient cliente = MongoClients.create(URI)) {
+            return cliente.getDatabase(BD).getCollection("Salas").find().into(new ArrayList<Document>());
+        }
+    }
+
+    @Override
+    public List<Document> listarSesiones(ObjectId claseId) {
+        try (MongoClient cliente = MongoClients.create(URI)) {
+            return cliente.getDatabase(BD).getCollection("Sesiones")
+                    .find(Filters.eq("claseid", claseId))
+                    .sort(new Document("fecha", 1))
+                    .into(new ArrayList<Document>());
+        }
+    }
+
+    @Override
+    public void insertarSesion(Document s) {
+        try (MongoClient cliente = MongoClients.create(URI)) {
+            cliente.getDatabase(BD).getCollection("Sesiones").insertOne(s);
+        }
+    }
+
+    @Override
+    public void actualizarSesion(ObjectId id, Date fecha, int plazaMax, ObjectId monitorId) {
+        try (MongoClient cliente = MongoClients.create(URI)) {
+            cliente.getDatabase(BD).getCollection("Sesiones").updateOne(Filters.eq("_id", id),
+                    Updates.combine(Updates.set("fecha", fecha), Updates.set("plazaMax", plazaMax),
+                            Updates.set("monitor", monitorId)));
+        }
+    }
+
+    @Override
+    public boolean eliminarSesion(ObjectId id) {
+        try (MongoClient cliente = MongoClients.create(URI)) {
+            return cliente.getDatabase(BD).getCollection("Sesiones")
+                    .deleteOne(Filters.eq("_id", id)).getDeletedCount() > 0;
         }
     }
 }
