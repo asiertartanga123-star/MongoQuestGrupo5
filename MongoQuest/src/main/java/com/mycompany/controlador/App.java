@@ -17,11 +17,22 @@ import javafx.stage.Stage;
  */
 public class App extends Application {
 
-    // La escena se conserva para poder sustituir su contenido si hace falta.
+    /**
+     * Escena principal de la aplicación.
+     *
+     * <p>Se mantiene en un campo estático para poder cambiarla dinámicamente al
+     * navegar entre vistas sin recrear la ventana principal.</p>
+     */
     private static Scene scene;
 
-    // Ruta del logo que se usa como icono de todas las ventanas.
+    /**
+     * Ruta del icono de la aplicación dentro del classpath.
+     */
     private static final String RUTA_ICONO = "/com/mycompany/mongoquest/imagesApp/logo.png";
+
+    /**
+     * Icono reutilizado para todas las ventanas y diálogos de la app.
+     */
     private static Image icono;
 
     /**

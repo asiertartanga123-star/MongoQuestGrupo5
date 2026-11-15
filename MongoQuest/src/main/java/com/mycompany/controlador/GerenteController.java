@@ -21,15 +21,23 @@ import javafx.stage.Stage;
 public class GerenteController {
 
     // Elementos de la vista del gerente
+    /** Contenedor raíz de la pantalla. */
     @FXML private BorderPane raiz;
+    /** Tarjeta de gestión de monitores. */
     @FXML private VBox cardMonitores;
+    /** Tarjeta de gestión de clases. */
     @FXML private VBox cardClases;
+    /** Tarjeta de gestión de clientes. */
     @FXML private VBox cardClientes;
+    /** Imagen de la tarjeta de monitores. */
     @FXML private ImageView imgMonitores;
+    /** Imagen de la tarjeta de clases. */
     @FXML private ImageView imgClases;
+    /** Imagen de la tarjeta de clientes. */
     @FXML private ImageView imgClientes;
 
     // Evita abrir la misma ventana dos veces con un doble clic.
+    /** Indica que ya se está abriendo una ventana, para ignorar un segundo clic. */
     private boolean abriendo = false;
 
     /**
