@@ -17,8 +17,6 @@
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane fx:id="raiz" minHeight="460.0" minWidth="640.0" prefHeight="560.0" prefWidth="780.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.controlador.RegisterController">
-
-   <!-- Cabecera negra -->
    <top>
       <StackPane maxHeight="81.0" minHeight="81.0" prefHeight="81.0" style="-fx-background-color: black;">
          <children>
@@ -27,28 +25,21 @@
                   <Insets left="13.0" />
                </StackPane.margin>
                <image>
-<<<<<<< HEAD
                   <Image url="@../mongoquest/imagesApp/logo.png" />
-=======
-                  <Image url="@../mongoquest/images/logo.png" />
->>>>>>> Ekain
                </image>
             </ImageView>
 
-            <!-- Recuadro gris del título -->
             <Label fx:id="lblTitulo" alignment="CENTER" maxWidth="230.0" minWidth="190.0" prefHeight="32.0" prefWidth="230.0" style="-fx-background-color: #d9d9d9;" text="TOLOTOLOGYM" StackPane.alignment="CENTER" />
          </children>
       </StackPane>
    </top>
 
-   <!-- Zona blanca con borde azul -->
    <center>
       <BorderPane style="-fx-background-color: white; -fx-border-color: #1e88e5; -fx-border-width: 3;">
          <BorderPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="3.0" />
          </BorderPane.margin>
 
-         <!-- Toro izquierdo -->
          <left>
             <StackPane BorderPane.alignment="CENTER">
                <padding>
@@ -57,18 +48,13 @@
                <children>
                   <ImageView fx:id="imgToroIzq" pickOnBounds="true" preserveRatio="true">
                      <image>
-<<<<<<< HEAD
                         <Image url="@../mongoquest/imagesApp/toro.png" />
-=======
-                        <Image url="@../mongoquest/images/toro.png" />
->>>>>>> Ekain
                      </image>
                   </ImageView>
                </children>
             </StackPane>
          </left>
 
-         <!-- Toro derecho (espejado) -->
          <right>
             <StackPane BorderPane.alignment="CENTER">
                <padding>
@@ -77,22 +63,13 @@
                <children>
                   <ImageView fx:id="imgToroDer" pickOnBounds="true" preserveRatio="true" scaleX="-1.0">
                      <image>
-<<<<<<< HEAD
                         <Image url="@../mongoquest/imagesApp/toro.png" />
-=======
-                        <Image url="@../mongoquest/images/toro.png" />
->>>>>>> Ekain
                      </image>
                   </ImageView>
                </children>
             </StackPane>
          </right>
 
-<<<<<<< HEAD
-         <!-- Formulario de registro + enlace a Login -->
-=======
-         <!--Formulario de registro + enlace a Login -->
->>>>>>> Ekain
          <center>
             <VBox alignment="CENTER" spacing="14.0" BorderPane.alignment="CENTER">
                <children>
@@ -122,11 +99,7 @@
                               <Label minWidth="-Infinity" style="-fx-font-size: 16px;" text="Contraseña:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
                               <PasswordField fx:id="txtPassword" maxWidth="Infinity" prefHeight="32.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 16; -fx-border-color: black; -fx-border-radius: 16; -fx-padding: 0 12 0 12; -fx-font-size: 14px;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
-<<<<<<< HEAD
                               <Label minWidth="-Infinity" style="-fx-font-size: 16px;" text="Repetir:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-=======
-                              <Label minWidth="-Infinity" style="-fx-font-size: 16px;" text="Contraseña:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
->>>>>>> Ekain
                               <PasswordField fx:id="txtPassword2" maxWidth="Infinity" prefHeight="32.0" promptText="Repite la contraseña" style="-fx-background-color: #d9d9d9; -fx-background-radius: 16; -fx-border-color: black; -fx-border-radius: 16; -fx-padding: 0 12 0 12; -fx-font-size: 14px;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 
                               <Label minWidth="-Infinity" style="-fx-font-size: 16px;" text="Nivel:" GridPane.columnIndex="0" GridPane.rowIndex="6" />

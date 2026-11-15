@@ -1,43 +1,25 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package com.mycompany.controlador;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 /**
  * Controlador asociado a la vista del monitor.
- * La lógica de esta pantalla todavía está pendiente de implementar.
  */
 public class MonitorController implements Initializable {
 
-<<<<<<< HEAD
-    /** JavaFX llama a este método después de cargar la vista FXML. */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // Punto de inicialización reservado para la futura vista del monitor.
-    }    
-    
-=======
-  @FXML private BorderPane raiz;
+    @FXML private BorderPane raiz;
     @FXML private VBox cardMonitores;
     @FXML private VBox cardClases;
     @FXML private VBox cardClientes;
@@ -45,9 +27,8 @@ public class MonitorController implements Initializable {
     @FXML private ImageView imgClases;
     @FXML private ImageView imgClientes;
 
-    @FXML
-    private void initialize() {
-        // Los toros se adaptan al tamaño de cada tarjeta
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
         ajustarImagen(imgMonitores, cardMonitores);
         ajustarImagen(imgClases, cardClases);
         ajustarImagen(imgClientes, cardClientes);
@@ -60,7 +41,6 @@ public class MonitorController implements Initializable {
 
     @FXML
     private void onGestionarClases() {
-         
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/com/mycompany/vista/GestorClases.fxml"));
             Stage login = new Stage();
@@ -77,7 +57,7 @@ public class MonitorController implements Initializable {
 
     @FXML
     private void onGestionarClientes() {
-       try {
+        try {
             Parent root = FXMLLoader.load(getClass().getResource("/com/mycompany/vista/GestorCliente.fxml"));
             Stage login = new Stage();
             login.setTitle("Tolotolo - GestorCliente");
@@ -88,7 +68,7 @@ public class MonitorController implements Initializable {
         } catch (IOException | NullPointerException e) {
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "No se pudo cargar GestorClientes.").showAndWait();
-        } 
+        }
     }
 
     @FXML
@@ -106,13 +86,4 @@ public class MonitorController implements Initializable {
             new Alert(Alert.AlertType.ERROR, "No se pudo volver al login.").showAndWait();
         }
     }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-         ajustarImagen(imgClases, cardClases);
-        ajustarImagen(imgClientes, cardClientes);
-    }
-
-   
->>>>>>> Ekain
 }
