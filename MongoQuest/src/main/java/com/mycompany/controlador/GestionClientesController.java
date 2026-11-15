@@ -47,46 +47,71 @@ import org.bson.Document;
 public class GestionClientesController {
 
     // Controles vinculados por fx:id con la ficha y la lista de clientes.
+    /** Contenedor raíz de la pantalla. */
     @FXML
     private BorderPane raiz;
+    /** Lista de clientes (documentos de MongoDB) que se muestra a la izquierda. */
     @FXML
     private ListView<Document> listClientes;
+    /** Etiqueta con el nombre y los apellidos del cliente seleccionado. */
     @FXML
     private Label lblNombreCompleto;
+    /** Foto del cliente seleccionado. */
     @FXML
     private ImageView imgFoto;
+    /** Campo del nombre. */
     @FXML
     private TextField txtNombre;
+    /** Campo de los apellidos. */
     @FXML
     private TextField txtApellidos;
+    /** Campo del DNI. */
     @FXML
     private TextField txtDni;
+    /** Campo del correo electrónico. */
     @FXML
     private TextField txtMail;
+    /** Fecha de alta, con formato dd/MM/yyyy. */
     @FXML
     private TextField txtAlta;
+    /** Selector de membresía (normal o premium). */
     @FXML
     private ChoiceBox<String> choMembresia;
+    /** Botón que guarda los cambios de la ficha; está desactivado mientras no haya un cliente seleccionado. */
     @FXML
     private Button btnGuardar;
+    /** Botón para dar de baja al cliente seleccionado; está desactivado mientras no haya selección. */
     @FXML
     private Button btnBaja;
+    /** Recuadro que contiene la foto; la imagen se ajusta a su tamaño. */
     @FXML
     private StackPane panelFoto;
+    /** Título de la pantalla. */
     @FXML
     private Label lblTitulo;
+    /** Botón para cerrar la sesión. */
     @FXML
     private Button btnCerrarSesion;
+    /** Botón para dar de alta un cliente nuevo. */
     @FXML
     private Button btnAlta;
 
+    /** Acceso a la base de datos. */
     private final daoImplementacio dao = new daoImplementacio();
     // Formato utilizado para mostrar las fechas BSON en la ficha.
+    /** Formato con el que se muestran las fechas en la ficha. */
     private static final DateTimeFormatter FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     // Define cómo se presenta cada cliente en la lista de la izquierda.
+    /** Celda de la lista: muestra el nombre y los apellidos en una línea, y el DNI y la membresía en otra. */
     private static class CeldaCliente extends ListCell<Document> {
 
+        /**
+         * Rellena la celda con los datos del cliente, o la deja vacía.
+         *
+         * @param c documento del cliente
+         * @param vacio {@code true} si la celda no tiene contenido
+         */
         @Override
         protected void updateItem(Document c, boolean vacio) {
             super.updateItem(c, vacio);
@@ -99,6 +124,7 @@ public class GestionClientesController {
         }
     }
 
+    /** Prepara la pantalla: rellena el selector de membresía, define cómo se dibuja cada cliente en la lista, enlaza la selección con la ficha, ajusta la foto al recuadro y carga los clientes. */
     @FXML
     private void initialize() {
         // Configura las opciones y la presentación antes de cargar los registros.
@@ -127,6 +153,7 @@ public class GestionClientesController {
         cargarClientes();
     }
 
+    /** Lee los clientes de MongoDB y los muestra en la lista. Si no hay conexión, muestra una alerta. */
     private void cargarClientes() {
         try {
             // Obtiene el contenido de MongoDB y lo muestra en el ListView.
@@ -139,6 +166,11 @@ public class GestionClientesController {
         }
     }
 
+    /**
+     * Rellena la ficha con los datos del cliente indicado. Si es {@code null}, limpia la ficha y desactiva los botones de edición.
+     *
+     * @param c documento del cliente seleccionado, o {@code null} si no hay selección
+     */
     private void mostrarCliente(Document c) {
         if (c == null) {
             // Sin selección se limpia la ficha y se desactivan las acciones de edición.
@@ -175,6 +207,11 @@ public class GestionClientesController {
         btnBaja.setDisable(false);
     }
 
+    /**
+     * Muestra la foto del cliente, que se busca por su DNI, o la quita si no hay cliente.
+     *
+     * @param c documento del cliente, o {@code null}
+     */
     private void mostrarFoto(Document c) {
         if (c == null) {
             imgFoto.setImage(null);
@@ -184,6 +221,11 @@ public class GestionClientesController {
         imgFoto.setImage(GestorImagenes.cargar(c.getString("dni")));
     }
 
+    /**
+     * Valida y guarda los cambios de la ficha del cliente seleccionado.
+     *
+     * <p>Si cambia el DNI, la foto se renombra para seguirlo. Avisa si falta algún campo, si el correo no es válido, si el DNI o el correo ya existen, o si falla la conexión o el renombrado de la foto.</p>
+     */
     @FXML
     private void onGuardarDatos() {
         // No se puede editar si no hay un cliente seleccionado.
@@ -244,6 +286,11 @@ public class GestionClientesController {
         }
     }
 
+    /**
+     * Abre un diálogo para introducir los datos de un cliente nuevo.
+     *
+     * <p>Si los datos son válidos lo inserta con la fecha de alta actual y sin logros ni clases, y lo deja seleccionado en la lista.</p>
+     */
     @FXML
     private void onDarDeAlta() {
         // El formulario de alta se construye como diálogo para recoger todos los datos requeridos.
@@ -332,6 +379,7 @@ public class GestionClientesController {
         }
     }
 
+    /** Pide confirmación y elimina al cliente seleccionado y su foto; después recarga la lista. */
     @FXML
     private void onDarDeBaja() {
         Document c = listClientes.getSelectionModel().getSelectedItem();
@@ -365,6 +413,7 @@ public class GestionClientesController {
         }
     }
 
+    /** Permite elegir una imagen (png, jpg o jpeg) y la guarda como foto del cliente seleccionado. */
     @FXML
     private void onElegirFoto() {
         Document c = listClientes.getSelectionModel().getSelectedItem();
@@ -392,6 +441,7 @@ public class GestionClientesController {
         }
     }
 
+    /** Abre la pantalla de login en una ventana nueva y cierra la actual. */
     @FXML
     private void onCerrarSesion() {
         try {
@@ -411,6 +461,7 @@ public class GestionClientesController {
         }
     }
 
+    /** Vuelve al panel del gerente dentro de la misma ventana. */
     @FXML
     private void onVolver() {
         try {
@@ -435,6 +486,12 @@ public class GestionClientesController {
         }
     }
 
+    /**
+     * Muestra una alerta con el icono de la aplicación y espera a que se cierre.
+     *
+     * @param tipo tipo de alerta
+     * @param mensaje texto que se muestra
+     */
     private void alerta(Alert.AlertType tipo, String mensaje) {
         // Un único método mantiene consistentes los avisos de esta pantalla.
         Alert a = new Alert(tipo, mensaje);

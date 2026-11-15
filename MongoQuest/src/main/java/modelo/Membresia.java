@@ -7,5 +7,7 @@ package modelo;
 /** Opciones de membresía disponibles para los clientes. */
 public enum Membresia {
     /** Membresía estándar. */
-    NORMAL, PREMIUM
+    NORMAL,
+    /** Membresía premium. */
+    PREMIUM
 }

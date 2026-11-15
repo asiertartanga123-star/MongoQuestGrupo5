@@ -1,3 +1,7 @@
+/**
+ * Módulo de MongoQuest: aplicación JavaFX de gestión de un gimnasio (clientes, monitores y clases)
+ * que guarda sus datos en MongoDB.
+ */
 module com.mycompany.mongoquest {
     // JavaFX aporta los componentes visuales y el cargador de vistas FXML.
     requires javafx.controls;
@@ -14,5 +18,12 @@ module com.mycompany.mongoquest {
 
     // FXML necesita acceso reflectivo a los controladores.
     opens com.mycompany.controlador to javafx.fxml;
+
+    // Las tablas (TableView / PropertyValueFactory) leen los getters del modelo por reflexión.
+    opens modelo to javafx.base;
+
+    // Paquetes exportados: son los que Javadoc documenta.
     exports com.mycompany.controlador;
+    exports com.mycompany.controlador.dao;
+    exports modelo;
 }
