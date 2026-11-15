@@ -55,9 +55,9 @@ public class GerenteController {
     private void onGestionarClases() {
          
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/com/mycompany/vista/GestorClases.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/com/mycompany/vista/GestorClase.fxml"));
             Stage login = new Stage();
-            login.setTitle("Tolotolo - GestorCliente");
+            login.setTitle("Tolotolo - Gestión de clases");
             login.setScene(new Scene(root));
             login.show();
 

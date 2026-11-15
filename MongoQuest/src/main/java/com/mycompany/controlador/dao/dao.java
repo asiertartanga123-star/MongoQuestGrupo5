@@ -4,6 +4,7 @@
  */
 package com.mycompany.controlador.dao;
 
+import java.util.Date;
 import java.util.List;
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -31,4 +32,23 @@ public interface dao {
     void actualizarMonitor(ObjectId id, String nombre, String apellido, String dni, String mail, List<Document> direccion);
 
     boolean eliminarMonitor(ObjectId id);
+
+    // ---------- CLASES / SALAS / SESIONES ----------
+    List<Document> listarClases();
+
+    void insertarClase(Document clase);
+
+    void actualizarClase(ObjectId id, String nombre, ObjectId salaId);
+
+    boolean eliminarClase(ObjectId id);
+
+    List<Document> listarSalas();
+
+    List<Document> listarSesiones(ObjectId claseId);
+
+    void insertarSesion(Document sesion);
+
+    void actualizarSesion(ObjectId id, Date fecha, int plazaMax, ObjectId monitorId);
+
+    boolean eliminarSesion(ObjectId id);
 }
