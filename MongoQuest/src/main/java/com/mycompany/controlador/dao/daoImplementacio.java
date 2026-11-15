@@ -314,13 +314,7 @@ public class daoImplementacio implements dao {
     }
 
     // ---------- CLASES / SALAS / SESIONES ----------
-
-    @Override
-    public List<Document> listarClases() {
-        try (MongoClient cliente = MongoClients.create(URI)) {
-            return cliente.getDatabase(BD).getCollection("Clases").find().into(new ArrayList<Document>());
-        }
-    }
+    // listarClases() está más arriba (lo usan el cliente y el gestor de clases).
 
     @Override
     public void insertarClase(Document c) {

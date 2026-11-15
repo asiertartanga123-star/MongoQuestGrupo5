@@ -40,40 +40,73 @@ import org.bson.types.ObjectId;
  */
 public class GestionClasesController {
 
+    /** Contenedor raíz de la vista; da acceso a la escena y a la ventana. */
     @FXML private BorderPane raiz;
 
     // Clases
+    /** Lista de todas las clases (nombre y sala). */
     @FXML private ListView<Document> listClases;
+    /** Encabezado de la ficha de la clase seleccionada. */
     @FXML private Label lblClase;
+    /** Nombre de la clase seleccionada; se guarda al pulsar Enter. */
     @FXML private TextField txtNombreClase;
+    /** Sala de la clase seleccionada; se guarda al elegir otra. */
     @FXML private ChoiceBox<Document> choSala;
+    /** Abre el horario semanal de la clase seleccionada. */
     @FXML private Button btnGestionarSesiones;
+    /** Borra la clase seleccionada y sus sesiones. */
     @FXML private Button btnBorrarClase;
 
     // Sesiones
+    /** Sesiones de la clase seleccionada (fecha y plazas ocupadas). */
     @FXML private ListView<Document> listSesiones;
+    /** Encabezado de la ficha de la sesión seleccionada. */
     @FXML private Label lblSesion;
-    @FXML private TextField txtNombreSesion;   // fecha y hora de la sesión
+    /** Fecha y hora de la sesión ({@code dd/MM/yyyy HH:mm}); se guarda al pulsar Enter. */
+    @FXML private TextField txtNombreSesion;
+    /** Monitor que imparte la sesión; se guarda al elegir otro. */
     @FXML private ChoiceBox<Document> choMonitor;
+    /** Nombres de los clientes apuntados a la sesión. */
     @FXML private ListView<String> listInscritos;
+    /** Plazas máximas de la sesión; se guarda al pulsar Enter. */
     @FXML private TextField txtAforo;
+    /** Borra la sesión seleccionada. */
     @FXML private Button btnBorrarSesion;
 
+    /** Acceso a MongoDB. */
     private final daoImplementacio dao = new daoImplementacio();
+    /** Formato con el que se muestran y se escriben las fechas de las sesiones. */
     private static final DateTimeFormatter FECHA_HORA = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
+    /** Nombre y apellido de cada cliente por su _id, para la lista de inscritos. */
     private final Map<ObjectId, String> nombreClientes = new HashMap<ObjectId, String>();
 
-    // Mientras rellenamos la ficha por código, los listeners de los desplegables no deben guardar
+    /**
+     * Vale {@code true} mientras se rellena la ficha por código, para que los
+     * listeners de los desplegables no lo tomen como un cambio del usuario y guarden.
+     */
     private boolean rellenando = false;
 
     // ---------- Utilidades de presentación ----------
 
-    // Muestra en un ChoiceBox/ListCell el texto que devuelve "texto" en vez del Document entero
+    /** Cómo convertir un documento en el texto que se ve en una lista o un desplegable. */
     private interface Texto {
+        /**
+         * Devuelve el texto que representa al documento.
+         *
+         * @param d documento que se va a mostrar
+         * @return texto visible
+         */
         String de(Document d);
     }
 
+    /**
+     * Crea el conversor de un {@code ChoiceBox} que muestra cada documento con el texto indicado.
+     * Solo convierte en un sentido: {@code fromString} no se usa y devuelve {@code null}.
+     *
+     * @param t cómo se escribe cada documento
+     * @return conversor para {@link ChoiceBox#setConverter(StringConverter)}
+     */
     private StringConverter<Document> conversor(final Texto t) {
         return new StringConverter<Document>() {
             @Override
@@ -88,6 +121,12 @@ public class GestionClasesController {
         };
     }
 
+    /**
+     * Crea una celda de {@code ListView} que muestra cada documento con el texto indicado.
+     *
+     * @param t cómo se escribe cada documento
+     * @return celda para la fábrica de celdas de la lista
+     */
     private ListCell<Document> celda(final Texto t) {
         return new ListCell<Document>() {
             @Override
@@ -98,10 +137,23 @@ public class GestionClasesController {
         };
     }
 
+    /**
+     * Escribe una fecha con el formato {@link #FECHA_HORA} en la zona horaria del equipo.
+     *
+     * @param fecha fecha guardada en MongoDB
+     * @return la fecha como texto, o cadena vacía si es {@code null}
+     */
     private String fechaATexto(Date fecha) {
         return fecha == null ? "" : fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().format(FECHA_HORA);
     }
 
+    /**
+     * Busca en una lista el documento con un _id dado.
+     *
+     * @param lista documentos en los que buscar
+     * @param id identificador buscado
+     * @return el documento, o {@code null} si no está
+     */
     private Document buscarPorId(List<Document> lista, ObjectId id) {
         for (Document d : lista) {
             if (d.getObjectId("_id").equals(id)) {
@@ -111,6 +163,12 @@ public class GestionClasesController {
         return null;
     }
 
+    /**
+     * Devuelve el nombre de una sala a partir de las salas ya cargadas en {@link #choSala}.
+     *
+     * @param salaId identificador (_id) de la sala
+     * @return nombre de la sala, o {@code "sin sala"} si no se encuentra
+     */
     private String nombreSala(ObjectId salaId) {
         Document sala = buscarPorId(choSala.getItems(), salaId);
         return sala == null ? "sin sala" : sala.getString("nombre");
@@ -118,6 +176,11 @@ public class GestionClasesController {
 
     // ---------- Arranque ----------
 
+    /**
+     * Lo llama JavaFX al cargar el FXML: prepara cómo se pintan listas y desplegables,
+     * engancha el guardado automático (Enter en los campos, cambio en los desplegables)
+     * y carga de MongoDB las salas, los monitores, los clientes y las clases.
+     */
     @FXML
     private void initialize() {
         final Texto textoClase = new Texto() {
@@ -175,6 +238,12 @@ public class GestionClasesController {
 
     // ---------- Clases ----------
 
+    /**
+     * Rellena la ficha con la clase elegida y carga sus sesiones. Con {@code null}
+     * vacía la ficha y desactiva sus controles.
+     *
+     * @param c clase seleccionada, o {@code null} si no hay ninguna
+     */
     private void mostrarClase(Document c) {
         rellenando = true;
         boolean hay = c != null;
@@ -198,6 +267,10 @@ public class GestionClasesController {
         mostrarSesion(null);
     }
 
+    /**
+     * Guarda en MongoDB el nombre y la sala de la ficha para la clase seleccionada.
+     * Avisa y no guarda si falta el nombre o la sala.
+     */
     private void guardarClase() {
         Document c = listClases.getSelectionModel().getSelectedItem();
         Document sala = choSala.getValue();
@@ -220,6 +293,10 @@ public class GestionClasesController {
         }
     }
 
+    /**
+     * Pide nombre y sala en un diálogo, crea la clase con el horario vacío
+     * y la deja seleccionada en la lista.
+     */
     @FXML
     private void onCrearClase() {
         TextField fNombre = new TextField();
@@ -253,6 +330,7 @@ public class GestionClasesController {
         }
     }
 
+    /** Tras confirmarlo el usuario, borra la clase seleccionada junto con todas sus sesiones. */
     @FXML
     private void onBorrarClase() {
         Document c = listClases.getSelectionModel().getSelectedItem();
@@ -271,7 +349,10 @@ public class GestionClasesController {
 
     // ---------- Sesiones ----------
 
-    // "Gestionar sesiones": abre el horario semanal de la clase elegida en la misma ventana
+    /**
+     * Botón «Gestionar sesiones»: abre en la misma ventana el horario semanal
+     * ({@code GestorSesiones.fxml}) de la clase seleccionada.
+     */
     @FXML
     private void onGestionarSesiones() {
         Document c = listClases.getSelectionModel().getSelectedItem();
@@ -293,6 +374,12 @@ public class GestionClasesController {
         }
     }
 
+    /**
+     * Rellena la ficha con la sesión elegida: fecha, aforo, monitor y clientes apuntados.
+     * Con {@code null} vacía la ficha y desactiva sus controles.
+     *
+     * @param s sesión seleccionada, o {@code null} si no hay ninguna
+     */
     private void mostrarSesion(Document s) {
         rellenando = true;
         boolean hay = s != null;
@@ -316,6 +403,11 @@ public class GestionClasesController {
         rellenando = false;
     }
 
+    /**
+     * Guarda en MongoDB la fecha, el aforo y el monitor de la ficha para la sesión seleccionada.
+     * Avisa y no guarda si la fecha no tiene el formato {@code dd/MM/yyyy HH:mm},
+     * si el aforo no es válido o si no hay monitor.
+     */
     private void guardarSesion() {
         Document s = listSesiones.getSelectionModel().getSelectedItem();
         Document c = listClases.getSelectionModel().getSelectedItem();
@@ -348,7 +440,16 @@ public class GestionClasesController {
         }
     }
 
-    // Aforo: número entero, mayor que 0, que quepa en la sala y que no deje fuera a los ya apuntados
+    /**
+     * Comprueba el aforo escrito: debe ser un entero mayor que 0, no superar el aforo
+     * de la sala de la clase y no ser menor que el número de clientes ya apuntados.
+     * Si no es válido, avisa al usuario.
+     *
+     * @param texto aforo escrito por el usuario
+     * @param clase clase a la que pertenece la sesión (para saber su sala)
+     * @param apuntados clientes ya apuntados a la sesión
+     * @return el aforo, o {@code null} si no es válido
+     */
     private Integer validarAforo(String texto, Document clase, int apuntados) {
         int aforo;
         try {
@@ -370,6 +471,7 @@ public class GestionClasesController {
         return aforo;
     }
 
+    /** Tras confirmarlo el usuario, borra la sesión seleccionada. */
     @FXML
     private void onBorrarSesion() {
         Document s = listSesiones.getSelectionModel().getSelectedItem();
@@ -387,6 +489,7 @@ public class GestionClasesController {
 
     // ---------- Navegación (igual que en los otros gestores) ----------
 
+    /** Vuelve al menú del gerente en la misma ventana. */
     @FXML
     private void onVolver() {
         try {
@@ -400,6 +503,7 @@ public class GestionClasesController {
         }
     }
 
+    /** Cierra la sesión del gerente: abre la ventana de login y cierra esta. */
     @FXML
     private void onCerrarSesion() {
         try {
@@ -417,10 +521,21 @@ public class GestionClasesController {
 
     // ---------- Diálogos ----------
 
+    /**
+     * Convierte una fecha local en el {@code Date} que guarda MongoDB, usando la zona horaria del equipo.
+     *
+     * @param f fecha y hora local
+     * @return la misma fecha como {@code Date}
+     */
     private Date aDate(LocalDateTime f) {
         return Date.from(f.atZone(ZoneId.systemDefault()).toInstant());
     }
 
+    /**
+     * Crea una rejilla vacía con márgenes para montar el formulario de un diálogo.
+     *
+     * @return rejilla con separación de 10 px y margen de 20 px
+     */
     private GridPane formulario() {
         GridPane grid = new GridPane();
         grid.setHgap(10);
@@ -429,6 +544,13 @@ public class GestionClasesController {
         return grid;
     }
 
+    /**
+     * Muestra un diálogo con un formulario y botones Aceptar y Cancelar, y espera la respuesta.
+     *
+     * @param titulo título de la ventana del diálogo
+     * @param contenido formulario que se muestra
+     * @return {@code true} si el usuario pulsa Aceptar
+     */
     private boolean pedir(String titulo, GridPane contenido) {
         Dialog<ButtonType> dialogo = new Dialog<ButtonType>();
         dialogo.setTitle(titulo);
@@ -437,12 +559,24 @@ public class GestionClasesController {
         return dialogo.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK;
     }
 
+    /**
+     * Hace una pregunta de sí o no y espera la respuesta.
+     *
+     * @param pregunta texto de la pregunta
+     * @return {@code true} si el usuario responde Sí
+     */
     private boolean confirmar(String pregunta) {
         Alert a = new Alert(Alert.AlertType.CONFIRMATION, pregunta, ButtonType.YES, ButtonType.NO);
         a.setHeaderText(null);
         return a.showAndWait().orElse(ButtonType.NO) == ButtonType.YES;
     }
 
+    /**
+     * Muestra un aviso y espera a que el usuario lo cierre.
+     *
+     * @param tipo tipo de aviso (error, advertencia…)
+     * @param mensaje texto del aviso
+     */
     private void alerta(Alert.AlertType tipo, String mensaje) {
         Alert a = new Alert(tipo, mensaje);
         a.setHeaderText(null);
