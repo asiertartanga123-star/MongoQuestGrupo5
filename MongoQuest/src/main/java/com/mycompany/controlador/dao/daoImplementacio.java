@@ -4,9 +4,17 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Sorts;
 import com.mongodb.client.model.Updates;
+<<<<<<< HEAD
 import com.mycompany.controlador.Registro;
+=======
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
+>>>>>>> Ekain
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 import org.bson.Document;
@@ -26,6 +34,7 @@ public class daoImplementacio implements dao {
     private static final String URI = "mongodb://localhost:27017";
     private static final String BD = "Tolotolo";
 
+<<<<<<< HEAD
     // texto@dominio.extensión, sin espacios ni caracteres raros
     private static final Pattern MAIL_VALIDO =
             Pattern.compile("^[a-z0-9._%+-]+@[a-z0-9-]+(\\.[a-z0-9-]+)*\\.[a-z]{2,}$");
@@ -37,6 +46,15 @@ public class daoImplementacio implements dao {
      * @param contraseña contraseña en texto plano almacenada en la base de datos
      * @return rol recuperado del documento autenticado o {@code null} si no existe usuario
      */
+=======
+    private static final Pattern MAIL_VALIDO =
+            Pattern.compile("^[a-z0-9._%+-]+@[a-z0-9-]+(\\.[a-z0-9-]+)*\\.[a-z]{2,}$");
+
+    // Logros automáticos: al llegar a estas semanas seguidas se da el logro
+    private static final String[] LOGROS_NOMBRES = {"Constante", "Imparable", "Leyenda"};
+    private static final int[] LOGROS_SEMANAS = {4, 8, 12};
+
+>>>>>>> Ekain
     @Override
     public String validarLogin(String mail, String contraseña) {
         // Cada operación abre y cierra su cliente Mongo para liberar recursos.
@@ -198,7 +216,11 @@ public class daoImplementacio implements dao {
         }
     }
 
+<<<<<<< HEAD
     // ---------- Operaciones de persistencia para monitores ----------
+=======
+    // ---------- MONITORES ----------
+>>>>>>> Ekain
 
     /**
      * Recupera la lista de monitores activos del sistema.
@@ -290,6 +312,133 @@ public class daoImplementacio implements dao {
         } catch (RuntimeException e) {
             Registro.operacionError("DELETE Trabajadores", "id " + id, e);
             throw e;
+        }
+    }
+
+    // ---------- VENTANA CLIENTE ----------
+
+    // Busca un cliente por su mail (el que usó para iniciar sesión)
+    @Override
+    public Document buscarClientePorMail(String mail) {
+        try (MongoClient cliente = MongoClients.create(URI)) {
+            return cliente.getDatabase(BD)
+                    .getCollection("Clientes")
+                    .find(Filters.eq("mail", mail))
+                    .first();
+        }
+    }
+
+    // Todas las clases del gimnasio
+    @Override
+    public List<Document> listarClases() {
+        try (MongoClient cliente = MongoClients.create(URI)) {
+            return cliente.getDatabase(BD)
+                    .getCollection("Clases")
+                    .find()
+                    .into(new ArrayList<Document>());
+        }
+    }
+
+    // La sesión más reciente de una clase (de ahí sale el "n/n" de plazas)
+    @Override
+    public Document ultimaSesionDeClase(ObjectId claseId) {
+        try (MongoClient cliente = MongoClients.create(URI)) {
+            return cliente.getDatabase(BD)
+                    .getCollection("Sesiones")
+                    .find(Filters.eq("claseid", claseId))
+                    .sort(Sorts.descending("fecha"))
+                    .first();
+        }
+    }
+
+    // Apunta al cliente a una clase: la añade al array "clases" del cliente
+    @Override
+    public boolean apuntarseAClase(String mail, ObjectId claseId, String nombreClase) {
+        try (MongoClient cliente = MongoClients.create(URI)) {
+            Document nueva = new Document("id_clase", claseId)
+                    .append("nombre", nombreClase);
+            return cliente.getDatabase(BD)
+                    .getCollection("Clientes")
+                    .updateOne(Filters.eq("mail", mail), Updates.push("clases", nueva))
+                    .getModifiedCount() > 0;
+        }
+    }
+
+    // ---------- MAIL ----------
+
+    @Override
+    public boolean existeMail(String mail) {
+        try (MongoClient cliente = MongoClients.create(URI)) {
+            MongoDatabase db = cliente.getDatabase(BD);
+            return db.getCollection("Clientes").find(Filters.eq("mail", mail)).first() != null
+                    || db.getCollection("Trabajadores").find(Filters.eq("mail", mail)).first() != null;
+        }
+    }
+
+    @Override
+    public boolean mailValido(String mail) {
+        return mail != null && MAIL_VALIDO.matcher(mail.trim().toLowerCase()).matches();
+    }
+
+    // ---------- LOGROS ----------
+
+    // Da un logro al cliente si todavía no lo tiene
+    @Override
+    public boolean darLogro(String mail, String nombreLogro, int semanas) {
+        try (MongoClient cliente = MongoClients.create(URI)) {
+            Document logro = new Document("nombre", nombreLogro)
+                    .append("fecha", LocalDate.now().toString())
+                    .append("semanas", semanas);
+            return cliente.getDatabase(BD)
+                    .getCollection("Clientes")
+                    .updateOne(
+                            Filters.and(Filters.eq("mail", mail),
+                                    Filters.ne("logros.nombre", nombreLogro)),
+                            Updates.push("logros", logro))
+                    .getModifiedCount() > 0;
+        }
+    }
+
+    // Mira la racha del cliente y le da los logros que se haya ganado
+    @Override
+    public void revisarLogros(String mail) {
+        Document cliente = buscarClientePorMail(mail);
+        if (cliente == null) {
+            return;
+        }
+
+        int semanas = semanasDesdeAlta(cliente);
+        System.out.println("Semanas de " + mail + " en el gimnasio: " + semanas);
+
+        for (int i = 0; i < LOGROS_NOMBRES.length; i++) {
+            if (semanas >= LOGROS_SEMANAS[i]) {
+                darLogro(mail, LOGROS_NOMBRES[i], LOGROS_SEMANAS[i]);
+            }
+        }
+    }
+
+    // Semanas completas que lleva el cliente en el gimnasio (desde su fechaAlta hasta hoy)
+    private int semanasDesdeAlta(Document cliente) {
+        LocalDate alta = aFecha(cliente.get("fechaAlta"));
+        if (alta == null) {
+            return 0;
+        }
+        return (int) ChronoUnit.WEEKS.between(alta, LocalDate.now());
+    }
+
+    // Convierte la fecha de la sesión (Date o texto "2026-11-09...") en LocalDate
+    private LocalDate aFecha(Object valor) {
+        if (valor == null) {
+            return null;
+        }
+        if (valor instanceof Date) {
+            return ((Date) valor).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        }
+        try {
+            String texto = valor.toString();
+            return LocalDate.parse(texto.substring(0, 10));
+        } catch (Exception e) {
+            return null;
         }
     }
 }

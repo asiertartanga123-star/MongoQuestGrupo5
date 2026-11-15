@@ -107,4 +107,26 @@ public interface dao {
      * @return {@code true} si se ha borrado correctamente
      */
     boolean eliminarMonitor(ObjectId id);
+<<<<<<< HEAD
+=======
+    
+    boolean mailValido(String mail);
+    
+    boolean existeMail(String mail);
+
+
+    // ---------- VENTANA CLIENTE ----------
+
+    Document buscarClientePorMail(String mail);
+
+    List<Document> listarClases();
+
+    Document ultimaSesionDeClase(ObjectId claseId);
+    
+    boolean apuntarseAClase(String mail, ObjectId claseId, String nombreClase);
+    
+    boolean darLogro(String mail, String nombreLogro, int semanas);
+
+    void revisarLogros(String mail);
+>>>>>>> Ekain
 }
