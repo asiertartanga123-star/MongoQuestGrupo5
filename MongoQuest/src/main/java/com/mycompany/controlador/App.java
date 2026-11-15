@@ -24,6 +24,12 @@ public class App extends Application {
     private static final String RUTA_ICONO = "/com/mycompany/mongoquest/imagesApp/logo.png";
     private static Image icono;
 
+    /**
+     * Inicializa la aplicación JavaFX y carga la ventana de inicio de sesión.
+     *
+     * @param stage ventana principal que se mostrará al arrancar
+     * @throws IOException si no se puede cargar el FXML o el recurso asociado
+     */
     @Override
     public void start(Stage stage) throws IOException {
         // Cualquier error que nadie controle queda en errores.0.log.
@@ -48,12 +54,19 @@ public class App extends Application {
         stage.show();
     }
 
+    /**
+     * Se ejecuta cuando la aplicación JavaFX se cierra.
+     */
     @Override
     public void stop() {
         Registro.info("Aplicación cerrada");
     }
 
-    // Una fuente que falte no debe impedir que la aplicación arranque.
+    /**
+     * Carga una fuente de texto de la aplicación si existe en recursos.
+     *
+     * @param ruta ruta del recurso de fuente dentro del classpath
+     */
     private static void cargarFuente(String ruta) {
         URL url = App.class.getResource(ruta);
         if (url == null) {
@@ -66,18 +79,33 @@ public class App extends Application {
         }
     }
 
+    /**
+     * Cambia la vista actual por el contenido del FXML indicado.
+     *
+     * @param fxml nombre del recurso FXML sin extensión
+     * @throws IOException si no existe el archivo FXML
+     */
     static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }
 
     /**
      * Carga una vista FXML desde el paquete de recursos indicado.
+     *
+     * @param fxml nombre del recurso FXML sin extensión
+     * @return nodo raíz cargado desde el archivo FXML
+     * @throws IOException si el archivo no existe o falla la carga
      */
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }
 
+    /**
+     * Método principal que lanza la aplicación JavaFX.
+     *
+     * @param args argumentos de consola
+     */
     public static void main(String[] args) {
         // Delega el arranque del ciclo de vida en JavaFX.
         launch();
@@ -85,7 +113,11 @@ public class App extends Application {
 
     // ---------- Icono de las ventanas ----------
 
-    // Carga el icono una sola vez y lo reutiliza en todas las ventanas.
+    /**
+     * Recupera el icono de la aplicación reutilizándolo entre ventanas.
+     *
+     * @return icono cargado desde recursos o {@code null} si no existe
+     */
     private static Image getIcono() {
         if (icono == null) {
             InputStream flujo = App.class.getResourceAsStream(RUTA_ICONO);
@@ -98,7 +130,11 @@ public class App extends Application {
         return icono;
     }
 
-    // Para ventanas normales (new Stage()).
+    /**
+     * Asigna el icono de la aplicación a una nueva ventana JavaFX.
+     *
+     * @param stage ventana a la que se asignará el icono
+     */
     public static void ponerIcono(Stage stage) {
         Image i = getIcono();
         if (i != null && !stage.getIcons().contains(i)) {
@@ -106,7 +142,11 @@ public class App extends Application {
         }
     }
 
-    // Para avisos y diálogos (Alert, Dialog).
+    /**
+     * Asigna el mismo icono a un diálogo o ventana modal.
+     *
+     * @param dialogo cuadro de diálogo JavaFX al que se le asigna el icono
+     */
     public static void ponerIcono(Dialog<?> dialogo) {
         ponerIcono((Stage) dialogo.getDialogPane().getScene().getWindow());
     }

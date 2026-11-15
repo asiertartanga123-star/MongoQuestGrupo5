@@ -12,6 +12,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * Controlador del panel principal del gerente.
+ * <p>
+ * Desde aquí se accede a la gestión de clientes, monitores y clases, así como al
+ * cierre de sesión.
+ */
 public class GerenteController {
 
     // Elementos de la vista del gerente
@@ -26,6 +32,9 @@ public class GerenteController {
     // Evita abrir la misma ventana dos veces con un doble clic.
     private boolean abriendo = false;
 
+    /**
+     * Ajusta las imágenes de cada tarjeta para que se adapten al tamaño del panel.
+     */
     @FXML
     private void initialize() {
         // Escalar imágenes rompiendo la dependencia circular de layout
@@ -34,6 +43,12 @@ public class GerenteController {
         ajustarImagen(imgClientes, cardClientes);
     }
 
+    /**
+     * Redimensiona una imagen para que mantenga proporción dentro de su tarjeta.
+     *
+     * @param img vista de imagen a escalar
+     * @param card contenedor sobre el que se observa el cambio de tamaño
+     */
     private void ajustarImagen(ImageView img, VBox card) {
         if (img == null || card == null) return;
 
@@ -56,28 +71,45 @@ public class GerenteController {
         });
     }
 
+    /**
+     * Abre la pantalla de gestión de monitores.
+     */
     @FXML
     private void onGestionarMonitores() {
         abrirVentana("/com/mycompany/vista/GestorMonitor.fxml", "Tolotolo - Gestión de monitores");
     }
 
+    /**
+     * Abre la pantalla de gestión de clases.
+     */
     @FXML
     private void onGestionarClases() {
         abrirVentana("/com/mycompany/vista/GestorClases.fxml", "Tolotolo - Gestión de clases");
     }
 
+    /**
+     * Abre la pantalla de gestión de clientes.
+     */
     @FXML
     private void onGestionarClientes() {
         abrirVentana("/com/mycompany/vista/GestorCliente.fxml", "Tolotolo - Gestión de clientes");
     }
 
+    /**
+     * Cierra la sesión del gerente y vuelve a la vista de inicio.
+     */
     @FXML
     private void onCerrarSesion() {
         Registro.info("Sesión cerrada desde el panel del gerente");
         abrirVentana("/com/mycompany/vista/Login.fxml", "Tolotolo - Iniciar sesión");
     }
 
-    // Abre una pantalla en una ventana nueva y cierra la del gerente.
+    /**
+     * Carga una pantalla secundaria y cierra la ventana del gerente.
+     *
+     * @param fxml ruta del FXML de destino
+     * @param titulo título de la nueva ventana
+     */
     private void abrirVentana(String fxml, String titulo) {
         if (abriendo) {
             return;
@@ -108,6 +140,11 @@ public class GerenteController {
         }
     }
 
+    /**
+     * Muestra una ventana de error con el mensaje indicado.
+     *
+     * @param mensaje detalle del problema a comunicar
+     */
     private void aviso(String mensaje) {
         Alert a = new Alert(Alert.AlertType.ERROR, mensaje);
         App.ponerIcono(a);

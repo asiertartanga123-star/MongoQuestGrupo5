@@ -8,6 +8,10 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import javafx.scene.image.Image;
 
+/**
+ * Gestiona el almacenamiento y carga de imágenes de usuarios en el directorio local
+ * de la aplicación.
+ */
 public class GestorImagenes {
 
     // Carpeta de las fotos: datos/imagesUsu, junto a donde se ejecuta la aplicación.
@@ -16,12 +20,23 @@ public class GestorImagenes {
     // Solo los formatos que JavaFX sabe mostrar.
     private static final String[] EXTENSIONES = {"png", "jpg", "jpeg", "gif", "bmp"};
 
-    // El DNI solo puede llevar letras y números en el nombre del archivo
+    /**
+     * Normaliza un DNI para usarlo como nombre de archivo.
+     *
+     * @param dni valor del documento de identidad del usuario
+     * @return nombre de archivo seguro con letras y números en mayúsculas
+     */
     private static String nombreArchivo(String dni) {
         return dni.trim().toUpperCase().replaceAll("[^A-Z0-9]", "_");
     }
 
-    // Copia la imagen a imagesUsu/<DNI>.<extensión>, sustituyendo la anterior
+    /**
+     * Guarda una imagen en el disco asociada a un usuario.
+     *
+     * @param dni documento del usuario propietario de la imagen
+     * @param origen fichero local a copiar
+     * @throws IOException si la imagen no tiene un formato soportado o no se puede escribir
+     */
     public static void guardar(String dni, File origen) throws IOException {
         String nombre = origen.getName().toLowerCase();
         String extension = nombre.substring(nombre.lastIndexOf('.') + 1);
@@ -39,7 +54,12 @@ public class GestorImagenes {
         Registro.info("Imagen guardada: " + destino.getFileName());
     }
 
-    // Devuelve la imagen del usuario, o null si no tiene
+    /**
+     * Carga la imagen asociada a un usuario si existe en disco.
+     *
+     * @param dni documento del usuario
+     * @return imagen JavaFX o {@code null} si no existe ninguna foto asociada
+     */
     public static Image cargar(String dni) {
         for (String extension : EXTENSIONES) {
             Path ruta = CARPETA.resolve(nombreArchivo(dni) + "." + extension);
@@ -56,7 +76,12 @@ public class GestorImagenes {
         return null;
     }
 
-    // Borra la imagen del usuario, si existe
+    /**
+     * Borra la imagen asociada al usuario, si existe.
+     *
+     * @param dni documento del usuario cuya imagen se elimina
+     * @throws IOException si ocurre un problema al eliminar el archivo
+     */
     public static void borrar(String dni) throws IOException {
         for (String extension : EXTENSIONES) {
             if (Files.deleteIfExists(CARPETA.resolve(nombreArchivo(dni) + "." + extension))) {
@@ -65,7 +90,13 @@ public class GestorImagenes {
         }
     }
 
-    // Cuando cambia el DNI, la imagen pasa a llamarse con el nuevo
+    /**
+     * Renombra la imagen del usuario cuando cambia su identificador.
+     *
+     * @param dniViejo identifier previo del usuario
+     * @param dniNuevo nuevo identificador del usuario
+     * @throws IOException si falla el movimiento de la imagen
+     */
     public static void renombrar(String dniViejo, String dniNuevo) throws IOException {
         if (nombreArchivo(dniViejo).equals(nombreArchivo(dniNuevo))) {
             return;
@@ -80,6 +111,12 @@ public class GestorImagenes {
         }
     }
 
+    /**
+     * Comprueba si la extensión del archivo está permitida por la aplicación.
+     *
+     * @param extension extensión a validar
+     * @return {@code true} si la extensión es admitida
+     */
     private static boolean esExtensionValida(String extension) {
         for (String e : EXTENSIONES) {
             if (e.equals(extension)) {

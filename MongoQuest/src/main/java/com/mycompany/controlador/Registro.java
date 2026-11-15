@@ -122,14 +122,30 @@ public class Registro {
         }
     }
 
+    /**
+     * Registra un mensaje informativo en el log general.
+     *
+     * @param mensaje texto descriptivo del evento
+     */
     public static void info(String mensaje) {
         LOG.info(mensaje);
     }
 
+    /**
+     * Registra un aviso en el log general.
+     *
+     * @param mensaje texto descriptivo del aviso
+     */
     public static void aviso(String mensaje) {
         LOG.warning(mensaje);
     }
 
+    /**
+     * Registra un error grave con su traza de excepción.
+     *
+     * @param mensaje texto que describe el error
+     * @param causa excepción asociada al problema
+     */
     public static void error(String mensaje, Throwable causa) {
         LOG.log(Level.SEVERE, mensaje, causa);
     }
@@ -137,10 +153,20 @@ public class Registro {
     // ---------- Usuario actual ----------
 
     // Se llama al iniciar sesión (con el mail) y al cerrarla (con null).
+    /**
+     * Establece el usuario actual para asociarlo a cada operación registrada.
+     *
+     * @param u correo o identificador del usuario activo, o {@code null} para resetearlo
+     */
     public static void setUsuario(String u) {
         usuario = (u == null || u.trim().isEmpty()) ? "anónimo" : u.trim();
     }
 
+    /**
+     * Devuelve el correo o identificador del usuario activo.
+     *
+     * @return usuario actual en sesión o {@code anónimo}
+     */
     public static String getUsuario() {
         return usuario;
     }
@@ -148,11 +174,24 @@ public class Registro {
     // ---------- Operaciones contra la base de datos ----------
 
     // Operación terminada correctamente.
+    /**
+     * Guarda en el log de operaciones una operación de Base de Datos correcta.
+     *
+     * @param tipo tipo de operación ejecutada
+     * @param detalle descripción detallada de la acción
+     */
     public static void operacion(String tipo, String detalle) {
         LOG_BD.info(usuario + " | " + tipo + " | " + limpiar(detalle) + " | OK");
     }
 
     // Operación que ha fallado: se guarda la excepción.
+    /**
+     * Guarda una operación fallida junto con la excepción generada.
+     *
+     * @param tipo tipo de operación ejecutada
+     * @param detalle descripción del fallo
+     * @param causa excepción que produjo el error
+     */
     public static void operacionError(String tipo, String detalle, Throwable causa) {
         LOG_BD.warning(usuario + " | " + tipo + " | " + limpiar(detalle) + " | ERROR -> "
                 + causa.getClass().getSimpleName() + ": " + limpiar(causa.getMessage()));

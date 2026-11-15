@@ -37,6 +37,12 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.bson.Document;
 
+/**
+ * Controlador de la pantalla de gestión de monitores.
+ * <p>
+ * Centraliza la consulta, edición y baja de monitores, además del manejo de sus
+ * datos personales y fotografías.
+ */
 public class GestionMonitorController {
 
     // Controles enlazados con la lista de monitores y su ficha de datos.

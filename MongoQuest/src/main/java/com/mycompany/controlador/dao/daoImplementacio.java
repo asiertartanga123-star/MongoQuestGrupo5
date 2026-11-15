@@ -13,6 +13,13 @@ import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
+/**
+ * Implementación concreta del acceso a datos para MongoDB.
+ * <p>
+ * Esta clase se encarga de autenticar usuarios y mantener las colecciones
+ * {@code Clientes} y {@code Trabajadores} sincronizadas con la base de datos
+ * local de la aplicación.
+ */
 public class daoImplementacio implements dao {
 
     // En esta versión la instancia MongoDB es local y usa la base de datos Tolotolo.
@@ -23,6 +30,13 @@ public class daoImplementacio implements dao {
     private static final Pattern MAIL_VALIDO =
             Pattern.compile("^[a-z0-9._%+-]+@[a-z0-9-]+(\\.[a-z0-9-]+)*\\.[a-z]{2,}$");
 
+    /**
+     * Valida las credenciales de acceso del usuario dentro de MongoDB.
+     *
+     * @param mail correo electrónico asociado al usuario
+     * @param contraseña contraseña en texto plano almacenada en la base de datos
+     * @return rol recuperado del documento autenticado o {@code null} si no existe usuario
+     */
     @Override
     public String validarLogin(String mail, String contraseña) {
         // Cada operación abre y cierra su cliente Mongo para liberar recursos.
@@ -57,6 +71,12 @@ public class daoImplementacio implements dao {
 
     // ---------- Validaciones para el registro ----------
 
+    /**
+     * Comprueba si un correo ya está registrado en una colección de usuarios.
+     *
+     * @param mail dirección de correo a verificar
+     * @return {@code true} si la dirección ya existe en clientes o trabajadores
+     */
     @Override
     public boolean existeMail(String mail) {
         // El mail debe ser único entre clientes y trabajadores.
@@ -72,6 +92,12 @@ public class daoImplementacio implements dao {
         }
     }
 
+    /**
+     * Verifica si un correo tiene el formato permitido por la aplicación.
+     *
+     * @param mail correo a comprobar
+     * @return {@code true} si el formato es válido
+     */
     @Override
     public boolean mailValido(String mail) {
         return mail != null && MAIL_VALIDO.matcher(mail.trim().toLowerCase()).matches();
@@ -79,6 +105,11 @@ public class daoImplementacio implements dao {
 
     // ---------- Operaciones de persistencia para clientes ----------
 
+    /**
+     * Recupera todos los clientes almacenados en la colección {@code Clientes}.
+     *
+     * @return lista de documentos BSON con los clientes registrados
+     */
     @Override
     public List<Document> listarClientes() {
         // Convierte el cursor de Mongo en una lista que puede consumir la vista.
@@ -95,6 +126,11 @@ public class daoImplementacio implements dao {
         }
     }
 
+    /**
+     * Inserta un nuevo cliente en la base de datos.
+     *
+     * @param c documento BSON que contiene todos los datos del cliente
+     */
     @Override
     public void insertarCliente(Document c) {
         // Inserta el documento preparado por el formulario de alta.
@@ -109,6 +145,16 @@ public class daoImplementacio implements dao {
         }
     }
 
+    /**
+     * Actualiza la información editable de un cliente existente.
+     *
+     * @param id identificador del cliente
+     * @param nombre nuevo nombre
+     * @param apellido nuevo apellido
+     * @param dni nuevo DNI
+     * @param mail nuevo correo
+     * @param membresia nueva membresía asignada
+     */
     @Override
     public void actualizarCliente(ObjectId id, String nombre, String apellido,
             String dni, String mail, String membresia) {
@@ -130,6 +176,12 @@ public class daoImplementacio implements dao {
         }
     }
 
+    /**
+     * Elimina un cliente de la colección correspondiente.
+     *
+     * @param id identificador del cliente a quitar
+     * @return {@code true} si el borrado afectó a un documento
+     */
     @Override
     public boolean eliminarCliente(ObjectId id) {
         // Indica si MongoDB encontró y eliminó al menos un documento.
@@ -148,6 +200,11 @@ public class daoImplementacio implements dao {
 
     // ---------- Operaciones de persistencia para monitores ----------
 
+    /**
+     * Recupera la lista de monitores activos del sistema.
+     *
+     * @return conjunto de documentos BSON de monitores
+     */
     @Override
     public List<Document> listarMonitores() {
         // Los monitores comparten colección con otros trabajadores y se filtran por tipo.
@@ -164,6 +221,11 @@ public class daoImplementacio implements dao {
         }
     }
 
+    /**
+     * Guarda un monitor dentro de la colección de trabajadores.
+     *
+     * @param m documento BSON con los datos del monitor
+     */
     @Override
     public void insertarMonitor(Document m) {
         // Los nuevos monitores se guardan en la colección general de trabajadores.
@@ -178,6 +240,16 @@ public class daoImplementacio implements dao {
         }
     }
 
+    /**
+     * Actualiza la información de un monitor identificado por su ObjectId.
+     *
+     * @param id identificador del monitor
+     * @param nombre nuevo nombre
+     * @param apellido nuevo apellido
+     * @param dni nuevo DNI
+     * @param mail nuevo correo
+     * @param direccion nueva dirección del monitor
+     */
     @Override
     public void actualizarMonitor(ObjectId id, String nombre, String apellido,
             String dni, String mail, List<Document> direccion) {
@@ -199,6 +271,12 @@ public class daoImplementacio implements dao {
         }
     }
 
+    /**
+     * Elimina un monitor del sistema.
+     *
+     * @param id identificador del monitor
+     * @return {@code true} si se eliminó correctamente
+     */
     @Override
     public boolean eliminarMonitor(ObjectId id) {
         // El ObjectId identifica de forma única al trabajador que se quiere borrar.

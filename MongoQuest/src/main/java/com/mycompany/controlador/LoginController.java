@@ -14,6 +14,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+/**
+ * Controlador de la pantalla de inicio de sesión de la aplicación.
+ * <p>
+ * Valida las credenciales del usuario y redirige a la vista correspondiente según
+ * el rol devuelto por la base de datos.
+ */
 public class LoginController {
 
     // Elementos de la vista enlazados por sus fx:id en Login.fxml.
@@ -26,6 +32,9 @@ public class LoginController {
     // El controlador consulta el DAO para validar las credenciales.
     private final daoImplementacio dao = new daoImplementacio();
 
+    /**
+     * Ajusta la altura de las ilustraciones para que ocupen el espacio disponible.
+     */
     @FXML
     private void initialize() {
         // Ajusta la altura de las ilustraciones al espacio que queda bajo la cabecera.
@@ -33,6 +42,9 @@ public class LoginController {
         imgToroDer.fitHeightProperty().bind(raiz.heightProperty().subtract(81).multiply(0.85));
     }
 
+    /**
+     * Intenta autenticar al usuario con el correo y la contraseña introducidos.
+     */
     @FXML
     private void onIniciarSesion() {
         // Limpia espacios accidentales antes de consultar la base de datos.
@@ -75,6 +87,9 @@ public class LoginController {
         }
     }
 
+    /**
+     * Abre la pantalla de registro y reemplaza la vista actual del login.
+     */
     @FXML
     private void onRegistrarse() {
         try {
@@ -87,6 +102,12 @@ public class LoginController {
         }
     }
 
+    /**
+     * Abre una nueva ventana para la vista indicada.
+     *
+     * @param fxml ruta del FXML de destino
+     * @param titulo título que aparecerá en la nueva ventana
+     */
     private void abrirVentana(String fxml, String titulo) {
         try {
             // Solo se cierra el login después de haber cargado y mostrado la nueva vista.
@@ -105,6 +126,12 @@ public class LoginController {
         }
     }
 
+    /**
+     * Muestra una alerta de tipo definido en la interfaz gráfica.
+     *
+     * @param tipo tipo de alerta JavaFX
+     * @param mensaje texto a mostrar al usuario
+     */
     private void mostrarAlerta(Alert.AlertType tipo, String mensaje) {
         // Centraliza la presentación de mensajes al usuario.
         Alert alerta = new Alert(tipo, mensaje);
