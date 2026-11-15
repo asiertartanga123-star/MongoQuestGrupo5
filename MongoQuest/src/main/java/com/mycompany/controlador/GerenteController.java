@@ -84,7 +84,19 @@ public class GerenteController {
      */
     @FXML
     private void onGestionarClases() {
-        abrirVentana("/com/mycompany/vista/GestorClases.fxml", "Tolotolo - Gestión de clases");
+         
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/com/mycompany/vista/GestorClase.fxml"));
+            Stage login = new Stage();
+            login.setTitle("Tolotolo - Gestión de clases");
+            login.setScene(new Scene(root));
+            login.show();
+
+            ((Stage) raiz.getScene().getWindow()).close();
+        } catch (IOException | NullPointerException e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "No se pudo cargar GestorClases.").showAndWait();
+        }
     }
 
     /**
