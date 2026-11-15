@@ -46,40 +46,62 @@ import org.bson.Document;
 public class GestionMonitorController {
 
     // Controles enlazados con la lista de monitores y su ficha de datos.
+    /** Contenedor raíz de la pantalla. */
     @FXML
     private BorderPane raiz;
+    /** Lista de monitores (documentos de MongoDB) que se muestra a la izquierda. */
     @FXML
     private ListView<Document> listMonitores;
+    /** Etiqueta con el nombre y los apellidos del monitor seleccionado. */
     @FXML
     private Label lblNombreCompleto;
+    /** Foto del monitor seleccionado. */
     @FXML
     private ImageView imgFoto;
+    /** Recuadro que contiene la foto; la imagen se ajusta a su tamaño. */
     @FXML
     private StackPane panelFoto;
+    /** Campo del nombre. */
     @FXML
     private TextField txtNombre;
+    /** Campo de los apellidos. */
     @FXML
     private TextField txtApellidos;
+    /** Campo del DNI. */
     @FXML
     private TextField txtDni;
+    /** Campo del correo electrónico. */
     @FXML
     private TextField txtMail;
+    /** Fecha de alta, con formato dd/MM/yyyy. */
     @FXML
     private TextField txtAlta;
+    /** Dirección del monitor, con el formato {@code Calle, CP, Ciudad}. */
     @FXML
     private TextField txtDireccion;
+    /** Botón que guarda los cambios de la ficha; está desactivado mientras no haya un monitor seleccionado. */
     @FXML
     private Button btnGuardar;
+    /** Botón para dar de baja al monitor seleccionado; está desactivado mientras no haya selección. */
     @FXML
     private Button btnBaja;
 
+    /** Acceso a la base de datos. */
     private final daoImplementacio dao = new daoImplementacio();
     // Formato de presentación de la fecha de alta.
+    /** Formato con el que se muestra la fecha de alta. */
     private static final DateTimeFormatter FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     // Define cómo se presenta cada monitor en la lista de la izquierda.
+    /** Celda de la lista: muestra el nombre y los apellidos en una línea, y el DNI y el correo en otra. */
     private static class CeldaMonitor extends ListCell<Document> {
 
+        /**
+         * Rellena la celda con los datos del monitor, o la deja vacía.
+         *
+         * @param m documento del monitor
+         * @param vacio {@code true} si la celda no tiene contenido
+         */
         @Override
         protected void updateItem(Document m, boolean vacio) {
             super.updateItem(m, vacio);
@@ -92,6 +114,7 @@ public class GestionMonitorController {
         }
     }
 
+    /** Prepara la pantalla: define cómo se dibuja cada monitor en la lista, enlaza la selección con la ficha, ajusta la foto al recuadro y carga los monitores. */
     @FXML
     private void initialize() {
         // Configura las celdas y reacciona al cambio de monitor seleccionado.
@@ -118,6 +141,7 @@ public class GestionMonitorController {
         cargarMonitores();
     }
 
+    /** Lee los monitores de MongoDB y los muestra en la lista. Si no hay conexión, muestra una alerta. */
     private void cargarMonitores() {
         try {
             // Pide al DAO los trabajadores cuyo tipo es monitor y actualiza la lista.
@@ -131,6 +155,12 @@ public class GestionMonitorController {
     }
 
     // Convierte el primer elemento del arreglo BSON de direcciones a texto para la ficha.
+    /**
+     * Convierte la primera dirección del monitor en un texto {@code Calle, CP, Ciudad}.
+     *
+     * @param m documento del monitor
+     * @return la dirección como texto, o una cadena vacía si no tiene ninguna
+     */
     private String direccionATexto(Document m) {
         List<Document> dirs = m.getList("direccion", Document.class);
         if (dirs == null || dirs.isEmpty()) {
@@ -141,6 +171,12 @@ public class GestionMonitorController {
     }
 
     // Convierte el texto de la ficha al formato BSON; null señala un formato inválido.
+    /**
+     * Convierte el texto de la ficha en una dirección con el formato que guarda MongoDB.
+     *
+     * @param texto texto con el formato {@code Calle, CP, Ciudad}
+     * @return lista con un documento de dirección, o {@code null} si el formato no es válido
+     */
     private List<Document> textoADireccion(String texto) {
         String[] partes = texto.split(",");
         if (partes.length != 3) {
@@ -157,6 +193,11 @@ public class GestionMonitorController {
         return lista;
     }
 
+    /**
+     * Rellena la ficha con los datos del monitor indicado. Si es {@code null}, limpia la ficha y desactiva los botones de edición.
+     *
+     * @param m documento del monitor seleccionado, o {@code null} si no hay selección
+     */
     private void mostrarMonitor(Document m) {
         if (m == null) {
             // Sin selección se limpia la ficha y se desactivan las acciones de edición.
@@ -193,6 +234,11 @@ public class GestionMonitorController {
         btnBaja.setDisable(false);
     }
 
+    /**
+     * Muestra la foto del monitor, que se busca por su DNI, o la quita si no hay monitor.
+     *
+     * @param m documento del monitor, o {@code null}
+     */
     private void mostrarFoto(Document m) {
         if (m == null) {
             imgFoto.setImage(null);
@@ -202,6 +248,11 @@ public class GestionMonitorController {
         imgFoto.setImage(GestorImagenes.cargar(m.getString("dni")));
     }
 
+    /**
+     * Valida y guarda los cambios de la ficha del monitor seleccionado.
+     *
+     * <p>Si cambia el DNI, la foto se renombra para seguirlo. Avisa si falta algún campo, si el correo no es válido, si la dirección no tiene el formato {@code Calle, CP, Ciudad}, si el DNI o el correo ya existen, o si falla la conexión o el renombrado de la foto.</p>
+     */
     @FXML
     private void onGuardarDatos() {
         // La edición solo es posible cuando se ha seleccionado un monitor.
@@ -266,6 +317,11 @@ public class GestionMonitorController {
         }
     }
 
+    /**
+     * Abre un diálogo para introducir los datos y la dirección de un monitor nuevo.
+     *
+     * <p>Si los datos son válidos lo inserta como trabajador de tipo monitor, con la fecha de alta actual, y lo deja seleccionado en la lista.</p>
+     */
     @FXML
     private void onDarDeAlta() {
         // Se crea un diálogo para introducir los datos personales y la dirección del monitor.
@@ -365,6 +421,7 @@ public class GestionMonitorController {
         }
     }
 
+    /** Pide confirmación y elimina al monitor seleccionado y su foto; después recarga la lista. */
     @FXML
     private void onDarDeBaja() {
         // La eliminación exige que haya un monitor seleccionado y confirmación del usuario.
@@ -400,6 +457,7 @@ public class GestionMonitorController {
         }
     }
 
+    /** Permite elegir una imagen (png, jpg o jpeg) y la guarda como foto del monitor seleccionado. */
     @FXML
     private void onElegirFoto() {
         Document m = listMonitores.getSelectionModel().getSelectedItem();
@@ -427,6 +485,7 @@ public class GestionMonitorController {
         }
     }
 
+    /** Vuelve al panel del gerente dentro de la misma ventana. */
     @FXML
     private void onVolver() {
         try {
@@ -451,6 +510,7 @@ public class GestionMonitorController {
         }
     }
 
+    /** Abre la pantalla de login en una ventana nueva y cierra la actual. */
     @FXML
     private void onCerrarSesion() {
         try {
@@ -470,6 +530,12 @@ public class GestionMonitorController {
         }
     }
 
+    /**
+     * Muestra una alerta con el icono de la aplicación y espera a que se cierre.
+     *
+     * @param tipo tipo de alerta
+     * @param mensaje texto que se muestra
+     */
     private void alerta(Alert.AlertType tipo, String mensaje) {
         // Centraliza los avisos de error, validación y confirmación de esta pantalla.
         Alert a = new Alert(tipo, mensaje);

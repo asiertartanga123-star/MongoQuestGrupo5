@@ -23,19 +23,31 @@ import org.bson.Document;
  */
 public class RegisterController {
 
+    /** Contenedor raíz de la pantalla. */
     @FXML private BorderPane raiz;
+    /** Imagen decorativa del toro, a la izquierda. */
     @FXML private ImageView imgToroIzq;
+    /** Imagen decorativa del toro, a la derecha. */
     @FXML private ImageView imgToroDer;
+    /** Campo del nombre. */
     @FXML private TextField txtNombre;
+    /** Campo de los apellidos. */
     @FXML private TextField txtApellidos;
+    /** Campo del DNI. */
     @FXML private TextField txtDni;
+    /** Campo del correo electrónico. */
     @FXML private TextField txtMail;
+    /** Campo de la contraseña. */
     @FXML private PasswordField txtPassword;
+    /** Campo para repetir la contraseña. */
     @FXML private PasswordField txtPassword2;
+    /** Selector del nivel de membresía (Normal o Premium). */
     @FXML private ComboBox<String> cmbNivel;
 
+    /** Acceso a la base de datos. */
     private final daoImplementacio dao = new daoImplementacio();
 
+    /** Rellena el selector de membresía, selecciona la primera opción y ajusta las imágenes de los toros al tamaño de la ventana. */
     @FXML
     private void initialize() {
         cmbNivel.getItems().addAll("Normal", "Premium");
@@ -44,6 +56,11 @@ public class RegisterController {
         imgToroDer.fitHeightProperty().bind(raiz.heightProperty().subtract(81).multiply(0.80));
     }
 
+    /**
+     * Valida el formulario y registra al cliente.
+     *
+     * <p>Comprueba que no falte ningún campo, que el DNI tenga 8 números y una letra, que el correo sea válido y no exista ya, y que las dos contraseñas coincidan. Si todo es correcto inserta el cliente en MongoDB con la fecha de alta actual y vuelve al login. Avisa si el DNI o el correo están duplicados o si no hay conexión.</p>
+     */
     @FXML
     private void onPagar() {
         String nombre = txtNombre.getText().trim();
@@ -113,6 +130,7 @@ public class RegisterController {
         }
     }
 
+    /** Sustituye la pantalla de registro por la de login. */
     @FXML
     private void onVolverLogin() {
         try {
@@ -125,6 +143,12 @@ public class RegisterController {
         }
     }
 
+    /**
+     * Muestra una alerta con el icono de la aplicación y espera a que se cierre.
+     *
+     * @param tipo tipo de alerta
+     * @param mensaje texto que se muestra
+     */
     private void mostrarAlerta(Alert.AlertType tipo, String mensaje) {
         Alert alerta = new Alert(tipo, mensaje);
         App.ponerIcono(alerta);

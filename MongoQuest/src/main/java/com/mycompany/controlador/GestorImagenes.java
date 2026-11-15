@@ -15,9 +15,11 @@ import javafx.scene.image.Image;
 public class GestorImagenes {
 
     // Carpeta de las fotos: datos/imagesUsu, junto a donde se ejecuta la aplicación.
+    /** Carpeta donde se guardan las fotos de los usuarios. */
     private static final Path CARPETA = Paths.get("datos", "imagesUsu");
 
     // Solo los formatos que JavaFX sabe mostrar.
+    /** Extensiones de imagen admitidas. */
     private static final String[] EXTENSIONES = {"png", "jpg", "jpeg", "gif", "bmp"};
 
     /**
@@ -93,7 +95,7 @@ public class GestorImagenes {
     /**
      * Renombra la imagen del usuario cuando cambia su identificador.
      *
-     * @param dniViejo identifier previo del usuario
+     * @param dniViejo identificador previo del usuario
      * @param dniNuevo nuevo identificador del usuario
      * @throws IOException si falla el movimiento de la imagen
      */
