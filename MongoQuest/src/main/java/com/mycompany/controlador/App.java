@@ -32,13 +32,6 @@ public class App extends Application {
      */
     @Override
     public void start(Stage stage) throws IOException {
-        // Cualquier error que nadie controle queda en errores.0.log.
-        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
-            @Override
-            public void uncaughtException(Thread hilo, Throwable e) {
-                Registro.error("Error no controlado en el hilo " + hilo.getName(), e);
-            }
-        });
         Registro.info("Aplicación iniciada");
 
         cargarFuente("/com/mycompany/fonts/static/Cinzel-Regular.ttf");
