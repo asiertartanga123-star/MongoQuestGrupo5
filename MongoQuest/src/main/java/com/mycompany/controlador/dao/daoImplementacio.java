@@ -20,14 +20,21 @@ import org.bson.types.ObjectId;
 
 /**
  * Implementación concreta del acceso a datos para MongoDB.
+ * <p>
+ * Cada operación abre su propia conexión con el servidor y la cierra al terminar. Las operaciones de login, listados, altas, modificaciones y bajas se anotan en el log de operaciones mediante {@link Registro}.
  */
 public class daoImplementacio implements dao {
 
+    /** Dirección de conexión con el servidor MongoDB (local, puerto 27017). */
     private static final String URI = "mongodb://localhost:27017";
+    /** Nombre de la base de datos que utiliza la aplicación. */
     private static final String BD = "Tolotolo";
+    /** Expresión regular que define un correo válido; se aplica sobre el texto en minúsculas. */
     private static final Pattern MAIL_VALIDO =
             Pattern.compile("^[a-z0-9._%+-]+@[a-z0-9-]+(\\.[a-z0-9-]+)*\\.[a-z]{2,}$");
+    /** Nombres de los logros que se pueden conseguir, de menor a mayor antigüedad. */
     private static final String[] LOGROS_NOMBRES = {"Constante", "Imparable", "Leyenda"};
+    /** Semanas de antigüedad que exige cada logro; cada posición se corresponde con la de {@link #LOGROS_NOMBRES}. */
     private static final int[] LOGROS_SEMANAS = {4, 8, 12};
 
     @Override
@@ -271,6 +278,12 @@ public class daoImplementacio implements dao {
         }
     }
 
+    /**
+     * Calcula las semanas completas transcurridas desde la fecha de alta del cliente.
+     *
+     * @param cliente documento del cliente
+     * @return semanas de antigüedad, o 0 si el cliente no tiene una fecha de alta válida
+     */
     private int semanasDesdeAlta(Document cliente) {
         LocalDate alta = aFecha(cliente.get("fechaAlta"));
         if (alta == null) {
@@ -279,6 +292,12 @@ public class daoImplementacio implements dao {
         return (int) ChronoUnit.WEEKS.between(alta, LocalDate.now());
     }
 
+    /**
+     * Convierte el valor guardado en {@code fechaAlta} en una fecha local. Acepta un {@code Date} de BSON o un texto que empiece por {@code yyyy-MM-dd}.
+     *
+     * @param valor valor leído de MongoDB
+     * @return la fecha, o {@code null} si el valor es nulo o no se puede interpretar
+     */
     private LocalDate aFecha(Object valor) {
         if (valor == null) {
             return null;

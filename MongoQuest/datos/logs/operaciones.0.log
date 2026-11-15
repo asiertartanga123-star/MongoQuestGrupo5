@@ -328,3 +328,23 @@
 2026-11-15 22:02:56 | anónimo | SELECT Trabajadores | listado de monitores (2 registros) | OK
 2026-11-15 22:02:57 | anónimo | SELECT Trabajadores | listado de monitores (2 registros) | OK
 2026-11-15 22:03:02 | anónimo | SELECT Trabajadores | login de admin@admin.com | OK
+2026-11-15 23:15:37 | anónimo | SELECT Clientes | listado (1 registros) | OK
+2026-11-15 23:15:38 | anónimo | SELECT Clientes | listado (1 registros) | OK
+2026-11-15 23:15:39 | anónimo | SELECT Clientes | listado (1 registros) | OK
+2026-11-15 23:15:40 | anónimo | SELECT Clientes | listado (1 registros) | OK
+2026-11-15 23:15:41 | anónimo | SELECT Clientes | listado (1 registros) | OK
+2026-11-15 23:15:42 | anónimo | SELECT Clientes | listado (1 registros) | OK
+2026-11-15 23:15:42 | anónimo | SELECT Trabajadores | listado de monitores (2 registros) | OK
+2026-11-15 23:15:42 | anónimo | SELECT Trabajadores | listado de monitores (2 registros) | OK
+2026-11-15 23:15:43 | anónimo | SELECT Trabajadores | listado de monitores (2 registros) | OK
+2026-11-15 23:15:44 | anónimo | SELECT Trabajadores | listado de monitores (2 registros) | OK
+2026-11-15 23:15:46 | anónimo | SELECT Trabajadores | listado de monitores (2 registros) | OK
+2026-11-15 23:15:46 | anónimo | SELECT Trabajadores | listado de monitores (2 registros) | OK
+2026-11-15 23:15:47 | anónimo | SELECT Trabajadores | listado de monitores (2 registros) | OK
+2026-11-15 23:15:49 | anónimo | SELECT Trabajadores | listado de monitores (2 registros) | OK
+2026-11-15 23:15:50 | anónimo | SELECT Trabajadores | listado de monitores (2 registros) | OK
+2026-11-15 23:15:50 | anónimo | SELECT Trabajadores | listado de monitores (2 registros) | OK
+2026-11-15 23:15:51 | anónimo | SELECT Trabajadores | listado de monitores (2 registros) | OK
+2026-11-15 23:15:56 | anónimo | SELECT Trabajadores | login de admin@admin.com | OK
+2026-11-15 23:15:59 | admin@admin.com | SELECT Login | sin coincidencias para nadie@noexiste.com | OK
+2026-11-15 23:16:04 | admin@admin.com | SELECT Login | sin coincidencias para admin@admin.com | OK

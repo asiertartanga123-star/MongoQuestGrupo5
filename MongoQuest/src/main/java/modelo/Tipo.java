@@ -7,5 +7,7 @@ package modelo;
 /** Roles de trabajador que reconoce el modelo de dominio. */
 public enum Tipo {
     /** Persona con permisos de gestión. */
-    GERENTE, MONITOR
+    GERENTE,
+    /** Monitor del gimnasio. */
+    MONITOR
 }

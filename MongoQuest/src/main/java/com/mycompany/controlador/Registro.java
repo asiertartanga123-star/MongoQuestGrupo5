@@ -24,25 +24,43 @@ import java.util.logging.Logger;
  */
 public class Registro {
 
+    /** Logger principal: recibe los mensajes generales y los errores graves. */
     private static final Logger LOG = Logger.getLogger("tolotolo");
+    /** Logger de las operaciones contra la base de datos; escribe solo en el log de operaciones. */
     private static final Logger LOG_BD = Logger.getLogger("tolotolo.bd");
+    /** Formato de fecha y hora con el que empieza cada línea de log. */
     private static final DateTimeFormatter FECHA = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     // Usuario que ha iniciado sesión; se incluye en cada operación de base de datos.
+    /** Usuario en sesión (su correo); vale {@code "anónimo"} mientras nadie haya iniciado sesión. */
     private static volatile String usuario = "anónimo";
 
     // Carpeta de los logs: datos/logs, junto a donde se ejecuta la aplicación.
+    /** Carpeta donde se guardan los archivos de log. */
     private static final Path CARPETA = Paths.get("datos", "logs");
 
     // Formato de cada línea; la traza completa solo se escribe si conTraza es true.
+    /** Formato de cada línea de los logs general y de errores. */
     private static class Formato extends Formatter {
 
+        /** Si es {@code true}, se escribe la traza completa de la excepción; si no, solo su tipo y mensaje. */
         private final boolean conTraza;
 
+        /**
+         * Crea el formato.
+         *
+         * @param conTraza {@code true} para incluir la traza completa de las excepciones
+         */
         Formato(boolean conTraza) {
             this.conTraza = conTraza;
         }
 
+        /**
+         * Da formato a un registro: fecha, nivel y mensaje, y la excepción si la hay.
+         *
+         * @param r registro que se va a escribir
+         * @return línea de texto ya formateada
+         */
         @Override
         public String format(LogRecord r) {
             LocalDateTime hora = LocalDateTime.ofInstant(
@@ -72,8 +90,15 @@ public class Registro {
     }
 
     // Formato del log de operaciones: fecha | usuario | tipo | detalle | resultado
+    /** Formato del log de operaciones: fecha, usuario, tipo, detalle y resultado. */
     private static class FormatoOperaciones extends Formatter {
 
+        /**
+         * Da formato a un registro de operación: fecha y mensaje.
+         *
+         * @param r registro que se va a escribir
+         * @return línea de texto ya formateada
+         */
         @Override
         public String format(LogRecord r) {
             LocalDateTime hora = LocalDateTime.ofInstant(
@@ -198,6 +223,12 @@ public class Registro {
     }
 
     // Evita que un mensaje con saltos de línea rompa el formato de una línea por operación.
+    /**
+     * Quita los saltos de línea de un texto para que cada operación ocupe una sola línea del log.
+     *
+     * @param texto texto a limpiar; puede ser {@code null}
+     * @return el texto sin saltos de línea, o una cadena vacía si era {@code null}
+     */
     private static String limpiar(String texto) {
         return texto == null ? "" : texto.replace('\n', ' ').replace('\r', ' ');
     }
