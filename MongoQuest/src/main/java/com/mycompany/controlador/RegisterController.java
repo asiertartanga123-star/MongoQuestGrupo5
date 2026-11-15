@@ -18,6 +18,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import org.bson.Document;
 
+/**
+ * Controlador de la pantalla de registro de clientes.
+ * <p>
+ * Recoge los datos del formulario, valida el formato y guarda la información del
+ * nuevo usuario en la colección de clientes.
+ */
 public class RegisterController {
 
     @FXML private BorderPane raiz;
@@ -33,6 +39,9 @@ public class RegisterController {
 
     private final daoImplementacio dao = new daoImplementacio();
 
+    /**
+     * Inicializa el formulario con los niveles de membresía y el tamaño de las imágenes.
+     */
     @FXML
     private void initialize() {
         cmbNivel.getItems().addAll("Normal", "Premium");
@@ -43,6 +52,9 @@ public class RegisterController {
         imgToroDer.fitHeightProperty().bind(raiz.heightProperty().subtract(81).multiply(0.80));
     }
 
+    /**
+     * Registra un usuario nuevo si los datos cumplen las validaciones del sistema.
+     */
     @FXML
     private void onPagar() {
         String nombre = txtNombre.getText().trim();
@@ -112,6 +124,9 @@ public class RegisterController {
         }
     }
 
+    /**
+     * Vuelve a la pantalla de inicio de sesión tras completar el registro.
+     */
     @FXML
     private void onVolverLogin() {
         try {
@@ -124,6 +139,12 @@ public class RegisterController {
         }
     }
 
+    /**
+     * Muestra un cuadro de diálogo de alerta con la configuración visual de la app.
+     *
+     * @param tipo tipo de alerta JavaFX
+     * @param mensaje contenido textual a mostrar
+     */
     private void mostrarAlerta(Alert.AlertType tipo, String mensaje) {
         Alert alerta = new Alert(tipo, mensaje);
         App.ponerIcono(alerta);

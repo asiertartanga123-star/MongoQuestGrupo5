@@ -38,6 +38,12 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.bson.Document;
 
+/**
+ * Controlador de la pantalla de gestión de clientes.
+ * <p>
+ * Permite listar, editar, dar de baja y registrar fotos para los clientes del
+ * gimnasio desde una ficha de administración.
+ */
 public class GestionClientesController {
 
     // Controles vinculados por fx:id con la ficha y la lista de clientes.
