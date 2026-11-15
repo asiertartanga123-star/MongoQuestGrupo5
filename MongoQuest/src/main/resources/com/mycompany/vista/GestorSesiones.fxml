@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Circle?>
+
+<!-- Horario semanal de sesiones: lunes a sábado, de 9:00 a 23:00 (el domingo se cierra).
+     Se abre desde "Gestionar sesiones" (GestionClasesController). -->
+<BorderPane fx:id="raiz" minHeight="480.0" minWidth="760.0" prefHeight="640.0" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.controlador.GestionSesionesController">
+
+   <!-- Cabecera negra -->
+   <top>
+      <StackPane maxHeight="81.0" minHeight="81.0" prefHeight="81.0" style="-fx-background-color: black;">
+         <children>
+            <ImageView fitHeight="66.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
+               <StackPane.margin>
+                  <Insets left="13.0" />
+               </StackPane.margin>
+               <image>
+                  <Image url="@../mongoquest/images/logo.png" />
+               </image>
+            </ImageView>
+
+            <!-- Recuadro gris del título: el controlador pondrá el nombre de la clase -->
+            <Label fx:id="lblTitulo" alignment="CENTER" onMouseClicked="#onVolver" maxWidth="230.0" minWidth="190.0" prefHeight="32.0" prefWidth="230.0" style="-fx-background-color: #d9d9d9; -fx-cursor: hand;" styleClass="title" text="TOLOTOLOGYM" StackPane.alignment="CENTER" />
+
+            <!-- Círculo de usuario + cerrar sesión -->
+            <HBox alignment="CENTER_RIGHT" pickOnBounds="false" spacing="12.0" StackPane.alignment="CENTER_RIGHT">
+               <StackPane.margin>
+                  <Insets right="13.0" />
+               </StackPane.margin>
+               <children>
+                  <Circle fill="#d9d9d9" radius="22.0" />
+                  <Button fx:id="btnCerrarSesion" mnemonicParsing="false" onAction="#onCerrarSesion" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0; -fx-font-size: 14px;" text="cerrar sesion" />
+               </children>
+            </HBox>
+         </children>
+      </StackPane>
+   </top>
+
+   <!-- Tabla semanal: fila 0 = días, columna 0 = horas, resto = huecos de sesión -->
+   <center>
+      <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background-color: white; -fx-background: white;">
+         <padding>
+            <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+         </padding>
+         <content>
+            <GridPane fx:id="gridHorario" style="-fx-border-color: black; -fx-border-width: 1;">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="NEVER" minWidth="110.0" prefWidth="110.0" />
+                  <ColumnConstraints hgrow="ALWAYS" minWidth="80.0" percentWidth="-1" />
+                  <ColumnConstraints hgrow="ALWAYS" minWidth="80.0" percentWidth="-1" />
+                  <ColumnConstraints hgrow="ALWAYS" minWidth="80.0" percentWidth="-1" />
+                  <ColumnConstraints hgrow="ALWAYS" minWidth="80.0" percentWidth="-1" />
+                  <ColumnConstraints hgrow="ALWAYS" minWidth="80.0" percentWidth="-1" />
+                  <ColumnConstraints hgrow="ALWAYS" minWidth="80.0" percentWidth="-1" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="28.0" vgrow="ALWAYS" />
+                  <RowConstraints minHeight="28.0" vgrow="ALWAYS" />
+                  <RowConstraints minHeight="28.0" vgrow="ALWAYS" />
+                  <RowConstraints minHeight="28.0" vgrow="ALWAYS" />
+                  <RowConstraints minHeight="28.0" vgrow="ALWAYS" />
+                  <RowConstraints minHeight="28.0" vgrow="ALWAYS" />
+                  <RowConstraints minHeight="28.0" vgrow="ALWAYS" />
+                  <RowConstraints minHeight="28.0" vgrow="ALWAYS" />
+                  <RowConstraints minHeight="28.0" vgrow="ALWAYS" />
+                  <RowConstraints minHeight="28.0" vgrow="ALWAYS" />
+                  <RowConstraints minHeight="28.0" vgrow="ALWAYS" />
+                  <RowConstraints minHeight="28.0" vgrow="ALWAYS" />
+                  <RowConstraints minHeight="28.0" vgrow="ALWAYS" />
+                  <RowConstraints minHeight="28.0" vgrow="ALWAYS" />
+                  <RowConstraints minHeight="28.0" vgrow="ALWAYS" />
+               </rowConstraints>
+               <children>
+                  <Label alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5; -fx-font-size: 14px;" text="Hora" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                  <Label alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5; -fx-font-size: 14px;" text="Lunes" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                  <Label alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5; -fx-font-size: 14px;" text="Martes" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                  <Label alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5; -fx-font-size: 14px;" text="Miércoles" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                  <Label alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5; -fx-font-size: 14px;" text="Jueves" GridPane.columnIndex="4" GridPane.rowIndex="0" />
+                  <Label alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5; -fx-font-size: 14px;" text="Viernes" GridPane.columnIndex="5" GridPane.rowIndex="0" />
+                  <Label alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5; -fx-font-size: 14px;" text="Sábado" GridPane.columnIndex="6" GridPane.rowIndex="0" />
+                  <Label alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5; -fx-font-size: 14px;" text="09:00 - 10:00" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="1,9" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="2,9" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="3,9" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="4,9" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="5,9" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="6,9" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+                  <Label alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5; -fx-font-size: 14px;" text="10:00 - 11:00" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="1,10" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="2,10" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="3,10" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="4,10" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="5,10" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="6,10" GridPane.columnIndex="6" GridPane.rowIndex="2" />
+                  <Label alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5; -fx-font-size: 14px;" text="11:00 - 12:00" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="1,11" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="2,11" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="3,11" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="4,11" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="5,11" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="6,11" GridPane.columnIndex="6" GridPane.rowIndex="3" />
+                  <Label alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5; -fx-font-size: 14px;" text="12:00 - 13:00" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="1,12" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="2,12" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="3,12" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="4,12" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="5,12" GridPane.columnIndex="5" GridPane.rowIndex="4" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="6,12" GridPane.columnIndex="6" GridPane.rowIndex="4" />
+                  <Label alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5; -fx-font-size: 14px;" text="13:00 - 14:00" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="1,13" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="2,13" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="3,13" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="4,13" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="5,13" GridPane.columnIndex="5" GridPane.rowIndex="5" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="6,13" GridPane.columnIndex="6" GridPane.rowIndex="5" />
+                  <Label alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5; -fx-font-size: 14px;" text="14:00 - 15:00" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="1,14" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="2,14" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="3,14" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="4,14" GridPane.columnIndex="4" GridPane.rowIndex="6" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="5,14" GridPane.columnIndex="5" GridPane.rowIndex="6" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="6,14" GridPane.columnIndex="6" GridPane.rowIndex="6" />
+                  <Label alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5; -fx-font-size: 14px;" text="15:00 - 16:00" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="1,15" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="2,15" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="3,15" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="4,15" GridPane.columnIndex="4" GridPane.rowIndex="7" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="5,15" GridPane.columnIndex="5" GridPane.rowIndex="7" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="6,15" GridPane.columnIndex="6" GridPane.rowIndex="7" />
+                  <Label alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5; -fx-font-size: 14px;" text="16:00 - 17:00" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="1,16" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="2,16" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="3,16" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="4,16" GridPane.columnIndex="4" GridPane.rowIndex="8" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="5,16" GridPane.columnIndex="5" GridPane.rowIndex="8" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="6,16" GridPane.columnIndex="6" GridPane.rowIndex="8" />
+                  <Label alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5; -fx-font-size: 14px;" text="17:00 - 18:00" GridPane.columnIndex="0" GridPane.rowIndex="9" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="1,17" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="2,17" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="3,17" GridPane.columnIndex="3" GridPane.rowIndex="9" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="4,17" GridPane.columnIndex="4" GridPane.rowIndex="9" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="5,17" GridPane.columnIndex="5" GridPane.rowIndex="9" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="6,17" GridPane.columnIndex="6" GridPane.rowIndex="9" />
+                  <Label alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5; -fx-font-size: 14px;" text="18:00 - 19:00" GridPane.columnIndex="0" GridPane.rowIndex="10" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="1,18" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="2,18" GridPane.columnIndex="2" GridPane.rowIndex="10" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="3,18" GridPane.columnIndex="3" GridPane.rowIndex="10" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="4,18" GridPane.columnIndex="4" GridPane.rowIndex="10" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="5,18" GridPane.columnIndex="5" GridPane.rowIndex="10" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="6,18" GridPane.columnIndex="6" GridPane.rowIndex="10" />
+                  <Label alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5; -fx-font-size: 14px;" text="19:00 - 20:00" GridPane.columnIndex="0" GridPane.rowIndex="11" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="1,19" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="2,19" GridPane.columnIndex="2" GridPane.rowIndex="11" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="3,19" GridPane.columnIndex="3" GridPane.rowIndex="11" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="4,19" GridPane.columnIndex="4" GridPane.rowIndex="11" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="5,19" GridPane.columnIndex="5" GridPane.rowIndex="11" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="6,19" GridPane.columnIndex="6" GridPane.rowIndex="11" />
+                  <Label alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5; -fx-font-size: 14px;" text="20:00 - 21:00" GridPane.columnIndex="0" GridPane.rowIndex="12" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="1,20" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="2,20" GridPane.columnIndex="2" GridPane.rowIndex="12" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="3,20" GridPane.columnIndex="3" GridPane.rowIndex="12" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="4,20" GridPane.columnIndex="4" GridPane.rowIndex="12" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="5,20" GridPane.columnIndex="5" GridPane.rowIndex="12" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="6,20" GridPane.columnIndex="6" GridPane.rowIndex="12" />
+                  <Label alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5; -fx-font-size: 14px;" text="21:00 - 22:00" GridPane.columnIndex="0" GridPane.rowIndex="13" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="1,21" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="2,21" GridPane.columnIndex="2" GridPane.rowIndex="13" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="3,21" GridPane.columnIndex="3" GridPane.rowIndex="13" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="4,21" GridPane.columnIndex="4" GridPane.rowIndex="13" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="5,21" GridPane.columnIndex="5" GridPane.rowIndex="13" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="6,21" GridPane.columnIndex="6" GridPane.rowIndex="13" />
+                  <Label alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5; -fx-font-size: 14px;" text="22:00 - 23:00" GridPane.columnIndex="0" GridPane.rowIndex="14" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="1,22" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="2,22" GridPane.columnIndex="2" GridPane.rowIndex="14" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="3,22" GridPane.columnIndex="3" GridPane.rowIndex="14" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="4,22" GridPane.columnIndex="4" GridPane.rowIndex="14" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="5,22" GridPane.columnIndex="5" GridPane.rowIndex="14" />
+                  <StackPane styleClass="hueco-sesion" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5;" userData="6,22" GridPane.columnIndex="6" GridPane.rowIndex="14" />
+               </children>
+            </GridPane>
+         </content>
+      </ScrollPane>
+   </center>
+</BorderPane>
