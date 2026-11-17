@@ -23,10 +23,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import modelo.Logros;
-<<<<<<< HEAD
 
-=======
->>>>>>> Ekain
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
@@ -83,17 +80,12 @@ public class ClienteController implements Initializable {
         this(new daoImplementacio());
     }
 
-<<<<<<< HEAD
     /**
      * Crea el controlador con un acceso a datos concreto; permite sustituirlo, por ejemplo en las pruebas.
      *
      * @param dao acceso a datos que se utilizará
      */
-    ClienteController(daoImplementacio dao) {
-=======
-    // Lo usamos en los tests para pasarle un DAO falso (mock)
     public ClienteController(daoImplementacio dao) {
->>>>>>> Ekain
         this.dao = dao;
     }
 
@@ -269,21 +261,13 @@ public class ClienteController implements Initializable {
         ((Stage) raiz.getScene().getWindow()).close();
     }
 
-<<<<<<< HEAD
     /**
      * Busca al cliente, revisa y concede los logros que le correspondan y vuelve a leerlo para devolver sus datos actualizados.
      *
      * @param mail correo del cliente
      * @return documento del cliente, o {@code null} si no existe
      */
-    Document cargarCliente(String mail) {
-=======
-    // =====================================================================
-    //  LÓGICA SIN VENTANA (sin Labels ni Alerts): es lo que se prueba en los tests
-    // =====================================================================
-    // Busca al cliente; si existe, revisa sus logros y lo vuelve a leer ya actualizado
     public Document cargarCliente(String mail) {
->>>>>>> Ekain
         Document cliente = dao.buscarClientePorMail(mail);
         if (cliente == null) {
             return null;
@@ -292,14 +276,13 @@ public class ClienteController implements Initializable {
         return dao.buscarClientePorMail(mail);
     }
 
-<<<<<<< HEAD
     /**
      * Une el nombre y el apellido del cliente.
      *
      * @param cliente documento del cliente
      * @return nombre completo
      */
-    String nombreCompleto(Document cliente) {
+    public String nombreCompleto(Document cliente) {
         return cliente.getString("nombre") + " " + cliente.getString("apellido");
     }
 
@@ -309,16 +292,7 @@ public class ClienteController implements Initializable {
      * @param idClase identificador de la clase
      * @return texto con el formato {@code asistentes/plazas}, o {@code "sin sesión"} si la clase no tiene sesiones
      */
-    String plazasDe(ObjectId idClase) {
-=======
-    // "Nombre Apellido"
-    public String nombreCompleto(Document cliente) {
-        return cliente.getString("nombre") + " " + cliente.getString("apellido");
-    }
-
-    // El "n/n" de una clase: apuntados / plazas máximas de su última sesión
     public String plazasDe(ObjectId idClase) {
->>>>>>> Ekain
         Document sesion = dao.ultimaSesionDeClase(idClase);
         if (sesion == null) {
             return "sin sesión";
@@ -328,36 +302,26 @@ public class ClienteController implements Initializable {
         return totalAsistentes + "/" + sesion.getInteger("plazaMax");
     }
 
-<<<<<<< HEAD
     /**
      * Convierte un valor en texto sin fallar con nulos.
      *
      * @param valor valor a convertir; puede ser {@code null}
      * @return el valor como texto, o una cadena vacía si es {@code null}
      */
-    String texto(Object valor) {
-=======
-    // Convierte un valor en texto (si no hay valor, deja el texto vacío)
     public String texto(Object valor) {
->>>>>>> Ekain
         if (valor == null) {
             return "";
         }
         return valor.toString();
     }
 
-<<<<<<< HEAD
     /**
      * Convierte los logros guardados en MongoDB en filas para la tabla, numerándolos desde 1.
      *
      * @param logros lista de documentos de logros; puede ser {@code null}
      * @return lista de filas de la tabla (vacía si no hay logros)
      */
-    List<Logros> construirLogros(List<Document> logros) {
-=======
-    // Convierte los logros de Mongo en filas para la tabla (numeradas desde 1)
     public List<Logros> construirLogros(List<Document> logros) {
->>>>>>> Ekain
         List<Logros> filas = new ArrayList<>();
         if (logros == null) {
             return filas;
@@ -372,14 +336,13 @@ public class ClienteController implements Initializable {
         return filas;
     }
 
-<<<<<<< HEAD
     /**
      * Indica si hay más clases de las que se muestran al abrir la pantalla.
      *
      * @param clases todas las clases del gimnasio
      * @return {@code true} si hay clases por mostrar
      */
-    boolean hayMasClasesQueLasVisibles(List<Document> clases) {
+    public boolean hayMasClasesQueLasVisibles(List<Document> clases) {
         return clases.size() > CLASES_VISIBLES_AL_ABRIR;
     }
 
@@ -390,16 +353,7 @@ public class ClienteController implements Initializable {
      * @param clasesActuales nombres de las clases a las que está apuntado
      * @return {@code true} si la clase ya figura en la lista
      */
-    boolean yaApuntado(String nombreClase, String[] clasesActuales) {
-=======
-    // ¿Hay más clases que las que se ven al abrir la ventana?
-    public boolean hayMasClasesQueLasVisibles(List<Document> clases) {
-        return clases.size() > CLASES_VISIBLES_AL_ABRIR;
-    }
-
-    // ¿Ya está esa clase en la lista de la izquierda?
     public boolean yaApuntado(String nombreClase, String[] clasesActuales) {
->>>>>>> Ekain
         for (String actual : clasesActuales) {
             if (nombreClase.equals(actual)) {
                 return true;
@@ -408,18 +362,13 @@ public class ClienteController implements Initializable {
         return false;
     }
 
-<<<<<<< HEAD
     /**
      * Busca el primer hueco libre entre las clases del cliente.
      *
      * @param clasesActuales nombres de las clases a las que está apuntado; un valor vacío o nulo es un hueco
      * @return posición del primer hueco, o -1 si no queda ninguno
      */
-    int primerHuecoLibre(String[] clasesActuales) {
-=======
-    // Posición del primer hueco libre de la lista de la izquierda (-1 si está llena)
     public int primerHuecoLibre(String[] clasesActuales) {
->>>>>>> Ekain
         for (int i = 0; i < clasesActuales.length; i++) {
             if (clasesActuales[i] == null || clasesActuales[i].isEmpty()) {
                 return i;
@@ -439,6 +388,6 @@ public class ClienteController implements Initializable {
         for (int i = 0; i < labels.length; i++) {
             textos[i] = labels[i].getText();
         }
-        return textos; 
+        return textos;
     }
 }
