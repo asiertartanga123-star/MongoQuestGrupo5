@@ -781,3 +781,26 @@
 2026-11-15 23:15:59 [WARNING] Login fallido para nadie@noexiste.com
 2026-11-15 23:16:04 [WARNING] Login fallido para admin@admin.com
 2026-11-15 23:16:05 [INFO] Pantalla abierta: registro
+2026-11-16 08:14:08 [INFO] Aplicación iniciada
+2026-11-16 08:14:30 [WARNING] Login fallido para ricardosoza@gmail.com
+2026-11-16 08:14:35 [WARNING] Login fallido para ricardosoza@gmail.com
+2026-11-16 08:14:39 [WARNING] Login fallido para ricardosoza@gmail.com
+2026-11-16 08:14:42 [INFO] Aplicación cerrada
+2026-11-16 08:20:08 [INFO] Aplicación iniciada
+2026-11-16 08:20:49 [WARNING] Login fallido para wrhjg
+2026-11-16 08:20:52 [INFO] Aplicación cerrada
+2026-11-17 13:10:57 [INFO] Aplicación iniciada
+2026-11-17 13:12:04 [INFO] Aplicación cerrada
+2026-11-17 13:12:25 [WARNING] Registro rechazado, DNI con formato incorrecto: 12345678
+2026-11-17 13:12:32 [WARNING] Registro rechazado, DNI con formato incorrecto: 1234
+2026-11-17 13:12:37 [WARNING] Registro rechazado, mail no válido: wgegwg
+2026-11-17 13:12:43 [WARNING] Registro rechazado, mail no válido: ana@gmail
+2026-11-17 13:12:45 [INFO] Vuelta al login desde el registro
+2026-11-17 13:12:50 [WARNING] Registro rechazado, el mail ya existe: admin@admin.com
+2026-11-17 13:13:00 [WARNING] Registro rechazado, las contraseñas no coinciden: ana@gmail.com
+2026-11-17 13:39:41 [WARNING] Registro rechazado, DNI con formato incorrecto: 12345678
+2026-11-17 13:39:48 [WARNING] Registro rechazado, DNI con formato incorrecto: 1234
+2026-11-17 13:39:53 [WARNING] Registro rechazado, mail no válido: wgegwg
+2026-11-17 13:40:00 [WARNING] Registro rechazado, mail no válido: ana@gmail
+2026-11-17 13:40:02 [INFO] Vuelta al login desde el registro
+2026-11-17 13:40:12 [WARNING] Registro rechazado, las contraseñas no coinciden: ana@gmail.com
