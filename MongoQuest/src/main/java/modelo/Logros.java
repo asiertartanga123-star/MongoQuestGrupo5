@@ -1,4 +1,4 @@
-package com.mycompany.controlador;
+package modelo;
 
 // Una fila de la tabla de Logros
 public class Logros {
