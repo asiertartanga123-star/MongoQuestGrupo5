@@ -14,9 +14,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
 
 <!-- Pantalla de administración de monitores, conectada a GestionMonitorController. -->
+
 <BorderPane fx:id="raiz" minHeight="480.0" minWidth="760.0" prefHeight="580.0" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.controlador.GestionMonitorController">
 
     <!-- Cabecera negra -->
@@ -41,7 +41,6 @@
                         <Insets right="13.0" />
                     </StackPane.margin>
                     <children>
-                        <Circle fill="#d9d9d9" radius="22.0" />
                         <Button fx:id="btnCerrarSesion" mnemonicParsing="false" onAction="#onCerrarSesion" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0; -fx-font-size: 14px;" text="cerrar sesion" />
                     </children>
                 </HBox>

@@ -1001,3 +1001,63 @@
 2026-11-17 13:41:18 [WARNING] Login fallido para nadie@noexiste.com
 2026-11-17 13:41:23 [WARNING] Login fallido para admin@admin.com
 2026-11-17 13:41:23 [INFO] Pantalla abierta: registro
+2026-11-17 14:02:00 [INFO] Sesión cerrada desde el panel del gerente
+2026-11-17 14:02:00 [INFO] Pantalla abierta: Tolotolo - Iniciar sesión
+2026-11-17 14:02:01 [INFO] Pantalla abierta: gestión de clientes
+2026-11-17 14:02:01 [INFO] Clientes cargados: 2
+2026-11-17 14:02:01 [INFO] Vuelta al panel del gerente desde la gestión de clientes
+2026-11-17 14:02:02 [INFO] Pantalla abierta: gestión de clientes
+2026-11-17 14:02:02 [INFO] Clientes cargados: 2
+2026-11-17 14:02:03 [INFO] Pantalla abierta: gestión de clientes
+2026-11-17 14:02:03 [INFO] Clientes cargados: 2
+2026-11-17 14:02:03 [INFO] Pantalla abierta: gestión de clientes
+2026-11-17 14:02:03 [INFO] Clientes cargados: 2
+2026-11-17 14:02:04 [INFO] Pantalla abierta: gestión de clientes
+2026-11-17 14:02:04 [INFO] Clientes cargados: 2
+2026-11-17 14:02:05 [INFO] Pantalla abierta: gestión de clientes
+2026-11-17 14:02:05 [INFO] Clientes cargados: 2
+2026-11-17 14:02:05 [INFO] Pantalla abierta: gestión de monitores
+2026-11-17 14:02:05 [INFO] Monitores cargados: 2
+2026-11-17 14:02:06 [INFO] Pantalla abierta: gestión de monitores
+2026-11-17 14:02:06 [INFO] Monitores cargados: 2
+2026-11-17 14:02:07 [INFO] Vuelta al panel del gerente desde la gestión de monitores
+2026-11-17 14:02:07 [INFO] Pantalla abierta: gestión de monitores
+2026-11-17 14:02:07 [INFO] Monitores cargados: 2
+2026-11-17 14:02:08 [INFO] Pantalla abierta: gestión de monitores
+2026-11-17 14:02:08 [INFO] Monitores cargados: 2
+2026-11-17 14:02:09 [INFO] Pantalla abierta: gestión de monitores
+2026-11-17 14:02:09 [INFO] Monitores cargados: 2
+2026-11-17 14:02:09 [INFO] Pantalla abierta: gestión de monitores
+2026-11-17 14:02:09 [INFO] Monitores cargados: 2
+2026-11-17 14:02:11 [INFO] Pantalla abierta: gestión de monitores
+2026-11-17 14:02:11 [INFO] Monitores cargados: 2
+2026-11-17 14:02:12 [INFO] Pantalla abierta: gestión de monitores
+2026-11-17 14:02:12 [INFO] Monitores cargados: 2
+2026-11-17 14:02:13 [INFO] Sesión cerrada desde la gestión de monitores
+2026-11-17 14:02:13 [INFO] Pantalla abierta: gestión de monitores
+2026-11-17 14:02:13 [INFO] Monitores cargados: 2
+2026-11-17 14:02:14 [INFO] Pantalla abierta: gestión de monitores
+2026-11-17 14:02:14 [INFO] Monitores cargados: 2
+2026-11-17 14:02:15 [INFO] Pantalla abierta: gestión de monitores
+2026-11-17 14:02:15 [INFO] Monitores cargados: 2
+2026-11-17 14:02:20 [INFO] Login correcto: admin@admin.com (gerente)
+2026-11-17 14:02:23 [WARNING] Login fallido para nadie@noexiste.com
+2026-11-17 14:02:28 [WARNING] Login fallido para admin@admin.com
+2026-11-17 14:02:29 [INFO] Pantalla abierta: registro
+2026-11-17 14:02:35 [INFO] Sesión cerrada desde el panel del gerente
+2026-11-17 14:02:35 [INFO] Pantalla abierta: Tolotolo - Iniciar sesión
+2026-11-17 14:03:16 [INFO] Aplicación iniciada
+2026-11-17 14:03:26 [INFO] Login correcto: admin@admin.com (gerente)
+2026-11-17 14:03:29 [INFO] Pantalla abierta: gestión de monitores
+2026-11-17 14:03:29 [INFO] Monitores cargados: 2
+2026-11-17 14:03:29 [INFO] Pantalla abierta: Tolotolo - Gestión de monitores
+2026-11-17 14:03:31 [INFO] Vuelta al panel del gerente desde la gestión de monitores
+2026-11-17 14:03:32 [INFO] Pantalla abierta: gestión de clientes
+2026-11-17 14:03:32 [INFO] Clientes cargados: 2
+2026-11-17 14:03:32 [INFO] Pantalla abierta: Tolotolo - Gestión de clientes
+2026-11-17 14:03:33 [INFO] Vuelta al panel del gerente desde la gestión de clientes
+2026-11-17 14:04:44 [INFO] Pantalla abierta: gestión de clientes
+2026-11-17 14:04:44 [INFO] Clientes cargados: 2
+2026-11-17 14:04:44 [INFO] Pantalla abierta: Tolotolo - Gestión de clientes
+2026-11-17 14:04:45 [INFO] Vuelta al panel del gerente desde la gestión de clientes
+2026-11-17 14:05:09 [INFO] Aplicación cerrada

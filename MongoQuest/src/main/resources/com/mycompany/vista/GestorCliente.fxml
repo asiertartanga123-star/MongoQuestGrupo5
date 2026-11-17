@@ -15,7 +15,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
 
 <!-- Pantalla de administración de clientes, conectada a GestionClientesController. -->
 
@@ -43,7 +42,6 @@
                         <Insets right="13.0" />
                     </StackPane.margin>
                     <children>
-                        <Circle fill="#d9d9d9" radius="22.0" />
                         <Button fx:id="btnCerrarSesion" mnemonicParsing="false" onAction="#onCerrarSesion" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0; -fx-font-size: 14px;" text="Cerrar Sesión" />
                     </children>
                 </HBox>
