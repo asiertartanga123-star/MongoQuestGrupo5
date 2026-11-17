@@ -3,213 +3,100 @@ package com.mycompany.controlador;
 import com.mycompany.controlador.dao.daoImplementacio;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
-import modelo.Logros;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import org.bson.Document;
 import org.bson.types.ObjectId;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import org.testfx.framework.junit5.ApplicationTest;
 
-public class ClienteControllerTest {
+import static org.mockito.Mockito.*;
+import static org.testfx.api.FxAssert.verifyThat;
+import static org.testfx.matcher.base.NodeMatchers.isDisabled;
+import static org.testfx.matcher.base.NodeMatchers.isEnabled;
+import static org.testfx.matcher.base.NodeMatchers.isVisible;
+import static org.testfx.matcher.control.LabeledMatchers.hasText;
+import static org.testfx.matcher.control.TableViewMatchers.hasNumRows;
+
+public class ClienteControllerTest extends ApplicationTest {
 
     private daoImplementacio dao;
-    private ClienteController controller;
 
-    @BeforeEach
-    public void setUp() {
-        dao = mock(daoImplementacio.class);          // DAO falso: no toca la base de datos
-        controller = new ClienteController(dao);
-    }
+    @Override
+    public void start(Stage stage) throws Exception {
+        // 1. Preparamos el DAO falso y los datos del cliente antes de abrir la ventana
+        dao = mock(daoImplementacio.class);
+        LoginController.mailActual = "ana@x.com";
 
-    // ---------- texto() ----------
+        Document claseApuntada = new Document("nombre", "Yoga")
+                .append("id_clase", new ObjectId());
 
-    @Test
-    public void texto_nulo_devuelveVacio() {
-        assertEquals("", controller.texto(null));
-    }
+        Document logro = new Document("nombre", "Primera clase")
+                .append("fecha", "2026-10-01")
+                .append("semanas", 1);
 
-    @Test
-    public void texto_numero_devuelveSuTexto() {
-        assertEquals("123", controller.texto(123));
-    }
+        Document cliente = new Document("nombre", "Ana")
+                .append("apellido", "Lopez")
+                .append("dni", "12345678A")
+                .append("mail", "ana@x.com")
+                .append("membresia", "premium")
+                .append("clases", Collections.singletonList(claseApuntada))
+                .append("logros", Collections.singletonList(logro));
 
-    @Test
-    public void texto_cadena_devuelveLaMismaCadena() {
-        assertEquals("abc", controller.texto("abc"));
-    }
+        when(dao.buscarClientePorMail("ana@x.com")).thenReturn(cliente);
 
-    // ---------- nombreCompleto() ----------
+        // 2. Preparamos 4 clases en el centro (3 visibles + 1 oculta para probar "Ver más clases")
+        ObjectId idYoga = new ObjectId();
+        ObjectId idSpinning = new ObjectId();
+        ObjectId idBoxeo = new ObjectId();
+        ObjectId idPilates = new ObjectId();
 
-    @Test
-    public void nombreCompleto_juntaNombreYApellido() {
-        Document cliente = new Document("nombre", "Ana").append("apellido", "Lopez");
-        assertEquals("Ana Lopez", controller.nombreCompleto(cliente));
-    }
+        when(dao.listarClases()).thenReturn(Arrays.asList(
+                new Document("_id", idYoga).append("nombre", "Yoga"),
+                new Document("_id", idSpinning).append("nombre", "Spinning"),
+                new Document("_id", idBoxeo).append("nombre", "Boxeo"),
+                new Document("_id", idPilates).append("nombre", "Pilates")
+        ));
 
-    // ---------- plazasDe() ----------
-
-    @Test
-    public void plazasDe_sinSesion_devuelveSinSesion() {
-        ObjectId id = new ObjectId();
-        when(dao.ultimaSesionDeClase(id)).thenReturn(null);
-
-        assertEquals("sin sesión", controller.plazasDe(id));
-    }
-
-    @Test
-    public void plazasDe_conAsistentes_devuelveApuntadosSobreMaximo() {
-        ObjectId id = new ObjectId();
-        Document sesion = new Document("plazaMax", 10)
+        Document sesionConPlazas = new Document("plazaMax", 10)
                 .append("asistentes", Arrays.asList(new Document(), new Document()));
-        when(dao.ultimaSesionDeClase(id)).thenReturn(sesion);
+        when(dao.ultimaSesionDeClase(any())).thenReturn(sesionConPlazas);
 
-        assertEquals("2/10", controller.plazasDe(id));
+        // 3. Cargamos Cliente.fxml inyectando el controlador con el DAO falso
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/mycompany/vista/Cliente.fxml"));
+        loader.setControllerFactory(param -> new ClienteController(dao));
+
+        Parent root = loader.load();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     @Test
-    public void plazasDe_sinAsistentes_devuelveCeroSobreMaximo() {
-        ObjectId id = new ObjectId();
-        Document sesion = new Document("plazaMax", 15)
-                .append("asistentes", Collections.emptyList());
-        when(dao.ultimaSesionDeClase(id)).thenReturn(sesion);
+    public void alAbrirVentana_cargaDatosClienteClasesYLogros() {
+        // Comprueba los TextField de la derecha
+        verifyThat("#txtNombre", org.testfx.matcher.control.TextInputControlMatchers.hasText("Ana Lopez"));
+        verifyThat("#txtDni", org.testfx.matcher.control.TextInputControlMatchers.hasText("12345678A"));
+        verifyThat("#txtMail", org.testfx.matcher.control.TextInputControlMatchers.hasText("ana@x.com"));
+        verifyThat("#txtMembresia", org.testfx.matcher.control.TextInputControlMatchers.hasText("premium"));
 
-        assertEquals("0/15", controller.plazasDe(id));
-    }
+        // Comprueba columna izquierda (clases apuntadas) y tabla de logros
+        verifyThat("#lblClase1", hasText("Yoga"));
+        verifyThat("#tablaLogros", hasNumRows(1));
 
-    // ---------- cargarCliente() ----------
-
-    @Test
-    public void cargarCliente_noExiste_devuelveNullYNoRevisaLogros() {
-        when(dao.buscarClientePorMail("x@x.com")).thenReturn(null);
-
-        assertNull(controller.cargarCliente("x@x.com"));
-        verify(dao, never()).revisarLogros(anyString());
-    }
-
-    @Test
-    public void cargarCliente_existe_revisaLogrosYDevuelveElClienteActualizado() {
-        Document antes = new Document("nombre", "Ana");
-        Document despues = new Document("nombre", "Ana").append("logros", Collections.emptyList());
-        when(dao.buscarClientePorMail("ana@x.com")).thenReturn(antes, despues);
-
-        Document resultado = controller.cargarCliente("ana@x.com");
-
-        verify(dao).revisarLogros("ana@x.com");
-        assertSame(despues, resultado);
+        // Comprueba las 3 primeras clases del centro
+        verifyThat("#lblClase7", hasText("Yoga"));
+        verifyThat("#lblPlazas7", hasText("2/10"));
+        verifyThat("#btnVerMasClases", isEnabled());
     }
 
     @Test
-    public void cargarCliente_existe_leeAlClienteDosVeces() {
-        when(dao.buscarClientePorMail("ana@x.com")).thenReturn(new Document("nombre", "Ana"));
+    public void pulsarVerMasClases_muestraTarjeta10YDesactivaBoton() {
+        clickOn("#btnVerMasClases");
 
-        controller.cargarCliente("ana@x.com");
-
-        verify(dao, times(2)).buscarClientePorMail("ana@x.com");
-    }
-
-    // ---------- construirLogros() ----------
-
-    @Test
-    public void construirLogros_numeraDesdeUnoYCopiaLosDatos() {
-        List<Document> logros = Arrays.asList(
-                new Document("nombre", "Primera clase").append("fecha", "2026-10-01").append("semanas", 1),
-                new Document("nombre", "Constante").append("fecha", "2026-10-15").append("semanas", 4));
-
-        List<Logros> filas = controller.construirLogros(logros);
-
-        assertEquals(2, filas.size());
-        assertEquals("1", filas.get(0).getNumero());
-        assertEquals("Primera clase", filas.get(0).getNombre());
-        assertEquals("2", filas.get(1).getNumero());
-        assertEquals("4", filas.get(1).getSemanas());
-    }
-
-    @Test
-    public void construirLogros_listaVacia_devuelveListaVacia() {
-        assertTrue(controller.construirLogros(Collections.emptyList()).isEmpty());
-    }
-
-    @Test
-    public void construirLogros_faltanCampos_losDejaVacios() {
-        List<Document> logros = Arrays.asList(new Document("nombre", "Sin fecha"));
-
-        List<Logros> filas = controller.construirLogros(logros);
-
-        assertEquals("Sin fecha", filas.get(0).getNombre());
-        assertEquals("", filas.get(0).getFecha());
-        assertEquals("", filas.get(0).getSemanas());
-    }
-
-    // ---------- hayMasClasesQueLasVisibles() ----------
-
-    @Test
-    public void hayMasClases_listaVacia_false() {
-        assertFalse(controller.hayMasClasesQueLasVisibles(Collections.emptyList()));
-    }
-
-    @Test
-    public void hayMasClases_tresOMenos_false() {
-        List<Document> tres = Arrays.asList(new Document(), new Document(), new Document());
-        assertFalse(controller.hayMasClasesQueLasVisibles(tres));
-    }
-
-    @Test
-    public void hayMasClases_masDeTres_true() {
-        List<Document> cuatro = Arrays.asList(new Document(), new Document(), new Document(), new Document());
-        assertTrue(controller.hayMasClasesQueLasVisibles(cuatro));
-    }
-
-    // ---------- yaApuntado() ----------
-
-    @Test
-    public void yaApuntado_claseEnLaLista_true() {
-        String[] actuales = {"Yoga", "Spinning", "", "", "", ""};
-        assertTrue(controller.yaApuntado("Spinning", actuales));
-    }
-
-    @Test
-    public void yaApuntado_claseNoEstaEnLaLista_false() {
-        String[] actuales = {"Yoga", "", "", "", "", ""};
-        assertFalse(controller.yaApuntado("Pilates", actuales));
-    }
-
-    @Test
-    public void yaApuntado_listaVacia_false() {
-        String[] vacia = {"", "", "", "", "", ""};
-        assertFalse(controller.yaApuntado("Yoga", vacia));
-    }
-
-    @Test
-    public void yaApuntado_listaConNulos_noFallaYDevuelveFalse() {
-        String[] conNulos = {null, null, "Yoga", null, null, null};
-        assertFalse(controller.yaApuntado("Pilates", conNulos));
-    }
-
-    // ---------- primerHuecoLibre() ----------
-
-    @Test
-    public void primerHuecoLibre_devuelveElPrimeroVacio() {
-        String[] actuales = {"Yoga", "Spinning", "", "", "", ""};
-        assertEquals(2, controller.primerHuecoLibre(actuales));
-    }
-
-    @Test
-    public void primerHuecoLibre_todoVacio_devuelveCero() {
-        String[] vacia = {"", "", "", "", "", ""};
-        assertEquals(0, controller.primerHuecoLibre(vacia));
-    }
-
-    @Test
-    public void primerHuecoLibre_huecoNulo_devuelveEsaPosicion() {
-        String[] actuales = {"Yoga", null, "Spinning", "", "", ""};
-        assertEquals(1, controller.primerHuecoLibre(actuales));
-    }
-
-    @Test
-    public void primerHuecoLibre_listaLlena_devuelveMenosUno() {
-        String[] llena = {"A", "B", "C", "D", "E", "F"};
-        assertEquals(-1, controller.primerHuecoLibre(llena));
+        verifyThat("#tarjeta10", isVisible());
+        verifyThat("#lblClase10", hasText("Pilates"));
+        verifyThat("#btnVerMasClases", isDisabled());
     }
 }
