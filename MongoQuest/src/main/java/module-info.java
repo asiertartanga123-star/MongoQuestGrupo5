@@ -6,6 +6,7 @@ module com.mycompany.mongoquest {
     // JavaFX aporta los componentes visuales y el cargador de vistas FXML.
     requires javafx.controls;
     requires javafx.fxml;
+<<<<<<< HEAD
     requires javafx.graphics;
 
     // Módulos utilizados por el controlador de persistencia MongoDB.
@@ -27,3 +28,14 @@ module com.mycompany.mongoquest {
     exports com.mycompany.controlador.dao;
     exports modelo;
 }
+=======
+    requires org.mongodb.bson;
+    requires org.mongodb.driver.core;
+    requires org.mongodb.driver.sync.client;
+    requires java.logging;
+
+    opens com.mycompany.controlador to javafx.fxml;
+    opens modelo to javafx.base;
+    exports com.mycompany.controlador;
+}
+>>>>>>> Ekain
