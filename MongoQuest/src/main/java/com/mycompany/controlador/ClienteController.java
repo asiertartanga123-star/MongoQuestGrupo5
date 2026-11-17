@@ -22,6 +22,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import modelo.Logros;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
@@ -84,7 +85,7 @@ public class ClienteController implements Initializable {
     }
 
     // Lo usamos en los tests para pasarle un DAO falso (mock)
-    ClienteController(daoImplementacio dao) {
+    public ClienteController(daoImplementacio dao) {
         this.dao = dao;
     }
 
@@ -251,7 +252,7 @@ public class ClienteController implements Initializable {
     //  LÓGICA SIN VENTANA (sin Labels ni Alerts): es lo que se prueba en los tests
     // =====================================================================
     // Busca al cliente; si existe, revisa sus logros y lo vuelve a leer ya actualizado
-    Document cargarCliente(String mail) {
+    public Document cargarCliente(String mail) {
         Document cliente = dao.buscarClientePorMail(mail);
         if (cliente == null) {
             return null;
@@ -261,12 +262,12 @@ public class ClienteController implements Initializable {
     }
 
     // "Nombre Apellido"
-    String nombreCompleto(Document cliente) {
+    public String nombreCompleto(Document cliente) {
         return cliente.getString("nombre") + " " + cliente.getString("apellido");
     }
 
     // El "n/n" de una clase: apuntados / plazas máximas de su última sesión
-    String plazasDe(ObjectId idClase) {
+    public String plazasDe(ObjectId idClase) {
         Document sesion = dao.ultimaSesionDeClase(idClase);
         if (sesion == null) {
             return "sin sesión";
@@ -276,7 +277,7 @@ public class ClienteController implements Initializable {
     }
 
     // Convierte un valor en texto (si no hay valor, deja el texto vacío)
-    String texto(Object valor) {
+    public String texto(Object valor) {
         if (valor == null) {
             return "";
         }
@@ -284,7 +285,7 @@ public class ClienteController implements Initializable {
     }
 
     // Convierte los logros de Mongo en filas para la tabla (numeradas desde 1)
-    List<Logros> construirLogros(List<Document> logros) {
+    public List<Logros> construirLogros(List<Document> logros) {
         List<Logros> filas = new ArrayList<>();
         for (int i = 0; i < logros.size(); i++) {
             Document logro = logros.get(i);
@@ -297,12 +298,12 @@ public class ClienteController implements Initializable {
     }
 
     // ¿Hay más clases que las que se ven al abrir la ventana?
-    boolean hayMasClasesQueLasVisibles(List<Document> clases) {
+    public boolean hayMasClasesQueLasVisibles(List<Document> clases) {
         return clases.size() > CLASES_VISIBLES_AL_ABRIR;
     }
 
     // ¿Ya está esa clase en la lista de la izquierda?
-    boolean yaApuntado(String nombreClase, String[] clasesActuales) {
+    public boolean yaApuntado(String nombreClase, String[] clasesActuales) {
         for (String actual : clasesActuales) {
             if (nombreClase.equals(actual)) {
                 return true;
@@ -312,7 +313,7 @@ public class ClienteController implements Initializable {
     }
 
     // Posición del primer hueco libre de la lista de la izquierda (-1 si está llena)
-    int primerHuecoLibre(String[] clasesActuales) {
+    public int primerHuecoLibre(String[] clasesActuales) {
         for (int i = 0; i < clasesActuales.length; i++) {
             if (clasesActuales[i] == null || clasesActuales[i].isEmpty()) {
                 return i;
@@ -327,6 +328,6 @@ public class ClienteController implements Initializable {
         for (int i = 0; i < labels.length; i++) {
             textos[i] = labels[i].getText();
         }
-        return textos;
+        return textos; 
     }
 }

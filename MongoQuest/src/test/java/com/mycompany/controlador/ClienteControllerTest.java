@@ -4,11 +4,13 @@ import com.mycompany.controlador.dao.daoImplementacio;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import modelo.Logros;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 public class ClienteControllerTest {
 
@@ -31,6 +33,11 @@ public class ClienteControllerTest {
     @Test
     public void texto_numero_devuelveSuTexto() {
         assertEquals("123", controller.texto(123));
+    }
+
+    @Test
+    public void texto_cadena_devuelveLaMismaCadena() {
+        assertEquals("abc", controller.texto("abc"));
     }
 
     // ---------- nombreCompleto() ----------
@@ -93,6 +100,15 @@ public class ClienteControllerTest {
         assertSame(despues, resultado);
     }
 
+    @Test
+    public void cargarCliente_existe_leeAlClienteDosVeces() {
+        when(dao.buscarClientePorMail("ana@x.com")).thenReturn(new Document("nombre", "Ana"));
+
+        controller.cargarCliente("ana@x.com");
+
+        verify(dao, times(2)).buscarClientePorMail("ana@x.com");
+    }
+
     // ---------- construirLogros() ----------
 
     @Test
@@ -115,7 +131,23 @@ public class ClienteControllerTest {
         assertTrue(controller.construirLogros(Collections.emptyList()).isEmpty());
     }
 
+    @Test
+    public void construirLogros_faltanCampos_losDejaVacios() {
+        List<Document> logros = Arrays.asList(new Document("nombre", "Sin fecha"));
+
+        List<Logros> filas = controller.construirLogros(logros);
+
+        assertEquals("Sin fecha", filas.get(0).getNombre());
+        assertEquals("", filas.get(0).getFecha());
+        assertEquals("", filas.get(0).getSemanas());
+    }
+
     // ---------- hayMasClasesQueLasVisibles() ----------
+
+    @Test
+    public void hayMasClases_listaVacia_false() {
+        assertFalse(controller.hayMasClasesQueLasVisibles(Collections.emptyList()));
+    }
 
     @Test
     public void hayMasClases_tresOMenos_false() {
@@ -143,12 +175,36 @@ public class ClienteControllerTest {
         assertFalse(controller.yaApuntado("Pilates", actuales));
     }
 
+    @Test
+    public void yaApuntado_listaVacia_false() {
+        String[] vacia = {"", "", "", "", "", ""};
+        assertFalse(controller.yaApuntado("Yoga", vacia));
+    }
+
+    @Test
+    public void yaApuntado_listaConNulos_noFallaYDevuelveFalse() {
+        String[] conNulos = {null, null, "Yoga", null, null, null};
+        assertFalse(controller.yaApuntado("Pilates", conNulos));
+    }
+
     // ---------- primerHuecoLibre() ----------
 
     @Test
     public void primerHuecoLibre_devuelveElPrimeroVacio() {
         String[] actuales = {"Yoga", "Spinning", "", "", "", ""};
         assertEquals(2, controller.primerHuecoLibre(actuales));
+    }
+
+    @Test
+    public void primerHuecoLibre_todoVacio_devuelveCero() {
+        String[] vacia = {"", "", "", "", "", ""};
+        assertEquals(0, controller.primerHuecoLibre(vacia));
+    }
+
+    @Test
+    public void primerHuecoLibre_huecoNulo_devuelveEsaPosicion() {
+        String[] actuales = {"Yoga", null, "Spinning", "", "", ""};
+        assertEquals(1, controller.primerHuecoLibre(actuales));
     }
 
     @Test
