@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.ContextMenu?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
@@ -61,7 +65,18 @@
                   <!-- Lista de clases + crear -->
                   <VBox maxWidth="340.0" minWidth="180.0" prefWidth="270.0" HBox.hgrow="SOMETIMES">
                      <children>
-                        <ListView fx:id="listClases" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1;" VBox.vgrow="ALWAYS" />
+                        <ListView fx:id="listClases" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1;" VBox.vgrow="ALWAYS">
+                           <contextMenu>
+                              <ContextMenu>
+                                 <items>
+                                    <MenuItem mnemonicParsing="false" text="Crear clase…" onAction="#onCrearClase" />
+                                    <MenuItem mnemonicParsing="false" text="Gestionar sesiones" onAction="#onGestionarSesiones" />
+                                    <SeparatorMenuItem />
+                                    <MenuItem mnemonicParsing="false" text="Borrar clase" onAction="#onBorrarClase" />
+                                 </items>
+                              </ContextMenu>
+                           </contextMenu>
+                        </ListView>
                         <Button fx:id="btnCrearClase" maxWidth="Infinity" mnemonicParsing="false" onAction="#onCrearClase" prefHeight="28.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0; -fx-border-color: black; -fx-border-width: 1; -fx-font-size: 14px;" text="Crear clase" />
                      </children>
                   </VBox>
@@ -102,7 +117,15 @@
             <HBox spacing="20.0" VBox.vgrow="ALWAYS">
                <children>
                   <!-- Lista de sesiones -->
-                  <ListView fx:id="listSesiones" maxWidth="340.0" minWidth="180.0" prefWidth="270.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1;" HBox.hgrow="SOMETIMES" />
+                  <ListView fx:id="listSesiones" maxWidth="340.0" minWidth="180.0" prefWidth="270.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1;" HBox.hgrow="SOMETIMES">
+                     <contextMenu>
+                        <ContextMenu>
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Borrar sesión" onAction="#onBorrarSesion" />
+                           </items>
+                        </ContextMenu>
+                     </contextMenu>
+                  </ListView>
 
                   <!-- Datos de la sesión -->
                   <VBox spacing="10.0" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 1;" HBox.hgrow="ALWAYS">
