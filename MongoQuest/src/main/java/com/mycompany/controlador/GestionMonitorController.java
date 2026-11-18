@@ -1,8 +1,8 @@
 package com.mycompany.controlador;
 
-import com.mongodb.ErrorCategory;
-import com.mongodb.MongoException;
-import com.mongodb.MongoWriteException;
+import com.mycompany.controlador.dao.DatosException;
+import com.mycompany.controlador.dao.DuplicadoException;
+import com.mycompany.controlador.dao.ConexionException;
 import com.mycompany.controlador.dao.daoImplementacio;
 import java.io.File;
 import java.io.IOException;
@@ -148,7 +148,7 @@ public class GestionMonitorController {
             List<Document> monitores = dao.listarMonitores();
             Registro.info("Monitores cargados: " + monitores.size());
             listMonitores.getItems().setAll(monitores);
-        } catch (MongoException e) {
+        } catch (DatosException e) {
             Registro.error("No se pudieron cargar los monitores", e);
             alerta(Alert.AlertType.ERROR, "No se puede conectar con MongoDB.");
         }
@@ -300,17 +300,15 @@ public class GestionMonitorController {
             Registro.info("Monitor modificado: " + dniOriginal
                     + (dniOriginal.equals(dni) ? "" : " (nuevo DNI: " + dni + ")"));
             alerta(Alert.AlertType.INFORMATION, "Datos guardados.");
-        } catch (MongoWriteException e) {
-            if (e.getError().getCategory() == ErrorCategory.DUPLICATE_KEY) {
-                Registro.aviso("Modificación rechazada, DNI o mail duplicado: " + dni + " / " + mail);
-                alerta(Alert.AlertType.ERROR, "Ya existe otro trabajador con ese DNI o ese mail.");
-            } else {
-                Registro.error("No se pudieron guardar los datos del monitor " + dniOriginal, e);
-                alerta(Alert.AlertType.ERROR, "No se pudieron guardar los datos.");
-            }
-        } catch (MongoException e) {
+        } catch (DuplicadoException e) {
+            Registro.aviso("Modificación rechazada, DNI o mail duplicado: " + dni + " / " + mail);
+            alerta(Alert.AlertType.ERROR, "Ya existe otro trabajador con ese DNI o ese mail.");
+        } catch (ConexionException e) {
             Registro.error("No se pudo conectar con MongoDB al guardar al monitor " + dniOriginal, e);
             alerta(Alert.AlertType.ERROR, "No se puede conectar con MongoDB.");
+        } catch (DatosException e) {
+            Registro.error("No se pudieron guardar los datos del monitor " + dniOriginal, e);
+            alerta(Alert.AlertType.ERROR, "No se pudieron guardar los datos.");
         } catch (IOException e) {
             Registro.error("Datos guardados, pero no se pudo renombrar la foto de " + dniOriginal, e);
             alerta(Alert.AlertType.ERROR, "Datos guardados, pero no se pudo renombrar la foto.");
@@ -407,17 +405,15 @@ public class GestionMonitorController {
             listMonitores.getSelectionModel().select(nuevo);
             listMonitores.scrollTo(nuevo);
             Registro.info("Monitor dado de alta: " + dni);
-        } catch (MongoWriteException e) {
-            if (e.getError().getCategory() == ErrorCategory.DUPLICATE_KEY) {
-                Registro.aviso("Alta rechazada, DNI o mail duplicado: " + dni + " / " + mail);
-                alerta(Alert.AlertType.ERROR, "Ya existe un trabajador con ese DNI o ese mail.");
-            } else {
-                Registro.error("No se pudo guardar el monitor " + dni, e);
-                alerta(Alert.AlertType.ERROR, "No se pudo guardar el monitor.");
-            }
-        } catch (MongoException e) {
+        } catch (DuplicadoException e) {
+            Registro.aviso("Alta rechazada, DNI o mail duplicado: " + dni + " / " + mail);
+            alerta(Alert.AlertType.ERROR, "Ya existe un trabajador con ese DNI o ese mail.");
+        } catch (ConexionException e) {
             Registro.error("No se pudo conectar con MongoDB al dar de alta a " + dni, e);
             alerta(Alert.AlertType.ERROR, "No se puede conectar con MongoDB.");
+        } catch (DatosException e) {
+            Registro.error("No se pudo guardar el monitor " + dni, e);
+            alerta(Alert.AlertType.ERROR, "No se pudo guardar el monitor.");
         }
     }
 
@@ -447,7 +443,7 @@ public class GestionMonitorController {
                 // Recarga la lista desde MongoDB y limpia la ficha que mostraba al monitor eliminado.
                 cargarMonitores();
                 mostrarMonitor(null);
-            } catch (MongoException e) {
+            } catch (DatosException e) {
                 Registro.error("No se pudo dar de baja al monitor " + dni, e);
                 alerta(Alert.AlertType.ERROR, "No se pudo dar de baja al monitor.");
             } catch (IOException e) {

@@ -1,6 +1,6 @@
 package com.mycompany.controlador;
 
-import com.mongodb.MongoException;
+import com.mycompany.controlador.dao.DatosException;
 import com.mycompany.controlador.dao.daoImplementacio;
 import java.io.IOException;
 import javafx.fxml.FXML;
@@ -67,7 +67,7 @@ public class LoginController {
                 Registro.aviso("Tipo de usuario desconocido para " + mail + ": " + rol);
                 mostrarAlerta(Alert.AlertType.ERROR, "Tipo de usuario desconocido: " + rol);
             }
-        } catch (MongoException e) {
+        } catch (DatosException e) {
             Registro.error("No se pudo conectar con MongoDB durante el login", e);
             mostrarAlerta(Alert.AlertType.ERROR,
                     "No se puede conectar con MongoDB. Comprueba que esté iniciado.");

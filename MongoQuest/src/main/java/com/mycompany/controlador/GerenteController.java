@@ -1,7 +1,10 @@
 package com.mycompany.controlador;
 
+import com.mycompany.controlador.dao.DatosException;
 import java.io.IOException;
 import java.net.URL;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -57,24 +60,30 @@ public class GerenteController {
      * @param img vista de imagen a escalar
      * @param card contenedor sobre el que se observa el cambio de tamaño
      */
-    private void ajustarImagen(ImageView img, VBox card) {
+    private void ajustarImagen(final ImageView img, VBox card) {
         if (img == null || card == null) return;
 
         img.setPreserveRatio(true);
 
         // Escuchar cambios de tamaño del VBox en lugar de bindear propiedades directamente.
         // Esto evita que el ImageView infle el tamaño preferido del contenedor padre.
-        card.widthProperty().addListener((obs, oldVal, newVal) -> {
-            double anchoCard = newVal.doubleValue();
-            if (anchoCard > 0) {
-                img.setFitWidth(anchoCard * 0.75);
+        card.widthProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> obs, Number oldVal, Number newVal) {
+                double anchoCard = newVal.doubleValue();
+                if (anchoCard > 0) {
+                    img.setFitWidth(anchoCard * 0.75);
+                }
             }
         });
 
-        card.heightProperty().addListener((obs, oldVal, newVal) -> {
-            double altoCard = newVal.doubleValue();
-            if (altoCard > 0) {
-                img.setFitHeight(altoCard * 0.55);
+        card.heightProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> obs, Number oldVal, Number newVal) {
+                double altoCard = newVal.doubleValue();
+                if (altoCard > 0) {
+                    img.setFitHeight(altoCard * 0.55);
+                }
             }
         });
     }
@@ -102,7 +111,7 @@ public class GerenteController {
 
             ((Stage) raiz.getScene().getWindow()).close();
         } catch (IOException | NullPointerException e) {
-            e.printStackTrace();
+            Registro.error("Error en " + getClass().getSimpleName(), e);
             new Alert(Alert.AlertType.ERROR, "No se pudo cargar GestorClases.").showAndWait();
         }
     }
@@ -113,6 +122,26 @@ public class GerenteController {
     @FXML
     private void onGestionarClientes() {
         abrirVentana("/com/mycompany/vista/GestorCliente.fxml", "Tolotolo - Gestión de clientes");
+    }
+
+    /**
+     * Abre el visor del log de operaciones en una ventana aparte, sin cerrar el panel del gerente.
+     */
+    @FXML
+    private void onVerLog() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/com/mycompany/vista/VisorLog.fxml"));
+            Stage visor = new Stage();
+            App.ponerIcono(visor);
+            visor.setTitle("Tolotolo - Log de operaciones");
+            visor.setScene(new Scene(root));
+            visor.initOwner(raiz.getScene().getWindow());
+            visor.show();
+            Registro.info("Visor del log abierto");
+        } catch (IOException | NullPointerException e) {
+            Registro.error("No se pudo abrir el visor del log", e);
+            aviso("No se pudo abrir el visor del log.");
+        }
     }
 
     /**

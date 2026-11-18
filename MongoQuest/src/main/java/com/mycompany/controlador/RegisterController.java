@@ -1,8 +1,8 @@
 package com.mycompany.controlador;
 
-import com.mongodb.ErrorCategory;
-import com.mongodb.MongoException;
-import com.mongodb.MongoWriteException;
+import com.mycompany.controlador.dao.DatosException;
+import com.mycompany.controlador.dao.DuplicadoException;
+import com.mycompany.controlador.dao.ConexionException;
 import com.mycompany.controlador.dao.daoImplementacio;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -115,18 +115,16 @@ public class RegisterController {
                     + cmbNivel.getValue().toLowerCase() + ")");
             mostrarAlerta(Alert.AlertType.INFORMATION, "Registro completado. Ya puedes iniciar sesión.");
             onVolverLogin();
-        } catch (MongoWriteException e) {
-            if (e.getError().getCategory() == ErrorCategory.DUPLICATE_KEY) {
-                Registro.aviso("Registro rechazado, DNI o mail duplicado: " + dni + " / " + mail);
-                mostrarAlerta(Alert.AlertType.WARNING, "Ya existe un usuario con ese DNI o ese mail.");
-            } else {
-                Registro.error("No se pudo guardar el registro de " + mail, e);
-                mostrarAlerta(Alert.AlertType.ERROR, "No se pudo completar el registro.");
-            }
-        } catch (MongoException e) {
+        } catch (DuplicadoException e) {
+            Registro.aviso("Registro rechazado, DNI o mail duplicado: " + dni + " / " + mail);
+            mostrarAlerta(Alert.AlertType.WARNING, "Ya existe un usuario con ese DNI o ese mail.");
+        } catch (ConexionException e) {
             Registro.error("No se pudo conectar con MongoDB durante el registro de " + mail, e);
             mostrarAlerta(Alert.AlertType.ERROR,
                     "No se puede conectar con MongoDB. Comprueba que esté iniciado.");
+        } catch (DatosException e) {
+            Registro.error("No se pudo guardar el registro de " + mail, e);
+            mostrarAlerta(Alert.AlertType.ERROR, "No se pudo completar el registro.");
         }
     }
 

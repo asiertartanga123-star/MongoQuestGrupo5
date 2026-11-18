@@ -17,7 +17,7 @@ public interface dao {
      * @param contraseña contraseña del usuario
      * @return el tipo del trabajador ({@code "gerente"} o {@code "monitor"}), {@code "cliente"} si coincide con un cliente, o {@code null} si no hay coincidencia
      */
-    String validarLogin(String mail, String contraseña);
+    String validarLogin(String mail, String contraseña) throws DatosException;
 
     /**
      * Comprueba si ya hay un cliente o un trabajador registrado con ese correo.
@@ -25,7 +25,7 @@ public interface dao {
      * @param mail correo electrónico a buscar
      * @return {@code true} si el correo ya existe
      */
-    boolean existeMail(String mail);
+    boolean existeMail(String mail) throws DatosException;
 
     /**
      * Comprueba que un correo electrónico tenga un formato válido. Se ignoran las mayúsculas y los espacios de los extremos.
@@ -40,14 +40,14 @@ public interface dao {
      *
      * @return lista de documentos de la colección {@code Clientes}
      */
-    List<Document> listarClientes();
+    List<Document> listarClientes() throws DatosException;
 
     /**
      * Inserta un cliente nuevo.
      *
      * @param cliente documento con los datos del cliente
      */
-    void insertarCliente(Document cliente);
+    void insertarCliente(Document cliente) throws DatosException;
 
     /**
      * Actualiza el nombre, el apellido, el DNI, el correo y la membresía de un cliente.
@@ -60,7 +60,7 @@ public interface dao {
      * @param membresia nueva membresía
      */
     void actualizarCliente(ObjectId id, String nombre, String apellido,
-            String dni, String mail, String membresia);
+            String dni, String mail, String membresia) throws DatosException;
 
     /**
      * Elimina un cliente.
@@ -68,7 +68,7 @@ public interface dao {
      * @param id identificador (_id) del cliente
      * @return {@code true} si se ha eliminado algún documento
      */
-    boolean eliminarCliente(ObjectId id);
+    boolean eliminarCliente(ObjectId id) throws DatosException;
 
     /**
      * Busca un trabajador (monitor o gerente) por su correo electrónico.
@@ -76,21 +76,21 @@ public interface dao {
      * @param mail correo electrónico del trabajador
      * @return documento del trabajador, o {@code null} si no existe
      */
-    Document buscarTrabajadorPorMail(String mail);
+    Document buscarTrabajadorPorMail(String mail) throws DatosException;
 
     /**
      * Obtiene los trabajadores cuyo tipo es monitor.
      *
      * @return lista de documentos de la colección {@code Trabajadores}
      */
-    List<Document> listarMonitores();
+    List<Document> listarMonitores() throws DatosException;
 
     /**
      * Inserta un monitor nuevo.
      *
      * @param monitor documento con los datos del monitor
      */
-    void insertarMonitor(Document monitor);
+    void insertarMonitor(Document monitor) throws DatosException;
 
     /**
      * Actualiza el nombre, el apellido, el DNI, el correo y la dirección de un monitor.
@@ -103,7 +103,7 @@ public interface dao {
      * @param direccion nueva dirección, como lista de documentos con calle, cp y ciudad
      */
     void actualizarMonitor(ObjectId id, String nombre, String apellido,
-            String dni, String mail, List<Document> direccion);
+            String dni, String mail, List<Document> direccion) throws DatosException;
 
     /**
      * Elimina un monitor.
@@ -111,7 +111,7 @@ public interface dao {
      * @param id identificador (_id) del monitor
      * @return {@code true} si se ha eliminado algún documento
      */
-    boolean eliminarMonitor(ObjectId id);
+    boolean eliminarMonitor(ObjectId id) throws DatosException;
 
     // ---------- VENTANA CLIENTE ----------
     /**
@@ -120,14 +120,14 @@ public interface dao {
      * @param mail correo electrónico del cliente
      * @return documento del cliente, o {@code null} si no existe
      */
-    Document buscarClientePorMail(String mail);
+    Document buscarClientePorMail(String mail) throws DatosException;
 
     /**
      * Obtiene todas las clases del gimnasio.
      *
      * @return lista de documentos de la colección {@code Clases}
      */
-    List<Document> listarClases();
+    List<Document> listarClases() throws DatosException;
 
     /**
      * Busca la sesión más reciente (por fecha) de una clase.
@@ -135,7 +135,7 @@ public interface dao {
      * @param claseId identificador (_id) de la clase
      * @return documento de la sesión, o {@code null} si la clase no tiene sesiones
      */
-    Document ultimaSesionDeClase(ObjectId claseId);
+    Document ultimaSesionDeClase(ObjectId claseId) throws DatosException;
 
     /**
      * Apunta a un cliente a una clase, añadiéndola a su lista de clases.
@@ -145,7 +145,7 @@ public interface dao {
      * @param nombreClase nombre de la clase
      * @return {@code true} si se ha modificado el cliente
      */
-    boolean apuntarseAClase(String mail, ObjectId claseId, String nombreClase);
+    boolean apuntarseAClase(String mail, ObjectId claseId, String nombreClase) throws DatosException;
 
     /**
      * Concede un logro a un cliente con la fecha de hoy, siempre que todavía no lo tenga.
@@ -155,14 +155,14 @@ public interface dao {
      * @param semanas semanas de antigüedad asociadas al logro
      * @return {@code true} si el logro se ha añadido
      */
-    boolean darLogro(String mail, String nombreLogro, int semanas);
+    boolean darLogro(String mail, String nombreLogro, int semanas) throws DatosException;
 
     /**
      * Calcula las semanas que lleva el cliente en el gimnasio y le concede los logros que le corresponden por esa antigüedad. No hace nada si el cliente no existe.
      *
      * @param mail correo electrónico del cliente
      */
-    void revisarLogros(String mail);
+    void revisarLogros(String mail) throws DatosException;
 
     /**
      * Inserta una clase nueva en la colección {@code Clases}. El driver de MongoDB
@@ -170,7 +170,7 @@ public interface dao {
      *
      * @param clase documento con {@code nombre}, {@code horas} y {@code salaid}
      */
-    void insertarClase(Document clase);
+    void insertarClase(Document clase) throws DatosException;
 
     /**
      * Cambia el nombre y la sala de una clase.
@@ -179,7 +179,15 @@ public interface dao {
      * @param nombre nuevo nombre
      * @param salaId identificador (_id) de la nueva sala
      */
-    void actualizarClase(ObjectId id, String nombre, ObjectId salaId);
+    void actualizarClase(ObjectId id, String nombre, ObjectId salaId) throws DatosException;
+
+    /**
+     * Sustituye el horario semanal de una clase.
+     *
+     * @param id identificador (_id) de la clase
+     * @param horas franjas {@code {dia, horainicio, horafin}}
+     */
+    void actualizarHorasClase(ObjectId id, List<Document> horas) throws DatosException;
 
     /**
      * Elimina una clase y todas sus sesiones, para no dejar sesiones huérfanas.
@@ -187,14 +195,14 @@ public interface dao {
      * @param id identificador (_id) de la clase
      * @return {@code true} si se ha borrado la clase
      */
-    boolean eliminarClase(ObjectId id);
+    boolean eliminarClase(ObjectId id) throws DatosException;
 
     /**
      * Obtiene todas las salas del gimnasio.
      *
      * @return lista de documentos de la colección {@code Salas}
      */
-    List<Document> listarSalas();
+    List<Document> listarSalas() throws DatosException;
 
     /**
      * Obtiene las sesiones de una clase, ordenadas de la más antigua a la más reciente.
@@ -202,14 +210,14 @@ public interface dao {
      * @param claseId identificador (_id) de la clase
      * @return lista de documentos de la colección {@code Sesiones}
      */
-    List<Document> listarSesiones(ObjectId claseId);
+    List<Document> listarSesiones(ObjectId claseId) throws DatosException;
 
     /**
      * Inserta una sesión nueva en la colección {@code Sesiones}.
      *
      * @param sesion documento con {@code claseid}, {@code fecha}, {@code plazaMax} y {@code monitor}
      */
-    void insertarSesion(Document sesion);
+    void insertarSesion(Document sesion) throws DatosException;
 
     /**
      * Cambia la fecha, el aforo y el monitor de una sesión.
@@ -219,7 +227,7 @@ public interface dao {
      * @param plazaMax nuevo número máximo de plazas
      * @param monitorId identificador (_id) del monitor que la imparte
      */
-    void actualizarSesion(ObjectId id, Date fecha, int plazaMax, ObjectId monitorId);
+    void actualizarSesion(ObjectId id, Date fecha, int plazaMax, ObjectId monitorId) throws DatosException;
 
     /**
      * Elimina una sesión.
@@ -227,5 +235,5 @@ public interface dao {
      * @param id identificador (_id) de la sesión
      * @return {@code true} si se ha borrado la sesión
      */
-    boolean eliminarSesion(ObjectId id);
+    boolean eliminarSesion(ObjectId id) throws DatosException;
 }
