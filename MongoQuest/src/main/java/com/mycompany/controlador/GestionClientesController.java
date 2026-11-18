@@ -461,14 +461,18 @@ public class GestionClientesController {
         }
     }
 
-    /** Vuelve al panel del gerente dentro de la misma ventana. */
+    /** Vuelve al panel del gerente o del monitor dentro de la misma ventana según el rol en sesión. */
     @FXML
     private void onVolver() {
         try {
-            URL ruta = getClass().getResource("/com/mycompany/vista/Gerente.fxml");
+            boolean esMonitor = "monitor".equalsIgnoreCase(LoginController.rolActual);
+            String fxml = esMonitor ? "/com/mycompany/vista/Monitor.fxml" : "/com/mycompany/vista/Gerente.fxml";
+            String titulo = esMonitor ? "Tolotolo - Monitor" : "Tolotolo - Gerente";
+
+            URL ruta = getClass().getResource(fxml);
             if (ruta == null) {
-                Registro.aviso("No se encuentra el FXML del panel del gerente");
-                alerta(Alert.AlertType.ERROR, "No se encuentra el FXML del panel del gerente.");
+                Registro.aviso("No se encuentra el FXML " + fxml);
+                alerta(Alert.AlertType.ERROR, "No se encuentra el FXML " + fxml);
                 return;
             }
 
@@ -478,10 +482,10 @@ public class GestionClientesController {
 
             Parent root = FXMLLoader.load(ruta);
             escena.setRoot(root);
-            ventana.setTitle("Tolotolo - Gerente");
-            Registro.info("Vuelta al panel del gerente desde la gestión de clientes");
+            ventana.setTitle(titulo);
+            Registro.info("Vuelta al panel principal desde la gestión de clientes");
         } catch (Exception e) {
-            Registro.error("No se pudo volver al panel del gerente", e);
+            Registro.error("No se pudo volver al panel principal", e);
             alerta(Alert.AlertType.ERROR, "No se pudo volver: " + e.getMessage());
         }
     }

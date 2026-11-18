@@ -487,23 +487,27 @@ public class GestionClasesController {
         }
     }
 
-    // ---------- Navegación (igual que en los otros gestores) ----------
+    // ---------- Navegación ----------
 
-    /** Vuelve al menú del gerente en la misma ventana. */
+    /** Vuelve al menú del gerente o del monitor según el rol en sesión. */
     @FXML
     private void onVolver() {
         try {
+            boolean esMonitor = "monitor".equalsIgnoreCase(LoginController.rolActual);
+            String fxml = esMonitor ? "/com/mycompany/vista/Monitor.fxml" : "/com/mycompany/vista/Gerente.fxml";
+            String titulo = esMonitor ? "Tolotolo - Monitor" : "Tolotolo - Gerente";
+
             Scene escena = raiz.getScene();
             Stage ventana = (Stage) escena.getWindow();
-            escena.setRoot(FXMLLoader.load(getClass().getResource("/com/mycompany/vista/Gerente.fxml")));
-            ventana.setTitle("Tolotolo - Gerente");
+            escena.setRoot(FXMLLoader.load(getClass().getResource(fxml)));
+            ventana.setTitle(titulo);
         } catch (Exception e) {
             e.printStackTrace();
             alerta(Alert.AlertType.ERROR, "No se pudo volver: " + e.getMessage());
         }
     }
 
-    /** Cierra la sesión del gerente: abre la ventana de login y cierra esta. */
+    /** Cierra la sesión actual: abre la ventana de login y cierra esta. */
     @FXML
     private void onCerrarSesion() {
         try {

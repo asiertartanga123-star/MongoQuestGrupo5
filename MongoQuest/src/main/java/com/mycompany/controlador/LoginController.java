@@ -34,6 +34,8 @@ public class LoginController {
     private final daoImplementacio dao = new daoImplementacio();
     /** Correo del usuario que ha iniciado sesión. Lo leen otros controladores, como {@link ClienteController}, para saber quién está en sesión. */
     public static String mailActual;
+    /** Rol del usuario que ha iniciado sesión ({@code "gerente"}, {@code "monitor"} o {@code "cliente"}). */
+    public static String rolActual;
 
     /** Hace que el tamaño de las imágenes de los toros siga la altura de la ventana. */
     @FXML
@@ -65,6 +67,7 @@ public class LoginController {
                 return;
             }
             mailActual = mail;
+            rolActual = rol;
             Registro.setUsuario(mail);
             Registro.info("Login correcto: " + mail + " (" + rol + ")");
 
