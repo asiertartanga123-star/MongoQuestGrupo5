@@ -503,3 +503,34 @@
 2026-11-17 14:04:59 | admin@admin.com | SELECT Clientes | listado (2 registros) | OK
 2026-11-17 14:05:05 | admin@admin.com | SELECT Trabajadores | listado de monitores (2 registros) | OK
 2026-11-17 14:05:05 | admin@admin.com | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 14:50:28 | anónimo | SELECT Clientes | login de cliente@cliente.com | OK
+2026-11-18 14:50:45 | cliente@cliente.com | SELECT Trabajadores | login de admin@admin.com | OK
+2026-11-18 14:50:46 | admin@admin.com | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 14:50:46 | admin@admin.com | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 14:50:48 | admin@admin.com | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 14:50:52 | admin@admin.com | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 14:51:18 | admin@admin.com | UPDATE Clientes | id 650000000000000000000097 (dni 11111111C) | OK
+2026-11-18 14:51:20 | admin@admin.com | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 14:51:30 | admin@admin.com | UPDATE Trabajadores | id 650000000000000000000098 (dni 22222222E) | OK
+2026-11-18 14:51:45 | admin@admin.com | SELECT Clientes | login de cliente@cliente.com | OK
+2026-11-18 14:52:38 | cliente@cliente.com | SELECT Login | sin coincidencias para trabajador@trabajador.com | OK
+2026-11-18 14:52:57 | cliente@cliente.com | SELECT Trabajadores | login de empleado@empleado.com | OK
+2026-11-18 14:53:03 | empleado@empleado.com | SELECT Trabajadores | login de empleado@empleado.com | OK
+2026-11-18 14:53:26 | anónimo | SELECT Trabajadores | login de empleado@empleado.com | OK
+2026-11-18 14:55:22 | anónimo | SELECT Trabajadores | login de empleado@empleado.com | OK
+2026-11-18 14:55:25 | empleado@empleado.com | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 14:55:25 | empleado@empleado.com | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 14:55:27 | empleado@empleado.com | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 14:55:30 | empleado@empleado.com | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 14:55:30 | empleado@empleado.com | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 14:55:31 | empleado@empleado.com | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 14:55:33 | empleado@empleado.com | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 14:59:17 | anónimo | SELECT Trabajadores | login de empleado@empleado.com | OK
+2026-11-18 14:59:18 | empleado@empleado.com | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 14:59:18 | empleado@empleado.com | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 14:59:20 | empleado@empleado.com | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 14:59:35 | empleado@empleado.com | SELECT Clientes | login de cliente@cliente.com | OK
+2026-11-18 15:00:22 | cliente@cliente.com | SELECT Trabajadores | login de admin@admin.com | OK
+2026-11-18 15:00:23 | admin@admin.com | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 15:00:25 | admin@admin.com | UPDATE Clientes | id 650000000000000000000097 (dni 11111111C) | OK
+2026-11-18 15:00:30 | admin@admin.com | UPDATE Clientes | id 650000000000000000000097 (dni 11111111C) | OK

@@ -1061,3 +1061,68 @@
 2026-11-17 14:04:44 [INFO] Pantalla abierta: Tolotolo - Gestión de clientes
 2026-11-17 14:04:45 [INFO] Vuelta al panel del gerente desde la gestión de clientes
 2026-11-17 14:05:09 [INFO] Aplicación cerrada
+2026-11-18 14:50:13 [INFO] Aplicación iniciada
+2026-11-18 14:50:28 [INFO] Login correcto: cliente@cliente.com (cliente)
+2026-11-18 14:50:45 [INFO] Login correcto: admin@admin.com (gerente)
+2026-11-18 14:50:48 [INFO] Pantalla abierta: gestión de monitores
+2026-11-18 14:50:48 [INFO] Monitores cargados: 3
+2026-11-18 14:50:48 [INFO] Pantalla abierta: Tolotolo - Gestión de monitores
+2026-11-18 14:50:51 [INFO] Vuelta al panel del gerente desde la gestión de monitores
+2026-11-18 14:50:52 [INFO] Pantalla abierta: gestión de clientes
+2026-11-18 14:50:52 [INFO] Clientes cargados: 2
+2026-11-18 14:50:52 [INFO] Pantalla abierta: Tolotolo - Gestión de clientes
+2026-11-18 14:51:02 [INFO] Imagen guardada: 11111111C.jpg
+2026-11-18 14:51:02 [INFO] Foto actualizada del cliente 11111111C
+2026-11-18 14:51:16 [INFO] Imagen borrada de 11111111C
+2026-11-18 14:51:16 [INFO] Imagen guardada: 11111111C.png
+2026-11-18 14:51:16 [INFO] Foto actualizada del cliente 11111111C
+2026-11-18 14:51:18 [INFO] Cliente modificado: 11111111C
+2026-11-18 14:51:20 [INFO] Vuelta al panel del gerente desde la gestión de clientes
+2026-11-18 14:51:20 [INFO] Pantalla abierta: gestión de monitores
+2026-11-18 14:51:20 [INFO] Monitores cargados: 3
+2026-11-18 14:51:20 [INFO] Pantalla abierta: Tolotolo - Gestión de monitores
+2026-11-18 14:51:28 [INFO] Imagen guardada: 22222222E.png
+2026-11-18 14:51:28 [INFO] Foto actualizada del monitor 22222222E
+2026-11-18 14:51:30 [INFO] Monitor modificado: 22222222E
+2026-11-18 14:51:31 [INFO] Vuelta al panel del gerente desde la gestión de monitores
+2026-11-18 14:51:32 [INFO] Sesión cerrada desde el panel del gerente
+2026-11-18 14:51:32 [INFO] Pantalla abierta: Tolotolo - Iniciar sesión
+2026-11-18 14:51:45 [INFO] Login correcto: cliente@cliente.com (cliente)
+2026-11-18 14:52:38 [WARNING] Login fallido para trabajador@trabajador.com
+2026-11-18 14:52:57 [INFO] Login correcto: empleado@empleado.com (monitor)
+2026-11-18 14:53:03 [INFO] Login correcto: empleado@empleado.com (monitor)
+2026-11-18 14:53:08 [INFO] Aplicación cerrada
+2026-11-18 14:53:14 [INFO] Aplicación iniciada
+2026-11-18 14:53:26 [INFO] Login correcto: empleado@empleado.com (monitor)
+2026-11-18 14:54:55 [INFO] Aplicación cerrada
+2026-11-18 14:55:02 [INFO] Aplicación iniciada
+2026-11-18 14:55:22 [INFO] Login correcto: empleado@empleado.com (monitor)
+2026-11-18 14:55:27 [INFO] Pantalla abierta: gestión de clientes
+2026-11-18 14:55:27 [INFO] Clientes cargados: 2
+2026-11-18 14:55:27 [INFO] Pantalla abierta: Tolotolo - Gestión de clientes
+2026-11-18 14:55:29 [INFO] Vuelta al panel del gerente desde la gestión de clientes
+2026-11-18 14:55:31 [INFO] Pantalla abierta: gestión de monitores
+2026-11-18 14:55:31 [INFO] Monitores cargados: 3
+2026-11-18 14:55:31 [INFO] Pantalla abierta: Tolotolo - Gestión de monitores
+2026-11-18 14:55:32 [INFO] Vuelta al panel del gerente desde la gestión de monitores
+2026-11-18 14:55:33 [INFO] Pantalla abierta: gestión de clientes
+2026-11-18 14:55:33 [INFO] Clientes cargados: 2
+2026-11-18 14:55:33 [INFO] Pantalla abierta: Tolotolo - Gestión de clientes
+2026-11-18 14:55:33 [INFO] Vuelta al panel del gerente desde la gestión de clientes
+2026-11-18 14:55:35 [INFO] Sesión cerrada desde el panel del gerente
+2026-11-18 14:55:35 [INFO] Pantalla abierta: Tolotolo - Iniciar sesión
+2026-11-18 14:55:36 [INFO] Aplicación cerrada
+2026-11-18 14:58:59 [INFO] Aplicación iniciada
+2026-11-18 14:59:17 [INFO] Login correcto: empleado@empleado.com (monitor)
+2026-11-18 14:59:20 [INFO] Pantalla abierta: gestión de clientes
+2026-11-18 14:59:20 [INFO] Clientes cargados: 2
+2026-11-18 14:59:21 [INFO] Vuelta al panel principal desde la gestión de clientes
+2026-11-18 14:59:35 [INFO] Login correcto: cliente@cliente.com (cliente)
+2026-11-18 15:00:22 [INFO] Login correcto: admin@admin.com (gerente)
+2026-11-18 15:00:23 [INFO] Pantalla abierta: gestión de clientes
+2026-11-18 15:00:23 [INFO] Clientes cargados: 2
+2026-11-18 15:00:23 [INFO] Pantalla abierta: Tolotolo - Gestión de clientes
+2026-11-18 15:00:25 [INFO] Cliente modificado: 11111111C
+2026-11-18 15:00:30 [INFO] Cliente modificado: 11111111C
+2026-11-18 15:00:34 [INFO] Sesión cerrada desde la gestión de clientes
+2026-11-18 15:00:36 [INFO] Aplicación cerrada

@@ -71,6 +71,14 @@ public interface dao {
     boolean eliminarCliente(ObjectId id);
 
     /**
+     * Busca un trabajador (monitor o gerente) por su correo electrónico.
+     *
+     * @param mail correo electrónico del trabajador
+     * @return documento del trabajador, o {@code null} si no existe
+     */
+    Document buscarTrabajadorPorMail(String mail);
+
+    /**
      * Obtiene los trabajadores cuyo tipo es monitor.
      *
      * @return lista de documentos de la colección {@code Trabajadores}

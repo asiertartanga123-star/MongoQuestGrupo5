@@ -19,8 +19,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import modelo.Logros;
 
@@ -39,6 +42,9 @@ public class ClienteController implements Initializable {
 
     /** Contenedor raíz de la pantalla. */
     @FXML private BorderPane raiz;
+
+    /** Círculo con la foto de perfil del cliente. */
+    @FXML private Circle circuloFoto;
 
     /** Campo con el nombre completo del cliente. */
     @FXML private TextField txtNombre;
@@ -90,7 +96,7 @@ public class ClienteController implements Initializable {
     }
 
     /**
-     * Carga los datos del cliente en sesión: sus datos personales, las clases a las que está apuntado, las primeras clases del gimnasio y la tabla de logros. También deja clicable cada clase del gimnasio para poder apuntarse.
+     * Carga los datos del cliente en sesión: sus datos personales, su foto asociada al DNI, las clases a las que está apuntado, las primeras clases del gimnasio y la tabla de logros. También deja clicable cada clase del gimnasio para poder apuntarse.
      *
      * @param url ubicación del FXML
      * @param rb recursos de la vista, si los hay
@@ -102,10 +108,13 @@ public class ClienteController implements Initializable {
             return;
         }
 
+        String dni = texto(cliente.get("dni"));
         txtNombre.setText(nombreCompleto(cliente));
-        txtDni.setText(texto(cliente.get("dni")));
+        txtDni.setText(dni);
         txtMail.setText(texto(cliente.get("mail")));
         txtMembresia.setText(texto(cliente.get("membresia")));
+
+        cargarFotoPerfil(dni);
 
         Label[] nombres = {lblClase1, lblClase2, lblClase3, lblClase4, lblClase5, lblClase6};
         Label[] plazas = {lblPlazas1, lblPlazas2, lblPlazas3, lblPlazas4, lblPlazas5, lblPlazas6};
@@ -158,6 +167,21 @@ public class ClienteController implements Initializable {
         ponerClick(lblClase16, lblPlazas16);
         ponerClick(lblClase17, lblPlazas17);
         ponerClick(lblClase18, lblPlazas18);
+    }
+
+    /**
+     * Carga en el círculo de perfil la imagen guardada para el DNI del cliente.
+     *
+     * @param dni DNI del cliente en sesión
+     */
+    private void cargarFotoPerfil(String dni) {
+        if (circuloFoto == null || dni == null || dni.isEmpty()) {
+            return;
+        }
+        Image foto = GestorImagenes.cargar(dni);
+        if (foto != null && !foto.isError()) {
+            circuloFoto.setFill(new ImagePattern(foto));
+        }
     }
 
     /**

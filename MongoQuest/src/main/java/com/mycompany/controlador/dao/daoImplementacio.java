@@ -144,6 +144,16 @@ public class daoImplementacio implements dao {
     }
 
     @Override
+    public Document buscarTrabajadorPorMail(String mail) {
+        try (MongoClient cliente = MongoClients.create(URI)) {
+            return cliente.getDatabase(BD)
+                    .getCollection("Trabajadores")
+                    .find(Filters.eq("mail", mail))
+                    .first();
+        }
+    }
+
+    @Override
     public List<Document> listarMonitores() {
         try (MongoClient cliente = MongoClients.create(URI)) {
             List<Document> lista = cliente.getDatabase(BD)
