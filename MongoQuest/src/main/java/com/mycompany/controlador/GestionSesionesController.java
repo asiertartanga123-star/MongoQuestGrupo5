@@ -63,11 +63,13 @@ public class GestionSesionesController {
     }
 
     /** Nombre del día tal como se guarda en {@code horas.dia}; el índice es la columna de la rejilla menos 1. */
-    private static final String[] DIAS = {"lunes", "martes", "miércoles", "jueves", "viernes", "sábado"};
-    /** Estilo de un hueco libre (el mismo que trae el FXML). */
-    private static final String ESTILO_LIBRE = "-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 0.5; -fx-cursor: hand;";
-    /** Estilo de un hueco que forma parte del horario de la clase. */
-    private static final String ESTILO_OCUPADO = "-fx-background-color: black; -fx-border-color: black; -fx-border-width: 0.5; -fx-cursor: hand;";
+    static final String[] DIAS = {"lunes", "martes", "miércoles", "jueves", "viernes", "sábado"};
+    /** Primera hora de inicio de la rejilla del horario. */
+    static final int PRIMERA_HORA = 9;
+    /** Última hora de inicio de la rejilla del horario. */
+    static final int ULTIMA_HORA = 22;
+    /** Clase CSS (estilos.css) que pinta de negro un hueco que forma parte del horario de la clase. */
+    private static final String HUECO_OCUPADO = "hueco-ocupado";
 
     /** Contenedor raíz de la vista; da acceso a la escena y a la ventana. */
     @FXML private BorderPane raiz;
@@ -151,12 +153,11 @@ public class GestionSesionesController {
             StackPane hueco = (StackPane) n;
             String[] pos = ((String) hueco.getUserData()).split(",");
             boolean ocupado = franja(DIAS[Integer.parseInt(pos[0]) - 1], Integer.parseInt(pos[1])) != null;
-            hueco.setStyle(ocupado ? ESTILO_OCUPADO : ESTILO_LIBRE);
+            hueco.getStyleClass().remove(HUECO_OCUPADO);
             hueco.getChildren().clear();
             if (ocupado) {
-                Label texto = new Label(clase.getString("nombre"));
-                texto.setStyle("-fx-text-fill: white;");
-                hueco.getChildren().add(texto);
+                hueco.getStyleClass().add(HUECO_OCUPADO);
+                hueco.getChildren().add(new Label(clase.getString("nombre")));
             }
         }
     }
@@ -250,6 +251,12 @@ public class GestionSesionesController {
         ButtonType respuesta = dialogoFranja("Sesión: " + texto, fMonitor, fAforo, true);
 
         if (respuesta == BORRAR) {
+            // El esquema de Clases exige al menos una franja en "horas" (minItems: 1).
+            if (horas().size() == 1) {
+                alerta(Alert.AlertType.WARNING, "Una clase necesita al menos una franja en el horario. "
+                        + "Crea otra franja antes de quitar " + texto + ".");
+                return;
+            }
             if (confirmar("¿Quitar " + texto + " del horario y borrar sus " + futuras.size() + " sesiones futuras?")) {
                 for (Document s : futuras) {
                     dao.eliminarSesion(s.getObjectId("_id"));

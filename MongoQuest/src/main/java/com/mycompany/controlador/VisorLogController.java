@@ -78,7 +78,11 @@ public class VisorLogController {
                     protected void updateItem(String valor, boolean vacia) {
                         super.updateItem(valor, vacia);
                         setText(vacia ? null : valor);
-                        setStyle(!vacia && valor != null && valor.startsWith("ERROR") ? "-fx-text-fill: #c62828;" : "");
+                        // Clase linea-error de estilos.css: los resultados con error, en rojo
+                        getStyleClass().remove("linea-error");
+                        if (!vacia && valor != null && valor.startsWith("ERROR")) {
+                            getStyleClass().add("linea-error");
+                        }
                     }
                 };
             }

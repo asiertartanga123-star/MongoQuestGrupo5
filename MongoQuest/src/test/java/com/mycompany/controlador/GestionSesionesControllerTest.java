@@ -93,6 +93,8 @@ public class GestionSesionesControllerTest extends ApplicationTest {
 
         List<Document> horas = new ArrayList<Document>();
         horas.add(new Document("dia", "martes").append("horainicio", "10:00").append("horafin", "11:00"));
+        // Segunda franja: el esquema exige al menos una, y sin ella no se podría probar a quitar la del martes.
+        horas.add(new Document("dia", "sábado").append("horainicio", "21:00").append("horafin", "22:00"));
         clase = new Document("nombre", "PRUEBA horario " + System.currentTimeMillis())
                 .append("horas", horas)
                 .append("salaid", sala.getObjectId("_id"));
@@ -147,10 +149,11 @@ public class GestionSesionesControllerTest extends ApplicationTest {
         FxAssert.verifyThat("#lblTitulo", LabeledMatchers.hasText(clase.getString("nombre")));
     }
 
-    /** Comprueba que al abrir el horario solo se pinta la franja que tiene la clase. */
+    /** Comprueba que al abrir el horario solo se pintan las dos franjas que tiene la clase. */
     @Test
     public void alAbrir_soloSePintaLaFranjaDeLaClase() {
         Assertions.assertTrue(ocupado(hueco(HUECO_OCUPADO)), "El martes a las 10:00 debería estar pintado");
+        Assertions.assertTrue(ocupado(hueco("6,21")), "El sábado a las 21:00 debería estar pintado");
         int pintados = 0;
         GridPane grid = lookup("#gridHorario").query();
         for (Node n : grid.getChildren()) {
@@ -158,7 +161,7 @@ public class GestionSesionesControllerTest extends ApplicationTest {
                 pintados++;
             }
         }
-        Assertions.assertEquals(1, pintados, "Solo debería haber un hueco pintado");
+        Assertions.assertEquals(2, pintados, "Solo deberían estar pintados los dos huecos de la clase");
     }
 
     // ---------- Nueva sesión en un hueco libre ----------

@@ -54,6 +54,10 @@ public class GestoresErroresMongoTest extends ApplicationTest {
     private String mailAntes;
     /** Rol antes del test, para dejarlo como estaba. */
     private String rolAntes;
+    /** Clase que la pantalla mandó guardar con {@code insertarClase}; {@code null} = ninguna. */
+    private Document claseInsertada;
+    /** Veces que la pantalla del horario mandó borrar sesiones o cambiar las franjas. */
+    private int escriturasHorario;
 
     /** Crea la clase de pruebas; JUnit crea una instancia para cada test. */
     public GestoresErroresMongoTest() {
@@ -148,7 +152,7 @@ public class GestoresErroresMongoTest extends ApplicationTest {
             @Override
             public List<Document> listarSalas() {
                 fallarSi("listarSalas");
-                return uno(new Document("_id", new ObjectId()).append("nombre", "Sala 1").append("aforo", 20));
+                return uno(new Document("_id", new ObjectId()).append("nombre", "Sala 1").append("aforoMaximo", 20));
             }
 
             @Override
@@ -174,6 +178,24 @@ public class GestoresErroresMongoTest extends ApplicationTest {
             public boolean eliminarClase(ObjectId id) {
                 fallarSi("eliminarClase");
                 return true;
+            }
+
+            @Override
+            public void insertarClase(Document c) {
+                fallarSi("insertarClase");
+                c.put("_id", new ObjectId());
+                claseInsertada = c;
+            }
+
+            @Override
+            public boolean eliminarSesion(ObjectId id) {
+                escriturasHorario++;
+                return true;
+            }
+
+            @Override
+            public void actualizarHorasClase(ObjectId id, List<Document> horas) {
+                escriturasHorario++;
             }
         };
     }
@@ -348,7 +370,83 @@ public class GestoresErroresMongoTest extends ApplicationTest {
         Assertions.assertEquals(1, lookup("#listClases").queryAs(ListView.class).getItems().size());
     }
 
+    /**
+     * Rellena el diálogo «Crear clase»: nombre y sala y, si se indican, día y hora de la primera franja.
+     *
+     * @param dia  día de la franja, o {@code null} para dejarlo sin elegir
+     * @param hora hora de inicio de la franja, o {@code null} para dejarla sin elegir
+     */
+    private void rellenarCrearClase(String dia, String hora) {
+        clickOn("#btnCrearClase");
+        esperarDialogo();
+        DialogPane dialogo = lookup(".dialog-pane").queryAs(DialogPane.class);
+        clickOn(from(dialogo).lookup(".text-field").queryAs(Node.class)).write("Zumba");
+        List<Node> desplegables = new ArrayList<Node>(from(dialogo).lookup(".choice-box").queryAll());
+        clickOn(desplegables.get(0));
+        clickOn("Sala 1 (20)");
+        if (dia != null) {
+            clickOn(desplegables.get(1));
+            clickOn(dia);
+        }
+        if (hora != null) {
+            clickOn(desplegables.get(2));
+            clickOn(hora);
+        }
+        clickOn(dialogo.lookupButton(ButtonType.OK));
+    }
+
+    /** Comprueba que crear una clase sin elegir su primera franja avisa y no la guarda (el esquema la exige). */
+    @Test
+    public void crearClaseSinFranjaAvisaYNoLaGuarda() {
+        abrir("GestorClase.fxml");
+
+        rellenarCrearClase(null, null);
+
+        Assertions.assertEquals("Elige el día y la hora de la primera franja del horario.", cerrarAviso());
+        Assertions.assertNull(claseInsertada, "No debería haberse guardado ninguna clase");
+    }
+
+    /** Comprueba que crear una clase guarda su primera franja (día, hora de inicio y fin una hora después). */
+    @Test
+    public void crearClaseGuardaSuPrimeraFranja() {
+        abrir("GestorClase.fxml");
+
+        rellenarCrearClase("jueves", "18:00");
+
+        Assertions.assertNotNull(claseInsertada, "La clase debería haberse guardado");
+        List<Document> horas = claseInsertada.getList("horas", Document.class);
+        Assertions.assertEquals(1, horas.size());
+        Assertions.assertEquals("jueves", horas.get(0).getString("dia"));
+        Assertions.assertEquals("18:00", horas.get(0).getString("horainicio"));
+        Assertions.assertEquals("19:00", horas.get(0).getString("horafin"));
+        Assertions.assertEquals(2, lookup("#listClases").queryAs(ListView.class).getItems().size());
+    }
+
     // ---------- Horario de sesiones ----------
+
+    /** Comprueba que no se puede quitar la única franja de una clase: avisa y no borra nada. */
+    @Test
+    public void quitarLaUnicaFranjaAvisaYNoBorraNada() {
+        abrir("GestorSesiones.fxml");
+        final List<Document> horas = new ArrayList<Document>();
+        horas.add(new Document("dia", "martes").append("horainicio", "10:00").append("horafin", "11:00"));
+        interact(new Runnable() {
+            @Override
+            public void run() {
+                ((GestionSesionesController) controlador).setClase(new Document("_id", new ObjectId())
+                        .append("nombre", "Yoga").append("salaid", new ObjectId()).append("horas", horas));
+            }
+        });
+
+        clickOn(hueco("2,10"));
+        esperarDialogo();
+        clickOn("Borrar");
+
+        Assertions.assertEquals("Una clase necesita al menos una franja en el horario. "
+                + "Crea otra franja antes de quitar martes 10:00.", cerrarAviso());
+        Assertions.assertEquals(1, horas.size(), "La franja debería seguir en el horario");
+        Assertions.assertEquals(0, escriturasHorario, "No debería haberse borrado ni guardado nada");
+    }
 
     /** Comprueba que si MongoDB falla al crear una sesión en un hueco libre, avisa y el hueco sigue libre. */
     @Test

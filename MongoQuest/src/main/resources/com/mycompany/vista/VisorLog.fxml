@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Priority?>
 
-<BorderPane prefHeight="520.0" prefWidth="980.0" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.controlador.VisorLogController">
+<BorderPane fx:id="raiz" prefHeight="520.0" prefWidth="980.0" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.controlador.VisorLogController" styleClass="fondo">
    <top>
       <HBox alignment="CENTER_LEFT" spacing="10.0">
          <padding>

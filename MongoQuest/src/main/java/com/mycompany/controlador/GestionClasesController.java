@@ -367,9 +367,19 @@ public class GestionClasesController {
         ChoiceBox<Document> fSala = new ChoiceBox<Document>(choSala.getItems());
         fSala.setConverter(choSala.getConverter());
 
+        // Primera franja semanal: el esquema de Clases exige al menos una en "horas".
+        ChoiceBox<String> fDia = new ChoiceBox<String>();
+        fDia.getItems().addAll(GestionSesionesController.DIAS);
+        ChoiceBox<String> fHora = new ChoiceBox<String>();
+        for (int h = GestionSesionesController.PRIMERA_HORA; h <= GestionSesionesController.ULTIMA_HORA; h++) {
+            fHora.getItems().add(String.format("%02d:00", h));
+        }
+
         GridPane grid = formulario();
         grid.addRow(0, new Label("Nombre:"), fNombre);
         grid.addRow(1, new Label("Sala:"), fSala);
+        grid.addRow(2, new Label("Día:"), fDia);
+        grid.addRow(3, new Label("Hora de inicio:"), fHora);
 
         if (!pedir("Crear clase", grid)) {
             return;
@@ -379,10 +389,18 @@ public class GestionClasesController {
             alerta(Alert.AlertType.WARNING, "La clase necesita nombre y sala.");
             return;
         }
+        if (fDia.getValue() == null || fHora.getValue() == null) {
+            alerta(Alert.AlertType.WARNING, "Elige el día y la hora de la primera franja del horario.");
+            return;
+        }
 
-        // ponytail: el horario ("horas") se crea vacío; este panel no lo edita
+        int inicio = Integer.parseInt(fHora.getValue().substring(0, 2));
+        List<Document> horas = new ArrayList<Document>();
+        horas.add(new Document("dia", fDia.getValue())
+                .append("horainicio", fHora.getValue())
+                .append("horafin", String.format("%02d:00", inicio + 1)));
         Document nueva = new Document("nombre", nombre)
-                .append("horas", new ArrayList<Document>())
+                .append("horas", horas)
                 .append("salaid", fSala.getValue().getObjectId("_id"));
         try {
             dao.insertarClase(nueva);   // el driver rellena _id en "nueva"

@@ -96,8 +96,9 @@ public class ClienteControllerTest extends ApplicationTest {
                 .append("clases", new ArrayList<Document>());
         DAO.insertarCliente(cliente);
 
-        claseLibre = crearClaseConSesion(CLASE_LIBRE, 5);
-        claseLlena = crearClaseConSesion(CLASE_LLENA, 0);
+        claseLibre = crearClaseConSesion(CLASE_LIBRE, 5, 0);
+        // El esquema exige plazaMax >= 1: la clase llena tiene 1 plaza y ya ocupada.
+        claseLlena = crearClaseConSesion(CLASE_LLENA, 1, 1);
 
         // La pantalla muestra 3 clases al abrir y 9 más con «Ver más clases».
         List<Document> todas = DAO.listarClases();
@@ -225,9 +226,10 @@ public class ClienteControllerTest extends ApplicationTest {
      *
      * @param nombre nombre de la clase
      * @param plazas plazas máximas de la sesión
+     * @param ocupadas plazas ya ocupadas por otros clientes (inventados)
      * @return la clase creada, con su _id
      */
-    private static Document crearClaseConSesion(String nombre, int plazas) {
+    private static Document crearClaseConSesion(String nombre, int plazas, int ocupadas) {
         // El esquema de Clases (01_crear_bd_validaciones.js) exige al menos una franja en "horas".
         List<Document> horas = new ArrayList<Document>();
         horas.add(new Document("dia", "lunes").append("horainicio", "09:00").append("horafin", "10:00"));
@@ -235,11 +237,15 @@ public class ClienteControllerTest extends ApplicationTest {
                 .append("horas", horas)
                 .append("salaid", DAO.listarSalas().get(0).getObjectId("_id"));
         DAO.insertarClase(clase);
+        List<Document> asistentes = new ArrayList<Document>();
+        for (int i = 0; i < ocupadas; i++) {
+            asistentes.add(new Document("clienteid", new ObjectId()));
+        }
         DAO.insertarSesion(new Document("claseid", clase.getObjectId("_id"))
                 .append("fecha", new Date(System.currentTimeMillis() + 86400000L))
                 .append("plazaMax", plazas)
                 .append("monitor", DAO.listarMonitores().get(0).getObjectId("_id"))
-                .append("asistentes", new ArrayList<Document>()));
+                .append("asistentes", asistentes));
         return clase;
     }
 

@@ -1,4 +1,184 @@
-.titulo { 
-    -fx-font-family: "Cinzel"; 
-    -fx-background-color: none !important;
+/*
+ * Hoja de estilos única de MongoQuest (Tolotolo Gym).
+ * Todas las vistas la cargan en su raíz (stylesheets="@estilos.css") y usan estas
+ * clases: cada clase es un papel (cabecera, botón, campo...), el mismo en todas las pantallas.
+ */
+
+/* ---------- Fondos ---------- */
+.fondo {
+    -fx-background-color: white;
+}
+
+.fondo-oscuro {
+    -fx-background-color: black;
+}
+
+.marco-registro {
+    -fx-border-color: #1e88e5;
+    -fx-border-width: 3;
+}
+
+/* ---------- Cabecera (franja negra con logo, título y cerrar sesión) ---------- */
+.cabecera {
+    -fx-background-color: black;
+}
+
+.titulo {
+    -fx-font-family: "Cinzel";
+}
+
+.recuadro-titulo {
+    -fx-background-color: #d9d9d9;
+    -fx-alignment: center;
+    -fx-text-fill: black;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.pulsable {
+    -fx-cursor: hand;
+}
+
+/* ---------- Textos ---------- */
+.texto-pequeno {
+    -fx-font-size: 13px;
+}
+
+.texto {
+    -fx-font-size: 14px;
+}
+
+.texto-medio {
+    -fx-font-size: 16px;
+}
+
+.texto-grande {
+    -fx-font-size: 18px;
+}
+
+.subtitulo {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+/* ---------- Botones ---------- */
+.boton,
+.boton-plano {
+    -fx-background-color: #d9d9d9;
+    -fx-background-radius: 0;
+    -fx-font-size: 14px;
+}
+
+.boton {
+    -fx-border-color: black;
+    -fx-border-width: 1;
+}
+
+.boton-redondo {
+    -fx-background-color: white;
+    -fx-background-radius: 16;
+    -fx-border-color: black;
+    -fx-border-radius: 16;
+    -fx-font-size: 16px;
+    -fx-padding: 0;
+}
+
+.enlace {
+    -fx-text-fill: #0000ee;
+    -fx-font-size: 16px;
+    -fx-border-color: transparent;
+    -fx-underline: false;
+}
+
+/* ---------- Campos ---------- */
+.campo {
+    -fx-background-color: #d9d9d9;
+    -fx-border-color: black;
+    -fx-border-width: 1;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+}
+
+.campo-redondo {
+    -fx-background-color: #d9d9d9;
+    -fx-background-radius: 16;
+    -fx-border-color: black;
+    -fx-border-radius: 16;
+    -fx-padding: 0 12 0 12;
+    -fx-font-size: 14px;
+}
+
+.combo {
+    -fx-background-color: #eeeeee;
+    -fx-background-radius: 6;
+    -fx-font-size: 12px;
+}
+
+/* ---------- Contenedores ---------- */
+.panel {
+    -fx-background-color: #d9d9d9;
+    -fx-border-color: black;
+    -fx-border-width: 1;
+}
+
+.panel-blanco {
+    -fx-background-color: white;
+    -fx-border-color: black;
+    -fx-border-width: 1;
+}
+
+.tarjeta {
+    -fx-border-color: black;
+    -fx-border-width: 1.5;
+}
+
+.lista {
+    -fx-background-color: white;
+    -fx-border-color: black;
+    -fx-border-width: 1;
+}
+
+.scroll-blanco {
+    -fx-background: white;
+    -fx-background-color: transparent;
+}
+
+.caja-pulsable {
+    -fx-background-color: #d9d9d9;
+    -fx-border-color: black;
+    -fx-border-width: 1;
+    -fx-cursor: hand;
+}
+
+/* ---------- Horario de sesiones ---------- */
+.horario {
+    -fx-border-color: black;
+    -fx-border-width: 1;
+}
+
+.cabecera-horario {
+    -fx-background-color: #d9d9d9;
+    -fx-border-color: black;
+    -fx-border-width: 0.5;
+    -fx-font-size: 14px;
+}
+
+.hueco-sesion {
+    -fx-background-color: #d9d9d9;
+    -fx-border-color: black;
+    -fx-border-width: 0.5;
+    -fx-cursor: hand;
+}
+
+.hueco-sesion.hueco-ocupado {
+    -fx-background-color: black;
+}
+
+.hueco-ocupado .label {
+    -fx-text-fill: white;
+}
+
+/* ---------- Visor del log ---------- */
+.linea-error {
+    -fx-text-fill: #c62828;
 }
