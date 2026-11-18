@@ -511,7 +511,7 @@ public class GestionClientesController {
      * @param mensaje texto que se muestra
      */
     private void alerta(Alert.AlertType tipo, String mensaje) {
-        // Un único método mantiene consistentes los avisos de esta pantalla.
+        // Todos los avisos de esta pantalla pasan por aquí para que salgan iguales.
         Alert a = new Alert(tipo, mensaje);
         App.ponerIcono(a);
         a.setHeaderText(null);

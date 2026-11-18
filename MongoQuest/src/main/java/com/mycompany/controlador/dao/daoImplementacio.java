@@ -338,7 +338,7 @@ public class daoImplementacio implements dao {
                 }
             }
 
-            // 2. La clase en la lista del cliente; si falla, se devuelve la plaza (compensación).
+            // 2. La clase en la lista del cliente; si falla, le quitamos la plaza que le habíamos dado.
             Document nueva = new Document("id_clase", claseId).append("nombre", nombreClase);
             boolean guardado;
             try {

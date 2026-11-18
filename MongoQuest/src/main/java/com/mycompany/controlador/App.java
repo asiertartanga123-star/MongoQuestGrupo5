@@ -115,7 +115,7 @@ public class App extends Application {
      * @param args argumentos de consola
      */
     public static void main(String[] args) {
-        // Delega el arranque del ciclo de vida en JavaFX.
+        // Arranca JavaFX, que llama a start().
         launch();
     }
 
