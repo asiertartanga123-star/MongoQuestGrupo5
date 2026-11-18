@@ -36,7 +36,7 @@
                   <Insets right="13.0" />
                </StackPane.margin>
                <children>
-                  <Circle fx:id="circAvatar" fill="#e0e0e0" radius="35.0" stroke="WHITE" strokeWidth="1.5" />
+                  <Circle fx:id="circuloFoto" fill="#e0e0e0" radius="35.0" stroke="WHITE" strokeWidth="1.5" />
                   <Button fx:id="btnCerrarSesion" mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="46.0" prefWidth="120.0" style="-fx-background-color: #e0e0e0; -fx-background-radius: 0; -fx-font-size: 15px; -fx-text-fill: #444444;" text="cerrar sesion" />
                </children>
             </HBox>
