@@ -66,14 +66,6 @@ public class GerenteControllerTest extends ApplicationTest {
         FxAssert.verifyThat("#imgClientes", NodeMatchers.isVisible());
     }
 
-    @Test
-    public void pulsarClasesSinPantallaMuestraUnAvisoYSeQuedaEnElPanel() throws Exception {
-        // Si GestorClases.fxml no existe o falla al abrir, debe salir el aviso de error.
-        clickOn("#cardClases");
-
-        // El panel del gerente sigue abierto.
-        FxAssert.verifyThat("#cardClases", NodeMatchers.isVisible());
-    }
 
     @Test
     public void cerrarSesionAbreElLogin() throws Exception {

@@ -24,32 +24,17 @@ import org.bson.Document;
  */
 public class MonitorController implements Initializable {
 
-    /** Contenedor raíz de la pantalla. */
     @FXML private BorderPane raiz;
-    /** Círculo con la foto de perfil del monitor. */
     @FXML private Circle circuloFoto;
-    /** Tarjeta de gestión de monitores. */
     @FXML private VBox cardMonitores;
-    /** Tarjeta de gestión de clases. */
     @FXML private VBox cardClases;
-    /** Tarjeta de gestión de clientes. */
     @FXML private VBox cardClientes;
-    /** Imagen de la tarjeta de monitores. */
     @FXML private ImageView imgMonitores;
-    /** Imagen de la tarjeta de clases. */
     @FXML private ImageView imgClases;
-    /** Imagen de la tarjeta de clientes. */
     @FXML private ImageView imgClientes;
 
-    /** Acceso a la base de datos. */
     private final daoImplementacio dao = new daoImplementacio();
 
-    /**
-     * Ajusta el tamaño de las imágenes de las tarjetas y carga la foto del monitor en sesión.
-     *
-     * @param location ubicación del FXML
-     * @param resources recursos de la vista, si los hay
-     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ajustarImagen(imgMonitores, cardMonitores);
@@ -64,11 +49,6 @@ public class MonitorController implements Initializable {
         }
     }
 
-    /**
-     * Carga en el círculo de perfil la imagen guardada para el DNI del monitor.
-     *
-     * @param dni DNI del monitor en sesión
-     */
     private void cargarFotoPerfil(String dni) {
         if (circuloFoto == null || dni == null || dni.isEmpty()) {
             return;
@@ -79,12 +59,6 @@ public class MonitorController implements Initializable {
         }
     }
 
-    /**
-     * Enlaza el tamaño de una imagen con el de su tarjeta (85 % del ancho y 80 % del alto).
-     *
-     * @param img imagen a escalar
-     * @param card tarjeta que la contiene
-     */
     private void ajustarImagen(ImageView img, VBox card) {
         if (img == null || card == null) {
             return;
@@ -93,7 +67,6 @@ public class MonitorController implements Initializable {
         img.fitHeightProperty().bind(card.heightProperty().multiply(0.80));
     }
 
-    /** Abre la pantalla de gestión de clases en una ventana nueva y cierra la actual. Si no se puede cargar, muestra una alerta. */
     @FXML
     private void onGestionarClases() {
         try {
@@ -110,7 +83,6 @@ public class MonitorController implements Initializable {
         }
     }
 
-    /** Abre la pantalla de gestión de clientes en una ventana nueva y cierra la actual. Si no se puede cargar, muestra una alerta. */
     @FXML
     private void onGestionarClientes() {
         try {
@@ -127,7 +99,6 @@ public class MonitorController implements Initializable {
         }
     }
 
-    /** Abre la pantalla de login en una ventana nueva y cierra la actual. Si no se puede cargar, muestra una alerta. */
     @FXML
     private void onCerrarSesion() {
         try {
