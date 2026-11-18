@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.util.Callback;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.AfterEach;
@@ -71,7 +72,12 @@ public class ClienteControllerTest extends ApplicationTest {
 
         // 3. Cargamos Cliente.fxml inyectando el controlador con el DAO falso
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/mycompany/vista/Cliente.fxml"));
-        loader.setControllerFactory(param -> new ClienteController(dao));
+        loader.setControllerFactory(new Callback<Class<?>, Object>() {
+            @Override
+            public Object call(Class<?> param) {
+                return new ClienteController(dao);
+            }
+        });
 
         Parent root = loader.load();
         stage.setScene(new Scene(root));
@@ -82,7 +88,14 @@ public class ClienteControllerTest extends ApplicationTest {
     // Cierra las ventanas que haya dejado abierta cada prueba (por ejemplo, la de Login)
     @AfterEach
     public void cerrarVentanas() throws Exception {
-        interact(() -> listWindows().forEach(Window::hide));
+        interact(new Runnable() {
+            @Override
+            public void run() {
+                for (Window w : listWindows()) {
+                    w.hide();
+                }
+            }
+        });
     }
 
     @Test

@@ -196,13 +196,17 @@ public class ClienteController implements Initializable {
                 return;
             }
             boolean guardado = dao.apuntarseAClase(LoginController.mailActual, idClase, nombre.getText());
+            // Se vuelve a leer la sesión: el contador cambia si entró o si otro llenó la sala.
+            String plazasAhora = plazasDe(idClase);
+            plazas.setText(plazasAhora);
             if (!guardado) {
-                new Alert(Alert.AlertType.ERROR, "No se pudo guardar la inscripción.").showAndWait();
+                new Alert(Alert.AlertType.WARNING, "No se pudo apuntar a " + nombre.getText()
+                        + ": la clase está completa (" + plazasAhora + ") o hubo un error al guardar.").showAndWait();
                 return;
             }
 
             nombresIzq[hueco].setText(nombre.getText());
-            plazasIzq[hueco].setText(plazas.getText());
+            plazasIzq[hueco].setText(plazasAhora);
         }
     }
 

@@ -1,6 +1,6 @@
 package com.mycompany.controlador;
 
-import com.mongodb.MongoException;
+import com.mycompany.controlador.dao.DatosException;
 import com.mycompany.controlador.dao.daoImplementacio;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -12,6 +12,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -29,6 +33,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import javafx.util.StringConverter;
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -196,30 +201,75 @@ public class GestionClasesController {
             }
         };
 
-        listClases.setCellFactory(lv -> celda(textoClase));
-        listSesiones.setCellFactory(lv -> celda(textoSesion));
-        choSala.setConverter(conversor(d -> d.getString("nombre") + " (" + d.getInteger("aforoMaximo", 0) + ")"));
-        choMonitor.setConverter(conversor(d -> d.getString("nombre") + " " + d.getString("apellido")));
-
-        listClases.getSelectionModel().selectedItemProperty().addListener((obs, antes, clase) -> mostrarClase(clase));
-        listSesiones.getSelectionModel().selectedItemProperty().addListener((obs, antes, sesion) -> mostrarSesion(sesion));
-
-        // Guardar al cambiar sala o monitor (solo si lo ha cambiado el usuario)
-        choSala.getSelectionModel().selectedItemProperty().addListener((obs, antes, sala) -> {
-            if (!rellenando && sala != null) {
-                guardarClase();
+        listClases.setCellFactory(new Callback<ListView<Document>, ListCell<Document>>() {
+            @Override
+            public ListCell<Document> call(ListView<Document> lv) {
+                return celda(textoClase);
             }
         });
-        choMonitor.getSelectionModel().selectedItemProperty().addListener((obs, antes, monitor) -> {
-            if (!rellenando && monitor != null) {
-                guardarSesion();
+        listSesiones.setCellFactory(new Callback<ListView<Document>, ListCell<Document>>() {
+            @Override
+            public ListCell<Document> call(ListView<Document> lv) {
+                return celda(textoSesion);
+            }
+        });
+        choSala.setConverter(conversor(new Texto() {
+            public String de(Document d) {
+                return d.getString("nombre") + " (" + d.getInteger("aforoMaximo", 0) + ")";
+            }
+        }));
+        choMonitor.setConverter(conversor(new Texto() {
+            public String de(Document d) {
+                return d.getString("nombre") + " " + d.getString("apellido");
+            }
+        }));
+
+        listClases.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Document>() {
+            @Override
+            public void changed(ObservableValue<? extends Document> obs, Document antes, Document clase) {
+                mostrarClase(clase);
+            }
+        });
+        listSesiones.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Document>() {
+            @Override
+            public void changed(ObservableValue<? extends Document> obs, Document antes, Document sesion) {
+                mostrarSesion(sesion);
+            }
+        });
+
+        // Guardar al cambiar sala o monitor (solo si lo ha cambiado el usuario)
+        choSala.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Document>() {
+            @Override
+            public void changed(ObservableValue<? extends Document> obs, Document antes, Document sala) {
+                if (!rellenando && sala != null) {
+                    guardarClase();
+                }
+            }
+        });
+        choMonitor.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Document>() {
+            @Override
+            public void changed(ObservableValue<? extends Document> obs, Document antes, Document monitor) {
+                if (!rellenando && monitor != null) {
+                    guardarSesion();
+                }
             }
         });
 
         // Enter en un campo = guardar
-        txtNombreClase.setOnAction(e -> guardarClase());
-        txtNombreSesion.setOnAction(e -> guardarSesion());
-        txtAforo.setOnAction(e -> guardarSesion());
+        txtNombreClase.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                guardarClase();
+            }
+        });
+        EventHandler<ActionEvent> guardarSesionAlPulsarEnter = new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                guardarSesion();
+            }
+        };
+        txtNombreSesion.setOnAction(guardarSesionAlPulsarEnter);
+        txtAforo.setOnAction(guardarSesionAlPulsarEnter);
 
         try {
             choSala.getItems().setAll(dao.listarSalas());
@@ -228,8 +278,8 @@ public class GestionClasesController {
                 nombreClientes.put(c.getObjectId("_id"), c.getString("nombre") + " " + c.getString("apellido"));
             }
             listClases.getItems().setAll(dao.listarClases());
-        } catch (MongoException e) {
-            e.printStackTrace();
+        } catch (DatosException e) {
+            Registro.error("Error en " + getClass().getSimpleName(), e);
             alerta(Alert.AlertType.ERROR, "No se puede conectar con MongoDB.");
         }
 
@@ -260,7 +310,7 @@ public class GestionClasesController {
         if (hay) {
             try {
                 listSesiones.getItems().setAll(dao.listarSesiones(c.getObjectId("_id")));
-            } catch (MongoException e) {
+            } catch (DatosException e) {
                 alerta(Alert.AlertType.ERROR, "No se pudieron cargar las sesiones.");
             }
         }
@@ -288,7 +338,7 @@ public class GestionClasesController {
             c.put("salaid", sala.getObjectId("_id"));
             listClases.refresh();
             lblClase.setText("Datos " + nombre);
-        } catch (MongoException e) {
+        } catch (DatosException e) {
             alerta(Alert.AlertType.ERROR, "No se pudo guardar la clase.");
         }
     }
@@ -325,7 +375,7 @@ public class GestionClasesController {
             listClases.getItems().add(nueva);
             listClases.getSelectionModel().select(nueva);
             listClases.scrollTo(nueva);
-        } catch (MongoException e) {
+        } catch (DatosException e) {
             alerta(Alert.AlertType.ERROR, "No se pudo crear la clase.");
         }
     }
@@ -342,7 +392,7 @@ public class GestionClasesController {
             dao.eliminarClase(c.getObjectId("_id"));
             listClases.getItems().remove(c);
             listClases.getSelectionModel().clearSelection();
-        } catch (MongoException e) {
+        } catch (DatosException e) {
             alerta(Alert.AlertType.ERROR, "No se pudo borrar la clase.");
         }
     }
@@ -369,7 +419,7 @@ public class GestionClasesController {
             escena.setRoot(vista);
             ((Stage) escena.getWindow()).setTitle("Tolotolo - Sesiones de " + c.getString("nombre"));
         } catch (IOException | NullPointerException e) {
-            e.printStackTrace();
+            Registro.error("Error en " + getClass().getSimpleName(), e);
             alerta(Alert.AlertType.ERROR, "No se pudo abrir el horario de sesiones.");
         }
     }
@@ -435,7 +485,7 @@ public class GestionClasesController {
             s.put("monitor", monitor.getObjectId("_id"));
             listSesiones.refresh();
             lblSesion.setText("Sesión " + fechaATexto(d));
-        } catch (MongoException e) {
+        } catch (DatosException e) {
             alerta(Alert.AlertType.ERROR, "No se pudo guardar la sesión.");
         }
     }
@@ -482,7 +532,7 @@ public class GestionClasesController {
             dao.eliminarSesion(s.getObjectId("_id"));
             listSesiones.getItems().remove(s);
             listSesiones.getSelectionModel().clearSelection();
-        } catch (MongoException e) {
+        } catch (DatosException e) {
             alerta(Alert.AlertType.ERROR, "No se pudo borrar la sesión.");
         }
     }
@@ -502,7 +552,7 @@ public class GestionClasesController {
             escena.setRoot(FXMLLoader.load(getClass().getResource(fxml)));
             ventana.setTitle(titulo);
         } catch (Exception e) {
-            e.printStackTrace();
+            Registro.error("Error en " + getClass().getSimpleName(), e);
             alerta(Alert.AlertType.ERROR, "No se pudo volver: " + e.getMessage());
         }
     }
@@ -518,7 +568,7 @@ public class GestionClasesController {
             login.show();
             ((Stage) raiz.getScene().getWindow()).close();
         } catch (IOException | NullPointerException e) {
-            e.printStackTrace();
+            Registro.error("Error en " + getClass().getSimpleName(), e);
             alerta(Alert.AlertType.ERROR, "No se pudo volver al login.");
         }
     }

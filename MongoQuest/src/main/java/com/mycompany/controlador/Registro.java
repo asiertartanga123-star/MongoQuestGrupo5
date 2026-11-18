@@ -3,6 +3,7 @@ package com.mycompany.controlador;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -10,6 +11,8 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.FileHandler;
 import java.util.logging.Filter;
 import java.util.logging.Formatter;
@@ -173,6 +176,24 @@ public class Registro {
      */
     public static void error(String mensaje, Throwable causa) {
         LOG.log(Level.SEVERE, mensaje, causa);
+    }
+
+    // ---------- Lectura del log de operaciones ----------
+
+    /**
+     * Lee el log de operaciones actual ({@code datos/logs/operaciones.0.log}) para mostrarlo
+     * en la aplicación. Cada línea tiene el formato
+     * {@code fecha | usuario | tipo | detalle | resultado}.
+     *
+     * @return las líneas del log, de la más antigua a la más reciente; vacía si aún no existe
+     * @throws IOException si el archivo existe pero no se puede leer
+     */
+    public static List<String> leerOperaciones() throws IOException {
+        Path archivo = CARPETA.resolve("operaciones.0.log");
+        if (!Files.exists(archivo)) {
+            return new ArrayList<String>();
+        }
+        return Files.readAllLines(archivo, StandardCharsets.UTF_8);
     }
 
     // ---------- Usuario actual ----------

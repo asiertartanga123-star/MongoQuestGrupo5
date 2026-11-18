@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+
+<BorderPane prefHeight="520.0" prefWidth="980.0" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.controlador.VisorLogController">
+   <top>
+      <HBox alignment="CENTER_LEFT" spacing="10.0">
+         <padding>
+            <Insets bottom="10.0" left="12.0" right="12.0" top="12.0" />
+         </padding>
+         <children>
+            <Label styleClass="titulo" text="Log de operaciones" />
+            <TextField fx:id="txtFiltro" promptText="Filtrar por usuario, operación, fecha o resultado" HBox.hgrow="ALWAYS">
+               <tooltip>
+                  <Tooltip text="Muestra solo las líneas que contienen este texto (sin distinguir mayúsculas)" />
+               </tooltip>
+            </TextField>
+            <Button fx:id="btnRecargar" mnemonicParsing="false" onAction="#onRecargar" text="Recargar" />
+            <Button fx:id="btnCerrar" mnemonicParsing="false" onAction="#onCerrar" text="Cerrar" />
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <TableView fx:id="tablaLog">
+         <columns>
+            <TableColumn fx:id="colFecha" prefWidth="140.0" text="Fecha" />
+            <TableColumn fx:id="colUsuario" prefWidth="160.0" text="Usuario" />
+            <TableColumn fx:id="colTipo" prefWidth="170.0" text="Operación" />
+            <TableColumn fx:id="colDetalle" prefWidth="370.0" text="Detalle" />
+            <TableColumn fx:id="colResultado" prefWidth="110.0" text="Resultado" />
+         </columns>
+         <BorderPane.margin>
+            <Insets bottom="12.0" left="12.0" right="12.0" />
+         </BorderPane.margin>
+      </TableView>
+   </center>
+   <bottom>
+      <Label fx:id="lblTotal" text="0 operaciones">
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="12.0" />
+         </BorderPane.margin>
+      </Label>
+   </bottom>
+</BorderPane>

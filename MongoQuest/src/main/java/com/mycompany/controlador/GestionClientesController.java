@@ -1,8 +1,8 @@
 package com.mycompany.controlador;
 
-import com.mongodb.ErrorCategory;
-import com.mongodb.MongoException;
-import com.mongodb.MongoWriteException;
+import com.mycompany.controlador.dao.DatosException;
+import com.mycompany.controlador.dao.DuplicadoException;
+import com.mycompany.controlador.dao.ConexionException;
 import com.mycompany.controlador.dao.daoImplementacio;
 import java.io.File;
 import java.io.IOException;
@@ -160,7 +160,7 @@ public class GestionClientesController {
             List<Document> clientes = dao.listarClientes();
             Registro.info("Clientes cargados: " + clientes.size());
             listClientes.getItems().setAll(clientes);
-        } catch (MongoException e) {
+        } catch (DatosException e) {
             Registro.error("No se pudieron cargar los clientes", e);
             alerta(Alert.AlertType.ERROR, "No se puede conectar con MongoDB.");
         }
@@ -269,17 +269,15 @@ public class GestionClientesController {
             Registro.info("Cliente modificado: " + dniOriginal
                     + (dniOriginal.equals(dni) ? "" : " (nuevo DNI: " + dni + ")"));
             alerta(Alert.AlertType.INFORMATION, "Datos guardados.");
-        } catch (MongoWriteException e) {
-            if (e.getError().getCategory() == ErrorCategory.DUPLICATE_KEY) {
-                Registro.aviso("Modificación rechazada, DNI o mail duplicado: " + dni + " / " + mail);
-                alerta(Alert.AlertType.ERROR, "Ya existe otro cliente con ese DNI o ese mail.");
-            } else {
-                Registro.error("No se pudieron guardar los datos del cliente " + dniOriginal, e);
-                alerta(Alert.AlertType.ERROR, "No se pudieron guardar los datos.");
-            }
-        } catch (MongoException e) {
+        } catch (DuplicadoException e) {
+            Registro.aviso("Modificación rechazada, DNI o mail duplicado: " + dni + " / " + mail);
+            alerta(Alert.AlertType.ERROR, "Ya existe otro cliente con ese DNI o ese mail.");
+        } catch (ConexionException e) {
             Registro.error("No se pudo conectar con MongoDB al guardar al cliente " + dniOriginal, e);
             alerta(Alert.AlertType.ERROR, "No se puede conectar con MongoDB.");
+        } catch (DatosException e) {
+            Registro.error("No se pudieron guardar los datos del cliente " + dniOriginal, e);
+            alerta(Alert.AlertType.ERROR, "No se pudieron guardar los datos.");
         } catch (IOException e) {
             Registro.error("Datos guardados, pero no se pudo renombrar la foto de " + dniOriginal, e);
             alerta(Alert.AlertType.ERROR, "Datos guardados, pero no se pudo renombrar la foto.");
@@ -365,17 +363,15 @@ public class GestionClientesController {
             listClientes.getSelectionModel().select(nuevo);
             listClientes.scrollTo(nuevo);
             Registro.info("Cliente dado de alta: " + dni + " (" + fMembresia.getValue() + ")");
-        } catch (MongoWriteException e) {
-            if (e.getError().getCategory() == ErrorCategory.DUPLICATE_KEY) {
-                Registro.aviso("Alta rechazada, DNI o mail duplicado: " + dni + " / " + mail);
-                alerta(Alert.AlertType.ERROR, "Ya existe un cliente con ese DNI o ese mail.");
-            } else {
-                Registro.error("No se pudo guardar el cliente " + dni, e);
-                alerta(Alert.AlertType.ERROR, "No se pudo guardar el cliente.");
-            }
-        } catch (MongoException e) {
+        } catch (DuplicadoException e) {
+            Registro.aviso("Alta rechazada, DNI o mail duplicado: " + dni + " / " + mail);
+            alerta(Alert.AlertType.ERROR, "Ya existe un cliente con ese DNI o ese mail.");
+        } catch (ConexionException e) {
             Registro.error("No se pudo conectar con MongoDB al dar de alta a " + dni, e);
             alerta(Alert.AlertType.ERROR, "No se puede conectar con MongoDB.");
+        } catch (DatosException e) {
+            Registro.error("No se pudo guardar el cliente " + dni, e);
+            alerta(Alert.AlertType.ERROR, "No se pudo guardar el cliente.");
         }
     }
 
@@ -403,7 +399,7 @@ public class GestionClientesController {
                 GestorImagenes.borrar(dni);
                 cargarClientes();
                 mostrarCliente(null);
-            } catch (MongoException e) {
+            } catch (DatosException e) {
                 Registro.error("No se pudo dar de baja al cliente " + dni, e);
                 alerta(Alert.AlertType.ERROR, "No se pudo dar de baja al cliente.");
             } catch (IOException e) {

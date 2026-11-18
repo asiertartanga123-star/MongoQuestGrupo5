@@ -1,5 +1,6 @@
 package com.mycompany.controlador;
 
+import com.mycompany.controlador.dao.DatosException;
 import com.mycompany.controlador.dao.daoImplementacio;
 import java.io.IOException;
 import java.net.URL;
@@ -78,7 +79,7 @@ public class MonitorController implements Initializable {
 
             ((Stage) raiz.getScene().getWindow()).close();
         } catch (IOException | NullPointerException e) {
-            e.printStackTrace();
+            Registro.error("Error en " + getClass().getSimpleName(), e);
             new Alert(Alert.AlertType.ERROR, "No se pudo cargar GestorClases.").showAndWait();
         }
     }
@@ -94,7 +95,7 @@ public class MonitorController implements Initializable {
 
             ((Stage) raiz.getScene().getWindow()).close();
         } catch (IOException | NullPointerException e) {
-            e.printStackTrace();
+            Registro.error("Error en " + getClass().getSimpleName(), e);
             new Alert(Alert.AlertType.ERROR, "No se pudo cargar GestorClientes.").showAndWait();
         }
     }
@@ -110,7 +111,7 @@ public class MonitorController implements Initializable {
 
             ((Stage) raiz.getScene().getWindow()).close();
         } catch (IOException | NullPointerException e) {
-            e.printStackTrace();
+            Registro.error("Error en " + getClass().getSimpleName(), e);
             new Alert(Alert.AlertType.ERROR, "No se pudo volver al login.").showAndWait();
         }
     }
