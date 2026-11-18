@@ -25,10 +25,6 @@ import org.bson.Document;
  */
 public class MonitorController implements Initializable {
 
-    /** Crea el controlador; lo instancia JavaFX al cargar el FXML. */
-    public MonitorController() {
-    }
-
     /** Contenedor raíz de la pantalla. */
     @FXML private BorderPane raiz;
     /** Círculo donde se muestra la foto del monitor. */
@@ -47,7 +43,21 @@ public class MonitorController implements Initializable {
     @FXML private ImageView imgClientes;
 
     /** Acceso a los datos de MongoDB. */
-    private final daoImplementacio dao = new daoImplementacio();
+    private final daoImplementacio dao;
+
+    /** Crea el controlador con el acceso a datos real; es el que usa JavaFX al cargar el FXML. */
+    public MonitorController() {
+        this(new daoImplementacio());
+    }
+
+    /**
+     * Crea el controlador con el acceso a datos indicado; se usa en los tests de errores de MongoDB.
+     *
+     * @param dao acceso a datos que usará el controlador
+     */
+    public MonitorController(daoImplementacio dao) {
+        this.dao = dao;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -56,9 +66,14 @@ public class MonitorController implements Initializable {
         ajustarImagen(imgClientes, cardClientes);
 
         if (LoginController.mailActual != null) {
-            Document monitor = dao.buscarTrabajadorPorMail(LoginController.mailActual);
-            if (monitor != null) {
-                cargarFotoPerfil(monitor.getString("dni"));
+            // Si MongoDB falla solo se pierde la foto: el panel se abre igual y el error queda en el log.
+            try {
+                Document monitor = dao.buscarTrabajadorPorMail(LoginController.mailActual);
+                if (monitor != null) {
+                    cargarFotoPerfil(monitor.getString("dni"));
+                }
+            } catch (DatosException e) {
+                Registro.error("No se pudieron leer los datos del monitor " + LoginController.mailActual, e);
             }
         }
     }
