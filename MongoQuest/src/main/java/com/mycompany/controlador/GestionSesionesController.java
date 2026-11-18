@@ -48,8 +48,18 @@ import org.bson.types.ObjectId;
  */
 public class GestionSesionesController {
 
-    /** Crea el controlador; lo instancia JavaFX al cargar el FXML. */
+    /** Crea el controlador con el acceso a datos real; es el que usa JavaFX al cargar el FXML. */
     public GestionSesionesController() {
+        this(new daoImplementacio());
+    }
+
+    /**
+     * Crea el controlador con el acceso a datos indicado; se usa en los tests de errores de MongoDB.
+     *
+     * @param dao acceso a datos que usará el controlador
+     */
+    public GestionSesionesController(daoImplementacio dao) {
+        this.dao = dao;
     }
 
     /** Nombre del día tal como se guarda en {@code horas.dia}; el índice es la columna de la rejilla menos 1. */
@@ -67,7 +77,7 @@ public class GestionSesionesController {
     @FXML private GridPane gridHorario;
 
     /** Acceso a MongoDB. */
-    private final daoImplementacio dao = new daoImplementacio();
+    private final daoImplementacio dao;
     /** Clase cuyo horario se muestra; la fija {@link #setClase(Document)}. */
     private Document clase;
 

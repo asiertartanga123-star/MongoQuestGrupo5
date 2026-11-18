@@ -45,8 +45,18 @@ import org.bson.Document;
  */
 public class GestionMonitorController {
 
-    /** Crea el controlador; lo instancia JavaFX al cargar el FXML. */
+    /** Crea el controlador con el acceso a datos real; es el que usa JavaFX al cargar el FXML. */
     public GestionMonitorController() {
+        this(new daoImplementacio());
+    }
+
+    /**
+     * Crea el controlador con el acceso a datos indicado; se usa en los tests de errores de MongoDB.
+     *
+     * @param dao acceso a datos que usará el controlador
+     */
+    public GestionMonitorController(daoImplementacio dao) {
+        this.dao = dao;
     }
 
     // Controles enlazados con la lista de monitores y su ficha de datos.
@@ -91,7 +101,7 @@ public class GestionMonitorController {
     private Button btnBaja;
 
     /** Acceso a la base de datos. */
-    private final daoImplementacio dao = new daoImplementacio();
+    private final daoImplementacio dao;
     // Formato de presentación de la fecha de alta.
     /** Formato con el que se muestra la fecha de alta. */
     private static final DateTimeFormatter FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");

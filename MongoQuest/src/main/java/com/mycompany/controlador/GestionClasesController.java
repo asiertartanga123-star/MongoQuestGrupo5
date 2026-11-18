@@ -45,8 +45,18 @@ import org.bson.types.ObjectId;
  */
 public class GestionClasesController {
 
-    /** Crea el controlador; lo instancia JavaFX al cargar el FXML. */
+    /** Crea el controlador con el acceso a datos real; es el que usa JavaFX al cargar el FXML. */
     public GestionClasesController() {
+        this(new daoImplementacio());
+    }
+
+    /**
+     * Crea el controlador con el acceso a datos indicado; se usa en los tests de errores de MongoDB.
+     *
+     * @param dao acceso a datos que usará el controlador
+     */
+    public GestionClasesController(daoImplementacio dao) {
+        this.dao = dao;
     }
 
     /** Contenedor raíz de la vista; da acceso a la escena y a la ventana. */
@@ -83,7 +93,7 @@ public class GestionClasesController {
     @FXML private Button btnBorrarSesion;
 
     /** Acceso a MongoDB. */
-    private final daoImplementacio dao = new daoImplementacio();
+    private final daoImplementacio dao;
     /** Formato con el que se muestran y se escriben las fechas de las sesiones. */
     private static final DateTimeFormatter FECHA_HORA = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 

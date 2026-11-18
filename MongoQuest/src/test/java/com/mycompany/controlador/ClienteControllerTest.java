@@ -228,8 +228,11 @@ public class ClienteControllerTest extends ApplicationTest {
      * @return la clase creada, con su _id
      */
     private static Document crearClaseConSesion(String nombre, int plazas) {
+        // El esquema de Clases (01_crear_bd_validaciones.js) exige al menos una franja en "horas".
+        List<Document> horas = new ArrayList<Document>();
+        horas.add(new Document("dia", "lunes").append("horainicio", "09:00").append("horafin", "10:00"));
         Document clase = new Document("nombre", nombre)
-                .append("horas", new ArrayList<Document>())
+                .append("horas", horas)
                 .append("salaid", DAO.listarSalas().get(0).getObjectId("_id"));
         DAO.insertarClase(clase);
         DAO.insertarSesion(new Document("claseid", clase.getObjectId("_id"))
