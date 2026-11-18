@@ -46,8 +46,18 @@ import org.bson.Document;
  */
 public class GestionClientesController {
 
-    /** Crea el controlador; lo instancia JavaFX al cargar el FXML. */
+    /** Crea el controlador con el acceso a datos real; es el que usa JavaFX al cargar el FXML. */
     public GestionClientesController() {
+        this(new daoImplementacio());
+    }
+
+    /**
+     * Crea el controlador con el acceso a datos indicado; se usa en los tests de errores de MongoDB.
+     *
+     * @param dao acceso a datos que usará el controlador
+     */
+    public GestionClientesController(daoImplementacio dao) {
+        this.dao = dao;
     }
 
     // Controles vinculados por fx:id con la ficha y la lista de clientes.
@@ -101,7 +111,7 @@ public class GestionClientesController {
     private Button btnAlta;
 
     /** Acceso a la base de datos. */
-    private final daoImplementacio dao = new daoImplementacio();
+    private final daoImplementacio dao;
     // Formato utilizado para mostrar las fechas BSON en la ficha.
     /** Formato con el que se muestran las fechas en la ficha. */
     private static final DateTimeFormatter FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");

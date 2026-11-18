@@ -23,8 +23,18 @@ import org.bson.Document;
  */
 public class RegisterController {
 
-    /** Crea el controlador; lo instancia JavaFX al cargar el FXML. */
+    /** Crea el controlador con el acceso a datos real; es el que usa JavaFX al cargar el FXML. */
     public RegisterController() {
+        this(new daoImplementacio());
+    }
+
+    /**
+     * Crea el controlador con el acceso a datos indicado; se usa en los tests de errores de MongoDB.
+     *
+     * @param dao acceso a datos que usará el controlador
+     */
+    public RegisterController(daoImplementacio dao) {
+        this.dao = dao;
     }
 
     /** Contenedor raíz de la pantalla. */
@@ -49,7 +59,7 @@ public class RegisterController {
     @FXML private ComboBox<String> cmbNivel;
 
     /** Acceso a la base de datos. */
-    private final daoImplementacio dao = new daoImplementacio();
+    private final daoImplementacio dao;
 
     /** Rellena el selector de membresía, selecciona la primera opción y ajusta las imágenes de los toros al tamaño de la ventana. */
     @FXML
