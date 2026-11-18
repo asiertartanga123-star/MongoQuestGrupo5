@@ -52,7 +52,7 @@ public class GerenteController {
      */
     @FXML
     private void initialize() {
-        // Escalar imágenes rompiendo la dependencia circular de layout
+        // Las imágenes se ajustan al tamaño de su tarjeta
         ajustarImagen(imgMonitores, cardMonitores);
         ajustarImagen(imgClases, cardClases);
         ajustarImagen(imgClientes, cardClientes);
@@ -69,8 +69,8 @@ public class GerenteController {
 
         img.setPreserveRatio(true);
 
-        // Escuchar cambios de tamaño del VBox en lugar de bindear propiedades directamente.
-        // Esto evita que el ImageView infle el tamaño preferido del contenedor padre.
+        // Cuando cambia el tamaño de la tarjeta, cambiamos el de la imagen.
+        // Con un bind la imagen hacía crecer la tarjeta y no paraba de agrandarse.
         card.widthProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> obs, Number oldVal, Number newVal) {

@@ -3,7 +3,7 @@ package com.mycompany.controlador;
 import javafx.scene.control.ListCell;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.util.List;
+import java.util.Set;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -94,8 +94,7 @@ public class GestionMonitorControllerTest extends ApplicationTest {
 
     /** Pulsa el botón "No" de una confirmación, sin depender del idioma del texto. */
     private void pulsarNoEnLaConfirmacion() {
-        List<Button> botones = lookup(".dialog-pane .button").queryAllAs(Button.class)
-                .stream().collect(java.util.stream.Collectors.toList());
+        Set<Button> botones = lookup(".dialog-pane .button").queryAllAs(Button.class);
         for (Button b : botones) {
             if (ButtonBar.getButtonData(b) == ButtonBar.ButtonData.NO) {
                 clickOn(b);
