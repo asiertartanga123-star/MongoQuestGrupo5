@@ -1,5 +1,6 @@
 package com.mycompany.controlador;
 
+import javafx.scene.control.ListCell;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import javafx.fxml.FXMLLoader;
@@ -30,7 +31,11 @@ import org.testfx.matcher.base.NodeMatchers;
  */
 public class GestionClasesControllerTest extends ApplicationTest {
 
-    // Si MongoDB no está arrancado, se saltan todos los tests de esta clase.
+    /** Crea la clase de pruebas; JUnit crea una instancia para cada test. */
+    public GestionClasesControllerTest() {
+    }
+
+    /** Si MongoDB no está arrancado, se saltan todos los tests de esta clase. */
     @BeforeAll
     public static void comprobarMongo() {
         boolean activo = false;
@@ -58,7 +63,11 @@ public class GestionClasesControllerTest extends ApplicationTest {
         stage.show();
     }
 
-    // Después de cada test se cierran todas las ventanas que se hayan abierto.
+    /**
+     * Después de cada test se cierran todas las ventanas que se hayan abierto.
+     *
+     * @throws Exception si TestFX no puede abrir, esperar o cerrar una ventana
+     */
     @AfterEach
     public void cerrarVentanas() throws Exception {
         FxToolkit.cleanupStages();
@@ -66,38 +75,31 @@ public class GestionClasesControllerTest extends ApplicationTest {
 
     // ---------- Ayudas ----------
 
-    // Selecciona la primera clase de la lista (se omite el test si no hay ninguna).
+    /**
+     * Selecciona la primera clase de la lista (se omite el test si no hay ninguna).
+     *
+     * @return la clase elegida
+     */
     private Document seleccionarPrimeraClase() {
         final ListView<Document> lista = lookup("#listClases").query();
         Assumptions.assumeTrue(!lista.getItems().isEmpty(), "No hay clases en la base de datos");
-        interact(new Runnable() {
-            @Override
-            public void run() {
-                lista.getSelectionModel().selectFirst();
-            }
-        });
+        pulsarFila(lista, 0);
         return lista.getSelectionModel().getSelectedItem();
     }
 
-    // Selecciona la primera clase que tenga sesiones y su primera sesión (se omite si no hay).
+    /**
+     * Selecciona la primera clase que tenga sesiones y su primera sesión (se omite si no hay).
+     *
+     * @return la sesión elegida
+     */
     private Document seleccionarPrimeraSesion() {
         final ListView<Document> clases = lookup("#listClases").query();
         final ListView<Document> sesiones = lookup("#listSesiones").query();
         for (int i = 0; i < clases.getItems().size(); i++) {
             final int indice = i;
-            interact(new Runnable() {
-                @Override
-                public void run() {
-                    clases.getSelectionModel().select(indice);
-                }
-            });
+            pulsarFila(clases, indice);
             if (!sesiones.getItems().isEmpty()) {
-                interact(new Runnable() {
-                    @Override
-                    public void run() {
-                        sesiones.getSelectionModel().selectFirst();
-                    }
-                });
+                pulsarFila(sesiones, 0);
                 return sesiones.getSelectionModel().getSelectedItem();
             }
         }
@@ -105,20 +107,23 @@ public class GestionClasesControllerTest extends ApplicationTest {
         return null;
     }
 
-    // Escribe un texto en un campo y pulsa Enter en él, que es como se guarda en esta pantalla.
+    /**
+     * Escribe un texto en un campo y pulsa Enter en él, que es como se guarda en esta pantalla.
+     *
+     * @param selector selector CSS del campo
+     * @param texto texto que se escribe o que debe decir el aviso
+     */
     private void escribirYPulsarEnter(String selector, final String texto) {
         final TextField campo = lookup(selector).query();
-        interact(new Runnable() {
-            @Override
-            public void run() {
-                campo.setText(texto);
-            }
-        });
-        clickOn(campo);
+        teclear(campo, texto);
         type(KeyCode.ENTER);
     }
 
-    // Pulsa el botón de un diálogo por su función (Aceptar, Cancelar, No…), sin depender del idioma.
+    /**
+     * Pulsa el botón de un diálogo por su función (Aceptar, Cancelar, No…), sin depender del idioma.
+     *
+     * @param funcion función del botón (guardar, cancelar, sí, no…)
+     */
     private void pulsarBoton(ButtonBar.ButtonData funcion) {
         for (Button b : lookup(".dialog-pane .button").queryAllAs(Button.class)) {
             if (ButtonBar.getButtonData(b) == funcion) {
@@ -131,6 +136,44 @@ public class GestionClasesControllerTest extends ApplicationTest {
 
     // ---------- Tests: clases ----------
 
+    /**
+     * Pulsa con el ratón la fila «indice» de una lista, como haría el usuario.
+     *
+     * @param lista lista en la que se pulsa
+     * @param indice posición de la fila, empezando en 0
+     */
+    private void pulsarFila(final ListView<Document> lista, final int indice) {
+        interact(new Runnable() {
+            @Override
+            public void run() {
+                lista.scrollTo(indice);
+            }
+        });
+        for (ListCell<?> celda : lista.lookupAll(".list-cell").toArray(new ListCell<?>[0])) {
+            if (celda.getIndex() == indice && celda.isVisible()) {
+                clickOn(celda);
+                return;
+            }
+        }
+        Assertions.fail("No se ve la fila " + indice + " de la lista");
+    }
+
+    /**
+     * Sustituye el texto de un campo escribiéndolo con el teclado.
+     *
+     * @param campo campo de texto
+     * @param texto texto que se escribe o que debe decir el aviso
+     */
+    private void teclear(TextField campo, String texto) {
+        clickOn(campo);
+        push(KeyCode.CONTROL, KeyCode.A);
+        type(KeyCode.BACK_SPACE);
+        if (!texto.isEmpty()) {
+            write(texto);
+        }
+    }
+
+    /** Comprueba que al abrir la pantalla los controles de edición están desactivados. */
     @Test
     public void alAbrirLaPantallaLosControlesDeEdicionEstanDesactivados() {
         FxAssert.verifyThat("#btnCrearClase", NodeMatchers.isEnabled());
@@ -141,6 +184,7 @@ public class GestionClasesControllerTest extends ApplicationTest {
         FxAssert.verifyThat("#txtAforo", NodeMatchers.isDisabled());
     }
 
+    /** Comprueba que al elegir una clase se rellena la ficha y se activan los botones. */
     @Test
     public void alElegirUnaClaseSeRellenaLaFichaYSeActivanLosBotones() {
         Document clase = seleccionarPrimeraClase();
@@ -157,6 +201,7 @@ public class GestionClasesControllerTest extends ApplicationTest {
         FxAssert.verifyThat("#btnBorrarClase", NodeMatchers.isEnabled());
     }
 
+    /** Comprueba que las sesiones listadas son de la clase elegida. */
     @Test
     public void lasSesionesListadasSonDeLaClaseElegida() {
         Document clase = seleccionarPrimeraClase();
@@ -168,6 +213,7 @@ public class GestionClasesControllerTest extends ApplicationTest {
         }
     }
 
+    /** Comprueba que guardar una clase con el nombre vacío muestra un aviso. */
     @Test
     public void guardarUnaClaseConElNombreVacioMuestraUnAviso() {
         seleccionarPrimeraClase();
@@ -178,6 +224,7 @@ public class GestionClasesControllerTest extends ApplicationTest {
         type(KeyCode.ENTER);
     }
 
+    /** Comprueba que cancelar el alta no añade ninguna clase. */
     @Test
     public void cancelarElAltaNoAnadeNingunaClase() {
         ListView<Document> lista = lookup("#listClases").query();
@@ -190,6 +237,7 @@ public class GestionClasesControllerTest extends ApplicationTest {
         Assertions.assertEquals(antes, lista.getItems().size(), "No debería haberse añadido ninguna clase");
     }
 
+    /** Comprueba que crear una clase sin nombre muestra un aviso y no la añade. */
     @Test
     public void crearUnaClaseSinNombreMuestraUnAvisoYNoLaAnade() {
         ListView<Document> lista = lookup("#listClases").query();
@@ -203,6 +251,7 @@ public class GestionClasesControllerTest extends ApplicationTest {
         Assertions.assertEquals(antes, lista.getItems().size(), "No debería haberse añadido ninguna clase");
     }
 
+    /** Comprueba que responder «No» al borrar una clase no la elimina. */
     @Test
     public void responderNoAlBorrarUnaClaseNoLaElimina() {
         seleccionarPrimeraClase();
@@ -216,6 +265,7 @@ public class GestionClasesControllerTest extends ApplicationTest {
         Assertions.assertEquals(antes, lista.getItems().size(), "No debería haberse eliminado ninguna clase");
     }
 
+    /** Comprueba que gestionar sesiones abre el horario de la clase. */
     @Test
     public void gestionarSesionesAbreElHorarioDeLaClase() {
         Document clase = seleccionarPrimeraClase();
@@ -229,6 +279,7 @@ public class GestionClasesControllerTest extends ApplicationTest {
 
     // ---------- Tests: sesiones ----------
 
+    /** Comprueba que al elegir una sesión se rellena la ficha. */
     @Test
     public void alElegirUnaSesionSeRellenaLaFicha() {
         Document sesion = seleccionarPrimeraSesion();
@@ -240,6 +291,7 @@ public class GestionClasesControllerTest extends ApplicationTest {
         FxAssert.verifyThat("#btnBorrarSesion", NodeMatchers.isEnabled());
     }
 
+    /** Comprueba que guardar una fecha sin formato muestra un aviso. */
     @Test
     public void guardarUnaFechaSinFormatoMuestraUnAviso() {
         seleccionarPrimeraSesion();
@@ -250,6 +302,7 @@ public class GestionClasesControllerTest extends ApplicationTest {
         type(KeyCode.ENTER);
     }
 
+    /** Comprueba que guardar un aforo que no es número muestra un aviso. */
     @Test
     public void guardarUnAforoQueNoEsNumeroMuestraUnAviso() {
         seleccionarPrimeraSesion();
@@ -259,6 +312,7 @@ public class GestionClasesControllerTest extends ApplicationTest {
         type(KeyCode.ENTER);
     }
 
+    /** Comprueba que guardar un aforo mayor que la sala muestra un aviso. */
     @Test
     public void guardarUnAforoMayorQueLaSalaMuestraUnAviso() {
         seleccionarPrimeraSesion();
@@ -268,6 +322,7 @@ public class GestionClasesControllerTest extends ApplicationTest {
         type(KeyCode.ENTER);
     }
 
+    /** Comprueba que guardar un aforo de cero muestra un aviso. */
     @Test
     public void guardarUnAforoDeCeroMuestraUnAviso() {
         seleccionarPrimeraSesion();
@@ -277,6 +332,7 @@ public class GestionClasesControllerTest extends ApplicationTest {
         type(KeyCode.ENTER);
     }
 
+    /** Comprueba que responder «No» al borrar una sesión no la elimina. */
     @Test
     public void responderNoAlBorrarUnaSesionNoLaElimina() {
         seleccionarPrimeraSesion();
@@ -292,6 +348,7 @@ public class GestionClasesControllerTest extends ApplicationTest {
 
     // ---------- Tests: navegación ----------
 
+    /** Comprueba que pulsar el título vuelve al panel del gerente. */
     @Test
     public void pulsarElTituloVuelveAlPanelDelGerente() {
         // El destino depende del rol en sesión, que otro test puede haber dejado en "monitor".
@@ -300,6 +357,7 @@ public class GestionClasesControllerTest extends ApplicationTest {
         FxAssert.verifyThat("#cardClases", NodeMatchers.isVisible());
     }
 
+    /** Comprueba que cerrar sesión abre el login. */
     @Test
     public void cerrarSesionAbreElLogin() {
         clickOn("#btnCerrarSesion");

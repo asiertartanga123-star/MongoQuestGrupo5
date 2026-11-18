@@ -1,5 +1,6 @@
 package com.mycompany.controlador;
 
+import javafx.scene.control.ListCell;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.List;
@@ -23,9 +24,17 @@ import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.matcher.base.NodeMatchers;
 
+/**
+ * Pruebas TestFX de la gestión de monitores (GestorMonitor.fxml): la ficha al elegir
+ * un monitor, los avisos de los datos no válidos, el alta cancelada y la baja con «No».
+ */
 public class GestionMonitorControllerTest extends ApplicationTest {
 
-    // Si MongoDB no está arrancado, se saltan todos los tests de esta clase.
+    /** Crea la clase de pruebas; JUnit crea una instancia para cada test. */
+    public GestionMonitorControllerTest() {
+    }
+
+    /** Si MongoDB no está arrancado, se saltan todos los tests de esta clase. */
     @BeforeAll
     public static void comprobarMongo() {
         boolean activo = false;
@@ -53,7 +62,11 @@ public class GestionMonitorControllerTest extends ApplicationTest {
         stage.show();
     }
 
-    // Después de cada test se cierran todas las ventanas que se hayan abierto.
+    /**
+     * Después de cada test se cierran todas las ventanas que se hayan abierto.
+     *
+     * @throws Exception si TestFX no puede abrir, esperar o cerrar una ventana
+     */
     @AfterEach
     public void cerrarVentanas() throws Exception {
         FxToolkit.cleanupStages();
@@ -61,30 +74,25 @@ public class GestionMonitorControllerTest extends ApplicationTest {
 
     // ---------- Ayudas ----------
 
-    // Selecciona el primer monitor de la lista (se omite el test si no hay ninguno).
+    /** Selecciona el primer monitor de la lista (se omite el test si no hay ninguno). */
     private void seleccionarPrimerMonitor() {
         final ListView<Document> lista = lookup("#listMonitores").query();
         Assumptions.assumeTrue(!lista.getItems().isEmpty(), "No hay monitores en la base de datos");
-        interact(new Runnable() {
-            @Override
-            public void run() {
-                lista.getSelectionModel().selectFirst();
-            }
-        });
+        pulsarFila(lista, 0);
     }
 
-    // Escribe un texto en un campo, sustituyendo el que hubiera.
+    /**
+     * Escribe un texto en un campo, sustituyendo el que hubiera.
+     *
+     * @param selector selector CSS del campo
+     * @param texto texto que se escribe o que debe decir el aviso
+     */
     private void escribir(String selector, final String texto) {
         final TextField campo = lookup(selector).query();
-        interact(new Runnable() {
-            @Override
-            public void run() {
-                campo.setText(texto);
-            }
-        });
+        teclear(campo, texto);
     }
 
-    // Pulsa el botón "No" de una confirmación, sin depender del idioma del texto.
+    /** Pulsa el botón "No" de una confirmación, sin depender del idioma del texto. */
     private void pulsarNoEnLaConfirmacion() {
         List<Button> botones = lookup(".dialog-pane .button").queryAllAs(Button.class)
                 .stream().collect(java.util.stream.Collectors.toList());
@@ -99,6 +107,44 @@ public class GestionMonitorControllerTest extends ApplicationTest {
 
     // ---------- Tests ----------
 
+    /**
+     * Pulsa con el ratón la fila «indice» de una lista, como haría el usuario.
+     *
+     * @param lista lista en la que se pulsa
+     * @param indice posición de la fila, empezando en 0
+     */
+    private void pulsarFila(final ListView<Document> lista, final int indice) {
+        interact(new Runnable() {
+            @Override
+            public void run() {
+                lista.scrollTo(indice);
+            }
+        });
+        for (ListCell<?> celda : lista.lookupAll(".list-cell").toArray(new ListCell<?>[0])) {
+            if (celda.getIndex() == indice && celda.isVisible()) {
+                clickOn(celda);
+                return;
+            }
+        }
+        Assertions.fail("No se ve la fila " + indice + " de la lista");
+    }
+
+    /**
+     * Sustituye el texto de un campo escribiéndolo con el teclado.
+     *
+     * @param campo campo de texto
+     * @param texto texto que se escribe o que debe decir el aviso
+     */
+    private void teclear(TextField campo, String texto) {
+        clickOn(campo);
+        push(KeyCode.CONTROL, KeyCode.A);
+        type(KeyCode.BACK_SPACE);
+        if (!texto.isEmpty()) {
+            write(texto);
+        }
+    }
+
+    /** Comprueba que al abrir la pantalla los botones de edición están desactivados. */
     @Test
     public void alAbrirLaPantallaLosBotonesDeEdicionEstanDesactivados() {
         FxAssert.verifyThat("#btnGuardar", NodeMatchers.isDisabled());
@@ -106,6 +152,7 @@ public class GestionMonitorControllerTest extends ApplicationTest {
         FxAssert.verifyThat("#btnAlta", NodeMatchers.isEnabled());
     }
 
+    /** Comprueba que la lista solo contiene monitores. */
     @Test
     public void laListaSoloContieneMonitores() {
         final ListView<Document> lista = lookup("#listMonitores").query();
@@ -117,6 +164,7 @@ public class GestionMonitorControllerTest extends ApplicationTest {
         }
     }
 
+    /** Comprueba que al elegir un monitor se rellena la ficha y se activan los botones. */
     @Test
     public void alElegirUnMonitorSeRellenaLaFichaYSeActivanLosBotones() {
         seleccionarPrimerMonitor();
@@ -132,6 +180,7 @@ public class GestionMonitorControllerTest extends ApplicationTest {
         FxAssert.verifyThat("#btnBaja", NodeMatchers.isEnabled());
     }
 
+    /** Comprueba que guardar con el nombre vacío muestra un aviso. */
     @Test
     public void guardarConElNombreVacioMuestraUnAviso() {
         seleccionarPrimerMonitor();
@@ -144,6 +193,7 @@ public class GestionMonitorControllerTest extends ApplicationTest {
         type(KeyCode.ENTER);
     }
 
+    /** Comprueba que guardar con un mail no válido muestra un aviso. */
     @Test
     public void guardarConUnMailNoValidoMuestraUnAviso() {
         seleccionarPrimerMonitor();
@@ -155,6 +205,7 @@ public class GestionMonitorControllerTest extends ApplicationTest {
         type(KeyCode.ENTER);
     }
 
+    /** Comprueba que guardar con una dirección sin el formato correcto muestra un aviso. */
     @Test
     public void guardarConUnaDireccionSinElFormatoCorrectoMuestraUnAviso() {
         seleccionarPrimerMonitor();
@@ -167,6 +218,7 @@ public class GestionMonitorControllerTest extends ApplicationTest {
         type(KeyCode.ENTER);
     }
 
+    /** Comprueba que guardar con una dirección con partes vacías muestra un aviso. */
     @Test
     public void guardarConUnaDireccionConPartesVaciasMuestraUnAviso() {
         seleccionarPrimerMonitor();
@@ -178,6 +230,7 @@ public class GestionMonitorControllerTest extends ApplicationTest {
         type(KeyCode.ENTER);
     }
 
+    /** Comprueba que cancelar el alta no añade ningún monitor. */
     @Test
     public void cancelarElAltaNoAnadeNingunMonitor() {
         final ListView<Document> lista = lookup("#listMonitores").query();
@@ -191,6 +244,7 @@ public class GestionMonitorControllerTest extends ApplicationTest {
         Assertions.assertEquals(antes, lista.getItems().size(), "No debería haberse añadido ningún monitor");
     }
 
+    /** Comprueba que responder «No» al dar de baja no elimina al monitor. */
     @Test
     public void respondeNoAlDarDeBajaNoEliminaAlMonitor() {
         seleccionarPrimerMonitor();
@@ -205,12 +259,14 @@ public class GestionMonitorControllerTest extends ApplicationTest {
         FxAssert.verifyThat("#btnBaja", NodeMatchers.isEnabled());
     }
 
+    /** Comprueba que pulsar el título vuelve al panel del gerente. */
     @Test
     public void pulsarElTituloVuelveAlPanelDelGerente() {
         clickOn("#lblTitulo");
         FxAssert.verifyThat("#cardMonitores", NodeMatchers.isVisible());
     }
 
+    /** Comprueba que cerrar sesión abre el login. */
     @Test
     public void cerrarSesionAbreElLogin() {
         clickOn("#btnCerrarSesion");

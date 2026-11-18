@@ -1,5 +1,7 @@
 package com.mycompany.controlador;
 
+import org.bson.Document;
+import javafx.scene.input.KeyCode;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -34,6 +36,10 @@ import org.testfx.util.WaitForAsyncUtils;
  */
 public class RegisterControllerTest extends ApplicationTest {
 
+    /** Crea la clase de pruebas; JUnit crea una instancia para cada test. */
+    public RegisterControllerTest() {
+    }
+
     // Se ejecuta antes de cada test: abre la pantalla de registro.
     @Override
     public void start(Stage stage) throws Exception {
@@ -42,7 +48,11 @@ public class RegisterControllerTest extends ApplicationTest {
         stage.show();
     }
 
-    // Después de cada test: se cierran los avisos que hayan quedado abiertos y todas las ventanas.
+    /**
+     * Después de cada test: se cierran los avisos que hayan quedado abiertos y todas las ventanas.
+     *
+     * @throws Exception si TestFX no puede abrir, esperar o cerrar una ventana
+     */
     @AfterEach
     public void cerrarVentanas() throws Exception {
         cerrarAvisosAbiertos();
@@ -51,7 +61,7 @@ public class RegisterControllerTest extends ApplicationTest {
 
     // ---------- Ayudas ----------
 
-    // Cierra cualquier Alert que siga en pantalla (cleanupStages no los cierra).
+    /** Cierra cualquier Alert que siga en pantalla (cleanupStages no los cierra). */
     private void cerrarAvisosAbiertos() {
         List<Window> ventanas = new ArrayList<Window>(listWindows());
         for (final Window w : ventanas) {
@@ -69,27 +79,35 @@ public class RegisterControllerTest extends ApplicationTest {
 
     
 
-    // Rellena el formulario. El mail se pone con interact() porque la @ puede fallar
-    // con write() según la distribución del teclado.
+    /**
+     * Rellena el formulario escribiendo cada campo con el teclado, como el usuario.
+     *
+     * @param nombre nombre de la persona
+     * @param apellidos apellidos
+     * @param dni DNI
+     * @param mail correo
+     * @param pass1 contraseña
+     * @param pass2 repetición de la contraseña
+     */
     private void rellenar(String nombre, String apellidos, String dni,
             final String mail, String pass1, String pass2) {
         clickOn("#txtNombre").write(nombre);
         clickOn("#txtApellidos").write(apellidos);
         clickOn("#txtDni").write(dni);
         final TextField campoMail = lookup("#txtMail").query();
-        interact(new Runnable() {
-            @Override
-            public void run() {
-                campoMail.setText(mail);
-            }
-        });
+        teclear(campoMail, mail);
         clickOn("#txtPassword").write(pass1);
         clickOn("#txtPassword2").write(pass2);
     }
 
-    // Comprueba que hay un aviso, devuelve su mensaje y lo cierra.
-    // Se pulsa el botón con lookupButton(ButtonType.OK) y no con clickOn("OK"),
-    // porque en Windows en castellano el botón dice "Aceptar".
+    /**
+     * Comprueba que hay un aviso, devuelve su mensaje y lo cierra.
+     * Se pulsa el botón con lookupButton(ButtonType.OK) y no con clickOn("OK"),
+     * porque en Windows en castellano el botón dice "Aceptar".
+      *
+      * @return el mensaje del aviso
+      * @throws Exception si TestFX no puede abrir, esperar o cerrar una ventana
+     */
     private String cerrarAviso() throws Exception {
       
         FxAssert.verifyThat(".dialog-pane", NodeMatchers.isVisible());
@@ -101,6 +119,22 @@ public class RegisterControllerTest extends ApplicationTest {
 
     // ---------- Estado inicial ----------
 
+    /**
+     * Sustituye el texto de un campo escribiéndolo con el teclado.
+     *
+     * @param campo campo de texto
+     * @param texto texto que se escribe o que debe decir el aviso
+     */
+    private void teclear(TextField campo, String texto) {
+        clickOn(campo);
+        push(KeyCode.CONTROL, KeyCode.A);
+        type(KeyCode.BACK_SPACE);
+        if (!texto.isEmpty()) {
+            write(texto);
+        }
+    }
+
+    /** Comprueba que al abrir la pantalla se ven los campos y los botones. */
     @Test
     public void alAbrirLaPantallaSeVenLosCamposYLosBotones() {
         FxAssert.verifyThat("#txtNombre", NodeMatchers.isVisible());
@@ -114,6 +148,7 @@ public class RegisterControllerTest extends ApplicationTest {
         FxAssert.verifyThat("#linkLogin", NodeMatchers.isVisible());
     }
 
+    /** Comprueba que los campos empiezan vacíos y las contraseñas están ocultas. */
     @Test
     public void losCamposEmpiezanVaciosYLasContraseñasEstanOcultas() {
         FxAssert.verifyThat("#txtNombre", TextInputControlMatchers.hasText(""));
@@ -129,12 +164,14 @@ public class RegisterControllerTest extends ApplicationTest {
                 "La repetición de la contraseña debe ser un PasswordField");
     }
 
+    /** Comprueba que el nivel ofrece «normal» y «premium», con «normal» elegido. */
     @Test
     public void elNivelTieneNormalYPremiumConNormalSeleccionado() {
         FxAssert.verifyThat("#cmbNivel", ComboBoxMatchers.hasItems(2));
         FxAssert.verifyThat("#cmbNivel", ComboBoxMatchers.hasSelectedItem("Normal"));
     }
 
+    /** Comprueba que se puede elegir el nivel premium. */
     @Test
     public void sePuedeElegirElNivelPremium() {
         clickOn("#cmbNivel");
@@ -145,6 +182,11 @@ public class RegisterControllerTest extends ApplicationTest {
 
     // ---------- Validaciones ----------
 
+    /**
+     * Comprueba que con los campos vacíos muestra un aviso.
+     *
+     * @throws Exception si TestFX no puede abrir, esperar o cerrar una ventana
+     */
     @Test
     public void conLosCamposVaciosMuestraUnAviso() throws Exception {
         clickOn("#btnPagar");
@@ -152,6 +194,11 @@ public class RegisterControllerTest extends ApplicationTest {
         Assertions.assertEquals("Rellena todos los campos.", cerrarAviso());
     }
 
+    /**
+     * Comprueba que con un campo sin rellenar muestra un aviso.
+     *
+     * @throws Exception si TestFX no puede abrir, esperar o cerrar una ventana
+     */
     @Test
     public void conUnCampoSinRellenarMuestraUnAviso() throws Exception {
        
@@ -161,6 +208,11 @@ public class RegisterControllerTest extends ApplicationTest {
         Assertions.assertEquals("Rellena todos los campos.", cerrarAviso());
     }
 
+    /**
+     * Comprueba que con un DNI corto muestra un aviso.
+     *
+     * @throws Exception si TestFX no puede abrir, esperar o cerrar una ventana
+     */
     @Test
     public void conUnDniCortoMuestraUnAviso() throws Exception {
         rellenar("Ana", "Lopez", "1234", "ana@gmail.com", "1234", "1234");
@@ -170,6 +222,11 @@ public class RegisterControllerTest extends ApplicationTest {
                 cerrarAviso());
     }
 
+    /**
+     * Comprueba que con un DNI sin letra muestra un aviso.
+     *
+     * @throws Exception si TestFX no puede abrir, esperar o cerrar una ventana
+     */
     @Test
     public void conUnDniSinLetraMuestraUnAviso() throws Exception {
         rellenar("Ana", "Lopez", "12345678", "ana@gmail.com", "1234", "1234");
@@ -179,6 +236,11 @@ public class RegisterControllerTest extends ApplicationTest {
                 cerrarAviso());
     }
 
+    /**
+     * Comprueba que con un mail sin arroba muestra un aviso.
+     *
+     * @throws Exception si TestFX no puede abrir, esperar o cerrar una ventana
+     */
     @Test
     public void conUnMailSinArrobaMuestraUnAviso() throws Exception {
         rellenar("Ana", "Lopez", "12345678A", "wgegwg", "1234", "1234");
@@ -187,6 +249,11 @@ public class RegisterControllerTest extends ApplicationTest {
         Assertions.assertEquals("Escribe un mail válido (ej. nombre@gmail.com).", cerrarAviso());
     }
 
+    /**
+     * Comprueba que con un mail sin extensión muestra un aviso.
+     *
+     * @throws Exception si TestFX no puede abrir, esperar o cerrar una ventana
+     */
     @Test
     public void conUnMailSinExtensionMuestraUnAviso() throws Exception {
         rellenar("Ana", "Lopez", "12345678A", "ana@gmail", "1234", "1234");
@@ -195,6 +262,11 @@ public class RegisterControllerTest extends ApplicationTest {
         Assertions.assertEquals("Escribe un mail válido (ej. nombre@gmail.com).", cerrarAviso());
     }
 
+    /**
+     * Comprueba que con contraseñas distintas muestra un aviso.
+     *
+     * @throws Exception si TestFX no puede abrir, esperar o cerrar una ventana
+     */
     @Test
     public void conContraseñasDistintasMuestraUnAviso() throws Exception {
         rellenar("Ana", "Lopez", "12345678A", "ana@gmail.com", "1234", "9999");
@@ -205,6 +277,11 @@ public class RegisterControllerTest extends ApplicationTest {
 
     // ---------- Navegación ----------
 
+    /**
+     * Comprueba que el enlace login vuelve a la pantalla de login.
+     *
+     * @throws Exception si TestFX no puede abrir, esperar o cerrar una ventana
+     */
     @Test
     public void elEnlaceLoginVuelveALaPantallaDeLogin() throws Exception {
         clickOn("#linkLogin");

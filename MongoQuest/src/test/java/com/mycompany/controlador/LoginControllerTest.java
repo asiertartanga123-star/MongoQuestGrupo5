@@ -25,7 +25,15 @@ import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.matcher.base.NodeMatchers;
 import org.testfx.util.WaitForAsyncUtils;
 
+/**
+ * Pruebas TestFX de la pantalla de inicio de sesión (Login.fxml): los campos, los avisos
+ * con datos vacíos o incorrectos, el enlace al registro y la entrada del gerente.
+ */
 public class LoginControllerTest extends ApplicationTest {
+
+    /** Crea la clase de pruebas; JUnit crea una instancia para cada test. */
+    public LoginControllerTest() {
+    }
 
     // Se ejecuta antes de cada test: abre la pantalla de login.
     @Override
@@ -35,7 +43,11 @@ public class LoginControllerTest extends ApplicationTest {
         stage.show();
     }
 
-    // Después de cada test: se cierran los avisos que hayan quedado abiertos y todas las ventanas.
+    /**
+     * Después de cada test: se cierran los avisos que hayan quedado abiertos y todas las ventanas.
+     *
+     * @throws Exception si TestFX no puede abrir, esperar o cerrar una ventana
+     */
     @AfterEach
     public void cerrarVentanas() throws Exception {
         cerrarAvisosAbiertos();
@@ -44,7 +56,7 @@ public class LoginControllerTest extends ApplicationTest {
 
     // ---------- Ayudas ----------
 
-    // Cierra cualquier Alert o Dialog que siga en pantalla (cleanupStages no los cierra).
+    /** Cierra cualquier Alert o Dialog que siga en pantalla (cleanupStages no los cierra). */
     private void cerrarAvisosAbiertos() {
         List<Window> ventanas = new ArrayList<Window>(listWindows());
         for (final Window w : ventanas) {
@@ -60,7 +72,11 @@ public class LoginControllerTest extends ApplicationTest {
         }
     }
 
-    // Devuelve true si MongoDB responde en localhost:27017.
+    /**
+     * Devuelve true si MongoDB responde en localhost:27017.
+     *
+     * @return {@code true} si MongoDB responde
+     */
     private boolean mongoActivo() {
         Socket socket = new Socket();
         try {
@@ -77,7 +93,12 @@ public class LoginControllerTest extends ApplicationTest {
         }
     }
 
-    // Espera hasta 5 segundos a que aparezca un elemento (cargar una pantalla o consultar MongoDB tarda).
+    /**
+     * Espera hasta 5 segundos a que aparezca un elemento (cargar una pantalla o consultar MongoDB tarda).
+     *
+     * @param selector selector CSS del campo
+     * @throws Exception si TestFX no puede abrir, esperar o cerrar una ventana
+     */
     private void esperar(final String selector) throws Exception {
         WaitForAsyncUtils.waitFor(5, TimeUnit.SECONDS, new Callable<Boolean>() {
             @Override
@@ -87,7 +108,12 @@ public class LoginControllerTest extends ApplicationTest {
         });
     }
 
-    // Rellena el mail y la contraseña y pulsa "Iniciar sesión".
+    /**
+     * Rellena el mail y la contraseña y pulsa "Iniciar sesión".
+     *
+     * @param mail correo
+     * @param contraseña contraseña
+     */
     private void iniciarSesion(String mail, String contraseña) {
         clickOn("#txtUsuario").write(mail);
         clickOn("#txtPassword").write(contraseña);
@@ -96,6 +122,7 @@ public class LoginControllerTest extends ApplicationTest {
 
     // ---------- Tests que no necesitan MongoDB ----------
 
+    /** Comprueba que al abrir la pantalla se ven los campos y los botones. */
     @Test
     public void alAbrirLaPantallaSeVenLosCamposYLosBotones() {
         FxAssert.verifyThat("#txtUsuario", NodeMatchers.isVisible());
@@ -104,6 +131,7 @@ public class LoginControllerTest extends ApplicationTest {
         FxAssert.verifyThat("#linkRegistro", NodeMatchers.isVisible());
     }
 
+    /** Comprueba que los campos empiezan vacíos y la contraseña está oculta. */
     @Test
     public void losCamposEmpiezanVaciosYLaContraseñaEstaOculta() {
         TextField usuario = lookup("#txtUsuario").query();
@@ -114,6 +142,7 @@ public class LoginControllerTest extends ApplicationTest {
                 "El campo de la contraseña debe ser un PasswordField");
     }
 
+    /** Comprueba que iniciar sesión con los campos vacíos muestra un aviso. */
     @Test
     public void iniciarSesionConLosCamposVaciosMuestraUnAviso() {
         clickOn("#btnLogin");
@@ -123,6 +152,7 @@ public class LoginControllerTest extends ApplicationTest {
         type(KeyCode.ENTER);
     }
 
+    /** Comprueba que iniciar sesión solo con el mail muestra un aviso. */
     @Test
     public void iniciarSesionSoloConElMailMuestraUnAviso() {
         clickOn("#txtUsuario").write("admin@admin.com");
@@ -132,6 +162,7 @@ public class LoginControllerTest extends ApplicationTest {
         type(KeyCode.ENTER);
     }
 
+    /** Comprueba que pulsar Intro con los campos vacíos también muestra el aviso. */
     @Test
     public void pulsarEnterConLosCamposVaciosTambienMuestraElAviso() {
         // El botón de login es el botón por defecto, así que Enter equivale a pulsarlo.
@@ -142,6 +173,11 @@ public class LoginControllerTest extends ApplicationTest {
         type(KeyCode.ENTER);
     }
 
+    /**
+     * Comprueba que el enlace registrarse abre la pantalla de registro.
+     *
+     * @throws Exception si TestFX no puede abrir, esperar o cerrar una ventana
+     */
     @Test
     public void elEnlaceRegistrarseAbreLaPantallaDeRegistro() throws Exception {
         clickOn("#linkRegistro");
@@ -154,6 +190,11 @@ public class LoginControllerTest extends ApplicationTest {
 
     // ---------- Tests que necesitan MongoDB con los usuarios de ejemplo ----------
 
+    /**
+     * Comprueba que con una contraseña incorrecta muestra el aviso y sigue en el login.
+     *
+     * @throws Exception si TestFX no puede abrir, esperar o cerrar una ventana
+     */
     @Test
     public void conUnaContraseñaIncorrectaMuestraElAvisoYSigueEnElLogin() throws Exception {
         Assumptions.assumeTrue(mongoActivo(), "MongoDB no está arrancado en localhost:27017");
@@ -168,6 +209,11 @@ public class LoginControllerTest extends ApplicationTest {
         FxAssert.verifyThat("#btnLogin", NodeMatchers.isVisible());
     }
 
+    /**
+     * Comprueba que con un usuario que no existe muestra el aviso.
+     *
+     * @throws Exception si TestFX no puede abrir, esperar o cerrar una ventana
+     */
     @Test
     public void conUnUsuarioQueNoExisteMuestraElAviso() throws Exception {
         Assumptions.assumeTrue(mongoActivo(), "MongoDB no está arrancado en localhost:27017");
@@ -180,6 +226,11 @@ public class LoginControllerTest extends ApplicationTest {
         FxAssert.verifyThat("#btnLogin", NodeMatchers.isVisible());
     }
 
+    /**
+     * Comprueba que el gerente con sus datos correctos entra en su panel.
+     *
+     * @throws Exception si TestFX no puede abrir, esperar o cerrar una ventana
+     */
     @Test
     public void elGerenteCorrectoEntraAlPanelDelGerente() throws Exception {
         Assumptions.assumeTrue(mongoActivo(), "MongoDB no está arrancado en localhost:27017");
