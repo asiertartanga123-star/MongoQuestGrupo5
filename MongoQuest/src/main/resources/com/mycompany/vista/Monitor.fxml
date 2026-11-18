@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="raiz" minHeight="420.0" minWidth="640.0" prefHeight="528.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.controlador.MonitorController">
+<BorderPane stylesheets="@estilos.css" fx:id="raiz" minHeight="420.0" minWidth="640.0" prefHeight="528.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.controlador.MonitorController" styleClass="fondo">
 
    <top>
     <VBox>
@@ -34,7 +34,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <StackPane maxHeight="81.0" minHeight="81.0" prefHeight="81.0" style="-fx-background-color: black;">
+      <StackPane maxHeight="81.0" minHeight="81.0" prefHeight="81.0" styleClass="cabecera">
          <children>
             <ImageView fitHeight="66.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <StackPane.margin>
@@ -45,14 +45,14 @@
                </image>
             </ImageView>
 
-            <Label fx:id="lblTitulo" maxWidth="230.0" minWidth="190.0" prefHeight="32.0" prefWidth="230.0" style="-fx-background-color: #d9d9d9;" text="TOLOTOLOGYM" StackPane.alignment="CENTER" />
+            <Label fx:id="lblTitulo" maxWidth="230.0" minWidth="190.0" prefHeight="32.0" prefWidth="230.0" text="TOLOTOLOGYM" StackPane.alignment="CENTER" styleClass="titulo,recuadro-titulo" />
 
             <HBox alignment="CENTER_RIGHT" spacing="12.0" StackPane.alignment="CENTER_RIGHT">
                <StackPane.margin>
                   <Insets right="13.0" />
                </StackPane.margin>
                <children>
-                  <Button fx:id="btnCerrarSesion" mnemonicParsing="false" onAction="#onCerrarSesion" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0; -fx-font-size: 14px;" text="cerrar sesion" />
+                  <Button fx:id="btnCerrarSesion" mnemonicParsing="false" onAction="#onCerrarSesion" text="cerrar sesion" styleClass="boton-plano" />
                </children>
             </HBox>
          </children>
@@ -67,12 +67,12 @@
             <Insets bottom="20.0" left="16.0" right="16.0" top="20.0" />
          </padding>
          <children>
-            <VBox fx:id="cardClases" alignment="TOP_CENTER" maxWidth="260.0" minWidth="200.0" onMouseClicked="#onGestionarClases" prefWidth="230.0" spacing="10.0" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 1;">
+            <VBox fx:id="cardClases" alignment="TOP_CENTER" maxWidth="260.0" minWidth="200.0" onMouseClicked="#onGestionarClases" prefWidth="230.0" spacing="10.0" styleClass="panel">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="14.0" />
                </padding>
                <children>
-                  <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Gestionar Clases" />
+                  <Label text="Gestionar Clases" styleClass="subtitulo" />
                   <ImageView fx:id="imgClases" fitHeight="330.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../mongoquest/imagesApp/toroMoni.png" />
@@ -83,12 +83,12 @@
 
             <Region HBox.hgrow="ALWAYS" />
 
-            <VBox fx:id="cardClientes" alignment="TOP_CENTER" maxWidth="260.0" minWidth="200.0" onMouseClicked="#onGestionarClientes" prefWidth="230.0" spacing="10.0" style="-fx-background-color: #d9d9d9; -fx-border-color: black; -fx-border-width: 1;">
+            <VBox fx:id="cardClientes" alignment="TOP_CENTER" maxWidth="260.0" minWidth="200.0" onMouseClicked="#onGestionarClientes" prefWidth="230.0" spacing="10.0" styleClass="panel">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="14.0" />
                </padding>
                <children>
-                  <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Gestionar clientes" />
+                  <Label text="Gestionar clientes" styleClass="subtitulo" />
                   <ImageView fx:id="imgClientes" fitHeight="330.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../mongoquest/imagesApp/ToroFuerteMancuerna.png" />
