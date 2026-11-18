@@ -40,8 +40,10 @@ db.createCollection("Clases", {
           description: "Nombre de la actividad colectiva (obligatorio)"
         },
         horas: {
+          // Puede estar vacío: la clase se crea sin horario y las franjas se añaden después
+          // en el horario de sesiones (y se quitan todas si se borran sus sesiones).
           bsonType: "array",
-          minItems: 1,
+          minItems: 0,
           items: {
             bsonType: "object",
             required: ["dia", "horainicio", "horafin"],

@@ -19,8 +19,18 @@ import javafx.stage.Stage;
  */
 public class LoginController {
 
-    /** Crea el controlador; lo instancia JavaFX al cargar el FXML. */
+    /** Crea el controlador con el acceso a datos real; es el que usa JavaFX al cargar el FXML. */
     public LoginController() {
+        this(new daoImplementacio());
+    }
+
+    /**
+     * Crea el controlador con el acceso a datos indicado; se usa en los tests de errores de MongoDB.
+     *
+     * @param dao acceso a datos que usará el controlador
+     */
+    public LoginController(daoImplementacio dao) {
+        this.dao = dao;
     }
 
     /** Contenedor raíz de la pantalla. */
@@ -35,7 +45,7 @@ public class LoginController {
     @FXML private PasswordField txtPassword;
 
     /** Acceso a los datos de MongoDB. */
-    private final daoImplementacio dao = new daoImplementacio();
+    private final daoImplementacio dao;
     /** Correo del usuario que ha iniciado sesión; lo leen las demás pantallas. */
     public static String mailActual;
     /** Tipo del usuario en sesión: {@code gerente}, {@code monitor} o {@code cliente}. */
