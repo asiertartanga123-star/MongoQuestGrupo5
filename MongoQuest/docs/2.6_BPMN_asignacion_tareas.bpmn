@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Defs_MongoQuest" targetNamespace="http://tolotologym.mongoquest/bpmn">
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Defs_MongoQuest" targetNamespace="http://tolotologym.mongoquest/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="18.33.0">
   <collaboration id="Collab_1">
     <participant id="Pool_1" name="Grupo 5 · Proyecto MongoQuest (Odoo)" processRef="Proceso_AsignacionTareas" />
   </collaboration>
   <process id="Proceso_AsignacionTareas" name="Asignación de tareas del proyecto MongoQuest" isExecutable="false">
     <laneSet id="LaneSet_1">
-      <lane id="Lane_Prof" name="Profesorado">
-        <flowNodeRef>T_RevisarProp</flowNodeRef>
-        <flowNodeRef>G_Aprobada</flowNodeRef>
-        <flowNodeRef>T_Evaluar</flowNodeRef>
-        <flowNodeRef>End</flowNodeRef>
+      <lane id="Lane_Dev" name="Desarrollador">
+        <flowNodeRef>T_Desarrollar</flowNodeRef>
+        <flowNodeRef>T_EnRevision</flowNodeRef>
+        <flowNodeRef>T_Corregir</flowNodeRef>
       </lane>
       <lane id="Lane_JP" name="Jefe de proyecto">
         <flowNodeRef>Start</flowNodeRef>
@@ -23,10 +22,11 @@
         <flowNodeRef>G_Quedan</flowNodeRef>
         <flowNodeRef>T_Entregar</flowNodeRef>
       </lane>
-      <lane id="Lane_Dev" name="Desarrollador">
-        <flowNodeRef>T_Desarrollar</flowNodeRef>
-        <flowNodeRef>T_EnRevision</flowNodeRef>
-        <flowNodeRef>T_Corregir</flowNodeRef>
+      <lane id="Lane_Prof" name="Jefe de proyecto">
+        <flowNodeRef>T_RevisarProp</flowNodeRef>
+        <flowNodeRef>G_Aprobada</flowNodeRef>
+        <flowNodeRef>T_Evaluar</flowNodeRef>
+        <flowNodeRef>End</flowNodeRef>
       </lane>
     </laneSet>
     <startEvent id="Start" name="Reto asignado">
@@ -103,66 +103,207 @@
     </endEvent>
     <sequenceFlow id="Flow_01" sourceRef="Start" targetRef="T_Proponer" />
     <sequenceFlow id="Flow_02" sourceRef="T_Proponer" targetRef="T_RevisarProp" />
+    <sequenceFlow id="Flow_05" sourceRef="T_Ajustar" targetRef="T_RevisarProp" />
     <sequenceFlow id="Flow_03" sourceRef="T_RevisarProp" targetRef="G_Aprobada" />
     <sequenceFlow id="Flow_04" name="No" sourceRef="G_Aprobada" targetRef="T_Ajustar" />
-    <sequenceFlow id="Flow_05" sourceRef="T_Ajustar" targetRef="T_RevisarProp" />
     <sequenceFlow id="Flow_06" name="Sí" sourceRef="G_Aprobada" targetRef="T_CrearOdoo" />
     <sequenceFlow id="Flow_07" sourceRef="T_CrearOdoo" targetRef="T_Asignar" />
+    <sequenceFlow id="Flow_16" name="Sí" sourceRef="G_Quedan" targetRef="T_Asignar" />
     <sequenceFlow id="Flow_08" sourceRef="T_Asignar" targetRef="T_Desarrollar" />
     <sequenceFlow id="Flow_09" sourceRef="T_Desarrollar" targetRef="T_EnRevision" />
+    <sequenceFlow id="Flow_13" sourceRef="T_Corregir" targetRef="T_EnRevision" />
     <sequenceFlow id="Flow_10" sourceRef="T_EnRevision" targetRef="T_RevisarTarea" />
     <sequenceFlow id="Flow_11" sourceRef="T_RevisarTarea" targetRef="G_Correcta" />
     <sequenceFlow id="Flow_12" name="No" sourceRef="G_Correcta" targetRef="T_Corregir" />
-    <sequenceFlow id="Flow_13" sourceRef="T_Corregir" targetRef="T_EnRevision" />
     <sequenceFlow id="Flow_14" name="Sí" sourceRef="G_Correcta" targetRef="T_Hecho" />
     <sequenceFlow id="Flow_15" sourceRef="T_Hecho" targetRef="G_Quedan" />
-    <sequenceFlow id="Flow_16" name="Sí" sourceRef="G_Quedan" targetRef="T_Asignar" />
     <sequenceFlow id="Flow_17" name="No" sourceRef="G_Quedan" targetRef="T_Entregar" />
     <sequenceFlow id="Flow_18" sourceRef="T_Entregar" targetRef="T_Evaluar" />
     <sequenceFlow id="Flow_19" sourceRef="T_Evaluar" targetRef="End" />
   </process>
   <bpmndi:BPMNDiagram id="Diagram_1">
     <bpmndi:BPMNPlane id="Plane_1" bpmnElement="Collab_1">
-      <bpmndi:BPMNShape id="Pool_1_di" bpmnElement="Pool_1" isHorizontal="true"><dc:Bounds x="40" y="40" width="1990" height="540" /></bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Lane_Prof_di" bpmnElement="Lane_Prof" isHorizontal="true"><dc:Bounds x="70" y="40" width="1960" height="180" /></bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Lane_JP_di" bpmnElement="Lane_JP" isHorizontal="true"><dc:Bounds x="70" y="220" width="1960" height="180" /></bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Lane_Dev_di" bpmnElement="Lane_Dev" isHorizontal="true"><dc:Bounds x="70" y="400" width="1960" height="180" /></bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Start_di" bpmnElement="Start"><dc:Bounds x="112" y="292" width="36" height="36" /></bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="T_Proponer_di" bpmnElement="T_Proponer"><dc:Bounds x="170" y="272" width="120" height="76" /></bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="T_RevisarProp_di" bpmnElement="T_RevisarProp"><dc:Bounds x="330" y="92" width="120" height="76" /></bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="G_Aprobada_di" bpmnElement="G_Aprobada" isMarkerVisible="true"><dc:Bounds x="515" y="105" width="50" height="50" /></bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="T_Ajustar_di" bpmnElement="T_Ajustar"><dc:Bounds x="330" y="272" width="120" height="76" /></bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="T_CrearOdoo_di" bpmnElement="T_CrearOdoo"><dc:Bounds x="630" y="272" width="120" height="76" /></bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="T_Asignar_di" bpmnElement="T_Asignar"><dc:Bounds x="790" y="272" width="120" height="76" /></bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="T_Desarrollar_di" bpmnElement="T_Desarrollar"><dc:Bounds x="950" y="452" width="120" height="76" /></bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="T_EnRevision_di" bpmnElement="T_EnRevision"><dc:Bounds x="1110" y="452" width="120" height="76" /></bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="T_RevisarTarea_di" bpmnElement="T_RevisarTarea"><dc:Bounds x="1110" y="272" width="120" height="76" /></bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="G_Correcta_di" bpmnElement="G_Correcta" isMarkerVisible="true"><dc:Bounds x="1295" y="285" width="50" height="50" /></bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="T_Corregir_di" bpmnElement="T_Corregir"><dc:Bounds x="1260" y="452" width="120" height="76" /></bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="T_Hecho_di" bpmnElement="T_Hecho"><dc:Bounds x="1410" y="272" width="120" height="76" /></bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="G_Quedan_di" bpmnElement="G_Quedan" isMarkerVisible="true"><dc:Bounds x="1595" y="285" width="50" height="50" /></bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="T_Entregar_di" bpmnElement="T_Entregar"><dc:Bounds x="1710" y="272" width="120" height="76" /></bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="T_Evaluar_di" bpmnElement="T_Evaluar"><dc:Bounds x="1710" y="92" width="120" height="76" /></bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="End_di" bpmnElement="End"><dc:Bounds x="1922" y="112" width="36" height="36" /></bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_01_di" bpmnElement="Flow_01"><di:waypoint x="148" y="310" /><di:waypoint x="170" y="310" /></bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_02_di" bpmnElement="Flow_02"><di:waypoint x="290" y="310" /><di:waypoint x="310" y="310" /><di:waypoint x="310" y="130" /><di:waypoint x="330" y="130" /></bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_03_di" bpmnElement="Flow_03"><di:waypoint x="450" y="130" /><di:waypoint x="515" y="130" /></bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_04_di" bpmnElement="Flow_04"><di:waypoint x="540" y="155" /><di:waypoint x="540" y="310" /><di:waypoint x="450" y="310" /></bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_05_di" bpmnElement="Flow_05"><di:waypoint x="390" y="272" /><di:waypoint x="390" y="168" /></bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_06_di" bpmnElement="Flow_06"><di:waypoint x="565" y="130" /><di:waypoint x="690" y="130" /><di:waypoint x="690" y="272" /></bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_07_di" bpmnElement="Flow_07"><di:waypoint x="750" y="310" /><di:waypoint x="790" y="310" /></bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_08_di" bpmnElement="Flow_08"><di:waypoint x="910" y="310" /><di:waypoint x="930" y="310" /><di:waypoint x="930" y="490" /><di:waypoint x="950" y="490" /></bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_09_di" bpmnElement="Flow_09"><di:waypoint x="1070" y="490" /><di:waypoint x="1110" y="490" /></bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_10_di" bpmnElement="Flow_10"><di:waypoint x="1170" y="452" /><di:waypoint x="1170" y="348" /></bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_11_di" bpmnElement="Flow_11"><di:waypoint x="1230" y="310" /><di:waypoint x="1295" y="310" /></bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_12_di" bpmnElement="Flow_12"><di:waypoint x="1320" y="335" /><di:waypoint x="1320" y="452" /></bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_13_di" bpmnElement="Flow_13"><di:waypoint x="1260" y="490" /><di:waypoint x="1230" y="490" /></bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_14_di" bpmnElement="Flow_14"><di:waypoint x="1345" y="310" /><di:waypoint x="1410" y="310" /></bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_15_di" bpmnElement="Flow_15"><di:waypoint x="1530" y="310" /><di:waypoint x="1595" y="310" /></bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_16_di" bpmnElement="Flow_16"><di:waypoint x="1620" y="285" /><di:waypoint x="1620" y="234" /><di:waypoint x="850" y="234" /><di:waypoint x="850" y="272" /></bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_17_di" bpmnElement="Flow_17"><di:waypoint x="1645" y="310" /><di:waypoint x="1710" y="310" /></bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_18_di" bpmnElement="Flow_18"><di:waypoint x="1770" y="272" /><di:waypoint x="1770" y="168" /></bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_19_di" bpmnElement="Flow_19"><di:waypoint x="1830" y="130" /><di:waypoint x="1922" y="130" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Pool_1_di" bpmnElement="Pool_1" isHorizontal="true">
+        <dc:Bounds x="160" y="40" width="1990" height="540" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Dev_di" bpmnElement="Lane_Dev" isHorizontal="true">
+        <dc:Bounds x="190" y="400" width="1960" height="180" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_JP_di" bpmnElement="Lane_JP" isHorizontal="true">
+        <dc:Bounds x="190" y="220" width="1960" height="180" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Prof_di" bpmnElement="Lane_Prof" isHorizontal="true">
+        <dc:Bounds x="190" y="40" width="1960" height="180" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Start_di" bpmnElement="Start">
+        <dc:Bounds x="232" y="292" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="215" y="328" width="71" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_Proponer_di" bpmnElement="T_Proponer">
+        <dc:Bounds x="290" y="272" width="120" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_RevisarProp_di" bpmnElement="T_RevisarProp">
+        <dc:Bounds x="450" y="92" width="120" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="G_Aprobada_di" bpmnElement="G_Aprobada" isMarkerVisible="true">
+        <dc:Bounds x="635" y="105" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="632" y="155" width="57" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_Ajustar_di" bpmnElement="T_Ajustar">
+        <dc:Bounds x="450" y="272" width="120" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_CrearOdoo_di" bpmnElement="T_CrearOdoo">
+        <dc:Bounds x="750" y="272" width="120" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_Asignar_di" bpmnElement="T_Asignar">
+        <dc:Bounds x="910" y="272" width="120" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_Desarrollar_di" bpmnElement="T_Desarrollar">
+        <dc:Bounds x="1070" y="452" width="120" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_EnRevision_di" bpmnElement="T_EnRevision">
+        <dc:Bounds x="1230" y="452" width="120" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_RevisarTarea_di" bpmnElement="T_RevisarTarea">
+        <dc:Bounds x="1230" y="272" width="120" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="G_Correcta_di" bpmnElement="G_Correcta" isMarkerVisible="true">
+        <dc:Bounds x="1415" y="285" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1398" y="335" width="84" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_Corregir_di" bpmnElement="T_Corregir">
+        <dc:Bounds x="1380" y="452" width="120" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_Hecho_di" bpmnElement="T_Hecho">
+        <dc:Bounds x="1530" y="272" width="120" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="G_Quedan_di" bpmnElement="G_Quedan" isMarkerVisible="true">
+        <dc:Bounds x="1715" y="285" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1697" y="335" width="86" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_Entregar_di" bpmnElement="T_Entregar">
+        <dc:Bounds x="1830" y="272" width="120" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_Evaluar_di" bpmnElement="T_Evaluar">
+        <dc:Bounds x="1830" y="92" width="120" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="End_di" bpmnElement="End">
+        <dc:Bounds x="2042" y="112" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2038" y="148" width="45" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_01_di" bpmnElement="Flow_01">
+        <di:waypoint x="268" y="310" />
+        <di:waypoint x="290" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_02_di" bpmnElement="Flow_02">
+        <di:waypoint x="410" y="310" />
+        <di:waypoint x="430" y="310" />
+        <di:waypoint x="430" y="130" />
+        <di:waypoint x="450" y="130" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_03_di" bpmnElement="Flow_03">
+        <di:waypoint x="570" y="130" />
+        <di:waypoint x="635" y="130" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_04_di" bpmnElement="Flow_04">
+        <di:waypoint x="660" y="155" />
+        <di:waypoint x="660" y="310" />
+        <di:waypoint x="570" y="310" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="668" y="223" width="15" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_05_di" bpmnElement="Flow_05">
+        <di:waypoint x="510" y="272" />
+        <di:waypoint x="510" y="168" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_06_di" bpmnElement="Flow_06">
+        <di:waypoint x="685" y="130" />
+        <di:waypoint x="810" y="130" />
+        <di:waypoint x="810" y="272" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="742" y="105" width="11" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_07_di" bpmnElement="Flow_07">
+        <di:waypoint x="870" y="310" />
+        <di:waypoint x="910" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_08_di" bpmnElement="Flow_08">
+        <di:waypoint x="1030" y="310" />
+        <di:waypoint x="1050" y="310" />
+        <di:waypoint x="1050" y="490" />
+        <di:waypoint x="1070" y="490" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_09_di" bpmnElement="Flow_09">
+        <di:waypoint x="1190" y="490" />
+        <di:waypoint x="1230" y="490" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_10_di" bpmnElement="Flow_10">
+        <di:waypoint x="1290" y="452" />
+        <di:waypoint x="1290" y="348" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_11_di" bpmnElement="Flow_11">
+        <di:waypoint x="1350" y="310" />
+        <di:waypoint x="1415" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_12_di" bpmnElement="Flow_12">
+        <di:waypoint x="1440" y="335" />
+        <di:waypoint x="1440" y="452" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1448" y="384" width="15" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_13_di" bpmnElement="Flow_13">
+        <di:waypoint x="1380" y="490" />
+        <di:waypoint x="1350" y="490" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_14_di" bpmnElement="Flow_14">
+        <di:waypoint x="1465" y="310" />
+        <di:waypoint x="1530" y="310" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1492" y="285" width="11" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_15_di" bpmnElement="Flow_15">
+        <di:waypoint x="1650" y="310" />
+        <di:waypoint x="1715" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_16_di" bpmnElement="Flow_16">
+        <di:waypoint x="1740" y="285" />
+        <di:waypoint x="1740" y="234" />
+        <di:waypoint x="970" y="234" />
+        <di:waypoint x="970" y="272" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1350" y="209" width="11" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_17_di" bpmnElement="Flow_17">
+        <di:waypoint x="1765" y="310" />
+        <di:waypoint x="1830" y="310" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1790" y="285" width="15" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_18_di" bpmnElement="Flow_18">
+        <di:waypoint x="1890" y="272" />
+        <di:waypoint x="1890" y="168" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_19_di" bpmnElement="Flow_19">
+        <di:waypoint x="1950" y="130" />
+        <di:waypoint x="2042" y="130" />
+      </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </definitions>
