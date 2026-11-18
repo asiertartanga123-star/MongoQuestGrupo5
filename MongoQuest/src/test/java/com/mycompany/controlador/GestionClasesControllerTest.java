@@ -265,6 +265,21 @@ public class GestionClasesControllerTest extends ApplicationTest {
         Assertions.assertEquals(antes, lista.getItems().size(), "No debería haberse eliminado ninguna clase");
     }
 
+    /** Comprueba que el menú contextual (clic derecho) «Borrar clase» pide confirmación y con «No» no borra. */
+    @Test
+    public void elMenuContextualBorrarClaseConNoNoLaElimina() {
+        ListView<Document> lista = lookup("#listClases").query();
+        Assumptions.assumeTrue(!lista.getItems().isEmpty(), "No hay clases en la base de datos");
+        int antes = lista.getItems().size();
+
+        rightClickOn("#listClases .list-cell");
+        clickOn("Borrar clase");
+        FxAssert.verifyThat(".dialog-pane", NodeMatchers.isVisible());
+        pulsarBoton(ButtonBar.ButtonData.NO);
+
+        Assertions.assertEquals(antes, lista.getItems().size(), "No debería haberse eliminado ninguna clase");
+    }
+
     /** Comprueba que gestionar sesiones abre el horario de la clase. */
     @Test
     public void gestionarSesionesAbreElHorarioDeLaClase() {

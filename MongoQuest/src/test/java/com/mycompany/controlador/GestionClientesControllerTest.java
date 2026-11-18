@@ -177,6 +177,20 @@ public class GestionClientesControllerTest extends ApplicationTest {
         Assertions.assertEquals(antes, lista.getItems().size(), "No debería haberse añadido ningún cliente");
     }
 
+    /** Comprueba que el menú contextual (clic derecho) «Nuevo cliente…» abre el formulario de alta. */
+    @Test
+    public void elMenuContextualNuevoClienteAbreElFormulario() {
+        final ListView<Document> lista = lookup("#listClientes").query();
+        int antes = lista.getItems().size();
+
+        rightClickOn("#listClientes");
+        clickOn("Nuevo cliente…");
+        FxAssert.verifyThat(".dialog-pane", NodeMatchers.isVisible());
+        type(KeyCode.ESCAPE);
+
+        Assertions.assertEquals(antes, lista.getItems().size(), "Cancelar no debería añadir ningún cliente");
+    }
+
     /** Comprueba que pulsar el título vuelve al panel del gerente. */
      @Test
     public void pulsarElTituloVuelveAlPanelDelGerente() {

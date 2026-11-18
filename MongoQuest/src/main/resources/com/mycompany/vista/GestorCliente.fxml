@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.ContextMenu?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
@@ -60,7 +64,17 @@
                 <!-- Columna izquierda: muestra los clientes y permite abrir el formulario de alta. -->
                 <VBox maxWidth="340.0" minWidth="220.0" prefWidth="280.0" spacing="16.0">
                     <children>
-                        <ListView fx:id="listClientes" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1;" VBox.vgrow="ALWAYS" />
+                        <ListView fx:id="listClientes" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1;" VBox.vgrow="ALWAYS">
+                           <contextMenu>
+                              <ContextMenu>
+                                 <items>
+                                    <MenuItem mnemonicParsing="false" text="Nuevo cliente…" onAction="#onDarDeAlta" />
+                                    <SeparatorMenuItem />
+                                    <MenuItem mnemonicParsing="false" text="Dar de baja" onAction="#onDarDeBaja" />
+                                 </items>
+                              </ContextMenu>
+                           </contextMenu>
+                        </ListView>
                         <Button fx:id="btnAlta" maxWidth="Infinity" mnemonicParsing="false" onAction="#onDarDeAlta" prefHeight="38.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0; -fx-border-color: black; -fx-border-width: 1; -fx-font-size: 15px;" text="Dar de alta" />
                     </children>
                 </VBox>

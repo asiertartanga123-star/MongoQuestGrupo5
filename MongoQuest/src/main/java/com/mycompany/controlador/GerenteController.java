@@ -149,6 +149,20 @@ public class GerenteController {
     }
 
     /**
+     * Menú Ayuda → «Acerca de Tolotolo Gym»: muestra qué es la aplicación y quién la ha hecho.
+     */
+    @FXML
+    private void onAcercaDe() {
+        Alert info = new Alert(Alert.AlertType.INFORMATION);
+        info.setTitle("Acerca de Tolotolo Gym");
+        info.setHeaderText("Tolotolo Gym (MongoQuest)");
+        info.setContentText("Gestión de clientes, monitores, clases y sesiones del gimnasio con JavaFX y MongoDB.\n\n"
+                + "Grupo 5: Asier, Ekain, Iker y Ricardo.");
+        info.initOwner(raiz.getScene().getWindow());
+        info.showAndWait();
+    }
+
+    /**
      * Cierra la sesión del gerente y vuelve a la vista de inicio.
      */
     @FXML
