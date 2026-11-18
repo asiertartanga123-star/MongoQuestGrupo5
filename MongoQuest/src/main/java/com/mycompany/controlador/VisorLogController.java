@@ -28,6 +28,10 @@ import javafx.util.Callback;
  */
 public class VisorLogController {
 
+    /** Crea el controlador; lo instancia JavaFX al cargar el FXML. */
+    public VisorLogController() {
+    }
+
     /** Número de columnas de cada línea del log. */
     private static final int COLUMNAS = 5;
 

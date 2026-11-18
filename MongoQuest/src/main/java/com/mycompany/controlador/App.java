@@ -17,6 +17,10 @@ import javafx.stage.Stage;
  */
 public class App extends Application {
 
+    /** Crea la aplicación; la instancia JavaFX al arrancar. */
+    public App() {
+    }
+
     /**
      * Escena principal de la aplicación.
      *

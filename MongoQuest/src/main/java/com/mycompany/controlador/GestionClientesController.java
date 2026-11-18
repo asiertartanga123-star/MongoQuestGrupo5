@@ -46,6 +46,10 @@ import org.bson.Document;
  */
 public class GestionClientesController {
 
+    /** Crea el controlador; lo instancia JavaFX al cargar el FXML. */
+    public GestionClientesController() {
+    }
+
     // Controles vinculados por fx:id con la ficha y la lista de clientes.
     /** Contenedor raíz de la pantalla. */
     @FXML
@@ -105,6 +109,10 @@ public class GestionClientesController {
     // Define cómo se presenta cada cliente en la lista de la izquierda.
     /** Celda de la lista: muestra el nombre y los apellidos en una línea, y el DNI y la membresía en otra. */
     private static class CeldaCliente extends ListCell<Document> {
+
+        /** Crea una celda vacía de la lista de clientes. */
+        CeldaCliente() {
+        }
 
         /**
          * Rellena la celda con los datos del cliente, o la deja vacía.

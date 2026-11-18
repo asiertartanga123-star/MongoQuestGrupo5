@@ -23,6 +23,10 @@ import org.bson.Document;
  */
 public class RegisterController {
 
+    /** Crea el controlador; lo instancia JavaFX al cargar el FXML. */
+    public RegisterController() {
+    }
+
     /** Contenedor raíz de la pantalla. */
     @FXML private BorderPane raiz;
     /** Imagen decorativa del toro, a la izquierda. */
