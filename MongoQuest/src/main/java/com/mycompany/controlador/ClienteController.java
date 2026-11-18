@@ -1,11 +1,14 @@
 package com.mycompany.controlador;
 
+import com.mycompany.controlador.dao.ConexionException;
+import com.mycompany.controlador.dao.DatosException;
 import com.mycompany.controlador.dao.daoImplementacio;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -96,8 +99,45 @@ public class ClienteController implements Initializable {
         this.dao = dao;
     }
 
+    /**
+     * Carga los datos del cliente al abrir la pantalla. Si MongoDB falla, la pantalla se abre
+     * vacía y, en cuanto se ve, avisa del error (un aviso modal dentro de la carga del FXML
+     * bloquearía la apertura).
+     *
+     * @param url no se usa
+     * @param rb no se usa
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        try {
+            cargarDatos();
+        } catch (ConexionException e) {
+            Registro.error("No se pudo conectar con MongoDB al abrir la pantalla del cliente", e);
+            avisarTrasAbrir("No se puede conectar con MongoDB. Comprueba que esté iniciado.");
+        } catch (DatosException e) {
+            Registro.error("No se pudieron cargar los datos del cliente " + LoginController.mailActual, e);
+            avisarTrasAbrir("No se pudieron cargar tus datos.");
+        }
+    }
+
+    /**
+     * Muestra un aviso de error cuando la pantalla ya está abierta.
+     *
+     * @param mensaje texto del aviso
+     */
+    private void avisarTrasAbrir(final String mensaje) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Alert a = new Alert(Alert.AlertType.ERROR, mensaje);
+                a.setHeaderText(null);
+                a.showAndWait();
+            }
+        });
+    }
+
+    /** Rellena la ficha, las clases del cliente, las clases del centro y los logros. */
+    private void cargarDatos() {
         Document cliente = cargarCliente(LoginController.mailActual);
         if (cliente == null) {
             return;
@@ -235,7 +275,21 @@ public class ClienteController implements Initializable {
             if (idClase == null) {
                 return;
             }
-            boolean guardado = dao.apuntarseAClase(LoginController.mailActual, idClase, nombre.getText());
+            boolean guardado;
+            try {
+                guardado = dao.apuntarseAClase(LoginController.mailActual, idClase, nombre.getText());
+            } catch (ConexionException e) {
+                Registro.error("No se pudo conectar con MongoDB al apuntar a " + LoginController.mailActual
+                        + " a " + nombre.getText(), e);
+                new Alert(Alert.AlertType.ERROR, "No se puede conectar con MongoDB. No te has apuntado a "
+                        + nombre.getText() + ".").showAndWait();
+                return;
+            } catch (DatosException e) {
+                Registro.error("No se pudo apuntar a " + LoginController.mailActual + " a " + nombre.getText(), e);
+                new Alert(Alert.AlertType.ERROR, "No se pudo apuntar a " + nombre.getText()
+                        + " por un error de la base de datos.").showAndWait();
+                return;
+            }
             // Se vuelve a leer la sesión: el contador cambia si entró o si otro llenó la sala.
             String plazasAhora = plazasDe(idClase);
             plazas.setText(plazasAhora);
