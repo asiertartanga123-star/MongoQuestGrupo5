@@ -1,5 +1,6 @@
 package com.mycompany.controlador;
 
+import javafx.scene.control.ListCell;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import javafx.fxml.FXMLLoader;
@@ -18,9 +19,17 @@ import org.testfx.api.FxAssert;
 import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.matcher.base.NodeMatchers;
 
+/**
+ * Pruebas TestFX de la gestión de clientes (GestorCliente.fxml): la ficha al elegir
+ * un cliente, los avisos de los datos no válidos y el alta cancelada.
+ */
 public class GestionClientesControllerTest extends ApplicationTest {
 
-    // Si MongoDB no está arrancado, se saltan todos los tests de esta clase.
+    /** Crea la clase de pruebas; JUnit crea una instancia para cada test. */
+    public GestionClientesControllerTest() {
+    }
+
+    /** Si MongoDB no está arrancado, se saltan todos los tests de esta clase. */
     @BeforeAll
     public static void comprobarMongo() {
         boolean activo = false;
@@ -50,31 +59,64 @@ public class GestionClientesControllerTest extends ApplicationTest {
 
     // ---------- Ayudas ----------
 
-    // Selecciona el primer cliente de la lista (se omite el test si no hay clientes).
+    /** Selecciona el primer cliente de la lista (se omite el test si no hay clientes). */
     private void seleccionarPrimerCliente() {
         final ListView<Document> lista = lookup("#listClientes").query();
         Assumptions.assumeTrue(!lista.getItems().isEmpty(), "No hay clientes en la base de datos");
-        interact(new Runnable() {
-            @Override
-            public void run() {
-                lista.getSelectionModel().selectFirst();
-            }
-        });
+        pulsarFila(lista, 0);
     }
 
-    // Escribe un texto en un campo, sustituyendo el que hubiera.
+    /**
+     * Escribe un texto en un campo, sustituyendo el que hubiera.
+     *
+     * @param selector selector CSS del campo
+     * @param texto texto que se escribe o que debe decir el aviso
+     */
     private void escribir(String selector, final String texto) {
         final TextField campo = lookup(selector).query();
-        interact(new Runnable() {
-            @Override
-            public void run() {
-                campo.setText(texto);
-            }
-        });
+        teclear(campo, texto);
     }
 
     // ---------- Tests ----------
 
+    /**
+     * Pulsa con el ratón la fila «indice» de una lista, como haría el usuario.
+     *
+     * @param lista lista en la que se pulsa
+     * @param indice posición de la fila, empezando en 0
+     */
+    private void pulsarFila(final ListView<Document> lista, final int indice) {
+        interact(new Runnable() {
+            @Override
+            public void run() {
+                lista.scrollTo(indice);
+            }
+        });
+        for (ListCell<?> celda : lista.lookupAll(".list-cell").toArray(new ListCell<?>[0])) {
+            if (celda.getIndex() == indice && celda.isVisible()) {
+                clickOn(celda);
+                return;
+            }
+        }
+        Assertions.fail("No se ve la fila " + indice + " de la lista");
+    }
+
+    /**
+     * Sustituye el texto de un campo escribiéndolo con el teclado.
+     *
+     * @param campo campo de texto
+     * @param texto texto que se escribe o que debe decir el aviso
+     */
+    private void teclear(TextField campo, String texto) {
+        clickOn(campo);
+        push(KeyCode.CONTROL, KeyCode.A);
+        type(KeyCode.BACK_SPACE);
+        if (!texto.isEmpty()) {
+            write(texto);
+        }
+    }
+
+    /** Comprueba que al abrir la pantalla los botones de edición están desactivados. */
     @Test
     public void alAbrirLaPantallaLosBotonesDeEdicionEstanDesactivados() {
         FxAssert.verifyThat("#btnGuardar", NodeMatchers.isDisabled());
@@ -82,6 +124,7 @@ public class GestionClientesControllerTest extends ApplicationTest {
         FxAssert.verifyThat("#btnAlta", NodeMatchers.isEnabled());
     }
 
+    /** Comprueba que al elegir un cliente se rellena la ficha y se activan los botones. */
     @Test
     public void alElegirUnClienteSeRellenaLaFichaYSeActivanLosBotones() {
         seleccionarPrimerCliente();
@@ -95,6 +138,7 @@ public class GestionClientesControllerTest extends ApplicationTest {
         FxAssert.verifyThat("#btnBaja", NodeMatchers.isEnabled());
     }
 
+    /** Comprueba que guardar con el nombre vacío muestra un aviso. */
     @Test
     public void guardarConElNombreVacioMuestraUnAviso() {
         seleccionarPrimerCliente();
@@ -107,6 +151,7 @@ public class GestionClientesControllerTest extends ApplicationTest {
         type(KeyCode.ENTER);
     }
 
+    /** Comprueba que guardar con un mail no válido muestra un aviso. */
     @Test
     public void guardarConUnMailNoValidoMuestraUnAviso() {
         seleccionarPrimerCliente();
@@ -118,6 +163,7 @@ public class GestionClientesControllerTest extends ApplicationTest {
         type(KeyCode.ENTER);
     }
 
+    /** Comprueba que cancelar el alta no añade ningún cliente. */
     @Test
     public void cancelarElAltaNoAnadeNingunCliente() {
         final ListView<Document> lista = lookup("#listClientes").query();
@@ -131,6 +177,7 @@ public class GestionClientesControllerTest extends ApplicationTest {
         Assertions.assertEquals(antes, lista.getItems().size(), "No debería haberse añadido ningún cliente");
     }
 
+    /** Comprueba que pulsar el título vuelve al panel del gerente. */
      @Test
     public void pulsarElTituloVuelveAlPanelDelGerente() {
         clickOn("#lblTitulo");
