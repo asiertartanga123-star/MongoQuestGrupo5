@@ -45,6 +45,10 @@ import org.bson.types.ObjectId;
  */
 public class GestionClasesController {
 
+    /** Crea el controlador; lo instancia JavaFX al cargar el FXML. */
+    public GestionClasesController() {
+    }
+
     /** Contenedor raíz de la vista; da acceso a la escena y a la ventana. */
     @FXML private BorderPane raiz;
 

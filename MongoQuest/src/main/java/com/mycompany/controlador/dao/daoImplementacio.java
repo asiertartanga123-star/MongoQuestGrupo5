@@ -37,6 +37,10 @@ import org.bson.types.ObjectId;
  */
 public class daoImplementacio implements dao {
 
+    /** Crea el acceso a datos; la conexión se abre en la primera operación y se comparte. */
+    public daoImplementacio() {
+    }
+
     /** Dirección del servidor MongoDB; si no responde en 3 segundos se da por caído. */
     private static final String URI = "mongodb://localhost:27017/?serverSelectionTimeoutMS=3000";
     /** Nombre de la base de datos que utiliza la aplicación. */

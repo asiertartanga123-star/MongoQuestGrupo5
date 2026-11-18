@@ -25,15 +25,28 @@ import org.bson.Document;
  */
 public class MonitorController implements Initializable {
 
+    /** Crea el controlador; lo instancia JavaFX al cargar el FXML. */
+    public MonitorController() {
+    }
+
+    /** Contenedor raíz de la pantalla. */
     @FXML private BorderPane raiz;
+    /** Círculo donde se muestra la foto del monitor. */
     @FXML private Circle circuloFoto;
+    /** Tarjeta de la sección de monitores. */
     @FXML private VBox cardMonitores;
+    /** Tarjeta que abre la gestión de clases. */
     @FXML private VBox cardClases;
+    /** Tarjeta que abre la gestión de clientes. */
     @FXML private VBox cardClientes;
+    /** Imagen de la tarjeta de monitores. */
     @FXML private ImageView imgMonitores;
+    /** Imagen de la tarjeta de clases. */
     @FXML private ImageView imgClases;
+    /** Imagen de la tarjeta de clientes. */
     @FXML private ImageView imgClientes;
 
+    /** Acceso a los datos de MongoDB. */
     private final daoImplementacio dao = new daoImplementacio();
 
     @Override
@@ -50,6 +63,11 @@ public class MonitorController implements Initializable {
         }
     }
 
+    /**
+     * Pone la foto del monitor en el círculo de perfil, si tiene foto.
+     *
+     * @param dni DNI del monitor
+     */
     private void cargarFotoPerfil(String dni) {
         if (circuloFoto == null || dni == null || dni.isEmpty()) {
             return;
@@ -60,6 +78,12 @@ public class MonitorController implements Initializable {
         }
     }
 
+    /**
+     * Hace que la imagen crezca y encoja con su tarjeta.
+     *
+     * @param img  imagen de la tarjeta
+     * @param card tarjeta que la contiene
+     */
     private void ajustarImagen(ImageView img, VBox card) {
         if (img == null || card == null) {
             return;
@@ -68,6 +92,7 @@ public class MonitorController implements Initializable {
         img.fitHeightProperty().bind(card.heightProperty().multiply(0.80));
     }
 
+    /** Abre la gestión de clases y cierra el panel del monitor. */
     @FXML
     private void onGestionarClases() {
         try {
@@ -84,6 +109,7 @@ public class MonitorController implements Initializable {
         }
     }
 
+    /** Abre la gestión de clientes y cierra el panel del monitor. */
     @FXML
     private void onGestionarClientes() {
         try {
@@ -100,6 +126,7 @@ public class MonitorController implements Initializable {
         }
     }
 
+    /** Cierra la sesión y vuelve a la pantalla de login. */
     @FXML
     private void onCerrarSesion() {
         try {

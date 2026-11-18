@@ -23,6 +23,10 @@ import javafx.stage.Stage;
  */
 public class GerenteController {
 
+    /** Crea el controlador; lo instancia JavaFX al cargar el FXML. */
+    public GerenteController() {
+    }
+
     // Elementos de la vista del gerente
     /** Contenedor raíz de la pantalla. */
     @FXML private BorderPane raiz;

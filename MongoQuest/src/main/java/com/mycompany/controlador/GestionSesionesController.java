@@ -48,6 +48,10 @@ import org.bson.types.ObjectId;
  */
 public class GestionSesionesController {
 
+    /** Crea el controlador; lo instancia JavaFX al cargar el FXML. */
+    public GestionSesionesController() {
+    }
+
     /** Nombre del día tal como se guarda en {@code horas.dia}; el índice es la columna de la rejilla menos 1. */
     private static final String[] DIAS = {"lunes", "martes", "miércoles", "jueves", "viernes", "sábado"};
     /** Estilo de un hueco libre (el mismo que trae el FXML). */

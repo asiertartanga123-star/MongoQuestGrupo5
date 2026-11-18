@@ -1,3 +1,7 @@
+/**
+ * Aplicación de escritorio Tolotolo Gym (MongoQuest): gestión de clientes, monitores,
+ * clases y sesiones de un gimnasio, con JavaFX y MongoDB.
+ */
 module com.mycompany.mongoquest {
     requires javafx.controls;
     requires javafx.fxml;

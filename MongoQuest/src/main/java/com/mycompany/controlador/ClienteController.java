@@ -37,39 +37,61 @@ import org.bson.types.ObjectId;
  */
 public class ClienteController implements Initializable {
 
+    /** Número máximo de clases a las que se puede apuntar un cliente. */
     static final int MAX_CLASES_APUNTADO = 6;
+    /** Clases disponibles que se muestran al abrir; el resto aparece con «Ver más clases». */
     static final int CLASES_VISIBLES_AL_ABRIR = 3;
 
+    /** Contenedor raíz de la pantalla. */
     @FXML private BorderPane raiz;
+    /** Círculo donde se muestra la foto del cliente. */
     @FXML private Circle circuloFoto;
 
+    /** Nombre y apellido del cliente (solo lectura). */
     @FXML private TextField txtNombre;
+    /** DNI del cliente (solo lectura). */
     @FXML private TextField txtDni;
+    /** Correo del cliente (solo lectura). */
     @FXML private TextField txtMail;
+    /** Tipo de membresía del cliente (solo lectura). */
     @FXML private TextField txtMembresia;
 
+    /** Nombres de las clases: del 1 al 6, las del cliente; del 7 en adelante, las disponibles. */
     @FXML private Label lblClase1, lblClase2, lblClase3, lblClase4, lblClase5, lblClase6,
             lblClase7, lblClase8, lblClase9, lblClase10, lblClase11, lblClase12,
             lblClase13, lblClase14, lblClase15, lblClase16, lblClase17, lblClase18;
+    /** Plazas ocupadas / plazas totales de cada clase, en el mismo orden que los nombres. */
     @FXML private Label lblPlazas1, lblPlazas2, lblPlazas3, lblPlazas4, lblPlazas5, lblPlazas6,
             lblPlazas7, lblPlazas8, lblPlazas9, lblPlazas10, lblPlazas11, lblPlazas12,
             lblPlazas13, lblPlazas14, lblPlazas15, lblPlazas16, lblPlazas17, lblPlazas18;
 
+    /** Tarjetas de clases disponibles que están ocultas hasta pulsar «Ver más clases». */
     @FXML private VBox tarjeta10, tarjeta11, tarjeta12, tarjeta13, tarjeta14,
             tarjeta15, tarjeta16, tarjeta17, tarjeta18;
 
+    /** Botón que muestra el resto de clases disponibles. */
     @FXML private Button btnVerMasClases;
 
+    /** Tabla con los logros del cliente. */
     @FXML private TableView<Logros> tablaLogros;
+    /** Columnas de la tabla de logros: número, nombre, fecha y semanas. */
     @FXML private TableColumn<Logros, String> colLogro1, colLogro2, colLogro3, colLogro4;
 
+    /** Acceso a los datos de MongoDB. */
     private final daoImplementacio dao;
+    /** Todas las clases del gimnasio, leídas al abrir la pantalla. */
     private List<Document> todasLasClases;
 
+    /** Crea el controlador con el acceso a datos real; es el que usa JavaFX al cargar el FXML. */
     public ClienteController() {
         this(new daoImplementacio());
     }
 
+    /**
+     * Crea el controlador con el acceso a datos indicado; se usa en los tests.
+     *
+     * @param dao acceso a datos que usará el controlador
+     */
     public ClienteController(daoImplementacio dao) {
         this.dao = dao;
     }
@@ -142,6 +164,11 @@ public class ClienteController implements Initializable {
         ponerClick(lblClase18, lblPlazas18);
     }
 
+    /**
+     * Pone la foto del cliente en el círculo de perfil, si tiene foto.
+     *
+     * @param dni DNI del cliente
+     */
     private void cargarFotoPerfil(String dni) {
         if (circuloFoto == null || dni == null || dni.isEmpty()) {
             return;
@@ -152,6 +179,12 @@ public class ClienteController implements Initializable {
         }
     }
 
+    /**
+     * Hace que al pulsar la tarjeta de una clase se pregunte si apuntarse a ella.
+     *
+     * @param nombre etiqueta con el nombre de la clase
+     * @param plazas etiqueta con sus plazas
+     */
     private void ponerClick(final Label nombre, final Label plazas) {
         nombre.getParent().setCursor(Cursor.HAND);
         nombre.getParent().setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -162,6 +195,13 @@ public class ClienteController implements Initializable {
         });
     }
 
+    /**
+     * Apunta al cliente a la clase pulsada después de confirmarlo. Avisa si ya está
+     * apuntado, si tiene 6 clases o si la sesión está completa, y actualiza las plazas.
+     *
+     * @param nombre etiqueta con el nombre de la clase
+     * @param plazas etiqueta con sus plazas
+     */
     private void apuntar(Label nombre, Label plazas) {
         Label[] nombresIzq = {lblClase1, lblClase2, lblClase3, lblClase4, lblClase5, lblClase6};
         Label[] plazasIzq = {lblPlazas1, lblPlazas2, lblPlazas3, lblPlazas4, lblPlazas5, lblPlazas6};
@@ -210,6 +250,7 @@ public class ClienteController implements Initializable {
         }
     }
 
+    /** Muestra las tarjetas del resto de clases disponibles y desactiva el botón. */
     @FXML
     private void verMasClases() {
         VBox[] tarjetas = {tarjeta10, tarjeta11, tarjeta12, tarjeta13, tarjeta14,
@@ -232,6 +273,11 @@ public class ClienteController implements Initializable {
         btnVerMasClases.setDisable(true);
     }
 
+    /**
+     * Cierra la sesión y vuelve a la pantalla de login.
+     *
+     * @throws Exception si no se puede cargar la pantalla de login
+     */
     @FXML
     private void cerrarSesion() throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/com/mycompany/vista/Login.fxml"));
@@ -242,6 +288,12 @@ public class ClienteController implements Initializable {
         ((Stage) raiz.getScene().getWindow()).close();
     }
 
+    /**
+     * Lee el cliente de MongoDB y antes le concede los logros que le correspondan por antigüedad.
+     *
+     * @param mail correo del cliente
+     * @return el documento del cliente, o {@code null} si no existe
+     */
     public Document cargarCliente(String mail) {
         Document cliente = dao.buscarClientePorMail(mail);
         if (cliente == null) {
@@ -251,10 +303,22 @@ public class ClienteController implements Initializable {
         return dao.buscarClientePorMail(mail);
     }
 
+    /**
+     * Une nombre y apellido del cliente.
+     *
+     * @param cliente documento del cliente
+     * @return nombre y apellido separados por un espacio
+     */
     public String nombreCompleto(Document cliente) {
         return cliente.getString("nombre") + " " + cliente.getString("apellido");
     }
 
+    /**
+     * Calcula las plazas ocupadas de la última sesión de una clase.
+     *
+     * @param idClase identificador de la clase
+     * @return texto {@code ocupadas/totales}, o {@code sin sesión} si la clase no tiene sesiones
+     */
     public String plazasDe(ObjectId idClase) {
         Document sesion = dao.ultimaSesionDeClase(idClase);
         if (sesion == null) {
@@ -270,6 +334,12 @@ public class ClienteController implements Initializable {
         return totalAsistentes + "/" + sesion.getInteger("plazaMax");
     }
 
+    /**
+     * Convierte un valor leído de MongoDB en texto para mostrarlo.
+     *
+     * @param valor valor a mostrar
+     * @return su texto, o una cadena vacía si es {@code null}
+     */
     public String texto(Object valor) {
         if (valor == null) {
             return "";
@@ -277,6 +347,12 @@ public class ClienteController implements Initializable {
         return valor.toString();
     }
 
+    /**
+     * Convierte los logros guardados en el cliente en filas para la tabla.
+     *
+     * @param logros logros del cliente; puede ser {@code null}
+     * @return una fila por logro, numeradas desde 1
+     */
     public List<Logros> construirLogros(List<Document> logros) {
         List<Logros> filas = new ArrayList<Logros>();
         if (logros == null) {
@@ -292,10 +368,23 @@ public class ClienteController implements Initializable {
         return filas;
     }
 
+    /**
+     * Indica si hay más clases de las que se muestran al abrir.
+     *
+     * @param clases todas las clases
+     * @return {@code true} si hay que activar «Ver más clases»
+     */
     public boolean hayMasClasesQueLasVisibles(List<Document> clases) {
         return clases.size() > CLASES_VISIBLES_AL_ABRIR;
     }
 
+    /**
+     * Indica si el cliente ya está apuntado a una clase.
+     *
+     * @param nombreClase    nombre de la clase
+     * @param clasesActuales nombres de las clases del cliente
+     * @return {@code true} si la clase ya está en su lista
+     */
     public boolean yaApuntado(String nombreClase, String[] clasesActuales) {
         for (int i = 0; i < clasesActuales.length; i++) {
             if (nombreClase.equals(clasesActuales[i])) {
@@ -305,6 +394,12 @@ public class ClienteController implements Initializable {
         return false;
     }
 
+    /**
+     * Busca la primera posición libre en la lista de clases del cliente.
+     *
+     * @param clasesActuales nombres de las clases del cliente; vacío o {@code null} es un hueco
+     * @return la posición libre, o {@code -1} si no queda ninguna
+     */
     public int primerHuecoLibre(String[] clasesActuales) {
         for (int i = 0; i < clasesActuales.length; i++) {
             if (clasesActuales[i] == null || clasesActuales[i].isEmpty()) {
@@ -314,6 +409,12 @@ public class ClienteController implements Initializable {
         return -1;
     }
 
+    /**
+     * Devuelve el texto de cada etiqueta.
+     *
+     * @param labels etiquetas
+     * @return sus textos, en el mismo orden
+     */
     private String[] textosDe(Label[] labels) {
         String[] textos = new String[labels.length];
         for (int i = 0; i < labels.length; i++) {

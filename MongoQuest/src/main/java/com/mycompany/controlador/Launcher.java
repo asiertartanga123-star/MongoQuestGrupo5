@@ -7,6 +7,10 @@ package com.mycompany.controlador;
  * para invocar la clase principal de la interfaz gráfica.
  */
 public class Launcher {
+
+    /** Crea el lanzador; solo se usa su método {@code main}. */
+    public Launcher() {
+    }
     /**
      * Ejecuta la aplicación JavaFX desde el punto de entrada del lanzador.
      *

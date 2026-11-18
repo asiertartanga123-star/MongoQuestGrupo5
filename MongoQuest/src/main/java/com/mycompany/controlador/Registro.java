@@ -27,6 +27,10 @@ import java.util.logging.Logger;
  */
 public class Registro {
 
+    /** Clase de utilidades: solo tiene métodos estáticos y no se instancia. */
+    private Registro() {
+    }
+
     /** Logger principal: recibe los mensajes generales y los errores graves. */
     private static final Logger LOG = Logger.getLogger("tolotolo");
     /** Logger de las operaciones contra la base de datos; escribe solo en el log de operaciones. */
@@ -95,6 +99,10 @@ public class Registro {
     // Formato del log de operaciones: fecha | usuario | tipo | detalle | resultado
     /** Formato del log de operaciones: fecha, usuario, tipo, detalle y resultado. */
     private static class FormatoOperaciones extends Formatter {
+
+        /** Crea el formato del log de operaciones. */
+        FormatoOperaciones() {
+        }
 
         /**
          * Da formato a un registro de operación: fecha y mensaje.

@@ -19,22 +19,39 @@ import javafx.stage.Stage;
  */
 public class LoginController {
 
+    /** Crea el controlador; lo instancia JavaFX al cargar el FXML. */
+    public LoginController() {
+    }
+
+    /** Contenedor raíz de la pantalla. */
     @FXML private BorderPane raiz;
+    /** Imagen decorativa de la izquierda. */
     @FXML private ImageView imgToroIzq;
+    /** Imagen decorativa de la derecha. */
     @FXML private ImageView imgToroDer;
+    /** Campo del correo del usuario. */
     @FXML private TextField txtUsuario;
+    /** Campo de la contraseña. */
     @FXML private PasswordField txtPassword;
 
+    /** Acceso a los datos de MongoDB. */
     private final daoImplementacio dao = new daoImplementacio();
+    /** Correo del usuario que ha iniciado sesión; lo leen las demás pantallas. */
     public static String mailActual;
+    /** Tipo del usuario en sesión: {@code gerente}, {@code monitor} o {@code cliente}. */
     public static String rolActual;
 
+    /** Ajusta el alto de las imágenes decorativas al alto de la ventana. */
     @FXML
     private void initialize() {
         imgToroIzq.fitHeightProperty().bind(raiz.heightProperty().subtract(81).multiply(0.85));
         imgToroDer.fitHeightProperty().bind(raiz.heightProperty().subtract(81).multiply(0.85));
     }
 
+    /**
+     * Comprueba el correo y la contraseña en MongoDB y abre la pantalla que corresponde al
+     * tipo de usuario. Avisa si faltan datos, si son incorrectos o si no hay conexión.
+     */
     @FXML
     private void onIniciarSesion() {
         String mail = txtUsuario.getText().trim();
@@ -74,6 +91,7 @@ public class LoginController {
         }
     }
 
+    /** Sustituye la pantalla de login por la de registro de un cliente nuevo. */
     @FXML
     private void onRegistrarse() {
         try {
@@ -86,6 +104,12 @@ public class LoginController {
         }
     }
 
+    /**
+     * Abre una pantalla en una ventana nueva y cierra la de login.
+     *
+     * @param fxml   ruta del FXML de la pantalla
+     * @param titulo título de la ventana nueva
+     */
     private void abrirVentana(String fxml, String titulo) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(fxml));
@@ -101,6 +125,12 @@ public class LoginController {
         }
     }
 
+    /**
+     * Muestra un aviso al usuario y espera a que lo cierre.
+     *
+     * @param tipo    tipo de aviso (error, advertencia o información)
+     * @param mensaje texto del aviso
+     */
     private void mostrarAlerta(Alert.AlertType tipo, String mensaje) {
         Alert alerta = new Alert(tipo, mensaje);
         App.ponerIcono(alerta);

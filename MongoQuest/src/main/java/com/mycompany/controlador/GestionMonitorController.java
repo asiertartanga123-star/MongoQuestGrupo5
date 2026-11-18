@@ -45,6 +45,10 @@ import org.bson.Document;
  */
 public class GestionMonitorController {
 
+    /** Crea el controlador; lo instancia JavaFX al cargar el FXML. */
+    public GestionMonitorController() {
+    }
+
     // Controles enlazados con la lista de monitores y su ficha de datos.
     /** Contenedor raíz de la pantalla. */
     @FXML
@@ -95,6 +99,10 @@ public class GestionMonitorController {
     // Define cómo se presenta cada monitor en la lista de la izquierda.
     /** Celda de la lista: muestra el nombre y los apellidos en una línea, y el DNI y el correo en otra. */
     private static class CeldaMonitor extends ListCell<Document> {
+
+        /** Crea una celda vacía de la lista de monitores. */
+        CeldaMonitor() {
+        }
 
         /**
          * Rellena la celda con los datos del monitor, o la deja vacía.
