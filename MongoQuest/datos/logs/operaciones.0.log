@@ -129,3 +129,1072 @@
 2026-11-18 17:49:11 | anónimo | SELECT Trabajadores | login de admin@admin.com | OK
 2026-11-18 17:49:14 | admin@admin.com | SELECT Login | sin coincidencias para nadie@noexiste.com | OK
 2026-11-18 17:49:19 | admin@admin.com | SELECT Login | sin coincidencias para admin@admin.com | OK
+2026-11-18 19:55:02 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 19:55:02 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:55:02 | anónimo | INSERT Clientes | dni T28101880 | OK
+2026-11-18 19:55:02 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 19:55:02 | anónimo | INSERT Clases | clase PRUEBA libre 1795028101880 | OK
+2026-11-18 19:55:02 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:55:02 | anónimo | INSERT Sesiones | clase 6afdf486dd0ae50b4a8954c3 el Thu Nov 19 19:55:02 CET 2026 | OK
+2026-11-18 19:55:02 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 19:55:02 | anónimo | INSERT Clases | clase PRUEBA llena 1795028101880 | OK
+2026-11-18 19:55:02 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:55:02 | anónimo | INSERT Sesiones | clase 6afdf486dd0ae50b4a8954c5 | ERROR -> MongoWriteException: Write operation error on server localhost:27017. Write error: WriteError{code=121, message='Document failed validation', details={"failingDocumentId": {"$oid": "6afdf486dd0ae50b4a8954c6"}, "details": {"operatorName": "$jsonSchema", "schemaRulesNotSatisfied": [{"operatorName": "properties", "propertiesNotSatisfied": [{"propertyName": "plazaMax", "description": "Aforo máximo permitido en la sesión", "details": [{"operatorName": "minimum", "specifiedAs": {"minimum": 1}, "reason": "comparison failed", "consideredValue": 0}]}]}]}}}.
+2026-11-18 19:55:02 | anónimo | DELETE Clases | id 6afdf486dd0ae50b4a8954c3 con sus sesiones (eliminada: true) | OK
+2026-11-18 19:55:02 | anónimo | DELETE Clientes | id 6afdf486dd0ae50b4a8954c2 y sus plazas en sesiones (eliminado: true) | OK
+2026-11-18 19:55:13 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:55:14 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 19:55:14 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:55:14 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 19:55:14 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 19:55:17 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 19:55:24 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 19:55:24 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:55:24 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 19:55:24 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 19:55:25 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-18 19:55:26 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 19:55:26 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:55:26 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 19:55:26 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 19:55:28 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 19:55:28 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:55:28 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 19:55:28 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 19:55:28 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-18 19:55:31 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 19:55:31 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:55:31 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 19:55:31 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 19:55:32 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-18 19:55:32 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 19:55:32 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:55:32 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 19:55:32 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 19:55:32 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-18 19:55:33 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 19:55:33 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:55:33 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 19:55:33 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 19:55:34 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 19:55:34 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:55:34 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 19:55:34 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 19:55:36 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 19:55:36 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:55:36 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 19:55:36 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 19:55:37 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-18 19:55:38 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 19:55:38 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:55:38 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 19:55:38 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 19:55:38 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-18 19:55:42 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 19:55:42 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:55:42 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 19:55:42 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 19:55:43 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-18 19:55:45 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 19:55:45 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:55:45 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 19:55:45 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 19:55:46 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-18 19:55:47 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 19:55:47 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:55:47 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 19:55:47 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 19:55:48 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-18 19:55:48 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 19:55:48 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:55:48 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 19:55:48 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 19:55:48 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-18 19:55:51 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 19:55:51 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:55:51 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 19:55:51 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 19:55:51 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-18 19:55:53 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 19:55:53 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:55:53 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 19:55:53 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 19:55:54 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 19:55:54 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:55:54 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 19:55:54 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 19:55:55 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 19:55:55 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:55:55 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 19:55:55 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 19:55:55 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-18 19:55:57 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 19:55:58 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 19:55:59 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 19:56:00 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 19:56:00 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 19:56:04 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 19:56:07 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 19:56:20 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:56:20 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:56:21 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:56:22 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:56:26 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:56:27 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:56:29 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:56:33 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:56:34 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:56:35 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:56:37 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:56:40 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 19:56:40 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:56:40 | anónimo | INSERT Clases | clase PRUEBA horario 1795028200858 | OK
+2026-11-18 19:56:40 | anónimo | INSERT Sesiones | clase 6afdf4e8dd0ae50b4a8954dd el Tue Nov 24 10:00:00 CET 2026 | OK
+2026-11-18 19:56:40 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 19:56:41 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 19:56:41 | anónimo | SELECT Sesiones | sesiones de 6afdf4e8dd0ae50b4a8954dd (1 registros) | OK
+2026-11-18 19:56:41 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:56:43 | anónimo | SELECT Sesiones | sesiones de 6afdf4e8dd0ae50b4a8954dd (1 registros) | OK
+2026-11-18 19:56:43 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 19:56:43 | anónimo | SELECT Sesiones | sesiones de 6afdf4e8dd0ae50b4a8954dd (1 registros) | OK
+2026-11-18 19:56:43 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 19:56:43 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:56:44 | anónimo | SELECT Sesiones | sesiones de 6afdf4e8dd0ae50b4a8954dd (1 registros) | OK
+2026-11-18 19:56:44 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 19:56:44 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 19:56:45 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 19:56:45 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:56:47 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 19:56:48 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 19:56:48 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:56:50 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 19:56:51 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 19:56:51 | anónimo | SELECT Sesiones | sesiones de 6afdf4e8dd0ae50b4a8954dd (1 registros) | OK
+2026-11-18 19:56:51 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 19:56:51 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:56:53 | anónimo | SELECT Sesiones | sesiones de 6afdf4e8dd0ae50b4a8954dd (1 registros) | OK
+2026-11-18 19:56:53 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 19:56:53 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 19:56:53 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:56:56 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 19:56:56 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 19:56:56 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:56:56 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 19:56:56 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 19:56:57 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 19:56:58 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 19:56:58 | anónimo | SELECT Sesiones | sesiones de 6afdf4e8dd0ae50b4a8954dd (1 registros) | OK
+2026-11-18 19:56:58 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 19:56:58 | anónimo | SELECT Sesiones | sesiones de 6afdf4e8dd0ae50b4a8954dd (1 registros) | OK
+2026-11-18 19:56:58 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:56:59 | anónimo | SELECT Sesiones | sesiones de 6afdf4e8dd0ae50b4a8954dd (1 registros) | OK
+2026-11-18 19:56:59 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 19:57:00 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 19:57:00 | anónimo | SELECT Sesiones | sesiones de 6afdf4e8dd0ae50b4a8954dd (1 registros) | OK
+2026-11-18 19:57:00 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:57:01 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 19:57:01 | anónimo | SELECT Sesiones | sesiones de 6afdf4e8dd0ae50b4a8954dd (1 registros) | OK
+2026-11-18 19:57:01 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 19:57:01 | anónimo | SELECT Sesiones | sesiones de 6afdf4e8dd0ae50b4a8954dd (1 registros) | OK
+2026-11-18 19:57:01 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:57:02 | anónimo | SELECT Sesiones | sesiones de 6afdf4e8dd0ae50b4a8954dd (1 registros) | OK
+2026-11-18 19:57:03 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 19:57:03 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 19:57:03 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:57:05 | anónimo | INSERT Sesiones | clase 6afdf4e8dd0ae50b4a8954dd el Mon Nov 23 09:00:00 CET 2026 | OK
+2026-11-18 19:57:05 | anónimo | UPDATE Clases | horario de 6afdf4e8dd0ae50b4a8954dd (2 franjas) | OK
+2026-11-18 19:57:05 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 19:57:05 | anónimo | SELECT Sesiones | sesiones de 6afdf4e8dd0ae50b4a8954dd (2 registros) | OK
+2026-11-18 19:57:06 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 19:57:06 | anónimo | SELECT Sesiones | sesiones de 6afdf4e8dd0ae50b4a8954dd (2 registros) | OK
+2026-11-18 19:57:06 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:57:07 | anónimo | UPDATE Sesiones | id 6afdf501dd0ae50b4a8954e1 (7 plazas) | OK
+2026-11-18 19:57:07 | anónimo | SELECT Sesiones | sesiones de 6afdf4e8dd0ae50b4a8954dd (2 registros) | OK
+2026-11-18 19:57:07 | anónimo | SELECT Sesiones | sesiones de 6afdf4e8dd0ae50b4a8954dd (2 registros) | OK
+2026-11-18 19:57:08 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 19:57:08 | anónimo | SELECT Sesiones | sesiones de 6afdf4e8dd0ae50b4a8954dd (2 registros) | OK
+2026-11-18 19:57:08 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:57:09 | anónimo | DELETE Sesiones | id 6afdf501dd0ae50b4a8954e1 (eliminada: true) | OK
+2026-11-18 19:57:09 | anónimo | UPDATE Clases | horario de 6afdf4e8dd0ae50b4a8954dd (1 franjas) | OK
+2026-11-18 19:57:09 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 19:57:09 | anónimo | SELECT Sesiones | sesiones de 6afdf4e8dd0ae50b4a8954dd (1 registros) | OK
+2026-11-18 19:57:09 | anónimo | DELETE Clases | id 6afdf4e8dd0ae50b4a8954dd con sus sesiones (eliminada: true) | OK
+2026-11-18 19:57:25 | anónimo | SELECT Trabajadores | login de admin@admin.com | OK
+2026-11-18 19:57:28 | admin@admin.com | SELECT Login | sin coincidencias para nadie@noexiste.com | OK
+2026-11-18 19:57:33 | admin@admin.com | SELECT Login | sin coincidencias para admin@admin.com | OK
+2026-11-18 19:57:38 | admin@admin.com | SELECT Trabajadores | buscar admin@admin.com | OK
+2026-11-18 19:57:38 | admin@admin.com | SELECT Trabajadores | buscar admin@admin.com | OK
+2026-11-18 19:57:39 | admin@admin.com | SELECT Salas | listado (3 registros) | OK
+2026-11-18 19:57:39 | admin@admin.com | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:57:39 | admin@admin.com | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 19:57:39 | admin@admin.com | SELECT Clases | listado (4 registros) | OK
+2026-11-18 19:57:39 | admin@admin.com | SELECT Trabajadores | buscar admin@admin.com | OK
+2026-11-18 19:57:40 | admin@admin.com | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 19:57:41 | admin@admin.com | SELECT Trabajadores | buscar admin@admin.com | OK
+2026-11-18 19:57:41 | admin@admin.com | SELECT Trabajadores | buscar admin@admin.com | OK
+2026-11-18 19:57:42 | admin@admin.com | SELECT Trabajadores | buscar admin@admin.com | OK
+2026-11-18 19:57:44 | admin@admin.com | SELECT Salas | listado (3 registros) | OK
+2026-11-18 19:57:44 | admin@admin.com | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 19:57:44 | admin@admin.com | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 19:57:44 | admin@admin.com | SELECT Clases | listado (4 registros) | OK
+2026-11-18 20:02:47 | anónimo | SELECT Login | sin coincidencias para admin@admi.com | OK
+2026-11-18 20:02:52 | anónimo | SELECT Login | sin coincidencias para admin@admi.com | OK
+2026-11-18 20:02:57 | anónimo | SELECT Trabajadores | login de admin@admin.com | OK
+2026-11-18 20:02:58 | admin@admin.com | SELECT Salas | listado (3 registros) | OK
+2026-11-18 20:02:58 | admin@admin.com | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 20:02:58 | admin@admin.com | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 20:02:58 | admin@admin.com | SELECT Clases | listado (4 registros) | OK
+2026-11-18 20:03:05 | admin@admin.com | SELECT Salas | listado (3 registros) | OK
+2026-11-18 20:03:05 | admin@admin.com | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 20:03:05 | admin@admin.com | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 20:03:05 | admin@admin.com | SELECT Clases | listado (4 registros) | OK
+2026-11-18 20:03:06 | admin@admin.com | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-18 20:03:12 | admin@admin.com | SELECT Sesiones | sesiones de 650000000000000000000012 (1 registros) | OK
+2026-11-18 20:51:51 | anónimo | SELECT Trabajadores | login de admin@admin.com | OK
+2026-11-18 20:52:04 | admin@admin.com | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 21:28:26 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 21:28:26 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:28:26 | anónimo | INSERT Clientes | dni T33706276 | OK
+2026-11-18 21:28:26 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 21:28:26 | anónimo | INSERT Clases | clase PRUEBA libre 1795033706276 | OK
+2026-11-18 21:28:26 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:28:26 | anónimo | INSERT Sesiones | clase 6afe0a6adf78214d00820ea2 el Thu Nov 19 21:28:26 CET 2026 | OK
+2026-11-18 21:28:26 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 21:28:26 | anónimo | INSERT Clases | clase PRUEBA llena 1795033706276 | OK
+2026-11-18 21:28:26 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:28:26 | anónimo | INSERT Sesiones | clase 6afe0a6adf78214d00820ea4 el Thu Nov 19 21:28:26 CET 2026 | OK
+2026-11-18 21:28:26 | anónimo | SELECT Clases | listado (6 registros) | OK
+2026-11-18 21:28:27 | anónimo | SELECT Clientes | buscar prueba.cliente.1795033706276@test.com | OK
+2026-11-18 21:28:27 | anónimo | SELECT Clientes | buscar prueba.cliente.1795033706276@test.com | OK
+2026-11-18 21:28:27 | anónimo | SELECT Clientes | buscar prueba.cliente.1795033706276@test.com | OK
+2026-11-18 21:28:27 | anónimo | SELECT Clases | listado (6 registros) | OK
+2026-11-18 21:28:27 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000011 | OK
+2026-11-18 21:28:27 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000012 | OK
+2026-11-18 21:28:27 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000013 | OK
+2026-11-18 21:28:28 | anónimo | SELECT Clientes | buscar prueba.cliente.1795033706276@test.com | OK
+2026-11-18 21:28:28 | anónimo | SELECT Clientes | buscar prueba.cliente.1795033706276@test.com | OK
+2026-11-18 21:28:28 | anónimo | SELECT Clientes | buscar prueba.cliente.1795033706276@test.com | OK
+2026-11-18 21:28:28 | anónimo | SELECT Clases | listado (6 registros) | OK
+2026-11-18 21:28:28 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000011 | OK
+2026-11-18 21:28:28 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000012 | OK
+2026-11-18 21:28:28 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000013 | OK
+2026-11-18 21:28:28 | anónimo | SELECT Sesiones | última sesión de 6afdf486dd0ae50b4a8954c5 (ninguna) | OK
+2026-11-18 21:28:28 | anónimo | SELECT Sesiones | última sesión de 6afe0a6adf78214d00820ea2 | OK
+2026-11-18 21:28:28 | anónimo | SELECT Sesiones | última sesión de 6afe0a6adf78214d00820ea4 | OK
+2026-11-18 21:28:29 | anónimo | SELECT Clientes | buscar prueba.cliente.1795033706276@test.com | OK
+2026-11-18 21:28:29 | anónimo | SELECT Clientes | buscar prueba.cliente.1795033706276@test.com | OK
+2026-11-18 21:28:29 | anónimo | SELECT Clientes | buscar prueba.cliente.1795033706276@test.com | OK
+2026-11-18 21:28:29 | anónimo | SELECT Clases | listado (6 registros) | OK
+2026-11-18 21:28:29 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000011 | OK
+2026-11-18 21:28:29 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000012 | OK
+2026-11-18 21:28:29 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000013 | OK
+2026-11-18 21:28:29 | anónimo | SELECT Sesiones | última sesión de 6afdf486dd0ae50b4a8954c5 (ninguna) | OK
+2026-11-18 21:28:29 | anónimo | SELECT Sesiones | última sesión de 6afe0a6adf78214d00820ea2 | OK
+2026-11-18 21:28:29 | anónimo | SELECT Sesiones | última sesión de 6afe0a6adf78214d00820ea4 | OK
+2026-11-18 21:28:30 | anónimo | SELECT Sesiones | última sesión de 6afe0a6adf78214d00820ea2 | OK
+2026-11-18 21:28:30 | anónimo | UPDATE Clientes/Sesiones | apuntar prueba.cliente.1795033706276@test.com a PRUEBA libre 1795033706276 | OK
+2026-11-18 21:28:30 | anónimo | SELECT Sesiones | última sesión de 6afe0a6adf78214d00820ea2 | OK
+2026-11-18 21:28:30 | anónimo | SELECT Clientes | buscar prueba.cliente.1795033706276@test.com | OK
+2026-11-18 21:28:30 | anónimo | SELECT Clientes | buscar prueba.cliente.1795033706276@test.com | OK
+2026-11-18 21:28:30 | anónimo | SELECT Clientes | buscar prueba.cliente.1795033706276@test.com | OK
+2026-11-18 21:28:30 | anónimo | SELECT Clientes | buscar prueba.cliente.1795033706276@test.com | OK
+2026-11-18 21:28:30 | anónimo | SELECT Sesiones | última sesión de 6afe0a6adf78214d00820ea2 | OK
+2026-11-18 21:28:30 | anónimo | SELECT Clases | listado (6 registros) | OK
+2026-11-18 21:28:30 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000011 | OK
+2026-11-18 21:28:30 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000012 | OK
+2026-11-18 21:28:30 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000013 | OK
+2026-11-18 21:28:31 | anónimo | SELECT Sesiones | última sesión de 6afdf486dd0ae50b4a8954c5 (ninguna) | OK
+2026-11-18 21:28:31 | anónimo | SELECT Sesiones | última sesión de 6afe0a6adf78214d00820ea2 | OK
+2026-11-18 21:28:31 | anónimo | SELECT Sesiones | última sesión de 6afe0a6adf78214d00820ea4 | OK
+2026-11-18 21:28:32 | anónimo | SELECT Clientes | buscar prueba.cliente.1795033706276@test.com | OK
+2026-11-18 21:28:32 | anónimo | SELECT Clientes | buscar prueba.cliente.1795033706276@test.com | OK
+2026-11-18 21:28:32 | anónimo | SELECT Clientes | buscar prueba.cliente.1795033706276@test.com | OK
+2026-11-18 21:28:32 | anónimo | SELECT Sesiones | última sesión de 6afe0a6adf78214d00820ea2 | OK
+2026-11-18 21:28:32 | anónimo | SELECT Clases | listado (6 registros) | OK
+2026-11-18 21:28:32 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000011 | OK
+2026-11-18 21:28:32 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000012 | OK
+2026-11-18 21:28:32 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000013 | OK
+2026-11-18 21:28:32 | anónimo | SELECT Sesiones | última sesión de 6afdf486dd0ae50b4a8954c5 (ninguna) | OK
+2026-11-18 21:28:32 | anónimo | SELECT Sesiones | última sesión de 6afe0a6adf78214d00820ea2 | OK
+2026-11-18 21:28:32 | anónimo | SELECT Sesiones | última sesión de 6afe0a6adf78214d00820ea4 | OK
+2026-11-18 21:28:33 | anónimo | SELECT Clientes | buscar prueba.cliente.1795033706276@test.com | OK
+2026-11-18 21:28:33 | anónimo | SELECT Clientes | buscar prueba.cliente.1795033706276@test.com | OK
+2026-11-18 21:28:33 | anónimo | SELECT Clientes | buscar prueba.cliente.1795033706276@test.com | OK
+2026-11-18 21:28:33 | anónimo | SELECT Sesiones | última sesión de 6afe0a6adf78214d00820ea2 | OK
+2026-11-18 21:28:33 | anónimo | SELECT Clases | listado (6 registros) | OK
+2026-11-18 21:28:33 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000011 | OK
+2026-11-18 21:28:33 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000012 | OK
+2026-11-18 21:28:33 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000013 | OK
+2026-11-18 21:28:33 | anónimo | SELECT Sesiones | última sesión de 6afdf486dd0ae50b4a8954c5 (ninguna) | OK
+2026-11-18 21:28:33 | anónimo | SELECT Sesiones | última sesión de 6afe0a6adf78214d00820ea2 | OK
+2026-11-18 21:28:33 | anónimo | SELECT Sesiones | última sesión de 6afe0a6adf78214d00820ea4 | OK
+2026-11-18 21:28:34 | anónimo | SELECT Clientes | buscar prueba.cliente.1795033706276@test.com | OK
+2026-11-18 21:28:34 | anónimo | SELECT Clientes | buscar prueba.cliente.1795033706276@test.com | OK
+2026-11-18 21:28:34 | anónimo | SELECT Clientes | buscar prueba.cliente.1795033706276@test.com | OK
+2026-11-18 21:28:34 | anónimo | SELECT Sesiones | última sesión de 6afe0a6adf78214d00820ea2 | OK
+2026-11-18 21:28:34 | anónimo | SELECT Clases | listado (6 registros) | OK
+2026-11-18 21:28:34 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000011 | OK
+2026-11-18 21:28:34 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000012 | OK
+2026-11-18 21:28:34 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000013 | OK
+2026-11-18 21:28:35 | anónimo | DELETE Clases | id 6afe0a6adf78214d00820ea2 con sus sesiones (eliminada: true) | OK
+2026-11-18 21:28:35 | anónimo | DELETE Clases | id 6afe0a6adf78214d00820ea4 con sus sesiones (eliminada: true) | OK
+2026-11-18 21:28:35 | anónimo | DELETE Clientes | id 6afe0a6adf78214d00820ea1 y sus plazas en sesiones (eliminado: true) | OK
+2026-11-18 21:28:45 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:28:46 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 21:28:46 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:28:46 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 21:28:46 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 21:28:49 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 21:28:56 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 21:28:56 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:28:56 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 21:28:56 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 21:28:57 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-18 21:28:58 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 21:28:58 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:28:58 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 21:28:58 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 21:29:00 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 21:29:00 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:29:00 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 21:29:00 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 21:29:01 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-18 21:29:03 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 21:29:03 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:29:03 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 21:29:03 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 21:29:04 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-18 21:29:04 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 21:29:04 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:29:04 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 21:29:04 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 21:29:05 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-18 21:29:06 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 21:29:06 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:29:06 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 21:29:06 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 21:29:07 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 21:29:07 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:29:07 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 21:29:07 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 21:29:08 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 21:29:08 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:29:08 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 21:29:08 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 21:29:09 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-18 21:29:10 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 21:29:10 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:29:10 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 21:29:10 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 21:29:11 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-18 21:29:14 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 21:29:14 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:29:14 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 21:29:14 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 21:29:15 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-18 21:29:18 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 21:29:18 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:29:18 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 21:29:18 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 21:29:18 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-18 21:29:20 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 21:29:20 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:29:20 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 21:29:20 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 21:29:20 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-18 21:29:21 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 21:29:21 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:29:21 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 21:29:21 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 21:29:21 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-18 21:29:23 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 21:29:23 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:29:23 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 21:29:23 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 21:29:24 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-18 21:29:26 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 21:29:26 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:29:26 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 21:29:26 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 21:29:27 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 21:29:27 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:29:27 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 21:29:27 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 21:29:27 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 21:29:27 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:29:27 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 21:29:27 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 21:29:28 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-18 21:29:29 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 21:29:31 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 21:29:32 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 21:29:33 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 21:29:33 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 21:29:37 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 21:29:40 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 21:29:52 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:29:53 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:29:54 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:29:55 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:29:59 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:29:59 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:30:02 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:30:06 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:30:07 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:30:08 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:30:10 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:30:13 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 21:30:13 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:30:13 | anónimo | INSERT Clases | clase PRUEBA horario 1795033813763 | OK
+2026-11-18 21:30:13 | anónimo | INSERT Sesiones | clase 6afe0ad5df78214d00820ebd el Tue Nov 24 10:00:00 CET 2026 | OK
+2026-11-18 21:30:13 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 21:30:14 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 21:30:14 | anónimo | SELECT Sesiones | sesiones de 6afe0ad5df78214d00820ebd (1 registros) | OK
+2026-11-18 21:30:14 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:30:16 | anónimo | SELECT Sesiones | sesiones de 6afe0ad5df78214d00820ebd (1 registros) | OK
+2026-11-18 21:30:16 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 21:30:16 | anónimo | SELECT Sesiones | sesiones de 6afe0ad5df78214d00820ebd (1 registros) | OK
+2026-11-18 21:30:17 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 21:30:17 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:30:17 | anónimo | SELECT Sesiones | sesiones de 6afe0ad5df78214d00820ebd (1 registros) | OK
+2026-11-18 21:30:17 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 21:30:18 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 21:30:18 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 21:30:18 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:30:20 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 21:30:21 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 21:30:21 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:30:23 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 21:30:24 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 21:30:24 | anónimo | SELECT Sesiones | sesiones de 6afe0ad5df78214d00820ebd (1 registros) | OK
+2026-11-18 21:30:24 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 21:30:24 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:30:26 | anónimo | SELECT Sesiones | sesiones de 6afe0ad5df78214d00820ebd (1 registros) | OK
+2026-11-18 21:30:26 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 21:30:27 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 21:30:27 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:30:29 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 21:30:30 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 21:30:30 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:30:30 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 21:30:30 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 21:30:30 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 21:30:31 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 21:30:31 | anónimo | SELECT Sesiones | sesiones de 6afe0ad5df78214d00820ebd (1 registros) | OK
+2026-11-18 21:30:32 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 21:30:32 | anónimo | SELECT Sesiones | sesiones de 6afe0ad5df78214d00820ebd (1 registros) | OK
+2026-11-18 21:30:32 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:30:32 | anónimo | SELECT Sesiones | sesiones de 6afe0ad5df78214d00820ebd (1 registros) | OK
+2026-11-18 21:30:33 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 21:30:33 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 21:30:33 | anónimo | SELECT Sesiones | sesiones de 6afe0ad5df78214d00820ebd (1 registros) | OK
+2026-11-18 21:30:33 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:30:34 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 21:30:34 | anónimo | SELECT Sesiones | sesiones de 6afe0ad5df78214d00820ebd (1 registros) | OK
+2026-11-18 21:30:35 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 21:30:35 | anónimo | SELECT Sesiones | sesiones de 6afe0ad5df78214d00820ebd (1 registros) | OK
+2026-11-18 21:30:35 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:30:36 | anónimo | SELECT Sesiones | sesiones de 6afe0ad5df78214d00820ebd (1 registros) | OK
+2026-11-18 21:30:36 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 21:30:37 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 21:30:37 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:30:38 | anónimo | INSERT Sesiones | clase 6afe0ad5df78214d00820ebd el Mon Nov 23 09:00:00 CET 2026 | OK
+2026-11-18 21:30:39 | anónimo | UPDATE Clases | horario de 6afe0ad5df78214d00820ebd (3 franjas) | OK
+2026-11-18 21:30:39 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 21:30:39 | anónimo | SELECT Sesiones | sesiones de 6afe0ad5df78214d00820ebd (2 registros) | OK
+2026-11-18 21:30:39 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 21:30:39 | anónimo | SELECT Sesiones | sesiones de 6afe0ad5df78214d00820ebd (2 registros) | OK
+2026-11-18 21:30:39 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:30:40 | anónimo | UPDATE Sesiones | id 6afe0aeedf78214d00820ec1 (7 plazas) | OK
+2026-11-18 21:30:40 | anónimo | SELECT Sesiones | sesiones de 6afe0ad5df78214d00820ebd (2 registros) | OK
+2026-11-18 21:30:40 | anónimo | SELECT Sesiones | sesiones de 6afe0ad5df78214d00820ebd (2 registros) | OK
+2026-11-18 21:30:41 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 21:30:41 | anónimo | SELECT Sesiones | sesiones de 6afe0ad5df78214d00820ebd (2 registros) | OK
+2026-11-18 21:30:41 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:30:42 | anónimo | DELETE Sesiones | id 6afe0aeedf78214d00820ec1 (eliminada: true) | OK
+2026-11-18 21:30:42 | anónimo | UPDATE Clases | horario de 6afe0ad5df78214d00820ebd (2 franjas) | OK
+2026-11-18 21:30:42 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 21:30:42 | anónimo | SELECT Sesiones | sesiones de 6afe0ad5df78214d00820ebd (1 registros) | OK
+2026-11-18 21:30:43 | anónimo | DELETE Clases | id 6afe0ad5df78214d00820ebd con sus sesiones (eliminada: true) | OK
+2026-11-18 21:31:09 | anónimo | SELECT Trabajadores | login de admin@admin.com | OK
+2026-11-18 21:31:12 | admin@admin.com | SELECT Login | sin coincidencias para nadie@noexiste.com | OK
+2026-11-18 21:31:17 | admin@admin.com | SELECT Login | sin coincidencias para admin@admin.com | OK
+2026-11-18 21:31:22 | admin@admin.com | SELECT Trabajadores | buscar admin@admin.com | OK
+2026-11-18 21:31:22 | admin@admin.com | SELECT Trabajadores | buscar admin@admin.com | OK
+2026-11-18 21:31:23 | admin@admin.com | SELECT Salas | listado (3 registros) | OK
+2026-11-18 21:31:23 | admin@admin.com | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:31:23 | admin@admin.com | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 21:31:23 | admin@admin.com | SELECT Clases | listado (4 registros) | OK
+2026-11-18 21:31:23 | admin@admin.com | SELECT Trabajadores | buscar admin@admin.com | OK
+2026-11-18 21:31:24 | admin@admin.com | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 21:31:24 | admin@admin.com | SELECT Trabajadores | buscar admin@admin.com | OK
+2026-11-18 21:31:25 | admin@admin.com | SELECT Trabajadores | buscar admin@admin.com | OK
+2026-11-18 21:31:26 | admin@admin.com | SELECT Trabajadores | buscar admin@admin.com | OK
+2026-11-18 21:31:28 | admin@admin.com | SELECT Salas | listado (3 registros) | OK
+2026-11-18 21:31:28 | admin@admin.com | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 21:31:28 | admin@admin.com | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 21:31:28 | admin@admin.com | SELECT Clases | listado (4 registros) | OK
+2026-11-18 22:29:42 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 22:29:42 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:29:42 | anónimo | INSERT Clientes | dni T37381936 | OK
+2026-11-18 22:29:42 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 22:29:42 | anónimo | INSERT Clases | clase PRUEBA libre 1795037381936 | OK
+2026-11-18 22:29:42 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:29:42 | anónimo | INSERT Sesiones | clase 6afe18c60319023e1afb1441 el Thu Nov 19 22:29:42 CET 2026 | OK
+2026-11-18 22:29:42 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 22:29:42 | anónimo | INSERT Clases | clase PRUEBA llena 1795037381936 | OK
+2026-11-18 22:29:42 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:29:42 | anónimo | INSERT Sesiones | clase 6afe18c60319023e1afb1443 el Thu Nov 19 22:29:42 CET 2026 | OK
+2026-11-18 22:29:42 | anónimo | SELECT Clases | listado (6 registros) | OK
+2026-11-18 22:29:43 | anónimo | SELECT Clientes | buscar prueba.cliente.1795037381936@test.com | OK
+2026-11-18 22:29:43 | anónimo | SELECT Clientes | buscar prueba.cliente.1795037381936@test.com | OK
+2026-11-18 22:29:43 | anónimo | SELECT Clientes | buscar prueba.cliente.1795037381936@test.com | OK
+2026-11-18 22:29:43 | anónimo | SELECT Clases | listado (6 registros) | OK
+2026-11-18 22:29:43 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000011 | OK
+2026-11-18 22:29:43 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000012 | OK
+2026-11-18 22:29:43 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000013 | OK
+2026-11-18 22:29:44 | anónimo | SELECT Clientes | buscar prueba.cliente.1795037381936@test.com | OK
+2026-11-18 22:29:44 | anónimo | SELECT Clientes | buscar prueba.cliente.1795037381936@test.com | OK
+2026-11-18 22:29:44 | anónimo | SELECT Clientes | buscar prueba.cliente.1795037381936@test.com | OK
+2026-11-18 22:29:44 | anónimo | SELECT Clases | listado (6 registros) | OK
+2026-11-18 22:29:44 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000011 | OK
+2026-11-18 22:29:44 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000012 | OK
+2026-11-18 22:29:44 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000013 | OK
+2026-11-18 22:29:44 | anónimo | SELECT Sesiones | última sesión de 6afdf486dd0ae50b4a8954c5 (ninguna) | OK
+2026-11-18 22:29:44 | anónimo | SELECT Sesiones | última sesión de 6afe18c60319023e1afb1441 | OK
+2026-11-18 22:29:44 | anónimo | SELECT Sesiones | última sesión de 6afe18c60319023e1afb1443 | OK
+2026-11-18 22:29:45 | anónimo | SELECT Clientes | buscar prueba.cliente.1795037381936@test.com | OK
+2026-11-18 22:29:45 | anónimo | SELECT Clientes | buscar prueba.cliente.1795037381936@test.com | OK
+2026-11-18 22:29:45 | anónimo | SELECT Clientes | buscar prueba.cliente.1795037381936@test.com | OK
+2026-11-18 22:29:45 | anónimo | SELECT Clases | listado (6 registros) | OK
+2026-11-18 22:29:45 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000011 | OK
+2026-11-18 22:29:45 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000012 | OK
+2026-11-18 22:29:45 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000013 | OK
+2026-11-18 22:29:45 | anónimo | SELECT Sesiones | última sesión de 6afdf486dd0ae50b4a8954c5 (ninguna) | OK
+2026-11-18 22:29:45 | anónimo | SELECT Sesiones | última sesión de 6afe18c60319023e1afb1441 | OK
+2026-11-18 22:29:45 | anónimo | SELECT Sesiones | última sesión de 6afe18c60319023e1afb1443 | OK
+2026-11-18 22:29:46 | anónimo | SELECT Sesiones | última sesión de 6afe18c60319023e1afb1441 | OK
+2026-11-18 22:29:46 | anónimo | UPDATE Clientes/Sesiones | apuntar prueba.cliente.1795037381936@test.com a PRUEBA libre 1795037381936 | OK
+2026-11-18 22:29:46 | anónimo | SELECT Sesiones | última sesión de 6afe18c60319023e1afb1441 | OK
+2026-11-18 22:29:46 | anónimo | SELECT Clientes | buscar prueba.cliente.1795037381936@test.com | OK
+2026-11-18 22:29:46 | anónimo | SELECT Clientes | buscar prueba.cliente.1795037381936@test.com | OK
+2026-11-18 22:29:46 | anónimo | SELECT Clientes | buscar prueba.cliente.1795037381936@test.com | OK
+2026-11-18 22:29:46 | anónimo | SELECT Clientes | buscar prueba.cliente.1795037381936@test.com | OK
+2026-11-18 22:29:47 | anónimo | SELECT Sesiones | última sesión de 6afe18c60319023e1afb1441 | OK
+2026-11-18 22:29:47 | anónimo | SELECT Clases | listado (6 registros) | OK
+2026-11-18 22:29:47 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000011 | OK
+2026-11-18 22:29:47 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000012 | OK
+2026-11-18 22:29:47 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000013 | OK
+2026-11-18 22:29:47 | anónimo | SELECT Sesiones | última sesión de 6afdf486dd0ae50b4a8954c5 (ninguna) | OK
+2026-11-18 22:29:47 | anónimo | SELECT Sesiones | última sesión de 6afe18c60319023e1afb1441 | OK
+2026-11-18 22:29:47 | anónimo | SELECT Sesiones | última sesión de 6afe18c60319023e1afb1443 | OK
+2026-11-18 22:29:48 | anónimo | SELECT Clientes | buscar prueba.cliente.1795037381936@test.com | OK
+2026-11-18 22:29:48 | anónimo | SELECT Clientes | buscar prueba.cliente.1795037381936@test.com | OK
+2026-11-18 22:29:48 | anónimo | SELECT Clientes | buscar prueba.cliente.1795037381936@test.com | OK
+2026-11-18 22:29:48 | anónimo | SELECT Sesiones | última sesión de 6afe18c60319023e1afb1441 | OK
+2026-11-18 22:29:48 | anónimo | SELECT Clases | listado (6 registros) | OK
+2026-11-18 22:29:48 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000011 | OK
+2026-11-18 22:29:48 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000012 | OK
+2026-11-18 22:29:48 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000013 | OK
+2026-11-18 22:29:48 | anónimo | SELECT Sesiones | última sesión de 6afdf486dd0ae50b4a8954c5 (ninguna) | OK
+2026-11-18 22:29:48 | anónimo | SELECT Sesiones | última sesión de 6afe18c60319023e1afb1441 | OK
+2026-11-18 22:29:48 | anónimo | SELECT Sesiones | última sesión de 6afe18c60319023e1afb1443 | OK
+2026-11-18 22:29:49 | anónimo | SELECT Clientes | buscar prueba.cliente.1795037381936@test.com | OK
+2026-11-18 22:29:49 | anónimo | SELECT Clientes | buscar prueba.cliente.1795037381936@test.com | OK
+2026-11-18 22:29:49 | anónimo | SELECT Clientes | buscar prueba.cliente.1795037381936@test.com | OK
+2026-11-18 22:29:49 | anónimo | SELECT Sesiones | última sesión de 6afe18c60319023e1afb1441 | OK
+2026-11-18 22:29:49 | anónimo | SELECT Clases | listado (6 registros) | OK
+2026-11-18 22:29:49 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000011 | OK
+2026-11-18 22:29:49 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000012 | OK
+2026-11-18 22:29:49 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000013 | OK
+2026-11-18 22:29:50 | anónimo | SELECT Sesiones | última sesión de 6afdf486dd0ae50b4a8954c5 (ninguna) | OK
+2026-11-18 22:29:50 | anónimo | SELECT Sesiones | última sesión de 6afe18c60319023e1afb1441 | OK
+2026-11-18 22:29:50 | anónimo | SELECT Sesiones | última sesión de 6afe18c60319023e1afb1443 | OK
+2026-11-18 22:29:50 | anónimo | SELECT Clientes | buscar prueba.cliente.1795037381936@test.com | OK
+2026-11-18 22:29:50 | anónimo | SELECT Clientes | buscar prueba.cliente.1795037381936@test.com | OK
+2026-11-18 22:29:50 | anónimo | SELECT Clientes | buscar prueba.cliente.1795037381936@test.com | OK
+2026-11-18 22:29:50 | anónimo | SELECT Sesiones | última sesión de 6afe18c60319023e1afb1441 | OK
+2026-11-18 22:29:50 | anónimo | SELECT Clases | listado (6 registros) | OK
+2026-11-18 22:29:50 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000011 | OK
+2026-11-18 22:29:50 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000012 | OK
+2026-11-18 22:29:50 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000013 | OK
+2026-11-18 22:29:52 | anónimo | DELETE Clases | id 6afe18c60319023e1afb1441 con sus sesiones (eliminada: true) | OK
+2026-11-18 22:29:52 | anónimo | DELETE Clases | id 6afe18c60319023e1afb1443 con sus sesiones (eliminada: true) | OK
+2026-11-18 22:29:52 | anónimo | DELETE Clientes | id 6afe18c60319023e1afb1440 y sus plazas en sesiones (eliminado: true) | OK
+2026-11-18 22:30:03 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:30:04 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 22:30:04 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:30:04 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 22:30:04 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 22:30:07 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 22:30:15 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 22:30:15 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:30:15 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 22:30:15 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 22:30:16 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-18 22:30:17 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 22:30:17 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:30:17 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 22:30:17 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 22:30:19 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 22:30:19 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:30:19 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 22:30:19 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 22:30:20 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-18 22:30:22 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 22:30:22 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:30:22 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 22:30:22 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 22:30:23 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-18 22:30:23 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 22:30:23 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:30:23 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 22:30:23 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 22:30:24 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-18 22:30:25 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 22:30:25 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:30:25 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 22:30:25 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 22:30:26 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 22:30:26 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:30:26 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 22:30:26 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 22:30:27 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 22:30:27 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:30:27 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 22:30:27 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 22:30:28 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-18 22:30:29 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 22:30:29 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:30:29 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 22:30:29 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 22:30:30 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-18 22:30:34 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 22:30:34 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:30:34 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 22:30:34 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 22:30:34 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-18 22:30:37 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 22:30:37 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:30:37 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 22:30:37 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 22:30:38 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-18 22:30:39 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 22:30:39 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:30:39 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 22:30:39 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 22:30:40 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-18 22:30:40 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 22:30:40 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:30:40 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 22:30:40 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 22:30:40 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-18 22:30:43 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 22:30:43 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:30:43 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 22:30:43 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 22:30:43 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-18 22:30:46 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 22:30:46 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:30:46 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 22:30:46 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 22:30:47 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 22:30:47 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:30:47 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 22:30:47 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 22:30:47 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 22:30:47 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:30:47 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 22:30:47 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-18 22:30:48 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-18 22:30:49 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 22:30:51 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 22:30:52 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 22:30:53 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 22:30:53 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 22:30:57 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 22:31:00 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 22:31:13 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:31:13 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:31:14 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:31:16 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:31:20 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:31:20 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:31:23 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:31:27 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:31:28 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:31:29 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:31:31 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:31:35 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 22:31:35 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:31:35 | anónimo | INSERT Clases | clase PRUEBA horario 1795037495098 | OK
+2026-11-18 22:31:35 | anónimo | INSERT Sesiones | clase 6afe19370319023e1afb145c el Tue Nov 24 10:00:00 CET 2026 | OK
+2026-11-18 22:31:35 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 22:31:35 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 22:31:35 | anónimo | SELECT Sesiones | sesiones de 6afe19370319023e1afb145c (1 registros) | OK
+2026-11-18 22:31:35 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:31:37 | anónimo | SELECT Sesiones | sesiones de 6afe19370319023e1afb145c (1 registros) | OK
+2026-11-18 22:31:37 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 22:31:37 | anónimo | SELECT Sesiones | sesiones de 6afe19370319023e1afb145c (1 registros) | OK
+2026-11-18 22:31:38 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 22:31:38 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:31:38 | anónimo | SELECT Sesiones | sesiones de 6afe19370319023e1afb145c (1 registros) | OK
+2026-11-18 22:31:39 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 22:31:39 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 22:31:40 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 22:31:40 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:31:42 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 22:31:43 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 22:31:43 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:31:45 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 22:31:46 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 22:31:46 | anónimo | SELECT Sesiones | sesiones de 6afe19370319023e1afb145c (1 registros) | OK
+2026-11-18 22:31:46 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 22:31:46 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:31:48 | anónimo | SELECT Sesiones | sesiones de 6afe19370319023e1afb145c (1 registros) | OK
+2026-11-18 22:31:48 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 22:31:49 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 22:31:49 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:31:51 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 22:31:52 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 22:31:52 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:31:52 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 22:31:52 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 22:31:52 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 22:31:53 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 22:31:53 | anónimo | SELECT Sesiones | sesiones de 6afe19370319023e1afb145c (1 registros) | OK
+2026-11-18 22:31:54 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 22:31:54 | anónimo | SELECT Sesiones | sesiones de 6afe19370319023e1afb145c (1 registros) | OK
+2026-11-18 22:31:54 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:31:55 | anónimo | SELECT Sesiones | sesiones de 6afe19370319023e1afb145c (1 registros) | OK
+2026-11-18 22:31:55 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 22:31:56 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 22:31:56 | anónimo | SELECT Sesiones | sesiones de 6afe19370319023e1afb145c (1 registros) | OK
+2026-11-18 22:31:56 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:31:57 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 22:31:57 | anónimo | SELECT Sesiones | sesiones de 6afe19370319023e1afb145c (1 registros) | OK
+2026-11-18 22:31:57 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 22:31:57 | anónimo | SELECT Sesiones | sesiones de 6afe19370319023e1afb145c (1 registros) | OK
+2026-11-18 22:31:57 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:31:59 | anónimo | SELECT Sesiones | sesiones de 6afe19370319023e1afb145c (1 registros) | OK
+2026-11-18 22:31:59 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 22:32:00 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 22:32:00 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:32:01 | anónimo | INSERT Sesiones | clase 6afe19370319023e1afb145c el Mon Nov 23 09:00:00 CET 2026 | OK
+2026-11-18 22:32:01 | anónimo | UPDATE Clases | horario de 6afe19370319023e1afb145c (3 franjas) | OK
+2026-11-18 22:32:01 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 22:32:01 | anónimo | SELECT Sesiones | sesiones de 6afe19370319023e1afb145c (2 registros) | OK
+2026-11-18 22:32:02 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 22:32:02 | anónimo | SELECT Sesiones | sesiones de 6afe19370319023e1afb145c (2 registros) | OK
+2026-11-18 22:32:02 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:32:03 | anónimo | UPDATE Sesiones | id 6afe19510319023e1afb1460 (7 plazas) | OK
+2026-11-18 22:32:03 | anónimo | SELECT Sesiones | sesiones de 6afe19370319023e1afb145c (2 registros) | OK
+2026-11-18 22:32:03 | anónimo | SELECT Sesiones | sesiones de 6afe19370319023e1afb145c (2 registros) | OK
+2026-11-18 22:32:04 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-18 22:32:04 | anónimo | SELECT Sesiones | sesiones de 6afe19370319023e1afb145c (2 registros) | OK
+2026-11-18 22:32:04 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:32:05 | anónimo | DELETE Sesiones | id 6afe19510319023e1afb1460 (eliminada: true) | OK
+2026-11-18 22:32:05 | anónimo | UPDATE Clases | horario de 6afe19370319023e1afb145c (2 franjas) | OK
+2026-11-18 22:32:05 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-18 22:32:05 | anónimo | SELECT Sesiones | sesiones de 6afe19370319023e1afb145c (1 registros) | OK
+2026-11-18 22:32:05 | anónimo | DELETE Clases | id 6afe19370319023e1afb145c con sus sesiones (eliminada: true) | OK
+2026-11-18 22:32:33 | anónimo | SELECT Trabajadores | login de admin@admin.com | OK
+2026-11-18 22:32:37 | admin@admin.com | SELECT Login | sin coincidencias para nadie@noexiste.com | OK
+2026-11-18 22:32:42 | admin@admin.com | SELECT Login | sin coincidencias para admin@admin.com | OK
+2026-11-18 22:32:47 | admin@admin.com | SELECT Trabajadores | buscar admin@admin.com | OK
+2026-11-18 22:32:47 | admin@admin.com | SELECT Trabajadores | buscar admin@admin.com | OK
+2026-11-18 22:32:48 | admin@admin.com | SELECT Salas | listado (3 registros) | OK
+2026-11-18 22:32:48 | admin@admin.com | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:32:48 | admin@admin.com | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 22:32:48 | admin@admin.com | SELECT Clases | listado (4 registros) | OK
+2026-11-18 22:32:49 | admin@admin.com | SELECT Trabajadores | buscar admin@admin.com | OK
+2026-11-18 22:32:49 | admin@admin.com | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 22:32:50 | admin@admin.com | SELECT Trabajadores | buscar admin@admin.com | OK
+2026-11-18 22:32:50 | admin@admin.com | SELECT Trabajadores | buscar admin@admin.com | OK
+2026-11-18 22:32:51 | admin@admin.com | SELECT Trabajadores | buscar admin@admin.com | OK
+2026-11-18 22:32:53 | admin@admin.com | SELECT Salas | listado (3 registros) | OK
+2026-11-18 22:32:53 | admin@admin.com | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-18 22:32:53 | admin@admin.com | SELECT Clientes | listado (2 registros) | OK
+2026-11-18 22:32:53 | admin@admin.com | SELECT Clases | listado (4 registros) | OK
+2026-11-19 13:47:42 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-19 13:47:42 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:47:42 | anónimo | INSERT Clientes | dni T92461964 | OK
+2026-11-19 13:47:42 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-19 13:47:42 | anónimo | INSERT Clases | clase PRUEBA libre 1795092461964 | OK
+2026-11-19 13:47:42 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:47:42 | anónimo | INSERT Sesiones | clase 6afeefeed8b3e8199bbc06fb el Fri Nov 20 13:47:42 CET 2026 | OK
+2026-11-19 13:47:42 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-19 13:47:42 | anónimo | INSERT Clases | clase PRUEBA llena 1795092461964 | OK
+2026-11-19 13:47:42 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:47:42 | anónimo | INSERT Sesiones | clase 6afeefeed8b3e8199bbc06fd el Fri Nov 20 13:47:42 CET 2026 | OK
+2026-11-19 13:47:42 | anónimo | SELECT Clases | listado (6 registros) | OK
+2026-11-19 13:47:43 | anónimo | SELECT Clientes | buscar prueba.cliente.1795092461964@test.com | OK
+2026-11-19 13:47:43 | anónimo | SELECT Clientes | buscar prueba.cliente.1795092461964@test.com | OK
+2026-11-19 13:47:43 | anónimo | SELECT Clientes | buscar prueba.cliente.1795092461964@test.com | OK
+2026-11-19 13:47:43 | anónimo | SELECT Clases | listado (6 registros) | OK
+2026-11-19 13:47:43 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000011 | OK
+2026-11-19 13:47:43 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000012 | OK
+2026-11-19 13:47:43 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000013 | OK
+2026-11-19 13:47:44 | anónimo | SELECT Clientes | buscar prueba.cliente.1795092461964@test.com | OK
+2026-11-19 13:47:44 | anónimo | SELECT Clientes | buscar prueba.cliente.1795092461964@test.com | OK
+2026-11-19 13:47:44 | anónimo | SELECT Clientes | buscar prueba.cliente.1795092461964@test.com | OK
+2026-11-19 13:47:44 | anónimo | SELECT Clases | listado (6 registros) | OK
+2026-11-19 13:47:44 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000011 | OK
+2026-11-19 13:47:44 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000012 | OK
+2026-11-19 13:47:44 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000013 | OK
+2026-11-19 13:47:44 | anónimo | SELECT Sesiones | última sesión de 6afdf486dd0ae50b4a8954c5 (ninguna) | OK
+2026-11-19 13:47:44 | anónimo | SELECT Sesiones | última sesión de 6afeefeed8b3e8199bbc06fb | OK
+2026-11-19 13:47:44 | anónimo | SELECT Sesiones | última sesión de 6afeefeed8b3e8199bbc06fd | OK
+2026-11-19 13:47:45 | anónimo | SELECT Clientes | buscar prueba.cliente.1795092461964@test.com | OK
+2026-11-19 13:47:45 | anónimo | SELECT Clientes | buscar prueba.cliente.1795092461964@test.com | OK
+2026-11-19 13:47:45 | anónimo | SELECT Clientes | buscar prueba.cliente.1795092461964@test.com | OK
+2026-11-19 13:47:45 | anónimo | SELECT Clases | listado (6 registros) | OK
+2026-11-19 13:47:45 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000011 | OK
+2026-11-19 13:47:45 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000012 | OK
+2026-11-19 13:47:45 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000013 | OK
+2026-11-19 13:47:45 | anónimo | SELECT Sesiones | última sesión de 6afdf486dd0ae50b4a8954c5 (ninguna) | OK
+2026-11-19 13:47:45 | anónimo | SELECT Sesiones | última sesión de 6afeefeed8b3e8199bbc06fb | OK
+2026-11-19 13:47:45 | anónimo | SELECT Sesiones | última sesión de 6afeefeed8b3e8199bbc06fd | OK
+2026-11-19 13:47:46 | anónimo | SELECT Sesiones | última sesión de 6afeefeed8b3e8199bbc06fb | OK
+2026-11-19 13:47:46 | anónimo | UPDATE Clientes/Sesiones | apuntar prueba.cliente.1795092461964@test.com a PRUEBA libre 1795092461964 | OK
+2026-11-19 13:47:46 | anónimo | SELECT Sesiones | última sesión de 6afeefeed8b3e8199bbc06fb | OK
+2026-11-19 13:47:46 | anónimo | SELECT Clientes | buscar prueba.cliente.1795092461964@test.com | OK
+2026-11-19 13:47:46 | anónimo | SELECT Clientes | buscar prueba.cliente.1795092461964@test.com | OK
+2026-11-19 13:47:46 | anónimo | SELECT Clientes | buscar prueba.cliente.1795092461964@test.com | OK
+2026-11-19 13:47:46 | anónimo | SELECT Clientes | buscar prueba.cliente.1795092461964@test.com | OK
+2026-11-19 13:47:46 | anónimo | SELECT Sesiones | última sesión de 6afeefeed8b3e8199bbc06fb | OK
+2026-11-19 13:47:46 | anónimo | SELECT Clases | listado (6 registros) | OK
+2026-11-19 13:47:46 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000011 | OK
+2026-11-19 13:47:46 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000012 | OK
+2026-11-19 13:47:46 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000013 | OK
+2026-11-19 13:47:47 | anónimo | SELECT Sesiones | última sesión de 6afdf486dd0ae50b4a8954c5 (ninguna) | OK
+2026-11-19 13:47:47 | anónimo | SELECT Sesiones | última sesión de 6afeefeed8b3e8199bbc06fb | OK
+2026-11-19 13:47:47 | anónimo | SELECT Sesiones | última sesión de 6afeefeed8b3e8199bbc06fd | OK
+2026-11-19 13:47:48 | anónimo | SELECT Clientes | buscar prueba.cliente.1795092461964@test.com | OK
+2026-11-19 13:47:48 | anónimo | SELECT Clientes | buscar prueba.cliente.1795092461964@test.com | OK
+2026-11-19 13:47:48 | anónimo | SELECT Clientes | buscar prueba.cliente.1795092461964@test.com | OK
+2026-11-19 13:47:48 | anónimo | SELECT Sesiones | última sesión de 6afeefeed8b3e8199bbc06fb | OK
+2026-11-19 13:47:48 | anónimo | SELECT Clases | listado (6 registros) | OK
+2026-11-19 13:47:48 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000011 | OK
+2026-11-19 13:47:48 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000012 | OK
+2026-11-19 13:47:48 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000013 | OK
+2026-11-19 13:47:48 | anónimo | SELECT Sesiones | última sesión de 6afdf486dd0ae50b4a8954c5 (ninguna) | OK
+2026-11-19 13:47:48 | anónimo | SELECT Sesiones | última sesión de 6afeefeed8b3e8199bbc06fb | OK
+2026-11-19 13:47:48 | anónimo | SELECT Sesiones | última sesión de 6afeefeed8b3e8199bbc06fd | OK
+2026-11-19 13:47:49 | anónimo | SELECT Clientes | buscar prueba.cliente.1795092461964@test.com | OK
+2026-11-19 13:47:49 | anónimo | SELECT Clientes | buscar prueba.cliente.1795092461964@test.com | OK
+2026-11-19 13:47:49 | anónimo | SELECT Clientes | buscar prueba.cliente.1795092461964@test.com | OK
+2026-11-19 13:47:49 | anónimo | SELECT Sesiones | última sesión de 6afeefeed8b3e8199bbc06fb | OK
+2026-11-19 13:47:49 | anónimo | SELECT Clases | listado (6 registros) | OK
+2026-11-19 13:47:49 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000011 | OK
+2026-11-19 13:47:49 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000012 | OK
+2026-11-19 13:47:49 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000013 | OK
+2026-11-19 13:47:49 | anónimo | SELECT Sesiones | última sesión de 6afdf486dd0ae50b4a8954c5 (ninguna) | OK
+2026-11-19 13:47:49 | anónimo | SELECT Sesiones | última sesión de 6afeefeed8b3e8199bbc06fb | OK
+2026-11-19 13:47:49 | anónimo | SELECT Sesiones | última sesión de 6afeefeed8b3e8199bbc06fd | OK
+2026-11-19 13:47:50 | anónimo | SELECT Clientes | buscar prueba.cliente.1795092461964@test.com | OK
+2026-11-19 13:47:50 | anónimo | SELECT Clientes | buscar prueba.cliente.1795092461964@test.com | OK
+2026-11-19 13:47:50 | anónimo | SELECT Clientes | buscar prueba.cliente.1795092461964@test.com | OK
+2026-11-19 13:47:50 | anónimo | SELECT Sesiones | última sesión de 6afeefeed8b3e8199bbc06fb | OK
+2026-11-19 13:47:50 | anónimo | SELECT Clases | listado (6 registros) | OK
+2026-11-19 13:47:50 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000011 | OK
+2026-11-19 13:47:50 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000012 | OK
+2026-11-19 13:47:50 | anónimo | SELECT Sesiones | última sesión de 650000000000000000000013 | OK
+2026-11-19 13:47:51 | anónimo | DELETE Clases | id 6afeefeed8b3e8199bbc06fb con sus sesiones (eliminada: true) | OK
+2026-11-19 13:47:51 | anónimo | DELETE Clases | id 6afeefeed8b3e8199bbc06fd con sus sesiones (eliminada: true) | OK
+2026-11-19 13:47:51 | anónimo | DELETE Clientes | id 6afeefeed8b3e8199bbc06fa y sus plazas en sesiones (eliminado: true) | OK
+2026-11-19 13:48:01 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:48:02 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-19 13:48:02 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:48:02 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-19 13:48:02 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-19 13:48:05 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-19 13:48:12 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-19 13:48:12 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:48:12 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-19 13:48:12 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-19 13:48:13 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-19 13:48:14 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-19 13:48:14 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:48:14 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-19 13:48:14 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-19 13:48:16 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-19 13:48:16 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:48:16 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-19 13:48:16 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-19 13:48:17 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-19 13:48:19 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-19 13:48:19 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:48:19 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-19 13:48:19 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-19 13:48:20 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-19 13:48:20 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-19 13:48:20 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:48:20 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-19 13:48:20 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-19 13:48:21 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-19 13:48:21 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-19 13:48:21 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:48:21 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-19 13:48:21 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-19 13:48:23 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-19 13:48:23 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:48:23 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-19 13:48:23 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-19 13:48:24 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-19 13:48:24 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:48:24 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-19 13:48:24 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-19 13:48:25 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-19 13:48:26 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-19 13:48:26 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:48:26 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-19 13:48:26 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-19 13:48:27 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-19 13:48:30 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-19 13:48:30 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:48:30 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-19 13:48:30 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-19 13:48:31 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-19 13:48:33 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-19 13:48:33 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:48:33 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-19 13:48:33 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-19 13:48:34 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-19 13:48:35 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-19 13:48:35 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:48:35 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-19 13:48:35 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-19 13:48:36 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-19 13:48:36 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-19 13:48:36 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:48:36 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-19 13:48:36 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-19 13:48:37 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-19 13:48:39 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-19 13:48:39 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:48:39 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-19 13:48:39 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-19 13:48:39 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-19 13:48:42 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-19 13:48:42 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:48:42 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-19 13:48:42 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-19 13:48:43 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-19 13:48:43 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:48:43 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-19 13:48:43 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-19 13:48:43 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-19 13:48:43 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:48:43 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-19 13:48:43 | anónimo | SELECT Clases | listado (4 registros) | OK
+2026-11-19 13:48:44 | anónimo | SELECT Sesiones | sesiones de 650000000000000000000011 (1 registros) | OK
+2026-11-19 13:48:45 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-19 13:48:46 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-19 13:48:47 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-19 13:48:48 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-19 13:48:49 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-19 13:48:53 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-19 13:48:55 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-19 13:49:08 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:49:08 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:49:09 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:49:10 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:49:15 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:49:15 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:49:17 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:49:21 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:49:22 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:49:23 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:49:26 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:49:29 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-19 13:49:29 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:49:29 | anónimo | INSERT Clases | clase PRUEBA horario 1795092569516 | OK
+2026-11-19 13:49:29 | anónimo | INSERT Sesiones | clase 6afef059d8b3e8199bbc0716 el Tue Nov 24 10:00:00 CET 2026 | OK
+2026-11-19 13:49:29 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-19 13:49:30 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-19 13:49:30 | anónimo | SELECT Sesiones | sesiones de 6afef059d8b3e8199bbc0716 (1 registros) | OK
+2026-11-19 13:49:30 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:49:32 | anónimo | SELECT Sesiones | sesiones de 6afef059d8b3e8199bbc0716 (1 registros) | OK
+2026-11-19 13:49:32 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-19 13:49:32 | anónimo | SELECT Sesiones | sesiones de 6afef059d8b3e8199bbc0716 (1 registros) | OK
+2026-11-19 13:49:32 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-19 13:49:32 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:49:33 | anónimo | SELECT Sesiones | sesiones de 6afef059d8b3e8199bbc0716 (1 registros) | OK
+2026-11-19 13:49:33 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-19 13:49:33 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-19 13:49:34 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-19 13:49:34 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:49:36 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-19 13:49:37 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-19 13:49:37 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:49:39 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-19 13:49:40 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-19 13:49:40 | anónimo | SELECT Sesiones | sesiones de 6afef059d8b3e8199bbc0716 (1 registros) | OK
+2026-11-19 13:49:40 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-19 13:49:40 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:49:42 | anónimo | SELECT Sesiones | sesiones de 6afef059d8b3e8199bbc0716 (1 registros) | OK
+2026-11-19 13:49:42 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-19 13:49:43 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-19 13:49:43 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:49:45 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-19 13:49:46 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-19 13:49:46 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:49:46 | anónimo | SELECT Clientes | listado (2 registros) | OK
+2026-11-19 13:49:46 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-19 13:49:46 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-19 13:49:47 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-19 13:49:47 | anónimo | SELECT Sesiones | sesiones de 6afef059d8b3e8199bbc0716 (1 registros) | OK
+2026-11-19 13:49:48 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-19 13:49:48 | anónimo | SELECT Sesiones | sesiones de 6afef059d8b3e8199bbc0716 (1 registros) | OK
+2026-11-19 13:49:48 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:49:48 | anónimo | SELECT Sesiones | sesiones de 6afef059d8b3e8199bbc0716 (1 registros) | OK
+2026-11-19 13:49:49 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-19 13:49:49 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-19 13:49:49 | anónimo | SELECT Sesiones | sesiones de 6afef059d8b3e8199bbc0716 (1 registros) | OK
+2026-11-19 13:49:49 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:49:50 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-19 13:49:50 | anónimo | SELECT Sesiones | sesiones de 6afef059d8b3e8199bbc0716 (1 registros) | OK
+2026-11-19 13:49:51 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-19 13:49:51 | anónimo | SELECT Sesiones | sesiones de 6afef059d8b3e8199bbc0716 (1 registros) | OK
+2026-11-19 13:49:51 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:49:52 | anónimo | SELECT Sesiones | sesiones de 6afef059d8b3e8199bbc0716 (1 registros) | OK
+2026-11-19 13:49:52 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-19 13:49:53 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-19 13:49:53 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:49:55 | anónimo | INSERT Sesiones | clase 6afef059d8b3e8199bbc0716 el Mon Nov 23 09:00:00 CET 2026 | OK
+2026-11-19 13:49:55 | anónimo | UPDATE Clases | horario de 6afef059d8b3e8199bbc0716 (3 franjas) | OK
+2026-11-19 13:49:55 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-19 13:49:55 | anónimo | SELECT Sesiones | sesiones de 6afef059d8b3e8199bbc0716 (2 registros) | OK
+2026-11-19 13:49:55 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-19 13:49:55 | anónimo | SELECT Sesiones | sesiones de 6afef059d8b3e8199bbc0716 (2 registros) | OK
+2026-11-19 13:49:55 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:49:57 | anónimo | UPDATE Sesiones | id 6afef073d8b3e8199bbc071a (7 plazas) | OK
+2026-11-19 13:49:57 | anónimo | SELECT Sesiones | sesiones de 6afef059d8b3e8199bbc0716 (2 registros) | OK
+2026-11-19 13:49:57 | anónimo | SELECT Sesiones | sesiones de 6afef059d8b3e8199bbc0716 (2 registros) | OK
+2026-11-19 13:49:57 | anónimo | SELECT Salas | listado (3 registros) | OK
+2026-11-19 13:49:57 | anónimo | SELECT Sesiones | sesiones de 6afef059d8b3e8199bbc0716 (2 registros) | OK
+2026-11-19 13:49:57 | anónimo | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:49:59 | anónimo | DELETE Sesiones | id 6afef073d8b3e8199bbc071a (eliminada: true) | OK
+2026-11-19 13:49:59 | anónimo | UPDATE Clases | horario de 6afef059d8b3e8199bbc0716 (2 franjas) | OK
+2026-11-19 13:49:59 | anónimo | SELECT Clases | listado (5 registros) | OK
+2026-11-19 13:49:59 | anónimo | SELECT Sesiones | sesiones de 6afef059d8b3e8199bbc0716 (1 registros) | OK
+2026-11-19 13:49:59 | anónimo | DELETE Clases | id 6afef059d8b3e8199bbc0716 con sus sesiones (eliminada: true) | OK
+2026-11-19 13:50:25 | anónimo | SELECT Trabajadores | login de admin@admin.com | OK
+2026-11-19 13:50:29 | admin@admin.com | SELECT Login | sin coincidencias para nadie@noexiste.com | OK
+2026-11-19 13:50:33 | admin@admin.com | SELECT Login | sin coincidencias para admin@admin.com | OK
+2026-11-19 13:50:38 | admin@admin.com | SELECT Trabajadores | buscar admin@admin.com | OK
+2026-11-19 13:50:39 | admin@admin.com | SELECT Trabajadores | buscar admin@admin.com | OK
+2026-11-19 13:50:39 | admin@admin.com | SELECT Salas | listado (3 registros) | OK
+2026-11-19 13:50:39 | admin@admin.com | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:50:39 | admin@admin.com | SELECT Clientes | listado (2 registros) | OK
+2026-11-19 13:50:39 | admin@admin.com | SELECT Clases | listado (4 registros) | OK
+2026-11-19 13:50:40 | admin@admin.com | SELECT Trabajadores | buscar admin@admin.com | OK
+2026-11-19 13:50:40 | admin@admin.com | SELECT Clientes | listado (2 registros) | OK
+2026-11-19 13:50:41 | admin@admin.com | SELECT Trabajadores | buscar admin@admin.com | OK
+2026-11-19 13:50:41 | admin@admin.com | SELECT Trabajadores | buscar admin@admin.com | OK
+2026-11-19 13:50:42 | admin@admin.com | SELECT Trabajadores | buscar admin@admin.com | OK
+2026-11-19 13:50:44 | admin@admin.com | SELECT Salas | listado (3 registros) | OK
+2026-11-19 13:50:44 | admin@admin.com | SELECT Trabajadores | listado de monitores (3 registros) | OK
+2026-11-19 13:50:44 | admin@admin.com | SELECT Clientes | listado (2 registros) | OK
+2026-11-19 13:50:44 | admin@admin.com | SELECT Clases | listado (4 registros) | OK
